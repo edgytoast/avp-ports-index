@@ -119,7 +119,7 @@ def run(rt) -> None:
                 rt.summary(f"{entry_id}: pulled ({', '.join(r.id for r in hard)})")
                 continue
             entry = report.entry or entries.get(entry_id) or {}
-            if report.repo:
+            if report.repo and report.head:
                 repo_facts(rt, entry_id, entry, report.repo, state)
             if report.license:
                 health["license"] = report.license

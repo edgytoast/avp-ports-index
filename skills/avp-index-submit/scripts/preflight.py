@@ -800,6 +800,7 @@ def s1_06(ctx: Ctx) -> Result | None:
         return Result("S1-06", FAIL, "the repo is this index")
     head = linked_head(ctx.gh, repo, ctx.entry)
     if not head:
+        ctx.report.repo = repo  # so the health check's outreach reaches the developer's repo
         if "source_ref" in ctx.entry:
             return Result("S1-06", FAIL, "source_ref doesn't name a branch in the repo")
         return Result("S1-06", FAIL, "the repo has no commits")

@@ -108,6 +108,17 @@ class TestGate:
         gate.run(rt)
         assert "stage2:queued" not in gh.labels_of(5)
 
+    def test_source_ref_edit_is_scanned(self, rt, gh, event):
+        repo = gh.add_repo("trevorbilt-bot/good", 11)
+        list_entry(rt, "good", repo)
+        gh.add_branch("trevorbilt-bot/good", "vision-pro", SHA(12))
+        gh.open_pr(6, "trevorbilt-bot", "entries/good.yaml", "modified",
+                   entry_yaml("good", "trevorbilt-bot/good", source_ref="vision-pro"))
+        event(pr_event(gh, 6))
+        assert gate.run(rt) == []
+        assert gh.latest(gh.prs[6]["head"]["sha"], STAGE1)["external_id"] == f"11@{SHA(12)}"
+        assert "stage2:queued" in gh.labels_of(6)
+
     def test_unchanged_carried_and_draft(self, rt, gh, event):
         repo = gh.add_repo("trevorbilt-bot/good", 11)
         list_entry(rt, "good", repo)
@@ -361,6 +372,18 @@ class TestHealth:
         state.save()
         self.run_at(rt, monkeypatch, "2026-10-09T06:17:00Z")
         assert "Its listing is no longer on the index" in gh.external_comments[-1][2]
+
+    def test_missing_source_ref_branch_reaches_the_developer(self, rt, gh, monkeypatch):
+        repo = gh.add_repo("trevorbilt-bot/good", 11)
+        list_entry(rt, "good", repo, write=False)
+        write_entry(rt.root, "good", "trevorbilt-bot/good", source_ref="vision-pro")  # no such branch
+        git(rt.root, "add", "-A")
+        git(rt.root, "commit", "-qm", "listed")
+        set_policy(rt, grace_days=0, confirm_runs_before_outreach=2)
+        self.run_at(rt, monkeypatch, "2026-10-04T06:17:00Z")
+        state = self.run_at(rt, monkeypatch, "2026-10-05T06:17:00Z")
+        assert gh.external_issues[0]["repo"] == "trevorbilt-bot/good" and "source_ref" in gh.external_issues[0]["body"]
+        assert state.health["good"]["license"] == {"spdx": "MIT", "kind": "open-source"}  # facts left alone
 
     def test_fallback_to_health_tracking(self, rt, gh, monkeypatch):
         self.setup_failing(rt, gh)
