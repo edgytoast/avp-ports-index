@@ -8,7 +8,7 @@ Its schema is [`schema/feed-v1.schema.json`](../schema/feed-v1.schema.json). The
 
 ## Contents
 
-- `entries`: every listed port, with pinned links (`source_url`, `install_doc_url`) to the scanned commit, the trust tier, health, scan state and license as stated.
+- `entries`: every listed port, with pinned links (`source_url`, `install_doc_url`) to the scanned commit, the trust tier, health, scan state and license as stated. `source_ref` names the branch the index follows when it isn't the repo's default branch.
 - `unavailable`: ports that were listed and came off the index after their checks kept failing. Kept as a record that the work existed, with no links.
 - `tombstones`: ids that were pulled, taken down or withdrawn, with the date. No reasons are given.
 
@@ -18,6 +18,7 @@ Missing optional fields are `null`, or empty lists.
 
 - The feed follows semantic versioning in `schema_version`. Adding an optional field bumps the minor version.
 - Any removal, rename or change of meaning creates `feed/v2/`. Version 1 stays available for at least 6 months after that.
+- 1.1.0 added `entries[].source_ref`.
 
 ## Polling
 

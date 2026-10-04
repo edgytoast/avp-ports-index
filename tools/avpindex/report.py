@@ -239,8 +239,9 @@ def rescan(rt, inputs: Inputs, outcome: dict, threshold: int) -> None:
             return
         if result == "pass":
             repo = rt.gh.repo_by_id(inputs.repo_id)
+            entries, _ = store.load_entries(rt.root)
             pin(rt, state, inputs.entry_id, inputs.linked_commit, "automated",
-                outcome["verdict"]["safe_confidence"], repo)
+                outcome["verdict"]["safe_confidence"], repo, entries.get(inputs.entry_id))
         elif result == "flag":
             apply_rescan_flag(rt, state, inputs, outcome, threshold)
         else:

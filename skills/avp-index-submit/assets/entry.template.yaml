@@ -8,6 +8,7 @@ game:
   original_platform: gamecube        # gamecube, wii, n64, ps1, ps2, xbox, dreamcast, pc or other
   original_release_year: 2001
 repo: https://github.com/you/my-port # no .git, no trailing slash
+# source_ref: my-branch             # only if the port isn't on the repo's default branch
 developer:
   github: you
   name: "Your Name"

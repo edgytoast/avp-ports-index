@@ -543,6 +543,25 @@ def test_stable_output(rt, gh, monkeypatch):
     assert '"generated_at": "2026-10-09T00:00:00Z"' in (rt.root / "feed/v1/index.json").read_text()
 
 
+def test_source_ref_facts_and_surfaces(rt, gh):
+    repo = gh.add_repo("trevorbilt-bot/good", 11)
+    gh.add_branch("trevorbilt-bot/good", "vision-pro", SHA(12))
+    list_entry(rt, "good", repo, scanned=SHA(12))
+    out = generate.generate(rt.root, rt.repo)
+    assert json.loads(out["feed/v1/index.json"])["entries"][0]["source_ref"] is None
+    assert "| Branch |" not in out["ports/good.md"]
+    write_entry(rt.root, "good", "trevorbilt-bot/good", source_ref="vision-pro")
+    state = store.State.load(rt.root)
+    sync.repo_facts(rt, "good", store.load_entries(rt.root)[0]["good"], repo, state)
+    assert state.health["good"]["last_commit_date"] == "2026-09-20T00:00:00Z"  # the branch's HEAD, not main's
+    assert state.health["good"]["scan_state"] == "current"
+    state.save()
+    out = generate.generate(rt.root, rt.repo)
+    assert "| Branch | `vision-pro` |" in out["ports/good.md"] and f"git checkout {SHA(12)}" in out["ports/good.md"]
+    feed = json.loads(out["feed/v1/index.json"])
+    assert feed["schema_version"] == "1.1.0" and feed["entries"][0]["source_ref"] == "vision-pro"
+
+
 def test_surfaces_and_brand(rt, gh):
     repo = gh.add_repo("trevorbilt-bot/good", 11)
     list_entry(rt, "good", repo)

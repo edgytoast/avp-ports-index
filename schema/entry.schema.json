@@ -53,6 +53,11 @@
       "pattern": "^https://github\\.com/[A-Za-z0-9-]+/[A-Za-z0-9._-]+$",
       "not": {"pattern": "\\.git$"}
     },
+    "source_ref": {
+      "description": "The branch your port lives on, if it isn't the repo's default branch. The index scans and follows this branch's newest commit instead.",
+      "type": "string",
+      "pattern": "^(?!.*\\.\\.)[A-Za-z0-9_][A-Za-z0-9._/-]{0,99}$"
+    },
     "developer": {
       "description": "Who built the port.",
       "type": "object",

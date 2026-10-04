@@ -380,6 +380,24 @@ class TestQueue:
         queue.dispatch(rt)
         assert gh.dispatched[-1][1]["mode"] == "rescan" and gh.dispatched[-1][1]["base_commit"] == SHA(5)
 
+    def test_rescans_follow_source_ref(self, rt, gh):
+        repo = gh.add_repo("trevorbilt-bot/good", 11)  # default-branch HEAD is SHA(11)
+        list_entry(rt, "good", repo, scanned=SHA(5))
+        write_entry(rt.root, "good", "trevorbilt-bot/good", source_ref="vision-pro")
+        state = store.State.load(rt.root)
+        state.health["good"]["scan_state"] = "behind"
+        state.save()
+        gh.add_branch("trevorbilt-bot/good", "vision-pro", SHA(5))
+        queue.dispatch(rt)
+        assert gh.dispatched == []  # the followed branch is still at the pin
+        gh.add_branch("trevorbilt-bot/good", "vision-pro", SHA(6))
+        queue.dispatch(rt)
+        assert gh.dispatched[-1][1]["linked_commit"] == SHA(6)
+        inputs = scan_inputs(mode="rescan", linked_commit=SHA(6), base_commit=SHA(5), counted=False)
+        report.run(rt, inputs, {"result": "pass", "verdict": verdict(90), "session_url": "u"})
+        health = store.State.load(rt.root).health["good"]
+        assert health["scanned_commit"] == SHA(6) and health["scan_state"] == "current"
+
     def test_rescan_precheck(self, rt, gh):
         """U3: a linked commit that adds a .iso or drops AVP-INSTALL.md is not rescanned."""
         repo = gh.add_repo("trevorbilt-bot/good", 11)

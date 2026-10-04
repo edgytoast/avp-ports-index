@@ -36,6 +36,46 @@ def test_happy_path(index):
     assert report.license == {"spdx": "MIT", "kind": "open-source"}
 
 
+def test_source_ref(index):
+    """source_ref picks the branch whose HEAD is checked; a bad one never falls back to the default."""
+    gh = FakeGitHub()
+    gh.add_repo("trevorbilt-bot/good", 11)
+    gh.add_branch("trevorbilt-bot/good", "vision-pro", SHA(12))
+    assert run(gh, index).external_id == f"11@{SHA(11)}"
+    report = run(gh, index, source_ref="vision-pro")
+    assert report.overall == PASS and report.external_id == f"11@{SHA(12)}"
+    missing = run(gh, index, source_ref="no-such-branch").get("S1-06")
+    assert missing.outcome == FAIL and "source_ref" in missing.detail
+    assert run(gh, index, source_ref="../main").get("S1-03").outcome == FAIL
+    repo = gh.repos["trevorbilt-bot/good"]
+    assert checks.linked_head(gh, repo, {"source_ref": "../main"}) is None
+    assert checks.linked_head(gh, repo, {"source_ref": ["main"]}) is None
+    assert checks.linked_head(gh, repo, {"source_ref": "vision-pro\n"}) is None
+    assert checks.linked_head(gh, repo, {}) == SHA(11)
+
+
+def test_branch_head_missing_branch():
+    """GitHub answers 422 for a ref that doesn't exist; a slash in a branch name stays one segment."""
+    class Session:
+        def __init__(self):
+            self.urls = []
+
+        def request(self, method, url, **kw):
+            self.urls.append(url)
+            resp = requests.Response()
+            resp.status_code, resp._content = (422, b"{}") if "missing" in url else (200, b'{"sha": "abc"}')
+            return resp
+
+    session = Session()
+    reader = checks.LinkedRepoReader(session=session)
+    assert reader.branch_head("o", "r", "missing") is None
+    repo = {"owner": {"login": "o"}, "name": "r", "default_branch": "main"}
+    assert checks.linked_head(reader, repo, {}) == "abc" and session.urls[-1].endswith("/commits/main")
+    # source_ref is looked up only as a branch, so tags, SHAs and pull/N/head refs don't resolve
+    assert checks.linked_head(reader, repo, {"source_ref": "feature/vr"}) == "abc"
+    assert session.urls[-1].endswith("/commits/refs%2Fheads%2Ffeature%2Fvr")
+
+
 def test_stage1_outcomes(index):
     gh = FakeGitHub()
     gh.add_repo("trevorbilt-bot/noinstall", 12, install=None)

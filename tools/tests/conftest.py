@@ -45,6 +45,7 @@ class FakeGitHub(GitHub):
         self.users: dict[str, dict] = {}
         self.members: set[tuple[str, str]] = set()
         self.heads: dict[str, str] = {}
+        self.branches: dict[tuple[str, str], str] = {}  # other branches' heads
         self.files: dict[tuple[str, str, str], bytes] = {}
         self.trees: dict[tuple[str, str], dict] = {}
         self.release_assets: dict[str, list[str]] = {}
@@ -105,6 +106,14 @@ class FakeGitHub(GitHub):
                                            "truncated": False}
         self.commit_dates[sha] = "2026-09-15T00:00:00Z"
 
+    def add_branch(self, full: str, branch: str, sha: str) -> None:
+        """A branch other than the default one, with a passing tree at `sha`."""
+        self.branches[(full.lower(), branch)] = sha
+        self.files[(full.lower(), "AVP-INSTALL.md", sha)] = b"# Install\n"
+        self.trees[(full.lower(), sha)] = {"tree": [{"path": "README.md", "type": "blob", "size": 10}],
+                                           "truncated": False}
+        self.commit_dates[sha] = "2026-09-20T00:00:00Z"
+
     def open_pr(self, number: int, author: str, path: str, status: str, content: bytes | None,
                 labels: tuple[str, ...] = (), draft: bool = False, head: str | None = None) -> dict:
         user = self.users[author.lower()]
@@ -158,7 +167,12 @@ class FakeGitHub(GitHub):
         return (org.lower(), login.lower()) in self.members
 
     def branch_head(self, owner, name, branch):
-        return self.heads.get(f"{owner}/{name}".lower())
+        full = f"{owner}/{name}".lower()
+        branch = branch.removeprefix("refs/heads/")
+        if (full, branch) in self.branches:
+            return self.branches[(full, branch)]
+        repo = self.repos.get(full)
+        return self.heads.get(full) if repo is None or branch == repo["default_branch"] else None
 
     def commit(self, owner, name, sha):
         date = self.commit_dates.get(sha, "2026-09-01T00:00:00Z")

@@ -109,6 +109,11 @@ SCHEMA = {'$schema': 'https://json-schema.org/draft/2020-12/schema',
                          'type': 'string',
                          'pattern': '^https://github\\.com/[A-Za-z0-9-]+/[A-Za-z0-9._-]+$',
                          'not': {'pattern': '\\.git$'}},
+                'source_ref': {'description': "The branch your port lives on, if it isn't the "
+                                              "repo's default branch. The index scans and follows "
+                                              "this branch's newest commit instead.",
+                               'type': 'string',
+                               'pattern': '^(?!.*\\.\\.)[A-Za-z0-9_][A-Za-z0-9._/-]{0,99}$'},
                 'developer': {'description': 'Who built the port.',
                               'type': 'object',
                               'additionalProperties': False,
@@ -200,6 +205,7 @@ SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 REPO_NAME_RE = re.compile(r"^[A-Za-z0-9-]+/[A-Za-z0-9._-]+$")
 REPO_URL_RE = re.compile(r"^https://github\.com/([A-Za-z0-9-]+)/([A-Za-z0-9._-]+)$")
 LOGIN_RE = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?(\[bot\])?$")
+SOURCE_REF_RE = re.compile(r"^(?!.*\.\.)[A-Za-z0-9_][A-Za-z0-9._/-]{0,99}$")  # same as the schema's
 
 MAX_ENTRY_BYTES = 16 * 1024
 
@@ -493,7 +499,12 @@ class LinkedRepoReader:
         return resp.status_code == 204
 
     def branch_head(self, owner: str, name: str, branch: str) -> str | None:
-        data = self.get(f"/repos/{quote(owner)}/{quote(name)}/commits/{quote(branch, safe='')}")
+        try:
+            data = self.get(f"/repos/{quote(owner)}/{quote(name)}/commits/{quote(branch, safe='')}")
+        except GitHubError as exc:
+            if exc.status == 422:  # GitHub's answer for a branch that doesn't exist
+                return None
+            raise
         return data["sha"] if data else None
 
     def commit(self, owner: str, name: str, sha: str) -> dict | None:
@@ -615,7 +626,7 @@ class Report:
     warnings: list = field(default_factory=list)     # (check id, text)
     entry: dict | None = None
     repo: dict | None = None                         # linked repo metadata
-    head: str | None = None                          # linked default-branch HEAD
+    head: str | None = None                          # linked HEAD (see linked_head)
     license: dict | None = None
     curator_flags: dict = field(default_factory=dict)
 
@@ -696,6 +707,20 @@ class Ctx:
         return sorted(set(names))
 
 
+def linked_head(gh, repo: dict, entry: dict | None) -> str | None:
+    """The linked HEAD: the newest commit on the entry's `source_ref` branch if it sets one, else
+    on the repo's default branch. A `source_ref` that is invalid or isn't a branch (a tag, SHA or
+    pull request ref) resolves to nothing."""
+    ref = (entry or {}).get("source_ref")
+    if ref is None:
+        ref = repo["default_branch"]
+    elif isinstance(ref, str) and SOURCE_REF_RE.fullmatch(ref):
+        ref = f"refs/heads/{ref}"
+    else:
+        return None
+    return gh.branch_head(repo["owner"]["login"], repo["name"], ref)
+
+
 # --- the checks -------------------------------------------------------------------------
 
 def s1_01(ctx: Ctx) -> Result | None:
@@ -757,7 +782,7 @@ def _schema_message(err) -> str:
 def s1_06(ctx: Ctx) -> Result | None:
     """S1-06 · Repo resolves. The linked repo resolves (renames followed), is public, is not
     disabled, has at least one commit, and is not this index. Archived repos are allowed and
-    recorded."""
+    recorded. If the entry sets `source_ref`, that branch must exist."""
     if ctx.entry is None:
         return None
     try:
@@ -773,8 +798,10 @@ def s1_06(ctx: Ctx) -> Result | None:
         return Result("S1-06", FAIL, "the repo is disabled")
     if ctx.idx.index_repo and repo["full_name"].lower() == ctx.idx.index_repo.lower():
         return Result("S1-06", FAIL, "the repo is this index")
-    head = ctx.gh.branch_head(repo["owner"]["login"], repo["name"], repo["default_branch"])
+    head = linked_head(ctx.gh, repo, ctx.entry)
     if not head:
+        if "source_ref" in ctx.entry:
+            return Result("S1-06", FAIL, "source_ref doesn't name a branch in the repo")
         return Result("S1-06", FAIL, "the repo has no commits")
     ctx.owner, ctx.name = repo["owner"]["login"], repo["name"]
     ctx.repo, ctx.head = repo, head
@@ -1102,7 +1129,8 @@ FIXES = {
     "S1-03": "Fix the field named here. The field reference lists every allowed field.",
     "S1-04": "Pick a different id, or edit the existing entry instead of adding a new one.",
     "S1-05": "This one can't be fixed in the PR. If you think it's a mistake, open an appeal.",
-    "S1-06": "Make sure the repo URL is right and the repo is public and has at least one commit.",
+    "S1-06": "Make sure the repo URL is right, the repo is public and has at least one commit, and "
+             "source_ref (if you set it) names a branch that exists.",
     "S1-07": "Add a non-empty AVP-INSTALL.md at the root of your repo (exact name, under 256 KB).",
     "S1-09": "Nothing to fix; the curator will check the license.",
     "S1-10": "Fix or remove the link named here.",

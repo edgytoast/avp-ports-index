@@ -56,7 +56,7 @@
     "entry": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "name", "game", "repo_url", "source_url", "install_doc_url", "developer", "credits", "upstream",
+      "required": ["id", "name", "game", "repo_url", "source_ref", "source_url", "install_doc_url", "developer", "credits", "upstream",
                    "self_reported_status", "status_notes", "owner_verified", "trust_tier", "curator_own", "health",
                    "scanned_commit", "scanned_at", "scan_kind", "commits_since_scan", "scan_state", "archived",
                    "last_commit_date", "license", "visionos_min", "input", "tags", "description", "page_url"],
@@ -74,6 +74,7 @@
           }
         },
         "repo_url": {"type": "string"},
+        "source_ref": {"type": ["string", "null"], "description": "The branch the index follows, when it isn't the repo's default branch (added in 1.1.0)."},
         "source_url": {"type": "string"},
         "install_doc_url": {"type": "string"},
         "developer": {

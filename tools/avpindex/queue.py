@@ -206,7 +206,7 @@ def dispatch(rt) -> list[str]:
             repo = rt.gh.repo(owner, name)
             if not repo:
                 continue
-            head = rt.gh.branch_head(repo["owner"]["login"], repo["name"], repo["default_branch"])
+            head = checks.linked_head(rt.gh, repo, entry)
             if head in (health.get("scanned_commit"), health.get("flagged_commit")) or not head:
                 continue
             if repo["id"] != record.get("repo_id"):

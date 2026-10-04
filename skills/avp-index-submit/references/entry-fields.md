@@ -14,6 +14,7 @@ Every field allowed in `entries/<id>.yaml`. Anything else fails the schema check
 | `game.original_platform` | no | `gamecube`, `wii`, `n64`, `ps1`, `ps2`, `xbox`, `dreamcast`, `pc`, `other` | The platform the game first shipped on. |
 | `game.original_release_year` | no | integer 1970 to 2030 | Year the original game was released. |
 | `repo` | yes | pattern `^https://github\.com/[A-Za-z0-9-]+/[A-Za-z0-9._-]+$` | Your port's public GitHub repository, as https://github.com/<owner>/<name> (no .git, no trailing slash). |
+| `source_ref` | no | pattern `^(?!.*\.\.)[A-Za-z0-9_][A-Za-z0-9._/-]{0,99}$` | The branch your port lives on, if it isn't the repo's default branch. The index scans and follows this branch's newest commit instead. |
 | `developer` | yes | object | Who built the port. |
 | `developer.github` | yes | pattern `^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$` | The developer's GitHub login. |
 | `developer.name` | no | 1 to 80 characters | Display name. Surfaces show the GitHub login when absent. |
