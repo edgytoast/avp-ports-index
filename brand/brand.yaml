@@ -6,3 +6,15 @@ site: https://trevorbilt.com
 contact: admin@trevorbilt.com
 logo: https://trevorbilt.com/assets/logo-BdrEikAq.png   # hosted on trevorbilt.com; a repo path also works (rendered only if the file exists)
 accent_hex: "#ED7014"
+more_from:                          # README only, at the end; never in the feed, llms.txt or bot messages
+  heading: More from Trevorbilt
+  intro: Apps for Apple Vision Pro from the curator of this index.
+  apps:
+    - name: Loose Papers
+      url: https://trevorbilt.com/loose-papers
+      icon: https://trevorbilt.com/assets/loose-papers-icon-DJ006cPT.png
+      blurb: A reader for your own books and comics (PDF, EPUB, CBR and CBZ), with page turns that follow your hand.
+    - name: Papa's Ball & Tee
+      url: https://trevorbilt.com/papas-ball-and-tee
+      icon: https://trevorbilt.com/assets/papas-icon-DUIo8ARw.png
+      blurb: A small balancing game that rests in your space, for a quick challenge you never quite master.
