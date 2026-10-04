@@ -14,6 +14,7 @@ status: working
 status_notes: "Plays in the Full, Progressive and Window views, with PS VR2 Sense controllers, a gamepad or bare hands. Built and played on Apple Vision Pro."
 visionos_min: "26.0"
 input: [game-controller, hand-tracking]
+experiences: [3d-shared-space, 6dof-immersive, 6dof-progressive]
 description: "The Simpsons: Hit & Run in six degrees of freedom on Apple Vision Pro. Walk Springfield with a Sense controller in each hand, drive from the driver's seat, or play it as a 3D window beside your other apps. A native visionOS port of kote2345's Hit & Run VR mod."
 tags: [vr, 6dof, driving, open-world, source-port]
 credits:
