@@ -70,6 +70,18 @@ Entries and feed data are [CC0-1.0](LICENSE-DATA); the tooling is [MIT](LICENSE)
 Found something broken or malicious? [Open a report issue](https://github.com/{{ repo_full }}/issues/new?template=report-entry.yml).
 
 Rights holders: see [SECURITY.md](SECURITY.md#takedown) or email admin@trevorbilt.com.
+{% if brand.get("more_from") and brand.more_from.get("apps") %}
+
+## {{ brand.more_from.heading | md }}
+
+{{ brand.more_from.intro | md }}
+
+| | |
+| --- | --- |
+{% for app in brand.more_from.apps %}
+| <a href="{{ app.url }}"><img src="{{ app.icon }}" alt="{{ app.name | md }} icon" width="64"></a> | **[{{ app.name | md }}]({{ app.url }})**<br>{{ app.blurb | md }} |
+{% endfor %}
+{% endif %}
 
 ---
 
