@@ -16,7 +16,7 @@ You are preparing the user's port repo so it passes the index's automated checks
 5. Build `entries/<id>.yaml` from `assets/entry.template.yaml` using `references/entry-fields.md`. Fill the six required fields, and the optional ones the user can answer quickly. `developer.github` is whoever built the port, usually the user. Ask the user for their honest `status`, explaining the four values. Credit upstream decompilation and VR-port projects in `credits`. If the port lives on a branch other than the repo's default branch, set `source_ref` to that branch.
 6. Run `python scripts/preflight.py entries/<id>.yaml` and fix everything it reports.
 7. Fork edgytoast/avp-ports-index (or push a branch, if the user has write access to it), add only that one file, and open a PR to `main` using the template checklist. Open it from the account that owns the port repo (or a public member of its org), or it will wait for the curator.
-8. Tell the user: clean PRs merge on their own after a queued security review that can take hours; labels show progress; the curator's verification is separate and can't be requested in the PR.
+8. Tell the user: clean PRs merge on their own after a queued security review that can take hours; labels show progress; the curator's verification is separate and can't be requested in the PR. Once the port is listed, they can add the README badge from CONTRIBUTING.md.
 
 ## Never
 - Edit any file outside `entries/` in the index.
