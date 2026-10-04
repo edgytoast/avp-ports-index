@@ -80,8 +80,9 @@ def brand_lines(brand: dict) -> dict:
 
 def brand_block(root: Path, brand: dict) -> str:
     lines = [BRAND_START]
-    if (root / brand.get("logo", "")).is_file() and brand.get("logo"):
-        lines += [f'<img src="{brand["logo"]}" alt="trevorbilt" width="96">', ""]
+    logo = str(brand.get("logo") or "")
+    if logo.startswith("https://") or (logo and (root / logo).is_file()):
+        lines += [f'<img src="{logo}" alt="Trevorbilt" width="200">', ""]
     lines += [f"# {brand['display_name']}", "", brand_lines(brand)["curated_line"], BRAND_END]
     return "\n".join(lines)
 

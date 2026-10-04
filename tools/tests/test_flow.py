@@ -556,6 +556,10 @@ def test_surfaces_and_brand(rt, gh):
     assert f"blob/{SHA(11)}/AVP-INSTALL.md" in readme and f"git checkout {SHA(11)}" in out["ports/good.md"]
     assert "Curated by trevorbilt" in out["ports/good.md"]
     assert out["llms.txt"].startswith("# AVP Ports Index\n") and "1 port listed" in out["llms.txt"]
+    brand = (rt.root / "brand/brand.yaml").read_text()
+    assert '<img src="https://trevorbilt.com/' in readme  # the hosted logo
+    (rt.root / "brand/brand.yaml").write_text(brand.replace("logo: https://trevorbilt.com/assets/logo-BdrEikAq.png", "logo: brand/missing.svg"))
+    assert "<img" not in generate.generate(rt.root, rt.repo)["README.md"]  # a repo path renders only if it exists
     with pytest.raises(generate.BrandError):
         generate.assert_brand(dict(out, **{"README.md": "no brand"}), generate.build_model(rt.root, rt.repo))
     assert APP_ID and BOT_ID
