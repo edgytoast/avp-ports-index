@@ -1,8 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-04T18:53:31Z",
+  "generated_at": "2026-10-04T23:51:28Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -96,6 +96,10 @@
         "game-controller",
         "hand-tracking"
       ],
+      "experiences": [],
+      "install": [
+        "build"
+      ],
       "tags": [
         "vr",
         "6dof",
@@ -184,6 +188,10 @@
       "input": [
         "game-controller",
         "hand-tracking"
+      ],
+      "experiences": [],
+      "install": [
+        "build"
       ],
       "tags": [
         "zelda",

@@ -6,7 +6,7 @@ Open a [Report an entry](../../issues/new?template=report-entry.yml) issue, or e
 
 ## What the automated review covers, and what it doesn't
 
-Most entries are not human-reviewed. Automated checks confirm the linked repo is public, has an install guide, has links that resolve, and contains no known game-data files; archives and prebuilt downloads go to the curator. An AI agent (Google's Jules) reviews the specific commit the index links to for signs of malicious code, paying closest attention to build scripts, which run on your Mac with your permissions.
+Most entries are not human-reviewed. Automated checks confirm the linked repo is public, has an install guide, has links that resolve, and contains no known game-data files; archives and prebuilt downloads go to the curator. An AI agent (Google's Jules) reviews the specific commit the index links to for signs of malicious code, paying closest attention to build scripts, which run on your Mac with your permissions. The review covers source code, not prebuilt apps a developer publishes.
 
 Automation can't confirm a port runs on Apple Vision Pro, doesn't vet third-party code downloaded during a build, may not read every file, and can miss malicious code. Build the exact commit the index links to, check its "commits since scan" count, and consider building from a separate macOS user account.
 

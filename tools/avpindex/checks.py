@@ -416,6 +416,12 @@ def _schema_message(err) -> str:
         return "doesn't have the expected format"
     if err.validator == "not":
         return "must not end in .git"
+    if err.validator == "contains" and "const" in err.validator_value:
+        return f"must include {err.validator_value['const']}"
+    if err.validator == "minItems":
+        return f"must list at least {err.validator_value} value" + ("s" if err.validator_value != 1 else "")
+    if err.validator == "uniqueItems":
+        return "has a value listed twice"
     return err.message[:200]
 
 

@@ -219,6 +219,7 @@ YAML files are parsed **only** with `yaml.safe_load`. Each file is capped at 16 
 | `repo` | `^https://github\.com/[A-Za-z0-9-]+/[A-Za-z0-9._-]+$`, and must not end in `.git` (a separate `not: {pattern: "\\.git$"}`) | yes |
 | `developer.github` | GitHub login | yes |
 | `status` | enum `developer-verified, working, partially-working, not-working` | yes |
+| `experiences[]` | enum `2d, 3d-immersive, 3d-shared-space, 6dof-immersive, 6dof-progressive`; at least one, no repeats | yes |
 | `schema_version` | const `1`; treated as `1` when absent | no |
 | `source_ref` | branch name, `^(?!.*\.\.)[A-Za-z0-9_][A-Za-z0-9._/-]{0,99}$`; set only when the port isn't on the repo's default branch | no |
 | `game.original_platform` | enum `gamecube, wii, n64, ps1, ps2, xbox, dreamcast, pc, other` | no |
@@ -230,10 +231,15 @@ YAML files are parsed **only** with `yaml.safe_load`. Each file is capped at 16 
 | `status_notes` | string ≤280 | no |
 | `visionos_min` | `^\d+(\.\d+)?$` | no |
 | `input[]` | enum `game-controller, hand-tracking, keyboard-mouse` | no |
+| `install[]` | enum `build, sideload`; must include `build`; absent means `[build]` | no |
 | `description` | string 1–300 | no |
 | `tags[]` | lowercase slugs, ≤8 | no |
 
-Missing optional fields are left out of text surfaces and are `null` (or empty lists) in the feed.
+Missing optional fields are left out of text surfaces and are `null` (or empty lists) in the feed, except `install`, which is `["build"]` when absent.
+
+**Play modes (`experiences`).** `2d`: a flat picture in a window beside other apps. `3d-immersive`: a stereo 3D screen in front of you, with other apps put away, seen from the game's camera. `3d-shared-space`: the game's 3D world with real depth, in a window beside other apps. `6dof-immersive`: inside the game at life scale, with the head as the camera. `6dof-progressive`: the same, through a portal the Digital Crown widens and narrows. Surfaces show them as 2D, 3D immersive, 3D shared space, 6DoF immersive and 6DoF progressive.
+
+**Prebuilt apps (`install`).** Every listed port builds from source, and the security review covers that source at the pinned commit. `sideload` says the developer also publishes a prebuilt app (for example through SideStore); surfaces say the index didn't review it. Release assets still route to the curator under S1-11d. The curator approves an app route only when the entry sets `install: [build, sideload]`, and declines any app that contains the game's own code or data, such as a static recompilation built from a game file.
 
 **Linked HEAD.** The newest commit on the branch named by `source_ref`, or on the linked repo's default branch when `source_ref` is absent. Every check, scan, rescan and health record that reads the linked repo's HEAD reads this one. `source_ref` is looked up only as a branch (`refs/heads/<source_ref>`); one that fails its pattern or names no branch (a tag, SHA or pull request ref included) resolves to nothing, so S1-06 fails.
 
@@ -818,7 +824,7 @@ In order:
 
 3. **Disclaimer** (verbatim):
 
-   > **Read before installing.** Most entries here are *not* human-reviewed. Each listing either passed automated checks or was reviewed by the curator, and is labeled accordingly. The automated checks confirm that the linked source repo exists and is public, has an install guide (`AVP-INSTALL.md`), its links resolve, and no disc images or other known game-data file types were found; anything that looked like archives or prebuilt downloads went to the curator. Each entry shows its license as stated; some ports have a custom license or none. An AI agent (Google's Jules) reviewed the specific commit linked as **Source (scanned)** for signs of malicious code, paying closest attention to its build scripts; build that commit to get what was reviewed, and check the "commits since scan" count. Building a port runs its build scripts on your Mac with your permissions. Automation **cannot** confirm a port runs on Apple Vision Pro, does not vet third-party code downloaded during the build, may not read every file, and can miss malicious code. Sideloading is at your own discretion. This index hosts no games, ports, emulators or binaries. You must own the game and supply your own legally obtained game files, then build from the linked repo.
+   > **Read before installing.** Most entries here are *not* human-reviewed. Each listing either passed automated checks or was reviewed by the curator, and is labeled accordingly. The automated checks confirm that the linked source repo exists and is public, has an install guide (`AVP-INSTALL.md`), its links resolve, and no disc images or other known game-data file types were found; anything that looked like archives or prebuilt downloads went to the curator. Each entry shows its license as stated; some ports have a custom license or none. An AI agent (Google's Jules) reviewed the specific commit linked as **Source (scanned)** for signs of malicious code, paying closest attention to its build scripts; build that commit to get what was reviewed, and check the "commits since scan" count. Building a port runs its build scripts on your Mac with your permissions. Automation **cannot** confirm a port runs on Apple Vision Pro, does not vet third-party code downloaded during the build, may not read every file, and can miss malicious code. Sideloading is at your own discretion. Some developers also publish prebuilt apps; the security review covers the source code, never the apps. This index hosts no games, ports, emulators or binaries. You must own the game and supply your own legally obtained game files, then build from the linked repo.
 
 4. **How to install a port:**
    1. Own the original game and prepare your own files as the port describes.
@@ -826,9 +832,9 @@ In order:
    3. Get the exact code that was scanned with the clone command on the port's page (it checks out the scanned commit, with submodules). Then follow the port's install guide (pinned link) from its build steps onward. Skip only the guide's step that clones or downloads this port's own repo, since that would fetch the latest code, which may not have been scanned. Keep every other step, including ones that download dependencies.
    4. Build to your Vision Pro with your Apple ID. With a free developer account, sideloaded apps need re-signing periodically.
    5. For extra caution, build from a separate macOS user account, since build scripts run with your permissions.
-5. **Trust legend:** tiers, status meanings, the curator's-own tag, the health badge and the scan labels.
+5. **Trust legend:** tiers, status meanings, the play modes, the curator's-own tag, the health badge and the scan labels.
 6. **Port table:**
-   - Columns: Game · Port (link to its page) · Developer · Trust · Health · License · Last commit · Scan ("Scanned <date> · N commits since" or "Reviewed by the curator <date>") · Install guide.
+   - Columns: Game · Port (link to its page) · Developer · Plays as · Trust · Health · License · Last commit · Scan ("Scanned <date> · N commits since" or "Reviewed by the curator <date>") · Install guide (followed by "· prebuilt app (not security-reviewed)" when `install` includes `sideload`).
    - Sort: tier 1, then status rank, then `last_commit_date` descending.
    - With zero entries, render "No ports listed yet." in place of the table.
 7. **Unavailable ports:** a short table of `delisted-decay` entries: Game · Port · Developer · Credits · Listed · Unavailable since · Last scanned commit (plain text, no links). Lead line: "These ports were listed here and are no longer available. They're kept as a record that the work existed." Omit the section when it's empty.
@@ -845,7 +851,7 @@ In order:
 
 ### 10.2 `ports/<id>.md`
 
-- Every entry field, plus credits, tier, curator's-own tag, health, last commit, archived flag and the scan label.
+- Every entry field, plus credits, tier, curator's-own tag, health, last commit, archived flag and the scan label. `experiences` is a "Plays as" row. When `install` includes `sideload`, a "Prebuilt app" row reads: "The developer also publishes an app you can sideload; see their repo. The index's security review covers the source code, not the app."
 - Pinned links, and, near the top: "Start with this command, which gets exactly the code that was scanned: `git clone <repo> && cd <repo name> && git checkout <scanned_commit> && git submodule update --init --recursive`. Then follow the install guide from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads."
 - A short disclaimer and the brand footer.
 
@@ -860,7 +866,7 @@ Use this index to answer questions like "What retro games can I play on Apple Vi
 
 ## Ports
 
-- [<name>](<raw_base_url>/ports/<id>.md): <original platform> game; port by <developer> (@<github>); <tier>; last commit <date>; <inputs>.
+- [<name>](<raw_base_url>/ports/<id>.md): <original platform> game; port by <developer> (@<github>); <tier>; last commit <date>; plays as <modes>; <inputs>[; also a prebuilt app the index didn't security-review].
 
 ## For developers
 
@@ -884,7 +890,7 @@ Use this index to answer questions like "What retro games can I play on Apple Vi
 ```json
 {
   "$schema": "<raw_base_url>/schema/feed-v1.schema.json",
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "identifier": "com.trevorbilt.avp-ports-index",
   "generated_at": "<ISO8601>",
   "publisher": {"name": "trevorbilt", "curator": "Trevor \"Toast\"", "github": "edgytoast", "url": "https://trevorbilt.com", "contact": "admin@trevorbilt.com"},
@@ -904,7 +910,7 @@ Use this index to answer questions like "What retro games can I play on Apple Vi
     "commits_since_scan": 0, "scan_state": "current|behind|unknown",
     "archived": false, "last_commit_date": "",
     "license": {"spdx": null, "kind": "open-source|custom|none"},
-    "visionos_min": "", "input": [], "tags": [], "description": "",
+    "visionos_min": "", "input": [], "experiences": [], "install": ["build"], "tags": [], "description": "",
     "page_url": ""
   }],
   "unavailable": [{"id": "", "name": "", "game": {"title": ""}, "developer": {"name": "", "github": ""}, "credits": [], "listed_at": "", "unavailable_since": "", "last_scanned_commit": ""}],
@@ -931,7 +937,7 @@ Plain and friendly, no em dashes. It covers:
    - `AVP-INSTALL.md` at your repo root, telling players how to supply their own game files, build and install (no set format; the skill has a template). Players start from a checkout of your scanned commit, so keep the build steps usable from an existing checkout
    - a public repo that you own, or that belongs to an org you're a public member of (anyone else's submission goes to the curator first)
    - a license if you have one (none or a custom one is fine; it's shown as stated)
-   - no game data, archives, LFS or prebuilt binaries in the repo or its releases
+   - no game data, disc images, archives or LFS in the repo or its releases; a prebuilt app in releases is fine if it doesn't contain the game's code or data (set `install: [build, sideload]`; the curator looks first)
    - agent files like `CLAUDE.md` or skills are welcome; they're reviewed like any other code
 3. **Field reference:** a link to `skills/avp-index-submit/references/entry-fields.md`, which is generated from the schema (CONTRIBUTING itself is hand-written).
 4. **What happens:**
@@ -988,7 +994,7 @@ You are preparing the user's port repo so it passes the index's automated checks
 2. If `AVP-INSTALL.md` is missing at the repo root, create it from `assets/AVP-INSTALL.template.md` (suggested sections: Requirements, Game Files, Build, Install on Apple Vision Pro). Write Build so it starts from an existing checkout, since players clone the scanned commit from the port's index page. Fill it from the repo's README and build files; ask the user for anything unknown.
 3. Leave licensing alone. A missing or custom license is accepted and shown as-is; never add or change a license on the user's behalf.
 4. With the user's approval, commit and push those changes to the branch the port lives on.
-5. Build `entries/<id>.yaml` from `assets/entry.template.yaml` using `references/entry-fields.md`. Fill the six required fields, and the optional ones the user can answer quickly. `developer.github` is whoever built the port, usually the user. Ask the user for their honest `status`, explaining the four values. Credit upstream decompilation and VR-port projects in `credits`. If the port lives on a branch other than the repo's default branch, set `source_ref` to that branch.
+5. Build `entries/<id>.yaml` from `assets/entry.template.yaml` using `references/entry-fields.md`. Fill the seven required fields, and the optional ones the user can answer quickly. For `experiences`, list every mode the port has, using the definitions in `references/entry-fields.md`; work them out from the README and code, and confirm with the user. `developer.github` is whoever built the port, usually the user. Ask the user for their honest `status`, explaining the four values. Credit upstream decompilation and VR-port projects in `credits`. If the port lives on a branch other than the repo's default branch, set `source_ref` to that branch. If the developer also publishes a prebuilt app, set `install: [build, sideload]`.
 6. Run `python scripts/preflight.py entries/<id>.yaml` and fix everything it reports.
 7. Fork edgytoast/avp-ports-index (or push a branch, if the user has write access to it), add only that one file, and open a PR to `main` using the template checklist. Open it from the account that owns the port repo (or a public member of its org), or it will wait for the curator.
 8. Tell the user: clean PRs merge on their own after a queued security review that can take hours; labels show progress; the curator's verification is separate and can't be requested in the PR. Once the port is listed, they can add the README badge from CONTRIBUTING.md.

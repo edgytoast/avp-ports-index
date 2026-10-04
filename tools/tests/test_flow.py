@@ -582,7 +582,25 @@ def test_source_ref_facts_and_surfaces(rt, gh):
     out = generate.generate(rt.root, rt.repo)
     assert "| Branch | `vision-pro` |" in out["ports/good.md"] and f"git checkout {SHA(12)}" in out["ports/good.md"]
     feed = json.loads(out["feed/v1/index.json"])
-    assert feed["schema_version"] == "1.1.0" and feed["entries"][0]["source_ref"] == "vision-pro"
+    assert feed["entries"][0]["source_ref"] == "vision-pro"
+
+
+def test_play_modes_and_prebuilt_apps(rt, gh):
+    repo = gh.add_repo("trevorbilt-bot/good", 11)
+    list_entry(rt, "good", repo)
+    write_entry(rt.root, "good", "trevorbilt-bot/good", experiences=["6dof-immersive", "3d-shared-space"])
+    out = generate.generate(rt.root, rt.repo)
+    assert "| Plays as | 3D shared space, 6DoF immersive |" in out["ports/good.md"]  # canonical order
+    assert "| Prebuilt app |" not in out["ports/good.md"] and "prebuilt app (not security-reviewed)" not in out["README.md"]
+    assert "plays as 3D shared space, 6DoF immersive" in out["llms.txt"]
+    entry = json.loads(out["feed/v1/index.json"])["entries"][0]
+    assert entry["experiences"] == ["3d-shared-space", "6dof-immersive"] and entry["install"] == ["build"]
+    write_entry(rt.root, "good", "trevorbilt-bot/good", experiences=["2d"], install=["build", "sideload"])
+    out = generate.generate(rt.root, rt.repo)
+    assert "| Prebuilt app | The developer also publishes an app you can sideload; see their repo." in out["ports/good.md"]
+    assert "· prebuilt app (not security-reviewed)" in out["README.md"] and "didn't security-review" in out["llms.txt"]
+    feed = json.loads(out["feed/v1/index.json"])
+    assert feed["schema_version"] == "1.2.0" and feed["entries"][0]["install"] == ["build", "sideload"]
 
 
 def test_surfaces_and_brand(rt, gh):

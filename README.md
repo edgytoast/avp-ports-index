@@ -8,7 +8,7 @@ Curated by Trevor "Toast" ([@edgytoast](https://github.com/edgytoast)) · [trevo
 
 A list of games people have lovingly coaxed onto Apple Vision Pro. Every port here was built by someone in the community, standing on years of reverse-engineering and porting work by other someones, and this index exists so that work doesn't quietly disappear into an old Discord channel. It hosts nothing but links, credits and install guides, so you'll bring your own copy of the game (and a little patience with Xcode).
 
-> **Read before installing.** Most entries here are *not* human-reviewed. Each listing either passed automated checks or was reviewed by the curator, and is labeled accordingly. The automated checks confirm that the linked source repo exists and is public, has an install guide (`AVP-INSTALL.md`), its links resolve, and no disc images or other known game-data file types were found; anything that looked like archives or prebuilt downloads went to the curator. Each entry shows its license as stated; some ports have a custom license or none. An AI agent (Google's Jules) reviewed the specific commit linked as **Source (scanned)** for signs of malicious code, paying closest attention to its build scripts; build that commit to get what was reviewed, and check the "commits since scan" count. Building a port runs its build scripts on your Mac with your permissions. Automation **cannot** confirm a port runs on Apple Vision Pro, does not vet third-party code downloaded during the build, may not read every file, and can miss malicious code. Sideloading is at your own discretion. This index hosts no games, ports, emulators or binaries. You must own the game and supply your own legally obtained game files, then build from the linked repo.
+> **Read before installing.** Most entries here are *not* human-reviewed. Each listing either passed automated checks or was reviewed by the curator, and is labeled accordingly. The automated checks confirm that the linked source repo exists and is public, has an install guide (`AVP-INSTALL.md`), its links resolve, and no disc images or other known game-data file types were found; anything that looked like archives or prebuilt downloads went to the curator. Each entry shows its license as stated; some ports have a custom license or none. An AI agent (Google's Jules) reviewed the specific commit linked as **Source (scanned)** for signs of malicious code, paying closest attention to its build scripts; build that commit to get what was reviewed, and check the "commits since scan" count. Building a port runs its build scripts on your Mac with your permissions. Automation **cannot** confirm a port runs on Apple Vision Pro, does not vet third-party code downloaded during the build, may not read every file, and can miss malicious code. Sideloading is at your own discretion. Some developers also publish prebuilt apps; the security review covers the source code, never the apps. This index hosts no games, ports, emulators or binaries. You must own the game and supply your own legally obtained game files, then build from the linked repo.
 
 ## How to install a port
 
@@ -30,6 +30,14 @@ A list of games people have lovingly coaxed onto Apple Vision Pro. Every port he
 
 Everything below "Verified by trevorbilt" is self-reported by whoever submitted the port.
 
+**Plays as:** how the port plays on Vision Pro. A port can have several:
+
+- **2D:** a flat picture in a window beside your other apps.
+- **3D immersive:** a stereo 3D screen in front of you, with your other apps put away, seen from the game's camera.
+- **3D shared space:** the game's 3D world with real depth, in a window beside your other apps. Lean and you see around things.
+- **6DoF immersive:** inside the game at life scale, with your head as the camera.
+- **6DoF progressive:** the same, through a portal the Digital Crown widens and narrows.
+
 **Curator's own port:** built by the curator, so you know who made it.
 
 **Health:** "OK", or "⚠ May have issues" when the daily check found a problem. The port stays listed while its developer has time to fix it.
@@ -38,10 +46,10 @@ Everything below "Verified by trevorbilt" is self-reported by whoever submitted 
 
 ## Ports
 
-| Game | Port | Developer | Trust | Health | License | Last commit | Scan | Install guide |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| The Simpsons: Hit &amp; Run | [SHAR VR](ports/shar-visionos.md) | Trevorbilt ([@edgytoast](https://github.com/edgytoast)) | Working · Curator's own port | OK | MIT | 2026-10-04 | Scanned 2026-10-04 · 0 commits since | [AVP-INSTALL.md](https://github.com/edgytoast/shar-visionos/blob/f982d0a8f3d0a35550846b9a552dcdd2bca40e98/AVP-INSTALL.md) |
-| The Legend of Zelda: Twilight Princess | [Twilight Princess VR](ports/twilight-princess-vr.md) | trevorbilt ([@edgytoast](https://github.com/edgytoast)) | Working · Curator's own port | OK | CC0-1.0 | 2026-10-04 | Scanned 2026-10-04 · 0 commits since | [AVP-INSTALL.md](https://github.com/edgytoast/tpvr-visionos/blob/69873b7cecd5bb99ae05d64f7592fb9ac1937b80/AVP-INSTALL.md) |
+| Game | Port | Developer | Plays as | Trust | Health | License | Last commit | Scan | Install guide |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| The Simpsons: Hit &amp; Run | [SHAR VR](ports/shar-visionos.md) | Trevorbilt ([@edgytoast](https://github.com/edgytoast)) |  | Working · Curator's own port | OK | MIT | 2026-10-04 | Scanned 2026-10-04 · 0 commits since | [AVP-INSTALL.md](https://github.com/edgytoast/shar-visionos/blob/f982d0a8f3d0a35550846b9a552dcdd2bca40e98/AVP-INSTALL.md) |
+| The Legend of Zelda: Twilight Princess | [Twilight Princess VR](ports/twilight-princess-vr.md) | trevorbilt ([@edgytoast](https://github.com/edgytoast)) |  | Working · Curator's own port | OK | CC0-1.0 | 2026-10-04 | Scanned 2026-10-04 · 0 commits since | [AVP-INSTALL.md](https://github.com/edgytoast/tpvr-visionos/blob/69873b7cecd5bb99ae05d64f7592fb9ac1937b80/AVP-INSTALL.md) |
 
 ## Developers: get your port listed
 

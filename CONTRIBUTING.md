@@ -10,12 +10,23 @@ These mirror the automated checks (the [full list of checks](skills/avp-index-su
 - **An install guide in your repo.** Put `AVP-INSTALL.md` at the root of your repo (exact name, not empty, under 256 KB). Tell players how to supply their own game files, how to build, and how to install on Apple Vision Pro. There's no required format; the [skill's template](skills/avp-index-submit/assets/AVP-INSTALL.template.md) is a starting point. Players start from a checkout of the exact commit that was scanned, so keep your build steps usable from an existing checkout.
 - **Your own public repo.** The repo is public and you own it, or it belongs to an org you're a public member of. Anyone else's submission goes to the curator first, which is fine, just slower.
 - **A license, if you have one.** No license, or a custom one, is fine. It's shown as stated. If a custom license seems to forbid personal use, the curator takes a look first.
-- **No game data or prebuilt files.** No disc images, game data, archives, Git LFS files or prebuilt binaries in the repo or its releases.
+- **No game data.** No disc images, game data, archives or Git LFS files in the repo or its releases.
+- **Prebuilt apps are fine if the game isn't in them.** If your releases include an app (an `.ipa`, say), set `install: [build, sideload]` so your port page says so; the curator looks at the app first and approves it only then. The security review covers your source code, not the app. An app that contains the game's own code or data, such as a static recompilation built from a game file, can't be listed while your releases ship it.
 - **Agent files are welcome.** `CLAUDE.md`, `AGENTS.md`, skills and similar files are fine. They're reviewed like any other code.
 
 ## The fields
 
-[entry-fields.md](skills/avp-index-submit/references/entry-fields.md) lists every allowed field. It's generated from the schema, so it's always current. Six fields are required: `id`, `name`, `game.title`, `repo`, `developer.github` and `status`. Please credit the upstream decompilation and VR-port projects you built on in `credits`. If your port lives on a branch other than your repo's default branch, set the optional `source_ref` to that branch, and the index scans and follows it instead.
+[entry-fields.md](skills/avp-index-submit/references/entry-fields.md) lists every allowed field. It's generated from the schema, so it's always current. Seven fields are required: `id`, `name`, `game.title`, `repo`, `developer.github`, `status` and `experiences`. Please credit the upstream decompilation and VR-port projects you built on in `credits`. If your port lives on a branch other than your repo's default branch, set the optional `source_ref` to that branch, and the index scans and follows it instead.
+
+`experiences` lists every way your port plays:
+
+- **2D:** a flat picture in a window beside your other apps.
+- **3D immersive:** a stereo 3D screen in front of you, with your other apps put away, seen from the game's camera.
+- **3D shared space:** the game's 3D world with real depth, in a window beside your other apps. Lean and you see around things.
+- **6DoF immersive:** inside the game at life scale, with your head as the camera.
+- **6DoF progressive:** the same, through a portal the Digital Crown widens and narrows.
+
+If you also publish a prebuilt app, add `install: [build, sideload]`. Every listed port must still build from source, since that's what the security review covers.
 
 ## What happens after you open the PR
 

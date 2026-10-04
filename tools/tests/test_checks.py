@@ -54,6 +54,16 @@ def test_source_ref(index):
     assert checks.linked_head(gh, repo, {}) == SHA(11)
 
 
+def test_experiences_and_install(index):
+    gh = FakeGitHub()
+    gh.add_repo("trevorbilt-bot/good", 11)
+    assert run(gh, index, experiences=["2d", "6dof-progressive"], install=["build", "sideload"]).overall == PASS
+    for extra, message in [({"experiences": []}, "at least 1 value"), ({"experiences": ["4d"]}, "must be one of"),
+                           ({"experiences": ["2d", "2d"]}, "listed twice"), ({"install": ["sideload"]}, "include build")]:
+        result = run(gh, index, **extra).get("S1-03")
+        assert result.outcome == FAIL and message in result.detail, (extra, result.detail)
+
+
 def test_branch_head_missing_branch():
     """GitHub answers 422 for a ref that doesn't exist; a slash in a branch name stays one segment."""
     class Session:

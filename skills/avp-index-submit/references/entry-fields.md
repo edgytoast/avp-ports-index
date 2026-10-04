@@ -28,6 +28,8 @@ Every field allowed in `entries/<id>.yaml`. Anything else fails the schema check
 | `status_notes` | no | 0 to 280 characters | Short notes on the status. |
 | `visionos_min` | no | pattern `^\d+(\.\d+)?$` | Minimum visionOS version, as a quoted string such as "26.0". |
 | `input` | no | list of `game-controller`, `hand-tracking`, `keyboard-mouse` | Supported input methods. |
+| `experiences` | no | list of `2d`, `3d-immersive`, `3d-shared-space`, `6dof-immersive`, `6dof-progressive`, at least 1 | How the port plays on Apple Vision Pro: list every mode it has. 2d: a flat picture in a window beside other apps. 3d-immersive: a stereo 3D screen in front of you, with your other apps put away, seen from the game's camera. 3d-shared-space: the game's 3D world with real depth, in a window beside other apps. 6dof-immersive: inside the game at life scale, with your head as the camera. 6dof-progressive: the same, through a portal the Digital Crown widens and narrows. |
+| `install` | no | list of `build`, `sideload`, must include `build` | How players can install it. build: from source with Xcode; every listed port can be built, and that's what the security review covers. Add sideload if you also publish a prebuilt app, for example through SideStore. Leave the field out for build-only ports. |
 | `description` | no | 1 to 300 characters | One or two sentences about the port. |
 | `tags` | no | list of pattern `^[a-z0-9]+(-[a-z0-9]+)*$`; 0 to 32 characters, at most 8 | Up to 8 lowercase slugs. |
 

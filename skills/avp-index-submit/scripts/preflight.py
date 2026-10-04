@@ -171,6 +171,33 @@ SCHEMA = {'$schema': 'https://json-schema.org/draft/2020-12/schema',
                           'items': {'enum': ['game-controller',
                                              'hand-tracking',
                                              'keyboard-mouse']}},
+                'experiences': {'description': 'How the port plays on Apple Vision Pro: list every '
+                                               'mode it has. 2d: a flat picture in a window beside '
+                                               'other apps. 3d-immersive: a stereo 3D screen in '
+                                               'front of you, with your other apps put away, seen '
+                                               "from the game's camera. 3d-shared-space: the "
+                                               "game's 3D world with real depth, in a window "
+                                               'beside other apps. 6dof-immersive: inside the game '
+                                               'at life scale, with your head as the camera. '
+                                               '6dof-progressive: the same, through a portal the '
+                                               'Digital Crown widens and narrows.',
+                                'type': 'array',
+                                'minItems': 1,
+                                'uniqueItems': True,
+                                'items': {'enum': ['2d',
+                                                   '3d-immersive',
+                                                   '3d-shared-space',
+                                                   '6dof-immersive',
+                                                   '6dof-progressive']}},
+                'install': {'description': 'How players can install it. build: from source with '
+                                           "Xcode; every listed port can be built, and that's what "
+                                           'the security review covers. Add sideload if you also '
+                                           'publish a prebuilt app, for example through SideStore. '
+                                           'Leave the field out for build-only ports.',
+                            'type': 'array',
+                            'uniqueItems': True,
+                            'contains': {'const': 'build'},
+                            'items': {'enum': ['build', 'sideload']}},
                 'description': {'description': 'One or two sentences about the port.',
                                 'type': 'string',
                                 'minLength': 1,
@@ -776,6 +803,12 @@ def _schema_message(err) -> str:
         return "doesn't have the expected format"
     if err.validator == "not":
         return "must not end in .git"
+    if err.validator == "contains" and "const" in err.validator_value:
+        return f"must include {err.validator_value['const']}"
+    if err.validator == "minItems":
+        return f"must list at least {err.validator_value} value" + ("s" if err.validator_value != 1 else "")
+    if err.validator == "uniqueItems":
+        return "has a value listed twice"
     return err.message[:200]
 
 

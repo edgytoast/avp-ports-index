@@ -401,7 +401,8 @@ def rt(root, gh) -> Runtime:
 
 def entry_yaml(entry_id: str, repo: str, dev: str = "trevorbilt-bot", **extra) -> bytes:
     data = {"id": entry_id, "name": f"{entry_id} port", "game": {"title": f"{entry_id} game"},
-            "repo": f"https://github.com/{repo}", "developer": {"github": dev}, "status": "working", **extra}
+            "repo": f"https://github.com/{repo}", "developer": {"github": dev}, "status": "working",
+            "experiences": ["6dof-immersive"], **extra}
     return json.dumps(data).encode()  # JSON is valid YAML
 
 

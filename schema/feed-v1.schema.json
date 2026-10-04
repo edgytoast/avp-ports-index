@@ -59,7 +59,7 @@
       "required": ["id", "name", "game", "repo_url", "source_ref", "source_url", "install_doc_url", "developer", "credits", "upstream",
                    "self_reported_status", "status_notes", "owner_verified", "trust_tier", "curator_own", "health",
                    "scanned_commit", "scanned_at", "scan_kind", "commits_since_scan", "scan_state", "archived",
-                   "last_commit_date", "license", "visionos_min", "input", "tags", "description", "page_url"],
+                   "last_commit_date", "license", "visionos_min", "input", "experiences", "install", "tags", "description", "page_url"],
       "properties": {
         "id": {"type": "string"},
         "name": {"type": "string"},
@@ -131,6 +131,8 @@
         },
         "visionos_min": {"$ref": "#/$defs/str_or_null"},
         "input": {"type": "array", "items": {"type": "string"}},
+        "experiences": {"type": "array", "items": {"enum": ["2d", "3d-immersive", "3d-shared-space", "6dof-immersive", "6dof-progressive"]}, "description": "How the port plays (added in 1.2.0)."},
+        "install": {"type": "array", "items": {"enum": ["build", "sideload"]}, "description": "build, plus sideload when the developer also publishes a prebuilt app the index didn't review (added in 1.2.0)."},
         "tags": {"type": "array", "items": {"type": "string"}},
         "description": {"$ref": "#/$defs/str_or_null"},
         "page_url": {"type": "string"}
