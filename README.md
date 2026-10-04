@@ -38,7 +38,9 @@ Everything below "Verified by trevorbilt" is self-reported by whoever submitted 
 
 ## Ports
 
-No ports listed yet.
+| Game | Port | Developer | Trust | Health | License | Last commit | Scan | Install guide |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| The Legend of Zelda: Twilight Princess | [Twilight Princess VR](ports/twilight-princess-vr.md) | trevorbilt ([@edgytoast](https://github.com/edgytoast)) | Working · Curator's own port | OK | CC0-1.0 | 2026-10-04 | Scanned 2026-10-04 · 0 commits since | [AVP-INSTALL.md](https://github.com/edgytoast/tpvr-visionos/blob/69873b7cecd5bb99ae05d64f7592fb9ac1937b80/AVP-INSTALL.md) |
 
 ## Developers: get your port listed
 

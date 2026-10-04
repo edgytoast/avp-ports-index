@@ -1,1 +1,27 @@
-{}
+twilight-princess-vr:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: true
+  decay_reset_at: '2026-10-04T17:42:38Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  github_verified: true
+  health: ok
+  last_checked: null
+  last_commit_date: '2026-10-04T06:42:55Z'
+  license:
+    kind: open-source
+    spdx: CC0-1.0
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes: []
+  scan_confidence: 95
+  scan_kind: automated
+  scan_state: current
+  scanned_at: '2026-10-04T17:42:37Z'
+  scanned_commit: 69873b7cecd5bb99ae05d64f7592fb9ac1937b80
+  warnings: []
