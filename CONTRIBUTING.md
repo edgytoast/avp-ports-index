@@ -15,7 +15,7 @@ These mirror the automated checks (the [full list of checks](skills/avp-index-su
 
 ## The fields
 
-[entry-fields.md](skills/avp-index-submit/references/entry-fields.md) lists every allowed field. It's generated from the schema, so it's always current. Six fields are required: `id`, `name`, `game.title`, `repo`, `developer.github` and `status`. Please credit the upstream decompilation and VR-port projects you built on in `credits`.
+[entry-fields.md](skills/avp-index-submit/references/entry-fields.md) lists every allowed field. It's generated from the schema, so it's always current. Six fields are required: `id`, `name`, `game.title`, `repo`, `developer.github` and `status`. Please credit the upstream decompilation and VR-port projects you built on in `credits`. If your port lives on a branch other than your repo's default branch, set the optional `source_ref` to that branch, and the index scans and follows it instead.
 
 ## What happens after you open the PR
 
@@ -51,7 +51,7 @@ Edit your file in a new PR. The index tracks only the current state; your own gi
 
 ## Pinned links
 
-Players are pointed at your last scanned commit: the install guide link, the source link and the clone command all use it. The pin moves forward automatically when newer commits pass the security review, so you don't need to do anything when you push.
+Players are pointed at your last scanned commit: the install guide link, the source link and the clone command all use it. The pin moves forward automatically when newer commits on your default branch (or your `source_ref` branch) pass the security review, so you don't need to do anything when you push.
 
 ## Health checks
 

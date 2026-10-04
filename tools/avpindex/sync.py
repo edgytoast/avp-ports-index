@@ -10,7 +10,7 @@ from __future__ import annotations
 import datetime as dt
 
 from . import blocklist, lifecycle, messages, store, validate
-from .checks import controls
+from .checks import controls, linked_head
 from .classify import ENTRY_FILE
 from .gate import STAGE1, STAGE2, latest_check, parse_external_id, read_marker
 from .lifecycle import DECAY, LISTED, PULLED, TAKEN_DOWN, WITHDRAWN, IllegalTransition
@@ -48,7 +48,7 @@ def repo_facts(rt, entry_id: str, entry: dict, repo: dict, state: store.State) -
     health["curator_own"] = bool(owner_controls or (
         record.get("submitted_by_id") == rt.owner_id and dev_login.lower() == rt.owner_login.lower()))
     health["archived"] = bool(repo.get("archived"))
-    head = rt.gh.branch_head(owner, name, repo["default_branch"])
+    head = linked_head(rt.gh, repo, entry)
     if head:
         commit = rt.gh.commit(owner, name, head) or {}
         date = (((commit.get("commit") or {}).get("committer") or {}).get("date"))
@@ -69,7 +69,7 @@ def repo_facts(rt, entry_id: str, entry: dict, repo: dict, state: store.State) -
 
 
 def pin(rt, state: store.State, entry_id: str, sha: str, kind: str, confidence: int | None,
-        repo: dict | None) -> bool:
+        repo: dict | None, entry: dict | None) -> bool:
     """Move (or confirm) the scan pin. Applies the pin-move rule (spec §5.4). True if it moved."""
     health = state.health_record(entry_id)
     moved = health.get("scanned_commit") != sha
@@ -82,7 +82,7 @@ def pin(rt, state: store.State, entry_id: str, sha: str, kind: str, confidence: 
         health["rescan_after"] = None
         health["rescan_hold"] = False
         if repo:
-            head = rt.gh.branch_head(repo["owner"]["login"], repo["name"], repo["default_branch"])
+            head = linked_head(rt.gh, repo, entry)
             health["commits_since_scan"], health["scan_state"] = compare_scan(
                 rt, repo["owner"]["login"], repo["name"], sha, head)
     return moved
@@ -141,13 +141,13 @@ def replay_entry(rt, state: store.State, pr: dict, entry_id: str, raw: bytes, by
         kind = "none"  # the check was for another repo (the entry was repointed after the scan)
     curator = False
     if kind == "scan":
-        pin(rt, state, entry_id, sha, "automated", confidence, repo)
+        pin(rt, state, entry_id, sha, "automated", confidence, repo, entry)
     elif kind == "result":
-        pin(rt, state, entry_id, sha, "curator-reviewed", None, repo)
+        pin(rt, state, entry_id, sha, "curator-reviewed", None, repo, entry)
         curator = True
     elif kind == "none" and (new_listing or repo_changed):
-        fallback = ext1[1] if ext1 else rt.gh.branch_head(repo["owner"]["login"], repo["name"], repo["default_branch"])
-        pin(rt, state, entry_id, fallback, "curator-reviewed", None, repo)
+        fallback = ext1[1] if ext1 else linked_head(rt.gh, repo, entry)
+        pin(rt, state, entry_id, fallback, "curator-reviewed", None, repo, entry)
         curator = True
     if curator:
         blocklist.remove_flag(state, rt.salt, repo["id"])

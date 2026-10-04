@@ -11,7 +11,7 @@ These run on every entry PR, right away and for free. `scripts/preflight.py` run
 | S1-03 Schema | The entry is valid against `schema/entry.schema.json`, and its `id` equals the file name. | yes | yes | yes |
 | S1-04 Unique | The `id` is unique, and `repo` is not used by another current entry file (compared case-insensitively and by repo ID). Re-checked right before every merge. | yes |  |  |
 | S1-05 Not blocklisted | None of the entry's hashes (repo ID, repo name, entry id) is on the blocklist. | yes | yes |  |
-| S1-06 Repo resolves | The linked repo resolves (renames followed), is public, is not disabled, has at least one commit, and is not this index. Archived repos are allowed and recorded. | yes | yes | yes |
+| S1-06 Repo resolves | The linked repo resolves (renames followed), is public, is not disabled, has at least one commit, and is not this index. Archived repos are allowed and recorded. If the entry sets `source_ref`, that branch must exist. | yes | yes | yes |
 | S1-07 Install guide | `AVP-INSTALL.md` is at the root of the linked repo (exact name), at most 256 KB, and not empty. | yes | yes | yes |
 | S1-08 Authority | Decided by numeric user IDs. Adds: the PR author owns the linked repo or is a public member of its owning org. Edits and deletes: the author owns (or is a public member of the org that owns) the entry's current repo, found by its recorded repo ID, or is the person who first listed the entry. An edit that changes `repo` must pass both. | yes |  | yes |
 | S1-09 License | Never fails. Records the license as open-source, custom or none. If a license outside the open-source list appears to forbid personal use, the curator looks first. | yes | yes | yes |

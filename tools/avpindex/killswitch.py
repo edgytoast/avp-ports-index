@@ -198,7 +198,7 @@ def approve(rt, state: store.State, entry_id: str, outcome: dict) -> None:
         return
     if flagged_commit:
         repo = rt.gh.repo_by_id(repo_id) if repo_id else None
-        pin(rt, state, entry_id, flagged_commit, "curator-reviewed", None, repo)
+        pin(rt, state, entry_id, flagged_commit, "curator-reviewed", None, repo, _entry(rt, entry_id))
     if repo_id:
         blocklist.remove_flag(state, rt.salt, repo_id)
     record["owner_approved"] = True

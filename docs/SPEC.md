@@ -220,6 +220,7 @@ YAML files are parsed **only** with `yaml.safe_load`. Each file is capped at 16 
 | `developer.github` | GitHub login | yes |
 | `status` | enum `developer-verified, working, partially-working, not-working` | yes |
 | `schema_version` | const `1`; treated as `1` when absent | no |
+| `source_ref` | branch name, `^(?!.*\.\.)[A-Za-z0-9_][A-Za-z0-9._/-]{0,99}$`; set only when the port isn't on the repo's default branch | no |
 | `game.original_platform` | enum `gamecube, wii, n64, ps1, ps2, xbox, dreamcast, pc, other` | no |
 | `game.original_release_year` | integer 1970–2030 | no |
 | `developer.name` | string 1–80; surfaces show the GitHub login when absent | no |
@@ -234,6 +235,8 @@ YAML files are parsed **only** with `yaml.safe_load`. Each file is capped at 16 
 
 Missing optional fields are left out of text surfaces and are `null` (or empty lists) in the feed.
 
+**Linked HEAD.** The newest commit on the branch named by `source_ref`, or on the linked repo's default branch when `source_ref` is absent. Every check, scan, rescan and health record that reads the linked repo's HEAD reads this one. `source_ref` is looked up only as a branch (`refs/heads/<source_ref>`); one that fails its pattern or names no branch (a tag, SHA or pull request ref included) resolves to nothing, so S1-06 fails.
+
 Owner and bot fields cannot appear in entry files. This includes `owner_verified`, `last_commit_date`, `health`, `lifecycle` and `scanned_commit`, and `additionalProperties: false` makes any of them a schema failure.
 
 **Status meanings** (shown on every surface):
@@ -245,7 +248,7 @@ Owner and bot fields cannot appear in entry files. This includes `owner_verified
 
 ### 5.2 The install file in the linked repo: `AVP-INSTALL.md`
 
-- **Location:** exactly `AVP-INSTALL.md` (case-sensitive) at the root of the linked repo, fetched with `GET /repos/{o}/{r}/contents/AVP-INSTALL.md?ref=<sha>`, at the same commit SHA whose tree the other checks read (the default-branch HEAD in the gate and health check, `linked_commit` before a rescan).
+- **Location:** exactly `AVP-INSTALL.md` (case-sensitive) at the root of the linked repo, fetched with `GET /repos/{o}/{r}/contents/AVP-INSTALL.md?ref=<sha>`, at the same commit SHA whose tree the other checks read (the linked HEAD in the gate and health check, `linked_commit` before a rescan).
 - **Size:** at most 256 KB, and not empty (at least one line that isn't whitespace).
 - **Content:** free-form. It should tell a player what they need, how to supply their own game files, and how to build and install on Apple Vision Pro, but no headings or front matter are required. The skill's template (§10.8) suggests a layout.
 
@@ -268,7 +271,7 @@ records: {}          # empty at handoff
 
 ```yaml
 <id>:
-  last_commit_date: <ISO8601>        # committer date of linked default-branch HEAD
+  last_commit_date: <ISO8601>        # committer date of the linked HEAD (§5.1)
   last_checked: <ISO8601>
   health: ok | issues
   failing_since: <ISO8601|null>
@@ -294,7 +297,7 @@ records: {}          # empty at handoff
   warnings: [<check IDs>]            # S1-10 warnings seen by the health check (owner info only)
 ```
 
-**When the pin moves.** Whenever `scanned_commit` moves to a different commit (a rescan `pass`, an edit merge that records a new scan, or `approve`), `flagged_commit` and `rescan_after` are cleared and `rescan_hold` becomes false: the new pin has passed a scan or been reviewed by the owner, so nothing older can be `approve`d onto it and rescans resume. The job that moves the pin also compares it with the linked repo's current default-branch HEAD and sets `commits_since_scan` and `scan_state` from that, rather than waiting for the next health check.
+**When the pin moves.** Whenever `scanned_commit` moves to a different commit (a rescan `pass`, an edit merge that records a new scan, or `approve`), `flagged_commit` and `rescan_after` are cleared and `rescan_hold` becomes false: the new pin has passed a scan or been reviewed by the owner, so nothing older can be `approve`d onto it and rescans resume. The job that moves the pin also compares it with the current linked HEAD (§5.1) and sets `commits_since_scan` and `scan_state` from that, rather than waiting for the next health check.
 
 **When an entry is relisted.** On any transition into `listed` from another state (a merge, or kill-switch `restore`), the decay fields reset: `health: ok`, `failing_since: null`, `consecutive_failures: 0`, `failures: []`, and `decay_reset_at` is set to now. A port that comes back starts its grace period fresh. An outreach issue left open from before is closed by the next health check (§8.6).
 
@@ -403,7 +406,7 @@ Each check returns `pass`, `fail` (the contributor must fix something) or `route
 | S1-03 | Valid against `entry.schema.json`; `id` matches the filename | fail | ✓ | ✓ |
 | S1-04 | `id` unique, and `repo` not used by another current entry file (case-insensitive and by repo ID). Re-checked right before the merge call (§8.2 step 9), so two PRs for the same repo can't both merge | fail | ✓ | — |
 | S1-05 | Not blocklisted (any of its hashes) | fail | ✓ | ✓ (a hit means immediate `pulled`, not decay) |
-| S1-06 | Linked repo resolves (renames followed), is public, is not disabled, has ≥1 commit, and is not this index. Archived is allowed and recorded. | fail | ✓ | ✓ |
+| S1-06 | Linked repo resolves (renames followed), is public, is not disabled, has ≥1 commit, and is not this index. Archived is allowed and recorded. If the entry sets `source_ref`, that branch must exist. | fail | ✓ | ✓ |
 | S1-07 | `AVP-INSTALL.md` present, ≤256 KB, not empty (§5.2) | fail | ✓ | ✓ |
 | S1-08 | Authority, decided by numeric user IDs, never logins. **(a)** Edits and deletes: find the entry's current repo through its recorded `repo_id` (`GET /repositories/{repo_id}`, which follows renames). The PR author's ID equals that repo's owner ID, or the author is a public member of its owning org, or the author's ID equals `submitted_by_id` (§5.5). If the recorded repo no longer exists, only `submitted_by_id` qualifies. Deletes check only this. **(b)** Adds: the PR author's ID equals the linked repo's owner ID, or the author is a public member of its owning org (`GET /orgs/{org}/public_members/{login}` returns 204). An edit that changes `repo` must pass **both**: (a) against the current repo and (b) against the new one | route; (a) is never waivable | ✓ | — |
 | S1-09 | License. Never fails. Records `license.kind`: `open-source` (SPDX in `license_open_source`), `custom` (any other ID, `Other` or `NOASSERTION`) or `none`. If a non-open-source license's text matches `license_route_phrases`, the result is `route` so the owner can reject a license that forbids personal use | route | ✓ | ✓ |
@@ -684,7 +687,7 @@ Classification goes by changed paths first, then author.
      - **Scan count:** kept as a hidden marker `<!-- avp:scans=N -->` in the PR's single bot comment, which contributors can't edit. The `report` job adds one for each PR-mode `pass`, `flag` or `error` it handles with `counted=true`, and every re-render of the comment carries the marker forward.
      - If the PR has had `per_pr_max_scans` counted scans and doesn't carry `owner:scan`, fail `gate/stage2` with "Scan limit reached; waiting for the curator", label `needs-owner`, and render `owner-review`.
      - Otherwise swap the label to `stage2:scanning` and dispatch `stage2-scan.yml` with `mode=pr, pr, head_sha, linked_repo, linked_commit, counted`; if the dispatch call fails, swap the label back to `stage2:queued`. `counted` is false when the PR carries `owner:scan` (the owner asked for that scan, so it doesn't use up the contributor's scans), true otherwise.
-  5. **Rescans:** first read the linked repo's current default-branch HEAD; if it equals `scanned_commit`, the entry is already current, so skip it (`scan_state` in `state/` can lag until the next write). Then re-read the linked repo's ID; on a mismatch with `repo_id` (S1-16), skip the rescan. The dispatcher never writes state; the next health check pulls the entry (§8.6). Then run S1-06, S1-07 and S1-11a to S1-11c at `linked_commit`; if any is not `pass`, skip the rescan without commenting (the health check already records the same results on "Health tracking" when they change). So an entry listed despite an S1-11b or S1-11c route is never rescanned automatically, and its pin stays where it is (the scan label shows the commits since). The owner can move it with a small edit PR to the entry plus `owner:scan`. Otherwise dispatch with `mode=rescan, entry_id, linked_repo, linked_commit, repo_id, base_commit` (`base_commit` = the entry's current `scanned_commit`).
+  5. **Rescans:** first read the current linked HEAD (§5.1); if it equals `scanned_commit`, the entry is already current, so skip it (`scan_state` in `state/` can lag until the next write). Then re-read the linked repo's ID; on a mismatch with `repo_id` (S1-16), skip the rescan. The dispatcher never writes state; the next health check pulls the entry (§8.6). Then run S1-06, S1-07 and S1-11a to S1-11c at `linked_commit`; if any is not `pass`, skip the rescan without commenting (the health check already records the same results on "Health tracking" when they change). So an entry listed despite an S1-11b or S1-11c route is never rescanned automatically, and its pin stays where it is (the scan label shows the commits since). The owner can move it with a small edit PR to the entry plus `owner:scan`. Otherwise dispatch with `mode=rescan, entry_id, linked_repo, linked_commit, repo_id, base_commit` (`base_commit` = the entry's current `scanned_commit`).
   6. **Sweep:** for every open entry PR whose three checks are green, call `try_merge`. This also merges PRs that were waiting while `AUTO_MERGE_ENABLED` was off.
   7. Update queued PRs' comments with position and estimated wait.
 
@@ -880,7 +883,7 @@ Use this index to answer questions like "What retro games can I play on Apple Vi
 ```json
 {
   "$schema": "<raw_base_url>/schema/feed-v1.schema.json",
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "identifier": "com.trevorbilt.avp-ports-index",
   "generated_at": "<ISO8601>",
   "publisher": {"name": "trevorbilt", "curator": "Trevor \"Toast\"", "github": "edgytoast", "url": "https://trevorbilt.com", "contact": "admin@trevorbilt.com"},
@@ -888,7 +891,7 @@ Use this index to answer questions like "What retro games can I play on Apple Vi
   "entries": [{
     "id": "", "name": "",
     "game": {"title": "", "original_platform": "", "original_release_year": null},
-    "repo_url": "", "source_url": "", "install_doc_url": "",
+    "repo_url": "", "source_ref": null, "source_url": "", "install_doc_url": "",
     "developer": {"name": "", "github": "", "url": null, "github_verified": true},
     "credits": [], "upstream": [],
     "self_reported_status": "", "status_notes": null,
@@ -983,8 +986,8 @@ You are preparing the user's port repo so it passes the index's automated checks
 1. Confirm the port repo is on GitHub and public, and that the user can push to it. Never add game data, disc images, archives or prebuilt binaries.
 2. If `AVP-INSTALL.md` is missing at the repo root, create it from `assets/AVP-INSTALL.template.md` (suggested sections: Requirements, Game Files, Build, Install on Apple Vision Pro). Write Build so it starts from an existing checkout, since players clone the scanned commit from the port's index page. Fill it from the repo's README and build files; ask the user for anything unknown.
 3. Leave licensing alone. A missing or custom license is accepted and shown as-is; never add or change a license on the user's behalf.
-4. With the user's approval, commit and push those changes to the port repo's default branch.
-5. Build `entries/<id>.yaml` from `assets/entry.template.yaml` using `references/entry-fields.md`. Fill the six required fields, and the optional ones the user can answer quickly. `developer.github` is whoever built the port, usually the user. Ask the user for their honest `status`, explaining the four values. Credit upstream decompilation and VR-port projects in `credits`.
+4. With the user's approval, commit and push those changes to the branch the port lives on.
+5. Build `entries/<id>.yaml` from `assets/entry.template.yaml` using `references/entry-fields.md`. Fill the six required fields, and the optional ones the user can answer quickly. `developer.github` is whoever built the port, usually the user. Ask the user for their honest `status`, explaining the four values. Credit upstream decompilation and VR-port projects in `credits`. If the port lives on a branch other than the repo's default branch, set `source_ref` to that branch.
 6. Run `python scripts/preflight.py entries/<id>.yaml` and fix everything it reports.
 7. Fork edgytoast/avp-ports-index (or push a branch, if the user has write access to it), add only that one file, and open a PR to `main` using the template checklist. Open it from the account that owns the port repo (or a public member of its org), or it will wait for the curator.
 8. Tell the user: clean PRs merge on their own after a queued security review that can take hours; labels show progress; the curator's verification is separate and can't be requested in the PR.
