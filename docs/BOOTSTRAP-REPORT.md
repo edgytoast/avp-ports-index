@@ -187,6 +187,7 @@ Choices made where the spec leaves a detail open (SPEC §0), plus the fixes from
 40. **More dispatcher triggers.** In staging, GitHub ran the "hourly" dispatcher schedule only every two to two-and-a-half hours. At the owner's direction, the dispatcher now also runs when `health-check`, `build-surfaces` or `kill-switch` finishes, so rescans start right after a health check, merges and policy changes are swept right away, and `restore` or `approve` resumes rescans at once. Changing a repository variable (pausing or unpausing Stage 2 or auto-merge) raises no GitHub event; dispatch `stage2-dispatcher` by hand afterwards, or wait for the next PR or schedule.
 
 41. **Clearer follow-up message to Jules.** In one staging session Jules said it had "included the file's content in a fenced JSON block" but sent no JSON, twice. The single follow-up message (SPEC §6.2 step 3) now says the verdict wasn't in its messages, that workspace files can't be read, and asks for the full JSON in the message itself. The review prompt is unchanged.
+42. **Hosted logo.** SPEC §4 expects `brand/trevorbilt-logo.svg`. At the owner's suggestion the README header uses the logo hosted on trevorbilt.com instead (`logo: https://trevorbilt.com/assets/logo-BdrEikAq.png` in `brand/brand.yaml`); a repo path still works and renders only if the file exists. The filename's hash changes only if the image does, so the line needs updating only when the logo is replaced.
 
 ## Pre-deploy code review (2026-10-03)
 
