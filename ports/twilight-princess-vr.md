@@ -20,6 +20,7 @@ Then follow the [install guide](https://github.com/edgytoast/tpvr-visionos/blob/
 | Source (scanned) | [edgytoast/tpvr-visionos at 69873b7cecd5](https://github.com/edgytoast/tpvr-visionos/tree/69873b7cecd5bb99ae05d64f7592fb9ac1937b80) |
 | Install guide | [AVP-INSTALL.md at 69873b7cecd5](https://github.com/edgytoast/tpvr-visionos/blob/69873b7cecd5bb99ae05d64f7592fb9ac1937b80/AVP-INSTALL.md) |
 | Repo | [edgytoast/tpvr-visionos](https://github.com/edgytoast/tpvr-visionos) |
+| Developer site | <https://trevorbilt.com> |
 | License | CC0-1.0 |
 | Last commit | 2026-10-04 |
 | visionOS | 26.0 or later |

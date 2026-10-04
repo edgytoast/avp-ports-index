@@ -59,6 +59,15 @@ Found something broken or malicious? [Open a report issue](https://github.com/ed
 
 Rights holders: see [SECURITY.md](SECURITY.md#takedown) or email admin@trevorbilt.com.
 
+## More from Trevorbilt
+
+Apps for Apple Vision Pro from the curator of this index.
+
+| | |
+| --- | --- |
+| <a href="https://trevorbilt.com/loose-papers"><img src="https://trevorbilt.com/assets/loose-papers-icon-DJ006cPT.png" alt="Loose Papers icon" width="64"></a> | **[Loose Papers](https://trevorbilt.com/loose-papers)**<br>A reader for your own books and comics \(PDF, EPUB, CBR and CBZ\), with page turns that follow your hand. |
+| <a href="https://trevorbilt.com/papas-ball-and-tee"><img src="https://trevorbilt.com/assets/papas-icon-DUIo8ARw.png" alt="Papa's Ball &amp; Tee icon" width="64"></a> | **[Papa's Ball &amp; Tee](https://trevorbilt.com/papas-ball-and-tee)**<br>A small balancing game that rests in your space, for a quick challenge you never quite master. |
+
 ---
 
 Curated by trevorbilt · [trevorbilt.com](https://trevorbilt.com)

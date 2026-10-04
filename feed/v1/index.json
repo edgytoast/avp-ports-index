@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.0.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-04T17:42:40Z",
+  "generated_at": "2026-10-04T17:47:42Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
