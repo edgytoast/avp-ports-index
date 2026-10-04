@@ -21,6 +21,9 @@ Then follow the [install guide]({{ v.install_url }}) from its build steps. Skip 
 | Source (scanned) | [{{ v.repo_owner }}/{{ v.repo_name }} at {{ v.scanned_commit[:12] }}]({{ v.source_url }}) |
 | Install guide | [AVP-INSTALL.md at {{ v.scanned_commit[:12] }}]({{ v.install_url }}) |
 | Repo | [{{ v.repo_owner }}/{{ v.repo_name }}]({{ v.repo }}){% if v.archived %} (archived){% endif %} |
+{% if v.entry.developer.get("url") %}
+| Developer site | <{{ v.entry.developer.url }}> |
+{% endif %}
 | License | {{ v.license_label | md }} |
 | Last commit | {{ v.last_commit }} |
 {% if v.entry.visionos_min %}
