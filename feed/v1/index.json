@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
+  "schema_version": "1.0.0",
+  "identifier": "com.trevorbilt.avp-ports-index",
+  "generated_at": "2026-10-04T16:52:23Z",
+  "publisher": {
+    "name": "trevorbilt",
+    "curator": "Trevor \"Toast\"",
+    "github": "edgytoast",
+    "url": "https://trevorbilt.com",
+    "contact": "admin@trevorbilt.com"
+  },
+  "license": "CC0-1.0",
+  "entries": [],
+  "unavailable": [],
+  "tombstones": []
+}

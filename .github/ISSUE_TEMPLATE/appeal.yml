@@ -1,0 +1,17 @@
+name: Appeal
+description: Ask the curator to take another look at a decision on your PR.
+title: "Appeal: "
+labels: [appeal]
+body:
+  - type: input
+    id: pr
+    attributes:
+      label: PR number
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why the flag is wrong
+    validations:
+      required: true

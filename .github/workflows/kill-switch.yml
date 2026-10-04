@@ -1,0 +1,70 @@
+# The curator's kill switch (docs/SPEC.md §8.7). The kill-switch issue label always means
+# "pull without blocklisting"; restore, takedown, approve and blocklisting use the dispatch form.
+name: kill-switch
+
+on:
+  workflow_dispatch:
+    inputs:
+      entry_id:
+        type: string
+        required: true
+      action:
+        type: choice
+        options: [pull, restore, takedown, approve]
+        required: true
+      blocklist:
+        type: boolean
+        default: false
+  issues:
+    types: [labeled]
+
+permissions: {}
+
+jobs:
+  kill:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.label.name == 'kill-switch' && format('{0}', github.event.sender.id) == vars.OWNER_ID)
+    runs-on: ubuntu-latest
+    permissions: {}
+    timeout-minutes: 30
+    concurrency:
+      group: main-writer
+      cancel-in-progress: false
+      queue: max
+    env:
+      PYTHONPATH: tools
+      OWNER_ID: ${{ vars.OWNER_ID }}
+      OWNER_LOGIN: ${{ vars.OWNER_LOGIN }}
+      BOT_LOGIN: ${{ vars.BOT_LOGIN }}
+      APP_ID: ${{ vars.APP_ID }}
+      APP_SLUG: ${{ vars.APP_SLUG }}
+      AUTO_MERGE_ENABLED: ${{ vars.AUTO_MERGE_ENABLED }}
+      STAGE2_ENABLED: ${{ vars.STAGE2_ENABLED }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Install the index tooling
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install --quiet --require-hashes --no-deps -r tools/requirements.txt
+      - name: Mint the token
+        id: app
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_KEY }}
+          permission-contents: write
+          permission-issues: write
+          permission-pull-requests: read
+          permission-checks: read
+      - name: Apply the kill switch
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          BLOCKLIST_SALT: ${{ secrets.BLOCKLIST_SALT }}
+          INPUT_ENTRY_ID: ${{ inputs.entry_id }}
+          INPUT_ACTION: ${{ inputs.action }}
+          INPUT_BLOCKLIST: ${{ inputs.blocklist }}
+        run: '"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli kill-switch'

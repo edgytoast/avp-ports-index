@@ -1,0 +1,120 @@
+# The PR gate (docs/SPEC.md §8.2). pull_request_target runs this base-branch file only; the
+# PR's content is read as data through the Contents API and never checked out or executed.
+name: pr-gate
+
+on:
+  pull_request_target: # zizmor: ignore[dangerous-triggers] base code only, inputs via env (SPEC §8.0)
+    types: [opened, synchronize, reopened, ready_for_review, labeled]
+    branches: [main]
+
+permissions: {}
+
+jobs:
+  gate:
+    if: >-
+      github.event.pull_request.user.login != 'dependabot[bot]' &&
+      (github.event.action != 'labeled' ||
+       github.event.label.name == 'owner:scan' ||
+       github.event.label.name == 'blocklist' ||
+       github.event.label.name == 'kill-switch')
+    runs-on: ubuntu-latest
+    permissions: {}
+    timeout-minutes: 20
+    concurrency:
+      group: gate-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+    env:
+      PYTHONPATH: tools
+      OWNER_ID: ${{ vars.OWNER_ID }}
+      OWNER_LOGIN: ${{ vars.OWNER_LOGIN }}
+      BOT_LOGIN: ${{ vars.BOT_LOGIN }}
+      APP_ID: ${{ vars.APP_ID }}
+      APP_SLUG: ${{ vars.APP_SLUG }}
+      AUTO_MERGE_ENABLED: ${{ vars.AUTO_MERGE_ENABLED }}
+      STAGE2_ENABLED: ${{ vars.STAGE2_ENABLED }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install the index tooling
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install --quiet --require-hashes --no-deps -r tools/requirements.txt
+      - name: Mint the gate token
+        id: app
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_KEY }}
+          permission-checks: write
+          permission-pull-requests: write
+          permission-issues: write
+          permission-contents: read
+      - name: Run the gate
+        id: gate
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          BLOCKLIST_SALT: ${{ secrets.BLOCKLIST_SALT }}
+        run: '"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli gate'
+      - name: Mint the merge token
+        id: merge-token
+        if: steps.gate.outputs.merge_prs != ''
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - name: Apply the merge rule
+        if: steps.gate.outputs.merge_prs != ''
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          MERGE_TOKEN: ${{ steps.merge-token.outputs.token }}
+          MERGE_PRS: ${{ steps.gate.outputs.merge_prs }}
+          BLOCKLIST_SALT: ${{ secrets.BLOCKLIST_SALT }}
+        run: '"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli merge'
+
+  blocklist:
+    if: >-
+      github.event.action == 'labeled' &&
+      github.event.label.name == 'blocklist' &&
+      format('{0}', github.event.sender.id) == vars.OWNER_ID
+    runs-on: ubuntu-latest
+    permissions: {}
+    timeout-minutes: 20
+    concurrency:
+      group: main-writer
+      cancel-in-progress: false
+      queue: max
+    env:
+      PYTHONPATH: tools
+      OWNER_ID: ${{ vars.OWNER_ID }}
+      OWNER_LOGIN: ${{ vars.OWNER_LOGIN }}
+      BOT_LOGIN: ${{ vars.BOT_LOGIN }}
+      APP_ID: ${{ vars.APP_ID }}
+      APP_SLUG: ${{ vars.APP_SLUG }}
+      AUTO_MERGE_ENABLED: ${{ vars.AUTO_MERGE_ENABLED }}
+      STAGE2_ENABLED: ${{ vars.STAGE2_ENABLED }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Install the index tooling
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install --quiet --require-hashes --no-deps -r tools/requirements.txt
+      - name: Mint the token
+        id: app
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+          permission-issues: write
+      - name: Blocklist the linked repo and close the PR
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          BLOCKLIST_SALT: ${{ secrets.BLOCKLIST_SALT }}
+        run: '"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli blocklist-label'

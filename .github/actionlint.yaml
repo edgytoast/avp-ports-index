@@ -1,0 +1,6 @@
+# actionlint configuration for self-test (docs/SPEC.md §14.2).
+paths:
+  .github/workflows/**/*.yml:
+    ignore:
+      # concurrency.queue (GitHub changelog, 2026-05-07) is newer than this actionlint release.
+      - 'unexpected key "queue" for "concurrency" section'

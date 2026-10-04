@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/edgytoast/avp-ports-index/schema/blocklist.schema.json",
+  "title": "Blocklist (salted hashes only; no reasons, no plaintext)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "entries"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["h", "kind", "category", "added"],
+        "properties": {
+          "h": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "kind": {"enum": ["repo_id", "repo_name", "slug"]},
+          "category": {"const": "removed-policy"},
+          "added": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"}
+        }
+      }
+    }
+  }
+}

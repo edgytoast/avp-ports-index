@@ -1,0 +1,10 @@
+schema_version: 1
+records: {}          # empty at handoff
+# example record shape:
+# some-port-id:
+#   verified: true
+#   verified_on: 2026-10-10
+#   verified_commit: "<40-char sha; must equal the entry's scanned_commit>"
+#   repo_id: <int; must equal the entry's lifecycle repo_id>
+#   visionos_version: "26.0"
+#   notes: "Played through the first level with a controller."

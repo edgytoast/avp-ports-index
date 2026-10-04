@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/edgytoast/avp-ports-index/schema/entry.schema.json",
+  "title": "AVP Ports Index entry",
+  "description": "One entries/<id>.yaml file. Only these fields are allowed; owner and bot fields (owner_verified, last_commit_date, health, lifecycle, scanned_commit) are never accepted.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "game", "repo", "developer", "status"],
+  "properties": {
+    "schema_version": {
+      "description": "Always 1. Treated as 1 when absent.",
+      "const": 1
+    },
+    "id": {
+      "description": "Lowercase slug, equal to the file name without .yaml.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "maxLength": 64
+    },
+    "name": {
+      "description": "The port's name as players should see it.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "game": {
+      "description": "The original game.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title"],
+      "properties": {
+        "title": {
+          "description": "The original game's title.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "original_platform": {
+          "description": "The platform the game first shipped on.",
+          "enum": ["gamecube", "wii", "n64", "ps1", "ps2", "xbox", "dreamcast", "pc", "other"]
+        },
+        "original_release_year": {
+          "description": "Year the original game was released.",
+          "type": "integer",
+          "minimum": 1970,
+          "maximum": 2030
+        }
+      }
+    },
+    "repo": {
+      "description": "Your port's public GitHub repository, as https://github.com/<owner>/<name> (no .git, no trailing slash).",
+      "type": "string",
+      "pattern": "^https://github\\.com/[A-Za-z0-9-]+/[A-Za-z0-9._-]+$",
+      "not": {"pattern": "\\.git$"}
+    },
+    "developer": {
+      "description": "Who built the port.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["github"],
+      "properties": {
+        "github": {
+          "description": "The developer's GitHub login.",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$"
+        },
+        "name": {
+          "description": "Display name. Surfaces show the GitHub login when absent.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "url": {
+          "description": "The developer's website (https).",
+          "$ref": "#/$defs/https_url"
+        }
+      }
+    },
+    "credits": {
+      "description": "People and projects to credit. Encouraged: list the upstream decompilation and VR-port projects.",
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "role"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1, "maxLength": 80},
+          "role": {"type": "string", "minLength": 1, "maxLength": 80},
+          "url": {"$ref": "#/$defs/https_url"}
+        }
+      }
+    },
+    "upstream": {
+      "description": "Upstream project URLs (https).",
+      "type": "array",
+      "maxItems": 20,
+      "items": {"$ref": "#/$defs/https_url"}
+    },
+    "status": {
+      "description": "developer-verified: the port's developer ran the current build on Apple Vision Pro, end to end. working: it runs and is playable. partially-working: playable with notable bugs or missing features. not-working: does not currently run; listed for preservation.",
+      "enum": ["developer-verified", "working", "partially-working", "not-working"]
+    },
+    "status_notes": {
+      "description": "Short notes on the status.",
+      "type": "string",
+      "maxLength": 280
+    },
+    "visionos_min": {
+      "description": "Minimum visionOS version, as a quoted string such as \"26.0\".",
+      "type": "string",
+      "pattern": "^\\d+(\\.\\d+)?$"
+    },
+    "input": {
+      "description": "Supported input methods.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"enum": ["game-controller", "hand-tracking", "keyboard-mouse"]}
+    },
+    "description": {
+      "description": "One or two sentences about the port.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300
+    },
+    "tags": {
+      "description": "Up to 8 lowercase slugs.",
+      "type": "array",
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "maxLength": 32}
+    }
+  },
+  "$defs": {
+    "https_url": {
+      "type": "string",
+      "pattern": "^https://[A-Za-z0-9.-]+(:[0-9]+)?(/[A-Za-z0-9._~!$&*+,;=:@%/?#-]*)?$",
+      "maxLength": 2048
+    }
+  }
+}

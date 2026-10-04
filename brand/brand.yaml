@@ -1,0 +1,8 @@
+display_name: "AVP Ports Index, curated by trevorbilt"
+short_name: "AVP Ports Index"
+curator_name: "Trevor \"Toast\""
+curator_github: edgytoast
+site: https://trevorbilt.com
+contact: admin@trevorbilt.com
+logo: brand/trevorbilt-logo.svg     # rendered only if the file exists
+accent_hex: "#ED7014"

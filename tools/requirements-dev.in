@@ -1,0 +1,6 @@
+pytest
+zizmor
+actionlint-py
+pynacl
+pyjwt[crypto]
+ruff

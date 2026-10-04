@@ -1,0 +1,517 @@
+"""Jules outcomes (U1), the report job (U12, U18), the queue (U6) and the pre-merge re-check (U7)."""
+
+from __future__ import annotations
+
+import datetime as dt
+import json
+
+import pytest
+from conftest import BOT_ID, OWNER_ID, SALT, SHA, entry_yaml, list_entry, write_entry
+
+from avpindex import blocklist, jules, merge, messages, queue, report, store
+from avpindex.gate import STAGE1, STAGE2, stage2_marker
+
+POLICY = {"stage2": {"confidence_threshold": 80, "jules_timeout_minutes": 60}}
+
+
+def verdict(conf=90, steering=False, findings=()):
+    return {"safe_confidence": conf, "summary": "ok", "findings": list(findings), "steering_attempt": steering}
+
+
+class FakeJules:
+    def __init__(self, states, activities=None, create_error=None):
+        self.states = list(states)
+        self.acts = activities or []
+        self.create_error = create_error
+        self.messages = []
+
+    def create_session(self, prompt, title):
+        if self.create_error:
+            raise self.create_error
+        assert "Never build, install or run anything" in prompt and "verdict.json" in prompt
+        return {"name": "sessions/1", "url": "https://jules.google.com/session/1"}
+
+    def get_session(self, name):
+        state = self.states.pop(0) if len(self.states) > 1 else self.states[0]
+        return {"state": state}
+
+    def activities(self, name):
+        return self.acts() if callable(self.acts) else self.acts
+
+    def send_message(self, name, text):
+        self.messages.append(text)
+
+    def approve_plan(self, name):
+        self.messages.append("approve")
+
+
+class Clock:
+    def __init__(self):
+        self.t = 0.0
+
+    def __call__(self):
+        return self.t
+
+    def sleep(self, seconds):
+        self.t += seconds
+
+
+def message_activity(v):
+    return [{"agentMessaged": {"agentMessage": "Done.\n```json\n" + json.dumps(v) + "\n```"}}]
+
+
+def patch_activity(v):
+    patch = "diff --git a/verdict.json b/verdict.json\n--- /dev/null\n+++ b/verdict.json\n@@ -0,0 +1 @@\n+" + json.dumps(v)
+    return [{"artifacts": [{"changeSet": {"gitPatch": {"unidiffPatch": patch}}}]}]
+
+
+def review(client):
+    clock = Clock()
+    return jules.review(client, "https://github.com/a/b", SHA(1), POLICY, sleep=clock.sleep, clock=clock)
+
+
+class TestJules:
+    """U1."""
+
+    def test_decide(self):
+        assert jules.decide(verdict(79), 80) == "flag"
+        assert jules.decide(verdict(80), 80) == "pass"
+        assert jules.decide(verdict(100, steering=True), 80) == "flag"
+        crit = {"severity": "critical", "file": "x", "category": "c", "explanation": "e"}
+        assert jules.decide(verdict(85, findings=[crit]), 80) == "flag"
+
+    def test_verdict_from_patch_then_message(self):
+        assert review(FakeJules(["IN_PROGRESS", "COMPLETED"], patch_activity(verdict(91)))).verdict["safe_confidence"] == 91
+        out = review(FakeJules(["COMPLETED"], message_activity(verdict(60))))
+        assert out.result == "flag" and out.session_url
+
+    def test_rate_limit_while_polling_is_waited_out(self, monkeypatch):
+        import requests as rq
+        monkeypatch.setattr(jules.time, "sleep", lambda s: None)
+        answers = [429, 200]
+
+        class Session:
+            def request(self, method, url, **kw):
+                resp = rq.Response()
+                resp.status_code = answers.pop(0)
+                resp._content = b'{"state": "IN_PROGRESS"}'
+                return resp
+
+        assert jules.Jules("k", session=Session()).get_session("sessions/1") == {"state": "IN_PROGRESS"}
+
+    def test_verdict_found_anywhere_in_the_session(self):
+        v = verdict(91)
+        bash = [{"artifacts": [{"bashOutput": {"command": "cat verdict.json", "output": json.dumps(v, indent=2), "exitCode": 0}}]}]
+        assert review(FakeJules(["COMPLETED"], bash)).verdict["safe_confidence"] == 91
+        same_line = [{"agentMessaged": {"agentMessage": "Here it is: ```json " + json.dumps(v) + "```"}}]
+        assert review(FakeJules(["COMPLETED"], same_line)).result == "pass"
+        nested = "diff --git a/w/verdict.json b/w/verdict.json\n--- /dev/null\n+++ b/w/verdict.json\n@@ -0,0 +1 @@\n+" + json.dumps(v)
+        assert review(FakeJules(["COMPLETED"], [{"artifacts": [{"changeSet": {"gitPatch": {"unidiffPatch": nested}}}]}])).result == "pass"
+        invalid_then_valid = [{"agentMessaged": {"agentMessage": json.dumps({"safe_confidence": 120})}},
+                              {"agentMessaged": {"agentMessage": "Final: " + json.dumps(verdict(30))}}]
+        out = review(FakeJules(["COMPLETED"], invalid_then_valid))
+        assert out.result == "flag" and out.diagnostics["activity_kinds"] == {"agentMessaged": 2}
+
+    def test_quota_is_deferred(self):
+        assert review(FakeJules(["QUEUED"], create_error=jules.Deferred("429"))).result == "deferred"
+
+    def test_timeout_is_error(self):
+        out = review(FakeJules(["IN_PROGRESS"]))
+        assert out.result == "error" and out.reason == "timed out"
+
+    def test_two_invalid_verdicts_is_error(self):
+        client = FakeJules(["COMPLETED", "IN_PROGRESS", "COMPLETED"], [{"agentMessaged": {"agentMessage": "no json"}}])
+        out = review(client)
+        assert out.result == "error" and len(client.messages) == 1
+
+    def test_stops_twice_is_error_and_one_nudge(self):
+        client = FakeJules(["AWAITING_USER_FEEDBACK", "IN_PROGRESS", "AWAITING_USER_FEEDBACK"], [])
+        out = review(client)
+        assert out.result == "error" and client.messages == [jules.NUDGE]
+
+    def test_nudge_then_verdict(self):
+        acts = {"n": 0}
+
+        def activities():
+            acts["n"] += 1
+            return [] if acts["n"] == 1 else message_activity(verdict(88))
+
+        client = FakeJules(["AWAITING_USER_FEEDBACK", "IN_PROGRESS", "COMPLETED"], activities)
+        assert review(client).result == "pass"
+
+
+def scan_inputs(mode="pr", **kw):
+    base = dict(mode=mode, pr=7 if mode == "pr" else None, head_sha=SHA(70) if mode == "pr" else None,
+                linked_repo="trevorbilt-bot/good", linked_commit=SHA(11), entry_id="good", repo_id=11,
+                base_commit=None, counted=True)
+    base.update(kw)
+    return report.Inputs(**base)
+
+
+def queued_pr(gh, rt, number=7, head=SHA(70), path="entries/good.yaml", status="added",
+              labels=("stage2:scanning",), repo="trevorbilt-bot/good"):
+    gh.open_pr(number, "trevorbilt-bot", path, status, entry_yaml("good", repo), labels=labels, head=head)
+    rid = gh.repos[repo.lower()]["id"]
+    gh.create_check(head, STAGE1, conclusion="success", external_id=f"{rid}@{gh.heads[repo.lower()]}")
+    gh.create_check(head, "gate/policy", conclusion="success")
+    messages.upsert(rt, number, "queued", scanning=f"{rid}@{gh.heads[repo.lower()]}")
+
+
+class TestReport:
+    def test_pr_pass_counts_and_merges(self, rt, gh):
+        gh.add_repo("trevorbilt-bot/good", 11)
+        queued_pr(gh, rt)
+        result, prs = report.run(rt, scan_inputs(), {"result": "pass", "verdict": verdict(92)})
+        assert result == "pass" and prs == [7]
+        check = gh.latest(SHA(70), STAGE2)
+        assert check["conclusion"] == "success" and check["external_id"] == f"11@{SHA(11)}"
+        assert "stage2:pass" in gh.labels_of(7) and "stage2:scanning" not in gh.labels_of(7)
+        state = messages.read_state({"body": gh.bot_comment(7)})
+        assert state["scans"] == 1 and state["passed"] == {f"11@{SHA(11)}": 92}
+        assert merge.try_merge(rt, 7) == "merged"
+        assert gh.merged == [(7, SHA(70), "entry: good (#7)")]
+
+    def test_pr_pass_for_old_commit_requeues(self, rt, gh):
+        gh.add_repo("trevorbilt-bot/good", 11)
+        queued_pr(gh, rt)
+        gh.create_check(SHA(70), STAGE1, conclusion="success", external_id=f"11@{SHA(12)}")
+        result, prs = report.run(rt, scan_inputs(), {"result": "pass", "verdict": verdict(92)})
+        assert prs == [] and "stage2:queued" in gh.labels_of(7)
+
+    def test_pr_flag_records_flag(self, rt, gh):
+        gh.add_repo("trevorbilt-bot/good", 11)
+        queued_pr(gh, rt)
+        finding = {"severity": "high", "file": "scripts/setup.sh", "category": "exfiltration", "explanation": "x"}
+        report.run(rt, scan_inputs(), {"result": "flag", "verdict": verdict(40, findings=[finding])})
+        assert {"stage2:flagged", "needs-owner"} <= gh.labels_of(7)
+        assert blocklist.is_flagged(store.State.load(rt.root), SALT, 11)
+        assert "scripts/setup.sh" in gh.bot_comment(7) and "nothing has been decided yet" in gh.bot_comment(7)
+        assert gh.latest(SHA(70), STAGE2)["conclusion"] == "failure"
+
+    def test_pr_flag_on_same_repo_edit_pulls(self, rt, gh):
+        """U12: a PR flag on a same-repo edit of a listed entry has the rescan effects."""
+        repo = gh.add_repo("trevorbilt-bot/good", 11)
+        list_entry(rt, "good", repo, scanned=SHA(5))
+        queued_pr(gh, rt, status="modified")
+        report.run(rt, scan_inputs(), {"result": "flag", "verdict": verdict(40)})
+        state = store.State.load(rt.root)
+        assert state.lifecycle["good"]["status"] == "pulled"
+        assert state.health["good"]["flagged_commit"] == SHA(11) and state.health["good"]["rescan_hold"]
+        assert state.health["good"]["scanned_commit"] == SHA(5)
+        assert len([i for i in gh.issue_store.values() if i["title"] == "Triage: good"]) == 1
+
+    def test_pr_error_and_deferred(self, rt, gh):
+        gh.add_repo("trevorbilt-bot/good", 11)
+        queued_pr(gh, rt)
+        report.run(rt, scan_inputs(), {"result": "deferred"})
+        assert "stage2:queued" in gh.labels_of(7)
+        assert messages.read_state({"body": gh.bot_comment(7)})["scans"] == 0
+        gh.add_labels(7, ["stage2:scanning"])
+        report.run(rt, scan_inputs(), {"result": "error", "reason": "timed out"})
+        assert "needs-owner" in gh.labels_of(7) and "stage2:scanning" not in gh.labels_of(7)
+        assert "couldn't settle this one" in gh.bot_comment(7)
+
+    def test_failed_scan_job_is_error(self, root):
+        out = report.load_outcome(root / "nope.json", "cancelled", store.load_policy(root))
+        assert out["result"] == "error"
+
+    def test_stale_error_changes_nothing(self, rt, gh):
+        gh.add_repo("trevorbilt-bot/good", 11)
+        queued_pr(gh, rt)
+        messages.upsert(rt, 7, scanning=f"11@{SHA(99)}")  # a newer scan is already running
+        report.run(rt, scan_inputs(), {"result": "error"})
+        assert "needs-owner" not in gh.labels_of(7) and gh.latest(SHA(70), STAGE2) is None
+
+    def test_hidden_state_cannot_close_its_comment(self, rt, gh):
+        gh.add_repo("trevorbilt-bot/good", 11)
+        queued_pr(gh, rt)
+        finding = {"severity": "high", "file": "x/--> @victim [l](https://evil) <!--.sh", "category": "c",
+                   "explanation": "e"}
+        report.run(rt, scan_inputs(), {"result": "flag", "verdict": verdict(40, findings=[finding])})
+        body = gh.bot_comment(7)
+        assert "--> @victim" not in body and body.count("-->") == 3  # the three markers' own closers
+        assert messages.read_state({"body": body})["flag_pointers"][0]["file"].startswith("x/--> @victim")
+
+    def test_owner_scan_not_counted(self, rt, gh):
+        gh.add_repo("trevorbilt-bot/good", 11)
+        queued_pr(gh, rt)
+        report.run(rt, scan_inputs(counted=False), {"result": "error"})
+        assert messages.read_state({"body": gh.bot_comment(7)})["scans"] == 0
+
+
+class TestRescan:
+    def setup_entry(self, rt, gh, *, approved=False):
+        repo = gh.add_repo("trevorbilt-bot/good", 11)
+        list_entry(rt, "good", repo, scanned=SHA(5), owner_approved=approved)
+        gh.move_head("trevorbilt-bot/good", SHA(11))
+        return repo
+
+    def rescan(self, rt, result, **kw):
+        inputs = scan_inputs(mode="rescan", base_commit=SHA(5), counted=False, **kw)
+        outcome = {"result": result, "verdict": verdict(90 if result == "pass" else 30), "session_url": "u"}
+        report.run(rt, inputs, outcome)
+        return store.State.load(rt.root)
+
+    def test_pass_moves_pin(self, rt, gh):
+        self.setup_entry(rt, gh)
+        state = self.rescan(rt, "pass")
+        health = state.health["good"]
+        assert health["scanned_commit"] == SHA(11) and health["scan_state"] == "current"
+        assert health["scan_kind"] == "automated"
+
+    def test_flag_pulls_unapproved_and_keeps_approved(self, rt, gh):
+        """U12."""
+        self.setup_entry(rt, gh)
+        state = self.rescan(rt, "flag")
+        assert state.lifecycle["good"]["status"] == "pulled" and state.health["good"]["rescan_hold"]
+        assert blocklist.is_flagged(state, SALT, 11) and not blocklist.hashes(state)
+
+    def test_flag_keeps_owner_approved_listed(self, rt, gh):
+        self.setup_entry(rt, gh, approved=True)
+        state = self.rescan(rt, "flag")
+        assert state.lifecycle["good"]["status"] == "listed" and state.health["good"]["scanned_commit"] == SHA(5)
+        assert state.health["good"]["flagged_commit"] == SHA(11)
+
+    def test_error_sets_rescan_after(self, rt, gh):
+        """U18."""
+        self.setup_entry(rt, gh)
+        state = self.rescan(rt, "error")
+        assert state.health["good"]["rescan_after"] == "2026-10-04T12:00:00Z"
+        assert any(i["title"] == "Triage: good" for i in gh.issue_store.values())
+
+    def test_discarded_when_entry_changed(self, rt, gh):
+        """U18: results for entries changed during the scan write nothing."""
+        self.setup_entry(rt, gh)
+        state = store.State.load(rt.root)
+        state.health["good"]["scanned_commit"] = SHA(6)
+        state.save()
+        assert self.rescan(rt, "flag").lifecycle["good"]["status"] == "listed"
+        state = store.State.load(rt.root)
+        state.health["good"].update(scanned_commit=SHA(5), rescan_hold=True)
+        state.save()
+        assert self.rescan(rt, "pass").health["good"]["scanned_commit"] == SHA(5)
+
+
+class TestQueue:
+    """U6."""
+
+    def run_at(self, minutes_ago, name="stage2 pr 1"):
+        created = store.utcnow() - dt.timedelta(minutes=minutes_ago)
+        # The API puts run-name in display_title; name is the workflow's name.
+        return {"id": minutes_ago, "name": "stage2-scan", "display_title": name,
+                "created_at": store.iso(created), "status": "completed"}
+
+    def test_ledger_and_slots(self, root):
+        policy = store.load_policy(root)
+        policy["stage2"].update(hourly_cap=3, daily_cap=12)  # independent of the repo's own settings
+        used = queue.ledger([self.run_at(10), self.run_at(30, "stage2 rescan good"), self.run_at(200)],
+                            store.utcnow())
+        assert (used["used_hour"], used["used_day"], used["rescans_day"]) == (2, 3, 1)
+        assert queue.slots(policy, True, used, False) == 1
+        assert queue.slots(policy, False, used, False) == 0
+        assert queue.slots(policy, True, used, True) == 0
+
+    def test_fifo_by_first_label_and_dispatch(self, rt, gh):
+        gh.add_repo("trevorbilt-bot/q1", 21)
+        gh.add_repo("trevorbilt-bot/q2", 22)
+        for number, name in ((5, "q2"), (6, "q1")):
+            gh.open_pr(number, "trevorbilt-bot", f"entries/{name}.yaml", "added",
+                       entry_yaml(name, f"trevorbilt-bot/{name}"), labels=("stage2:queued",), head=SHA(number))
+            gh.create_check(SHA(number), STAGE1, conclusion="success",
+                            external_id=f"{gh.repos[f'trevorbilt-bot/{name}']['id']}@{gh.heads[f'trevorbilt-bot/{name}']}")
+        gh.events[6][0]["created_at"] = "2026-10-01T00:00:00Z"  # q1's PR was queued first
+        rt.memo["policy"] = dict(store.load_policy(rt.root))
+        rt.memo["policy"]["stage2"] = dict(rt.memo["policy"]["stage2"], hourly_cap=1)
+        queue.dispatch(rt)
+        assert [d[1]["pr"] for d in gh.dispatched] == ["6"]
+        assert "stage2:scanning" in gh.labels_of(6) and "stage2:queued" in gh.labels_of(5)
+        assert "position 1" in gh.bot_comment(5)
+
+    def test_draft_and_limit_and_owner_scan(self, rt, gh):
+        gh.add_repo("trevorbilt-bot/q1", 21)
+        gh.open_pr(5, "trevorbilt-bot", "entries/q1.yaml", "added", entry_yaml("q1", "trevorbilt-bot/q1"),
+                   labels=("stage2:queued",), head=SHA(5))
+        gh.create_check(SHA(5), STAGE1, conclusion="success", external_id=f"21@{SHA(21)}")
+        messages.upsert(rt, 5, "x", scans=3)
+        queue.dispatch(rt)
+        assert gh.dispatched == [] and "needs-owner" in gh.labels_of(5)
+        assert gh.latest(SHA(5), STAGE2)["output"]["title"].startswith("Scan limit reached")
+        gh.remove_label(5, "needs-owner")
+        gh.add_labels(5, ["stage2:queued", "owner:scan"])
+        queue.dispatch(rt)
+        assert gh.dispatched[-1][1]["counted"] == "false"
+        messages.upsert(rt, 5, "y")
+        assert messages.read_state({"body": gh.bot_comment(5)})["scans"] == 3  # survives re-renders
+
+    def test_dispatch_failure_requeues(self, rt, gh):
+        """U1: a failed dispatch call puts the PR back to stage2:queued."""
+        gh.add_repo("trevorbilt-bot/q1", 21)
+        gh.open_pr(5, "trevorbilt-bot", "entries/q1.yaml", "added", entry_yaml("q1", "trevorbilt-bot/q1"),
+                   labels=("stage2:queued",), head=SHA(5))
+        gh.create_check(SHA(5), STAGE1, conclusion="success", external_id=f"21@{SHA(21)}")
+        gh.dispatch_ok = False
+        queue.dispatch(rt)
+        assert "stage2:queued" in gh.labels_of(5) and "stage2:scanning" not in gh.labels_of(5)
+
+    def test_rescan_candidates(self, rt, gh):
+        repo = gh.add_repo("trevorbilt-bot/good", 11)
+        list_entry(rt, "good", repo, scanned=SHA(5))
+        state = store.State.load(rt.root)
+        state.health["good"]["scan_state"] = "behind"
+        state.save()
+        gh.move_head("trevorbilt-bot/good", SHA(5))  # HEAD equals the pin: scan_state lags
+        queue.dispatch(rt)
+        assert gh.dispatched == []
+        gh.move_head("trevorbilt-bot/good", SHA(6))
+        state.health["good"].update(rescan_hold=True)
+        state.save()
+        queue.dispatch(rt)
+        assert gh.dispatched == []
+        state.health["good"].update(rescan_hold=False, flagged_commit=SHA(6))
+        state.save()
+        queue.dispatch(rt)
+        assert gh.dispatched == []
+        state.health["good"].update(flagged_commit=None, rescan_after="2026-10-04T00:00:00Z")
+        state.save()
+        queue.dispatch(rt)
+        assert gh.dispatched == []
+        state.health["good"].update(rescan_after=None)
+        state.save()
+        queue.dispatch(rt)
+        assert gh.dispatched[-1][1]["mode"] == "rescan" and gh.dispatched[-1][1]["base_commit"] == SHA(5)
+
+    def test_rescan_precheck(self, rt, gh):
+        """U3: a linked commit that adds a .iso or drops AVP-INSTALL.md is not rescanned."""
+        repo = gh.add_repo("trevorbilt-bot/good", 11)
+        list_entry(rt, "good", repo, scanned=SHA(5))
+        state = store.State.load(rt.root)
+        state.health["good"]["scan_state"] = "behind"
+        state.save()
+        gh.move_head("trevorbilt-bot/good", SHA(6), install=None)
+        queue.dispatch(rt)
+        gh.move_head("trevorbilt-bot/good", SHA(7), tree=[{"path": "disc.iso", "type": "blob", "size": 1}])
+        queue.dispatch(rt)
+        assert gh.dispatched == []
+        assert store.State.load(rt.root).health["good"]["scanned_commit"] == SHA(5)
+
+    def test_no_second_rescan_while_one_runs(self, rt, gh):
+        repo = gh.add_repo("trevorbilt-bot/good", 11)
+        list_entry(rt, "good", repo, scanned=SHA(5))
+        state = store.State.load(rt.root)
+        state.health["good"]["scan_state"] = "behind"
+        state.save()
+        gh.move_head("trevorbilt-bot/good", SHA(6))
+        gh.runs = [{"id": 1, "name": "stage2-scan", "display_title": "stage2 rescan good", "status": "in_progress",
+                    "created_at": store.iso(store.utcnow())}]
+        queue.dispatch(rt)
+        assert gh.dispatched == []
+        gh.runs[0]["status"] = "completed"
+        queue.dispatch(rt)
+        assert gh.dispatched and gh.dispatched[-1][1]["entry_id"] == "good"
+
+    def test_rescans_wait_for_eligible_prs_only(self, rt, gh):
+        repo = gh.add_repo("trevorbilt-bot/good", 11)
+        list_entry(rt, "good", repo, scanned=SHA(5))
+        state = store.State.load(rt.root)
+        state.health["good"]["scan_state"] = "behind"
+        state.save()
+        gh.move_head("trevorbilt-bot/good", SHA(6))
+        gh.add_repo("trevorbilt-bot/q1", 21)
+        gh.open_pr(5, "trevorbilt-bot", "entries/q1.yaml", "added", entry_yaml("q1", "trevorbilt-bot/q1"),
+                   labels=("stage2:queued",), head=SHA(50), draft=True)
+        queue.dispatch(rt)
+        assert gh.dispatched and gh.dispatched[-1][1]["mode"] == "rescan"
+
+    def test_s1_17_recheck_stops_queued_pr(self, rt, gh):
+        """U11: a PR queued before a rescan flagged its repo is stopped by the dispatcher."""
+        repo = gh.add_repo("trevorbilt-bot/good", 11)
+        list_entry(rt, "good", repo, scanned=SHA(5))
+        gh.open_pr(5, "trevorbilt-bot", "entries/good.yaml", "modified", entry_yaml("good", "trevorbilt-bot/good"),
+                   labels=("stage2:queued",), head=SHA(50))
+        gh.create_check(SHA(50), STAGE1, conclusion="success", external_id=f"11@{SHA(11)}")
+        state = store.State.load(rt.root)
+        blocklist.add_flag(state, SALT, 11)
+        state.save()
+        queue.dispatch(rt)
+        assert gh.dispatched == [] and "needs-owner" in gh.labels_of(5)
+        assert "an earlier automated review" in gh.bot_comment(5)
+
+
+class TestMerge:
+    """U7 and the merge rule."""
+
+    def green(self, gh, number, head, ext):
+        gh.create_check(head, "gate/policy", conclusion="success")
+        gh.create_check(head, STAGE1, conclusion="success", external_id=ext)
+        gh.create_check(head, STAGE2, conclusion="success", external_id=ext,
+                        summary=stage2_marker(kind="scan", confidence=90))
+
+    def test_second_pr_for_same_repo_fails_s1_04(self, rt, gh):
+        gh.add_repo("trevorbilt-bot/good", 11)
+        for number, entry_id in ((1, "good"), (2, "good-two")):
+            gh.open_pr(number, "trevorbilt-bot", f"entries/{entry_id}.yaml", "added",
+                       entry_yaml(entry_id, "trevorbilt-bot/good"), head=SHA(100 + number))
+            self.green(gh, number, SHA(100 + number), f"11@{SHA(11)}")
+        assert merge.try_merge(rt, 1) == "merged"
+        write_entry(rt.root, "good", "trevorbilt-bot/good")  # main now has it
+        assert merge.try_merge(rt, 2).startswith("re-check failed: S1-04")
+        assert gh.latest(SHA(102), STAGE1)["conclusion"] == "failure"
+
+    def test_pulled_or_blocklisted_while_waiting(self, rt, gh):
+        repo = gh.add_repo("trevorbilt-bot/good", 11)
+        list_entry(rt, "good", repo)
+        gh.open_pr(3, "trevorbilt-bot", "entries/good.yaml", "modified", entry_yaml("good", "trevorbilt-bot/good"),
+                   head=SHA(103))
+        self.green(gh, 3, SHA(103), f"11@{SHA(11)}")
+        gh.open_pr(4, "trevorbilt-bot", "entries/good.yaml", "removed", None, head=SHA(104))
+        self.green(gh, 4, SHA(104), None)
+        state = store.State.load(rt.root)
+        state.lifecycle["good"]["status"] = "pulled"
+        state.save()
+        assert "S1-15" in merge.try_merge(rt, 3)
+        assert "S1-15" in merge.try_merge(rt, 4)
+        state.lifecycle["good"]["status"] = "listed"
+        blocklist.block(state, SALT, repo_id=11, repo_name="trevorbilt-bot/good")
+        state.save()
+        gh.remove_label(4, "needs-owner")
+        self.green(gh, 4, SHA(104), None)
+        assert "S1-05" in merge.try_merge(rt, 4)
+
+    def test_rule_guards(self, rt, gh):
+        gh.add_repo("trevorbilt-bot/good", 11)
+        gh.open_pr(1, "trevorbilt-bot", "entries/good.yaml", "added", entry_yaml("good", "trevorbilt-bot/good"),
+                   head=SHA(101))
+        assert merge.try_merge(rt, 1) == "checks not green"
+        self.green(gh, 1, SHA(101), f"11@{SHA(11)}")
+        rt.auto_merge_enabled = False
+        assert merge.try_merge(rt, 1) == "auto-merge is off"
+        rt.auto_merge_enabled = True
+        gh.add_labels(1, ["needs-owner"])
+        assert merge.try_merge(rt, 1).startswith("draft, flagged")
+        gh.remove_label(1, "needs-owner")
+        gh.merge_status = 405
+        assert merge.try_merge(rt, 1).startswith("merge refused")
+        gh.merge_status = 200
+        assert merge.sweep(rt) == ["#1: merged"]
+
+    def test_flag_since_scan_blocks_merge(self, rt, gh):
+        """U11: a PR already scanning when a rescan flags its repo is stopped by try_merge."""
+        repo = gh.add_repo("trevorbilt-bot/good", 11)
+        list_entry(rt, "good", repo, scanned=SHA(5))
+        gh.open_pr(1, "trevorbilt-bot", "entries/good.yaml", "modified", entry_yaml("good", "trevorbilt-bot/good"),
+                   head=SHA(101))
+        self.green(gh, 1, SHA(101), f"11@{SHA(11)}")
+        state = store.State.load(rt.root)
+        blocklist.add_flag(state, SALT, 11)
+        state.save()
+        assert "S1-17" in merge.try_merge(rt, 1)
+        assert gh.latest(SHA(101), STAGE1)["conclusion"] == "failure"
+        gh.add_labels(1, ["owner:scan"])  # the owner's label reruns the gate, which re-posts stage1
+        gh.remove_label(1, "needs-owner")
+        self.green(gh, 1, SHA(101), f"11@{SHA(11)}")
+        assert merge.try_merge(rt, 1) == "merged"
+
+
+@pytest.mark.parametrize("owner", [OWNER_ID, BOT_ID])
+def test_owner_id_constant(owner):
+    assert owner > 0

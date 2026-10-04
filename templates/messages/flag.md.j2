@@ -1,0 +1,11 @@
+Thanks for submitting {{ name | u }}. The automated security review would like a person to take a closer look at {{ repo | u }} before it's listed, so the curator will review it by hand. It pointed to: {% if pointers %}{% for p in pointers %}{{ p.file | u(120) }} ({{ p.category | u(60) }}){% if not loop.last %}, {% endif %}{% endfor %}{% else %}its overall assessment{% endif %}. Automated reviews do get things wrong, so nothing has been decided yet, and new pushes won't start another automated review until the curator has looked.
+{% if rows %}
+
+Separately, the latest push has a few things to fix:
+
+| Check | What's wrong | How to fix |
+| --- | --- | --- |
+{% for row in rows %}
+| {{ row.id }} | {{ row.detail | u }} | {{ row.fix }} |
+{% endfor %}
+{% endif %}

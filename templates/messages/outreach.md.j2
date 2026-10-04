@@ -1,0 +1,9 @@
+Hi, and thank you for making {{ name | u }}! It's listed in the AVP Ports Index, and the daily check noticed a few things that make it harder for people to install:
+
+{% for item in items %}
+- {{ item.problem | u }}. {{ item.fix }}
+{% endfor %}
+
+If these are fixed by {{ date }}, nothing changes. If not, the listing comes off the index on that date, and a quick pull request brings it back whenever things are sorted. This issue closes itself once the checks pass.
+
+Sent by trevorbilt-bot on behalf of @{{ owner_login }}, who curates the index.

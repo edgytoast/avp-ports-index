@@ -1,0 +1,9 @@
+Thanks for submitting {{ name | u }}. A few things need fixing before it can be listed:
+
+| Check | What's wrong | How to fix |
+| --- | --- | --- |
+{% for row in rows %}
+| {{ row.id }} | {{ row.detail | u }} | {{ row.fix }} |
+{% endfor %}
+
+Push a fix to this branch and the checks rerun automatically. If the fix is in your port's repo (adding `AVP-INSTALL.md`, say), push it there, then close and reopen this PR to rerun the checks. If something here looks wrong, say so in a comment and the curator will take a look.

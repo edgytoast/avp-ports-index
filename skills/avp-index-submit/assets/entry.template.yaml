@@ -1,0 +1,26 @@
+# entries/<id>.yaml for the AVP Ports Index. The field reference is references/entry-fields.md.
+# Required: id, name, game.title, repo, developer.github, status. Delete optional lines you don't need.
+schema_version: 1
+id: my-port                         # lowercase slug; must equal the file name (my-port.yaml)
+name: "My Port"
+game:
+  title: "Original Game Title"
+  original_platform: gamecube        # gamecube, wii, n64, ps1, ps2, xbox, dreamcast, pc or other
+  original_release_year: 2001
+repo: https://github.com/you/my-port # no .git, no trailing slash
+developer:
+  github: you
+  name: "Your Name"
+  url: https://example.com
+status: working                      # developer-verified, working, partially-working or not-working
+status_notes: "Playable start to finish with a controller."
+visionos_min: "26.0"                 # keep the quotes
+input: [game-controller]             # game-controller, hand-tracking, keyboard-mouse
+description: "One or two sentences about the port."
+tags: [platformer]
+credits:
+  - name: "Upstream decompilation project"
+    role: "Decompilation"
+    url: https://github.com/upstream/project
+upstream:
+  - https://github.com/upstream/project

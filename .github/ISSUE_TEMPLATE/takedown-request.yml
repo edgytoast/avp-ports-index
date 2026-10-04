@@ -1,0 +1,34 @@
+name: Takedown request
+description: For rights holders. This issue is public; email admin@trevorbilt.com for anything private.
+title: "Takedown: "
+labels: [takedown]
+body:
+  - type: markdown
+    attributes:
+      value: The index hosts no game files, binaries or emulators, only links to third-party source repositories. Valid requests are actioned promptly. This issue is public, so use admin@trevorbilt.com for anything you'd rather keep private.
+  - type: input
+    id: entry
+    attributes:
+      label: Entry id or URL
+    validations:
+      required: true
+  - type: textarea
+    id: rights
+    attributes:
+      label: Rights claimed
+      description: The work concerned and the rights you hold in it.
+    validations:
+      required: true
+  - type: input
+    id: contact
+    attributes:
+      label: Contact
+    validations:
+      required: true
+  - type: checkboxes
+    id: faith
+    attributes:
+      label: Good faith
+      options:
+        - label: I believe in good faith that the linked material is not authorized by the rights holder, its agent or the law.
+          required: true

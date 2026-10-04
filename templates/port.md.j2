@@ -1,0 +1,60 @@
+# {{ v.name | md }}
+
+**{{ v.game_title | md }}**{% if v.platform_label %} · originally on {{ v.platform_label }}{% endif %}{% if v.year %} ({{ v.year }}){% endif %}
+
+Port by {{ v.developer }}
+
+Start with this command, which gets exactly the code that was scanned:
+
+```
+{{ v.clone }}
+```
+
+Then follow the [install guide]({{ v.install_url }}) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+
+| | |
+| --- | --- |
+| Trust | {{ v.trust }}{% if v.curator_own %} · Curator's own port{% endif %} |
+| Status | {{ v.status_label }}{% if v.entry.status_notes %}: {{ v.entry.status_notes | md(280) }}{% endif %} |
+| Health | {{ v.health_label }}{% if v.failing_since %} (since {{ v.failing_since[:10] }}){% endif %} |
+| Scan | {{ v.scan_label }} |
+| Source (scanned) | [{{ v.repo_owner }}/{{ v.repo_name }} at {{ v.scanned_commit[:12] }}]({{ v.source_url }}) |
+| Install guide | [AVP-INSTALL.md at {{ v.scanned_commit[:12] }}]({{ v.install_url }}) |
+| Repo | [{{ v.repo_owner }}/{{ v.repo_name }}]({{ v.repo }}){% if v.archived %} (archived){% endif %} |
+| License | {{ v.license_label | md }} |
+| Last commit | {{ v.last_commit }} |
+{% if v.entry.visionos_min %}
+| visionOS | {{ v.entry.visionos_min }} or later |
+{% endif %}
+{% if v.inputs %}
+| Input | {{ v.inputs }} |
+{% endif %}
+{% if v.entry.tags %}
+| Tags | {{ v.entry.tags | join(", ") }} |
+{% endif %}
+{% if v.entry.description %}
+
+{{ v.entry.description | md }}
+{% endif %}
+{% if v.entry.credits %}
+
+## Credits
+
+{% for c in v.entry.credits %}
+- {% if c.url %}[{{ c.name | md(80) }}]({{ c.url }}){% else %}{{ c.name | md(80) }}{% endif %}: {{ c.role | md(80) }}
+{% endfor %}
+{% endif %}
+{% if v.entry.upstream %}
+
+## Upstream projects
+
+{% for u in v.entry.upstream %}
+- <{{ u }}>
+{% endfor %}
+{% endif %}
+
+---
+
+This index only links to the developer's own repository. Automated checks and an AI security review can miss things, and they can't confirm the port runs on Apple Vision Pro. Building runs the port's build scripts on your Mac with your permissions. You must own the game and supply your own legally obtained game files. [Report a problem](https://github.com/{{ repo_full }}/issues/new?template=report-entry.yml).
+
+{{ footer }}

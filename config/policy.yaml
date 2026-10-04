@@ -1,0 +1,27 @@
+license_open_source: [MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC, Zlib, MPL-2.0,
+                      GPL-2.0, GPL-3.0, LGPL-2.1, LGPL-3.0, AGPL-3.0, Unlicense, CC0-1.0]   # display label only
+license_route_phrases:             # case-insensitive; checked only for licenses outside license_open_source
+  - 'not (be )?(used )?for personal use'
+  - 'personal use is (not permitted|prohibited|forbidden)'
+  - 'no (right|license|permission) (is granted )?to (use|run|compile)'
+  - 'all use is prohibited'
+install_file: AVP-INSTALL.md
+forbidden_extensions: [.iso, .gcm, .rvz, .wbfs, .wia, .ciso, .gcz, .wad, .nsp, .xci, .rcf]
+archive_extensions: [.zip, .7z, .rar, .tar, .gz, .tgz, .bz2, .xz, .dmg, .pkg]
+large_blob_bytes: 50000000
+release_binary_extensions: [.ipa, .app, .dmg, .pkg, .exe, .dll, .dylib, .so, .a, .o, .framework, .xcframework, .apk]
+site:
+  base_url: auto        # auto = https://github.com/<this repo>/blob/main
+  raw_base_url: auto    # auto = https://raw.githubusercontent.com/<this repo>/main
+stage2:
+  hourly_cap: 3
+  daily_cap: 12
+  per_pr_max_scans: 3                # then the PR waits for the owner
+  rescan_daily_max: 6
+  confidence_threshold: 80          # Jules safe_confidence needed to pass (0-100)
+  jules_timeout_minutes: 60          # enforced by the poller; the job's own timeout-minutes is fixed at 200
+health:                             # the schedule itself is fixed in health-check.yml (17 6 * * *); workflows can't read it from here
+  confirm_runs_before_outreach: 2
+  grace_days: 30
+  outreach_max_per_run: 10
+stale_pr_close_days: 14

@@ -1,0 +1,60 @@
+# The daily health check (docs/SPEC.md §8.6). The schedule is fixed here (06:17 UTC).
+name: health-check
+
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run every check and report, but commit, comment and open nothing"
+        type: boolean
+        default: false
+
+permissions: {}
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    environment: outreach
+    permissions: {}
+    timeout-minutes: 60
+    concurrency:
+      group: main-writer
+      cancel-in-progress: false
+      queue: max
+    env:
+      PYTHONPATH: tools
+      OWNER_ID: ${{ vars.OWNER_ID }}
+      OWNER_LOGIN: ${{ vars.OWNER_LOGIN }}
+      BOT_LOGIN: ${{ vars.BOT_LOGIN }}
+      APP_ID: ${{ vars.APP_ID }}
+      APP_SLUG: ${{ vars.APP_SLUG }}
+      AUTO_MERGE_ENABLED: ${{ vars.AUTO_MERGE_ENABLED }}
+      STAGE2_ENABLED: ${{ vars.STAGE2_ENABLED }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Install the index tooling
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install --quiet --require-hashes --no-deps -r tools/requirements.txt
+      - name: Mint the token
+        id: app
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_KEY }}
+          permission-contents: write
+          permission-issues: write
+          permission-pull-requests: write
+          permission-checks: read
+      - name: Check every listed entry
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          BLOCKLIST_SALT: ${{ secrets.BLOCKLIST_SALT }}
+          OUTREACH_PAT: ${{ secrets.OUTREACH_PAT }}
+          INPUT_DRY_RUN: ${{ inputs.dry_run }}
+        run: '"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli health'

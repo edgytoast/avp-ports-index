@@ -1,0 +1,72 @@
+# The Stage 2 dispatcher (docs/SPEC.md §8.3): throttle, first-in-first-out queue, rescans, and
+# the merge sweep. Runs default-branch code only.
+name: stage2-dispatcher
+
+on:
+  workflow_run: # zizmor: ignore[dangerous-triggers] default-branch code only, reads no artifacts (SPEC §8.0)
+    # pr-gate and stage2-scan per SPEC §8.3; health-check, build-surfaces and kill-switch added because
+    # GitHub ran the hourly schedule only every 2 to 2.5 hours in staging (rescans, merges, restores).
+    workflows: [stage2-scan, pr-gate, health-check, build-surfaces, kill-switch]
+    types: [completed]
+  schedule:
+    - cron: "7 * * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: stage2-dispatcher
+  cancel-in-progress: false
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    permissions: {}
+    timeout-minutes: 30
+    env:
+      PYTHONPATH: tools
+      OWNER_ID: ${{ vars.OWNER_ID }}
+      OWNER_LOGIN: ${{ vars.OWNER_LOGIN }}
+      BOT_LOGIN: ${{ vars.BOT_LOGIN }}
+      APP_ID: ${{ vars.APP_ID }}
+      APP_SLUG: ${{ vars.APP_SLUG }}
+      AUTO_MERGE_ENABLED: ${{ vars.AUTO_MERGE_ENABLED }}
+      STAGE2_ENABLED: ${{ vars.STAGE2_ENABLED }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install the index tooling
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install --quiet --require-hashes --no-deps -r tools/requirements.txt
+      - name: Mint the dispatcher token
+        id: app
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_KEY }}
+          permission-actions: write
+          permission-checks: write
+          permission-pull-requests: write
+          permission-issues: write
+          permission-contents: read
+      - name: Dispatch scans
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          BLOCKLIST_SALT: ${{ secrets.BLOCKLIST_SALT }}
+        run: '"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli dispatch'
+      - name: Mint the merge token
+        id: merge-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - name: Sweep green PRs through the merge rule
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          MERGE_TOKEN: ${{ steps.merge-token.outputs.token }}
+          BLOCKLIST_SALT: ${{ secrets.BLOCKLIST_SALT }}
+        run: '"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli merge --sweep'

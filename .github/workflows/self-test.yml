@@ -1,0 +1,66 @@
+# Unit tests, data validation, a dry-run generate, zizmor and actionlint (docs/SPEC.md §8.9).
+# On pull requests it runs only for Dependabot's and the owner's PRs, with no secrets.
+name: self-test
+
+on:
+  push:
+    branches: [main]
+    paths: ["tools/**", "schema/**", "templates/**", ".github/**"]
+  pull_request:
+    paths: [".github/**", "tools/**", "schema/**", "templates/**"]
+  schedule:
+    - cron: "41 5 * * 1"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  test:
+    if: >-
+      github.event_name != 'pull_request' ||
+      github.event.pull_request.user.login == 'dependabot[bot]' ||
+      format('{0}', github.event.pull_request.user.id) == vars.OWNER_ID
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 20
+    env:
+      PYTHONPATH: tools
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install the tooling and test tools
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install --quiet --require-hashes --no-deps -r tools/requirements.txt -r tools/requirements-dev.txt
+      - name: Unit tests
+        run: '"$RUNNER_TEMP/venv/bin/python" -m pytest tools/tests -q'
+      - name: Validate data files against their schemas
+        run: '"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli check-data'
+      - name: Dry-run generate
+        run: '"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli generate --check'
+      - name: zizmor
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: '"$RUNNER_TEMP/venv/bin/zizmor" --persona regular .github/workflows .github/dependabot.yml'
+      - name: actionlint
+        run: '"$RUNNER_TEMP/venv/bin/actionlint" -config-file .github/actionlint.yaml'
+
+  report-failure:
+    needs: test
+    if: failure() && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    timeout-minutes: 5
+    steps:
+      - name: Open an owner issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OWNER_LOGIN: ${{ vars.OWNER_LOGIN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh issue create --repo "$GITHUB_REPOSITORY" --title "self-test failed" \
+            --label triage --assignee "$OWNER_LOGIN" \
+            --body "The self-test workflow failed: $RUN_URL"

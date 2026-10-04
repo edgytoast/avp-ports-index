@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/edgytoast/avp-ports-index/schema/state.schema.json",
+  "title": "Bot-written state files (state/*.yaml)",
+  "description": "Validate each file against its $defs entry: health, lifecycle, sync or flags.",
+  "$defs": {
+    "iso": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$"},
+    "iso_or_null": {"anyOf": [{"$ref": "#/$defs/iso"}, {"type": "null"}]},
+    "sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha_or_null": {"anyOf": [{"$ref": "#/$defs/sha"}, {"type": "null"}]},
+    "check_ids": {"type": "array", "items": {"type": "string", "pattern": "^S1-\\d{2}[a-d]?$"}},
+    "entry_id": {"pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "maxLength": 64},
+    "health": {
+      "type": "object",
+      "propertyNames": {"$ref": "#/$defs/entry_id"},
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "last_commit_date": {"$ref": "#/$defs/iso_or_null"},
+          "last_checked": {"$ref": "#/$defs/iso_or_null"},
+          "health": {"enum": ["ok", "issues"]},
+          "failing_since": {"$ref": "#/$defs/iso_or_null"},
+          "consecutive_failures": {"type": "integer", "minimum": 0},
+          "failures": {"$ref": "#/$defs/check_ids"},
+          "routes": {"$ref": "#/$defs/check_ids"},
+          "outreach_issue_url": {"type": ["string", "null"]},
+          "outreach_opened_at": {"$ref": "#/$defs/iso_or_null"},
+          "archived": {"type": "boolean"},
+          "github_verified": {"type": "boolean"},
+          "curator_own": {"type": "boolean"},
+          "license": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["spdx", "kind"],
+            "properties": {
+              "spdx": {"type": ["string", "null"]},
+              "kind": {"enum": ["open-source", "custom", "none"]}
+            }
+          },
+          "scanned_commit": {"$ref": "#/$defs/sha_or_null"},
+          "scanned_at": {"$ref": "#/$defs/iso_or_null"},
+          "scan_kind": {"enum": ["automated", "curator-reviewed", null]},
+          "scan_confidence": {"type": ["integer", "null"], "minimum": 0, "maximum": 100},
+          "commits_since_scan": {"type": ["integer", "null"], "minimum": 0},
+          "scan_state": {"enum": ["current", "behind", "unknown"]},
+          "flagged_commit": {"$ref": "#/$defs/sha_or_null"},
+          "rescan_hold": {"type": "boolean"},
+          "rescan_after": {"$ref": "#/$defs/iso_or_null"},
+          "decay_reset_at": {"$ref": "#/$defs/iso_or_null"},
+          "warnings": {"$ref": "#/$defs/check_ids"}
+        }
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "propertyNames": {"$ref": "#/$defs/entry_id"},
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["status", "changed_at", "by"],
+        "properties": {
+          "status": {"enum": ["listed", "delisted-decay", "pulled", "taken-down", "withdrawn"]},
+          "repo": {"type": ["string", "null"]},
+          "repo_id": {"type": ["integer", "null"]},
+          "submitted_by": {"type": ["string", "null"]},
+          "submitted_by_id": {"type": ["integer", "null"]},
+          "owner_approved": {"type": "boolean"},
+          "changed_at": {"$ref": "#/$defs/iso"},
+          "listed_at": {"$ref": "#/$defs/iso_or_null"},
+          "by": {"enum": ["merge", "health", "kill-switch", "stage2", "self-removal", "reconcile"]}
+        }
+      }
+    },
+    "sync": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["last_synced_sha"],
+      "properties": {"last_synced_sha": {"$ref": "#/$defs/sha_or_null"}}
+    },
+    "flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "entries"],
+      "properties": {
+        "schema_version": {"const": 1},
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["h", "flagged_at"],
+            "properties": {
+              "h": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+              "flagged_at": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"}
+            }
+          }
+        }
+      }
+    }
+  }
+}

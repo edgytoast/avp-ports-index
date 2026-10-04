@@ -1,0 +1,29 @@
+name: Report an entry
+description: Something listed here is broken, malicious, or impersonating someone.
+title: "Report: "
+labels: [report]
+body:
+  - type: input
+    id: entry
+    attributes:
+      label: Entry id
+      description: The id from the port's page, for example the-simpsons-hit-and-run.
+    validations:
+      required: true
+  - type: dropdown
+    id: problem
+    attributes:
+      label: Problem type
+      options: [malicious, broken, impersonation, other]
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: What you saw, with links or file paths. For sensitive details, email admin@trevorbilt.com instead.
+  - type: input
+    id: contact
+    attributes:
+      label: Contact (optional)
+      description: How to reach you if the curator has questions.

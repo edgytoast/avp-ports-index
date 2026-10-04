@@ -1,0 +1,47 @@
+# Acknowledge reports, takedown requests and appeals (docs/SPEC.md §8.8).
+name: report-intake
+
+on:
+  issues:
+    types: [opened]
+
+permissions: {}
+
+jobs:
+  intake:
+    if: >-
+      contains(github.event.issue.labels.*.name, 'report') ||
+      contains(github.event.issue.labels.*.name, 'takedown') ||
+      contains(github.event.issue.labels.*.name, 'appeal')
+    runs-on: ubuntu-latest
+    permissions: {}
+    timeout-minutes: 10
+    env:
+      PYTHONPATH: tools
+      OWNER_ID: ${{ vars.OWNER_ID }}
+      OWNER_LOGIN: ${{ vars.OWNER_LOGIN }}
+      BOT_LOGIN: ${{ vars.BOT_LOGIN }}
+      APP_ID: ${{ vars.APP_ID }}
+      APP_SLUG: ${{ vars.APP_SLUG }}
+      AUTO_MERGE_ENABLED: ${{ vars.AUTO_MERGE_ENABLED }}
+      STAGE2_ENABLED: ${{ vars.STAGE2_ENABLED }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install the index tooling
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install --quiet --require-hashes --no-deps -r tools/requirements.txt
+      - name: Mint the token
+        id: app
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_KEY }}
+          permission-issues: write
+          permission-contents: read
+      - name: Acknowledge and assign
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+        run: '"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli intake'

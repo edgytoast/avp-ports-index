@@ -1,0 +1,163 @@
+# One Stage 2 security review (docs/SPEC.md §6.2, §8.4). Dispatched only by the dispatcher.
+# The scan job holds no GitHub token; Jules runs in Google's environment.
+name: stage2-scan
+run-name: stage2 ${{ inputs.mode }} ${{ inputs.mode == 'pr' && inputs.pr || inputs.entry_id }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        options: [pr, rescan]
+        required: true
+      pr:
+        type: string
+        default: ""
+      head_sha:
+        type: string
+        default: ""
+      linked_repo:
+        type: string
+        required: true
+      linked_commit:
+        type: string
+        required: true
+      entry_id:
+        type: string
+        default: ""
+      repo_id:
+        type: string
+        required: true
+      base_commit:
+        type: string
+        default: ""
+      counted:
+        type: string
+        default: "true"
+
+permissions: {}
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    environment: jules
+    permissions: {}
+    timeout-minutes: 200
+    concurrency:
+      group: jules-scan
+      cancel-in-progress: false
+      queue: max
+    env:
+      PYTHONPATH: tools
+      INPUT_MODE: ${{ inputs.mode }}
+      INPUT_PR: ${{ inputs.pr }}
+      INPUT_LINKED_REPO: ${{ inputs.linked_repo }}
+      INPUT_LINKED_COMMIT: ${{ inputs.linked_commit }}
+      INPUT_ENTRY_ID: ${{ inputs.entry_id }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install the index tooling
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install --quiet --require-hashes --no-deps -r tools/requirements.txt
+      - name: Run the Jules review
+        env:
+          JULES_API_KEY: ${{ secrets.JULES_API_KEY }}
+        run: '"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli scan --out "$RUNNER_TEMP/out"'
+      - name: Keep the verdict
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: verdict
+          path: ${{ runner.temp }}/out/
+          retention-days: 30
+          if-no-files-found: error
+
+  report:
+    needs: scan
+    if: always()
+    runs-on: ubuntu-latest
+    permissions: {}
+    timeout-minutes: 30
+    concurrency:
+      group: main-writer
+      cancel-in-progress: false
+      queue: max
+    env:
+      PYTHONPATH: tools
+      OWNER_ID: ${{ vars.OWNER_ID }}
+      OWNER_LOGIN: ${{ vars.OWNER_LOGIN }}
+      BOT_LOGIN: ${{ vars.BOT_LOGIN }}
+      APP_ID: ${{ vars.APP_ID }}
+      APP_SLUG: ${{ vars.APP_SLUG }}
+      AUTO_MERGE_ENABLED: ${{ vars.AUTO_MERGE_ENABLED }}
+      STAGE2_ENABLED: ${{ vars.STAGE2_ENABLED }}
+      INPUT_MODE: ${{ inputs.mode }}
+      INPUT_PR: ${{ inputs.pr }}
+      INPUT_HEAD_SHA: ${{ inputs.head_sha }}
+      INPUT_LINKED_REPO: ${{ inputs.linked_repo }}
+      INPUT_LINKED_COMMIT: ${{ inputs.linked_commit }}
+      INPUT_ENTRY_ID: ${{ inputs.entry_id }}
+      INPUT_REPO_ID: ${{ inputs.repo_id }}
+      INPUT_BASE_COMMIT: ${{ inputs.base_commit }}
+      INPUT_COUNTED: ${{ inputs.counted }}
+      SCAN_RESULT: ${{ needs.scan.result }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Install the index tooling
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install --quiet --require-hashes --no-deps -r tools/requirements.txt
+      - name: Fetch the verdict
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        continue-on-error: true
+        with:
+          name: verdict
+          path: ${{ runner.temp }}/out
+      - name: Decide which token permissions are needed
+        id: plan
+        run: '"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli report-plan --outcome "$RUNNER_TEMP/out/outcome.json"'
+      - name: Mint the report token
+        id: app
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_KEY }}
+          permission-checks: write
+          permission-pull-requests: write
+          permission-issues: write
+          permission-contents: ${{ steps.plan.outputs.contents }}
+      - name: Apply the result
+        id: report
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          BLOCKLIST_SALT: ${{ secrets.BLOCKLIST_SALT }}
+        run: '"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli report --outcome "$RUNNER_TEMP/out/outcome.json"'
+      - name: Record the result for the dispatcher
+        if: steps.report.outputs.result != ''
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: result-${{ steps.report.outputs.result }}
+          path: ${{ runner.temp }}/out/result.txt
+          retention-days: 2
+      - name: Mint the merge token
+        id: merge-token
+        if: steps.report.outputs.merge_prs != ''
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - name: Apply the merge rule
+        if: steps.report.outputs.merge_prs != ''
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          MERGE_TOKEN: ${{ steps.merge-token.outputs.token }}
+          MERGE_PRS: ${{ steps.report.outputs.merge_prs }}
+          BLOCKLIST_SALT: ${{ secrets.BLOCKLIST_SALT }}
+        run: '"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli merge'
