@@ -25,6 +25,14 @@ These mirror the automated checks (the [full list of checks](skills/avp-index-su
 
 The checks rerun whenever you push to the PR branch. If you fix something in your port's repo instead (adding `AVP-INSTALL.md`, say), close and reopen the PR to rerun them.
 
+## A badge for your README
+
+Once your port is listed, you're welcome to add this badge to your README. It links to your port's page; replace `<id>` with your entry's id.
+
+```markdown
+[![Listed in the AVP Ports Index](https://img.shields.io/badge/AVP_Ports_Index-listed-0A84FF)](https://github.com/edgytoast/avp-ports-index/blob/main/ports/<id>.md)
+```
+
 ## "fail" or "route"
 
 - A **fail** means something needs fixing. The bot's comment says what and how.
