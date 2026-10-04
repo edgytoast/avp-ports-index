@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.0.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-04T17:47:42Z",
+  "generated_at": "2026-10-04T17:59:27Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -12,6 +12,99 @@
   },
   "license": "CC0-1.0",
   "entries": [
+    {
+      "id": "shar-visionos",
+      "name": "SHAR VR",
+      "game": {
+        "title": "The Simpsons: Hit & Run",
+        "original_platform": "pc",
+        "original_release_year": 2003
+      },
+      "repo_url": "https://github.com/edgytoast/shar-visionos",
+      "source_url": "https://github.com/edgytoast/shar-visionos/tree/f982d0a8f3d0a35550846b9a552dcdd2bca40e98",
+      "install_doc_url": "https://github.com/edgytoast/shar-visionos/blob/f982d0a8f3d0a35550846b9a552dcdd2bca40e98/AVP-INSTALL.md",
+      "developer": {
+        "name": "Trevorbilt",
+        "github": "edgytoast",
+        "url": "https://trevorbilt.com",
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "Radical Entertainment",
+          "role": "Original game (2003)",
+          "url": "https://en.wikipedia.org/wiki/Radical_Entertainment"
+        },
+        {
+          "name": "Svxy",
+          "role": "The original source code, on GitHub",
+          "url": "https://github.com/Svxy/The-Simpsons-Hit-and-Run"
+        },
+        {
+          "name": "ZenoArrows",
+          "role": "Source port (Nintendo Switch, PS Vita)",
+          "url": "https://github.com/ZenoArrows/The-Simpsons-Hit-and-Run"
+        },
+        {
+          "name": "Carlox33",
+          "role": "Android port",
+          "url": "https://github.com/Carlox33/The-Simpsons-Hit-and-Run-Android"
+        },
+        {
+          "name": "kote2345",
+          "role": "VR mod (Meta Quest 3, PC VR)",
+          "url": "https://github.com/kote2345/The-Simpsons-Hit-and-Run-VR"
+        },
+        {
+          "name": "Trevorbilt",
+          "role": "visionOS port",
+          "url": "https://trevorbilt.com"
+        }
+      ],
+      "upstream": [
+        "https://github.com/kote2345/The-Simpsons-Hit-and-Run-VR",
+        "https://github.com/Carlox33/The-Simpsons-Hit-and-Run-Android",
+        "https://github.com/ZenoArrows/The-Simpsons-Hit-and-Run"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "Plays in the Full, Progressive and Window views, with PS VR2 Sense controllers, a gamepad or bare hands. Built and played on Apple Vision Pro.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": true,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "f982d0a8f3d0a35550846b9a552dcdd2bca40e98",
+      "scanned_at": "2026-10-04T17:59:25Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-10-04T17:44:49Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "MIT"
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller",
+        "hand-tracking"
+      ],
+      "tags": [
+        "vr",
+        "6dof",
+        "driving",
+        "open-world",
+        "source-port"
+      ],
+      "description": "The Simpsons: Hit & Run in six degrees of freedom on Apple Vision Pro. Walk Springfield with a Sense controller in each hand, drive from the driver's seat, or play it as a 3D window beside your other apps. A native visionOS port of kote2345's Hit & Run VR mod.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/shar-visionos.md"
+    },
     {
       "id": "twilight-princess-vr",
       "name": "Twilight Princess VR",
