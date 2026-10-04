@@ -112,7 +112,15 @@ Skipped. Both ports were private at "go", and the owner decided to make them pub
 
 ## Production smoke test (SPEC §14.5)
 
-{SMOKE}
+Run on 2026-10-04 against the recreated `edgytoast/avp-ports-index`, after the import and the ruleset:
+
+1. `stage2-dispatcher` dispatched: success ([run](https://github.com/edgytoast/avp-ports-index/actions/runs/37220397250)); ledger "0 this hour, 0 today; 3 slots", no candidates, empty sweep.
+2. `health-check` with `dry_run`: success ([run](https://github.com/edgytoast/avp-ports-index/actions/runs/37220421655)); nothing committed, opened or commented (it would only have moved the sync cursor).
+3. `build-surfaces` dispatched: success ([run](https://github.com/edgytoast/avp-ports-index/actions/runs/37220446462)); the App minted its token, made its state commit and created the Health tracking issue (#1), pinned with the owner's token. README shows "No ports listed yet."
+4. `self-test` dispatched: success ([run](https://github.com/edgytoast/avp-ports-index/actions/runs/37220518679)).
+5. This owner-admin PR: three checks from `trevorbilt-index`, merged through the API with the owner's pull-request bypass.
+
+Production has zero entries.
 
 ## Decisions
 
