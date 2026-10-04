@@ -124,7 +124,7 @@ def test_push_retry(cloned, monkeypatch):
     assert any(i["title"] == "Writing to main failed" for i in gh.issue_store.values())
 
 
-USER_FACING = ["templates", "CONTRIBUTING.md", "SECURITY.md", "README.md", "llms.txt", "docs/feed.md",
+USER_FACING = ["templates", "brand/brand.yaml", "CONTRIBUTING.md", "SECURITY.md", "README.md", "llms.txt", "docs/feed.md",
                "docs/trust-tiers.md", "skills/avp-index-submit/SKILL.md", "skills/avp-index-submit/assets",
                ".github/ISSUE_TEMPLATE", ".github/PULL_REQUEST_TEMPLATE.md"]
 
