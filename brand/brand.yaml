@@ -4,5 +4,5 @@ curator_name: "Trevor \"Toast\""
 curator_github: edgytoast
 site: https://trevorbilt.com
 contact: admin@trevorbilt.com
-logo: brand/trevorbilt-logo.svg     # rendered only if the file exists
+logo: https://trevorbilt.com/assets/logo-BdrEikAq.png   # hosted on trevorbilt.com; a repo path also works (rendered only if the file exists)
 accent_hex: "#ED7014"
