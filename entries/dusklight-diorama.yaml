@@ -1,0 +1,35 @@
+schema_version: 1
+id: dusklight-diorama
+name: Dusklight visionOS
+game:
+  title: "The Legend of Zelda: Twilight Princess"
+  original_platform: gamecube
+  original_release_year: 2006
+repo: https://github.com/iRonJ/dusklight_visionos
+developer:
+  github: iRonJ
+status: working
+status_notes: "Runs on the headset (visionOS 26.5). Direct pinch manipulation of the diorama isn't supported yet, and the rendering doc lists some effect caveats."
+visionos_min: "26.5"
+experiences: [3d-immersive]
+description: >-
+  Twilight Princess on Apple Vision Pro as a head-tracked stereoscopic diorama: a Dusklight fork
+  that draws the scene once per eye and shows the pair on a world-anchored screen in an immersive
+  space, through Compositor Services and Metal. Bring your own GameCube disc.
+tags: [zelda, twilight-princess, gamecube, adventure, stereo-3d, diorama, decompilation]
+credits:
+  - name: Twilit Realm
+    role: Dusklight, the Twilight Princess reimplementation this fork is built on
+    url: https://github.com/TwilitRealm/dusklight
+  - name: zeldaret
+    role: Twilight Princess decompilation
+    url: https://github.com/zeldaret/tp
+  - name: Aurora
+    role: GameCube and Wii graphics layer
+    url: https://github.com/encounter/aurora
+  - name: Nintendo
+    role: Original game
+upstream:
+  - https://github.com/TwilitRealm/dusklight
+  - https://github.com/zeldaret/tp
+  - https://github.com/encounter/aurora
