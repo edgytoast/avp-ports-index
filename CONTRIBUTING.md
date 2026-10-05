@@ -12,6 +12,7 @@ These mirror the automated checks (the [full list of checks](skills/avp-index-su
 - **A license, if you have one.** No license, or a custom one, is fine. It's shown as stated. If a custom license seems to forbid personal use, the curator takes a look first.
 - **No game data.** No disc images, game data, archives or Git LFS files in the repo or its releases.
 - **Prebuilt apps are fine as long as players still supply their own game files.** If your releases include an app (an `.ipa`, say), set `install: [build, sideload]` so your port page says so; the curator looks at the app first and approves it only then. The security review covers your source code, not the app. An app that lets people play without supplying their own game files can't be listed.
+- **These rules cover what's on GitHub: your repo and its releases.** The index doesn't vet anything hosted elsewhere, such as files your app downloads from your own server.
 - **Agent files are welcome.** `CLAUDE.md`, `AGENTS.md`, skills and similar files are fine. They're reviewed like any other code.
 
 ## The fields
