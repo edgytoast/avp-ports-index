@@ -1,0 +1,32 @@
+schema_version: 1
+id: 2ship2harkinian
+name: 2 Ship 2 Harkinian
+game:
+  title: "The Legend of Zelda: Majora's Mask"
+  original_platform: n64
+  original_release_year: 2000
+repo: https://github.com/rebelancap/2ship2harkinian-ios
+developer:
+  github: rebelancap
+status: working
+visionos_min: "2.0"
+input: [game-controller]
+experiences: [2d, 3d-immersive]
+install: [build, sideload]
+description: >-
+  Majora's Mask on Apple Vision Pro through Harbour Masters' 2 Ship 2 Harkinian, rendering natively on
+  Metal: a resizable 2D window, or a stereoscopic 3D screen floating in your room. The full three-day
+  cycle with the enhancements menu, texture packs and in-app ROM extraction. Bring your own ROM.
+tags: [zelda, majoras-mask, n64, source-port, harbour-masters, stereo-3d]
+credits:
+  - name: Harbour Masters
+    role: 2 Ship 2 Harkinian, the port this is built on
+    url: https://github.com/HarbourMasters/2ship2harkinian
+  - name: Harbour Masters
+    role: libultraship, the platform layer
+    url: https://github.com/HarbourMasters/libultraship
+  - name: Nintendo
+    role: Original game
+upstream:
+  - https://github.com/HarbourMasters/2ship2harkinian
+  - https://github.com/HarbourMasters/libultraship
