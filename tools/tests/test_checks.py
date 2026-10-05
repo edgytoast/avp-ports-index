@@ -91,7 +91,8 @@ def test_app_inventory_reads_only_the_zip_directory():
     releases = [{"assets": []}, {"assets": [
         {"name": "Port-iOS.ipa", "size": len(data), "browser_download_url": base + "Port-iOS.ipa"},
         {"name": "Port-visionOS.ipa", "size": len(data), "browser_download_url": base + "Port-visionOS.ipa"}]}]
-    policy = {"app_review_extensions": [".z64", ".o2r"]}
+    policy = {"archive_extensions": [".zip", ".dmg"], "release_binary_extensions": [".ipa"],
+              "app_review_extensions": [".z64", ".o2r"]}
     session = Session()
     apps = checks.app_inventories(session, releases, policy)
     assert [a["name"] for a in apps] == ["Port-visionOS.ipa", "Port-iOS.ipa"]  # visionOS first
@@ -100,6 +101,14 @@ def test_app_inventory_reads_only_the_zip_directory():
     assert all(end - start < checks.ZIP_TAIL for start, end in session.ranges)
     # a server that ignores the range is never read whole, and other hosts aren't fetched at all
     assert checks.app_inventories(Session(honour=False), releases, policy)[0]["files"] is None
+    # other formats are listed by size only, with no request made for them
+    mixed = [{"assets": [{"name": "Game-Complete.zip", "size": len(data), "browser_download_url": base + "Game-Complete.zip"},
+                         {"name": "Game.dmg", "size": 412_000_000, "browser_download_url": base + "Game.dmg"},
+                         {"name": "Game.zip.sha256", "size": 64, "browser_download_url": base + "Game.zip.sha256"}]}]
+    counted = Session()
+    rows = checks.app_inventories(counted, mixed, policy)
+    assert [(r["name"], r["listable"], r["files"]) for r in rows] == [("Game-Complete.zip", True, 3), ("Game.dmg", False, None)]
+    assert len(counted.ranges) == 1 and "not listed (.dmg)" in __import__("avpindex.gate").gate.apps_table(rows)
     elsewhere = [{"assets": [{"name": "A.ipa", "size": len(data), "browser_download_url": "https://example.com/A.ipa"}]}]
     quiet = Session()
     assert checks.app_inventories(quiet, elsewhere, policy)[0]["files"] is None and not quiet.ranges
@@ -108,8 +117,11 @@ def test_app_inventory_reads_only_the_zip_directory():
 def test_apps_table():
     from avpindex import gate
     table = gate.apps_table([{"name": "A.ipa", "size": 5_000_000, "files": 10, "review": ["x.z64"]},
-                             {"name": "B.ipa", "size": 1_000_000, "files": None, "review": []}])
+                             {"name": "B.ipa", "size": 1_000_000, "files": None, "review": []},
+                             {"name": "C.dmg", "size": 1_649_000_000, "listable": False, "files": None, "review": []},
+                             {"more": 2}])
     assert "| A.ipa | 5.0 MB | 10 | x.z64 |" in table and "couldn't be listed" in table
+    assert "| C.dmg | 1,649.0 MB | not listed (.dmg) | n/a |" in table and "…and 2 more" in table
     assert gate.apps_table([]) == ""
 
 

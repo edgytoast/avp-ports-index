@@ -58,9 +58,9 @@ class TestGate:
         assert "needs-author" in gh.labels_of(2) and gh.latest(gh.prs[2]["head"]["sha"], STAGE2) is None
         assert "A few things need fixing" in gh.bot_comment(2) and "S1-07" in gh.bot_comment(2)
         gh.add_repo("trevorbilt-bot/thirdparty", 13)
-        gh.open_pr(3, "edgytoast", "entries/thirdparty.yaml", "added",
+        gh.open_pr(3, "stranger", "entries/thirdparty.yaml", "added",
                    entry_yaml("thirdparty", "trevorbilt-bot/thirdparty"))
-        event(pr_event(gh, 3, sender=OWNER_ID))
+        event(pr_event(gh, 3, sender=STRANGER_ID))
         gate.run(rt)
         assert "needs-owner" in gh.labels_of(3)
         assert ("Everything required is in place, but this PR doesn't come from the repo's owner (or the person "
@@ -70,6 +70,13 @@ class TestGate:
         gate.run(rt)
         assert "stage2:queued" in gh.labels_of(3) and "needs-owner" not in gh.labels_of(3)
         assert "S1-08" in gh.latest(gh.prs[3]["head"]["sha"], STAGE1)["output"]["summary"]
+        # the curator's own PR for someone else's repo needs no owner:scan
+        gh.add_repo("trevorbilt-bot/invited", 14)
+        gh.open_pr(4, "edgytoast", "entries/invited.yaml", "added", entry_yaml("invited", "trevorbilt-bot/invited"))
+        event(pr_event(gh, 4, sender=OWNER_ID))
+        gate.run(rt)
+        assert "stage2:queued" in gh.labels_of(4) and "needs-owner" not in gh.labels_of(4)
+        assert "opened by the curator" in gh.latest(gh.prs[4]["head"]["sha"], STAGE1)["output"]["summary"]
 
     def test_only_owner_labels(self, rt, gh, event):
         gh.add_repo("trevorbilt-bot/good", 11)
