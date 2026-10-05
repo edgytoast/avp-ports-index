@@ -1,0 +1,47 @@
+schema_version: 1
+id: spaghetti-xr
+name: Spaghetti-XR
+game:
+  title: "Mario Kart 64"
+  original_platform: n64
+  original_release_year: 1996
+repo: https://github.com/subtlepath/spaghetti-xr
+developer:
+  github: subtlepath
+status: partially-working
+status_notes: "A full race has been driven and won on Apple Vision Pro. The README notes a long session may still end in a memory kill, and 6DoF steering hasn't been tried on a headset yet."
+visionos_min: "26.0"
+input: [game-controller]
+experiences: [6dof-immersive, 6dof-progressive]
+description: >-
+  Mario Kart 64 around you on Apple Vision Pro: SpaghettiKart as a native visionOS app, rendering
+  each eye through the engine's display lists, world-locked with ARKit, with an adjustable world
+  scale and a flat-screen mode. Needs PS VR2 Sense controllers (DualSense untested) and your own
+  ROM.
+tags: [racing, kart, n64, mario-kart, source-port, vr, 6dof]
+credits:
+  - name: chrissotraidis
+    role: SpaghettiPad, the iPhone and iPad port this fork is built on
+    url: https://github.com/chrissotraidis/spaghettipad
+  - name: Harbour Masters
+    role: SpaghettiKart, the Mario Kart 64 source port
+    url: https://github.com/HarbourMasters/SpaghettiKart
+  - name: libultraship
+    role: Platform and graphics layer
+    url: https://github.com/Kenix3/libultraship
+  - name: Torch
+    role: ROM asset extraction
+    url: https://github.com/HarbourMasters/Torch
+  - name: SDL
+    role: Windowing, input and audio
+  - name: SDL_GameControllerDB
+    role: Controller mappings
+    url: https://github.com/mdqinc/SDL_GameControllerDB
+  - name: RT64
+    role: Reference for Mode B's 2D-draw classification; no code copied
+    url: https://github.com/rt64/rt64
+  - name: Nintendo
+    role: Original game
+upstream:
+  - https://github.com/chrissotraidis/spaghettipad
+  - https://github.com/HarbourMasters/SpaghettiKart
