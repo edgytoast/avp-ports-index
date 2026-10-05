@@ -24,7 +24,7 @@ Then follow the [install guide]({{ v.install_url }}) from its build steps. Skip 
 | Source (scanned) | [{{ v.repo_owner }}/{{ v.repo_name }} at {{ v.scanned_commit[:12] }}]({{ v.source_url }}) |
 | Install guide | [AVP-INSTALL.md at {{ v.scanned_commit[:12] }}]({{ v.install_url }}) |
 {% if v.sideload %}
-| Prebuilt app | The developer also publishes an app you can sideload; see their repo. The index's security review covers the source code, not the app. |
+| Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's security review covers the source code, not the app. |
 {% endif %}
 | Repo | [{{ v.repo_owner }}/{{ v.repo_name }}]({{ v.repo }}){% if v.archived %} (archived){% endif %} |
 {% if v.entry.source_ref %}

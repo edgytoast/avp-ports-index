@@ -11,7 +11,7 @@ These mirror the automated checks (the [full list of checks](skills/avp-index-su
 - **Your own public repo.** The repo is public and you own it, or it belongs to an org you're a public member of. Anyone else's submission goes to the curator first, which is fine, just slower.
 - **A license, if you have one.** No license, or a custom one, is fine. It's shown as stated. If a custom license seems to forbid personal use, the curator takes a look first.
 - **No game data.** No disc images, game data, archives or Git LFS files in the repo or its releases.
-- **Prebuilt apps are fine if the game isn't in them.** If your releases include an app (an `.ipa`, say), set `install: [build, sideload]` so your port page says so; the curator looks at the app first and approves it only then. The security review covers your source code, not the app. An app that contains the game's own code or data, such as a static recompilation built from a game file, can't be listed while your releases ship it.
+- **Prebuilt apps are fine as long as players still supply their own game files.** If your releases include an app (an `.ipa`, say), set `install: [build, sideload]` so your port page says so; the curator looks at the app first and approves it only then. The security review covers your source code, not the app. An app that lets people play without supplying their own game files can't be listed.
 - **Agent files are welcome.** `CLAUDE.md`, `AGENTS.md`, skills and similar files are fine. They're reviewed like any other code.
 
 ## The fields
@@ -26,7 +26,7 @@ These mirror the automated checks (the [full list of checks](skills/avp-index-su
 - **6DoF immersive:** inside the game at life scale, with your head as the camera.
 - **6DoF progressive:** the same, through a portal the Digital Crown widens and narrows.
 
-If you also publish a prebuilt app, add `install: [build, sideload]`. Every listed port must still build from source, since that's what the security review covers.
+If you also publish a prebuilt app, add `install: [build, sideload]`, or `install: [sideload]` if the app is the only way to install it. Every listed port must still build from source, contain a sideload-able asset, or otherwise enable players to actually play the game in line with this repo's bring-your-own-game policy.
 
 ## What happens after you open the PR
 

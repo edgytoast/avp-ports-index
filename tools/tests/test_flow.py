@@ -597,8 +597,8 @@ def test_play_modes_and_prebuilt_apps(rt, gh):
     assert entry["experiences"] == ["3d-shared-space", "6dof-immersive"] and entry["install"] == ["build"]
     write_entry(rt.root, "good", "trevorbilt-bot/good", experiences=["2d"], install=["build", "sideload"])
     out = generate.generate(rt.root, rt.repo)
-    assert "| Prebuilt app | The developer also publishes an app you can sideload; see their repo." in out["ports/good.md"]
-    assert "· prebuilt app (not security-reviewed)" in out["README.md"] and "didn't security-review" in out["llms.txt"]
+    assert "| Prebuilt app | The developer publishes an app you can sideload; see their repo." in out["ports/good.md"]
+    assert "· prebuilt app (not security-reviewed)" in out["README.md"] and "prebuilt app available (not security-reviewed)" in out["llms.txt"]
     feed = json.loads(out["feed/v1/index.json"])
     assert feed["schema_version"] == "1.2.0" and feed["entries"][0]["install"] == ["build", "sideload"]
 
