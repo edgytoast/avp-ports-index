@@ -1,0 +1,31 @@
+schema_version: 1
+id: quake3e
+name: Quake3e
+game:
+  title: "Quake III Arena"
+  original_platform: pc
+  original_release_year: 1999
+repo: https://github.com/rebelancap/quake3e-ios
+developer:
+  github: rebelancap
+status: working
+visionos_min: "2.0"
+input: [game-controller]
+experiences: [2d, 3d-immersive, 6dof-immersive]
+install: [build, sideload]
+description: >-
+  Quake III Arena on Apple Vision Pro through Quake3e, its Vulkan renderer running on Metal: a
+  resizable 2D window, a stereoscopic 3D screen, or head-tracked VR inside the arena, aiming with your
+  gaze, a gamepad or PS VR2 Sense controllers. Online play and mods work. Bring your own game files.
+tags: [quake, quake-3, arena-shooter, fps, pc, vr, stereo-3d, multiplayer]
+credits:
+  - name: Quake3e
+    role: The engine, by Eugene C. and contributors
+    url: https://github.com/ec-/Quake3e
+  - name: ioquake3
+    role: The engine Quake3e builds on
+    url: https://ioquake3.org
+  - name: id Software
+    role: Original game and the Quake III Arena source
+upstream:
+  - https://github.com/ec-/Quake3e
