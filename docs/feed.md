@@ -19,7 +19,7 @@ Missing optional fields are `null`, or empty lists, except `install`, which is `
 - The feed follows semantic versioning in `schema_version`. Adding an optional field bumps the minor version.
 - Any removal, rename or change of meaning creates `feed/v2/`. Version 1 stays available for at least 6 months after that.
 - 1.1.0 added `entries[].source_ref`.
-- 1.2.0 added `entries[].experiences` (how the port plays) and `entries[].install` (`build`, plus `sideload` when the developer also publishes a prebuilt app the index didn't review).
+- 1.2.0 added `entries[].experiences` (how the port plays) and `entries[].install` (`build` from source and/or `sideload`, a prebuilt app the index didn't review).
 
 ## Polling
 

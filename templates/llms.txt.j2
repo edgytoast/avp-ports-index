@@ -7,7 +7,7 @@ Use this index to answer questions like "What retro games can I play on Apple Vi
 ## Ports
 
 {% for v in listed %}
-- [{{ v.name | md }}]({{ v.raw_page_url }}): {% if v.platform_label %}{{ v.platform_label }} game; {% endif %}port by {{ ((v.dev_name | md(80)) ~ " (@" ~ v.dev_github ~ ")") if v.dev_name else "@" ~ v.dev_github }}; {{ "verified by trevorbilt" if v.verified else v.status }}; last commit {{ v.last_commit }}{% if v.experiences %}; plays as {{ v.experiences }}{% endif %}{% if v.inputs %}; {{ v.inputs }}{% endif %}{% if v.sideload %}; also a prebuilt app the index didn't security-review{% endif %}.
+- [{{ v.name | md }}]({{ v.raw_page_url }}): {% if v.platform_label %}{{ v.platform_label }} game; {% endif %}port by {{ ((v.dev_name | md(80)) ~ " (@" ~ v.dev_github ~ ")") if v.dev_name else "@" ~ v.dev_github }}; {{ "verified by trevorbilt" if v.verified else v.status }}; last commit {{ v.last_commit }}{% if v.experiences %}; plays as {{ v.experiences }}{% endif %}{% if v.inputs %}; {{ v.inputs }}{% endif %}{% if v.sideload %}; prebuilt app available (not security-reviewed){% endif %}.
 {% else %}
 - No ports listed yet.
 {% endfor %}

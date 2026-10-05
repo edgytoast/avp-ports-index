@@ -190,13 +190,12 @@ SCHEMA = {'$schema': 'https://json-schema.org/draft/2020-12/schema',
                                                    '6dof-immersive',
                                                    '6dof-progressive']}},
                 'install': {'description': 'How players can install it. build: from source with '
-                                           "Xcode; every listed port can be built, and that's what "
-                                           'the security review covers. Add sideload if you also '
-                                           'publish a prebuilt app, for example through SideStore. '
-                                           'Leave the field out for build-only ports.',
+                                           'Xcode. sideload: a prebuilt app you publish, for '
+                                           'example through SideStore. Leave the field out for '
+                                           'build-only ports.',
                             'type': 'array',
+                            'minItems': 1,
                             'uniqueItems': True,
-                            'contains': {'const': 'build'},
                             'items': {'enum': ['build', 'sideload']}},
                 'description': {'description': 'One or two sentences about the port.',
                                 'type': 'string',

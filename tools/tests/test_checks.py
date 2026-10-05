@@ -58,8 +58,9 @@ def test_experiences_and_install(index):
     gh = FakeGitHub()
     gh.add_repo("trevorbilt-bot/good", 11)
     assert run(gh, index, experiences=["2d", "6dof-progressive"], install=["build", "sideload"]).overall == PASS
+    assert run(gh, index, install=["sideload"]).overall == PASS  # a sideload-only port is fine
     for extra, message in [({"experiences": []}, "at least 1 value"), ({"experiences": ["4d"]}, "must be one of"),
-                           ({"experiences": ["2d", "2d"]}, "listed twice"), ({"install": ["sideload"]}, "include build")]:
+                           ({"experiences": ["2d", "2d"]}, "listed twice"), ({"install": []}, "at least 1 value")]:
         result = run(gh, index, **extra).get("S1-03")
         assert result.outcome == FAIL and message in result.detail, (extra, result.detail)
 

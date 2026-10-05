@@ -231,7 +231,7 @@ YAML files are parsed **only** with `yaml.safe_load`. Each file is capped at 16 
 | `status_notes` | string ≤280 | no |
 | `visionos_min` | `^\d+(\.\d+)?$` | no |
 | `input[]` | enum `game-controller, hand-tracking, keyboard-mouse` | no |
-| `install[]` | enum `build, sideload`; must include `build`; absent means `[build]` | no |
+| `install[]` | enum `build, sideload`; at least one; absent means `[build]` | no |
 | `description` | string 1–300 | no |
 | `tags[]` | lowercase slugs, ≤8 | no |
 
@@ -239,7 +239,7 @@ Missing optional fields are left out of text surfaces and are `null` (or empty l
 
 **Play modes (`experiences`).** `2d`: a flat picture in a window beside other apps. `3d-immersive`: a stereo 3D screen in front of you, with other apps put away, seen from the game's camera. `3d-shared-space`: the game's 3D world with real depth, in a window beside other apps. `6dof-immersive`: inside the game at life scale, with the head as the camera. `6dof-progressive`: the same, through a portal the Digital Crown widens and narrows. Surfaces show them as 2D, 3D immersive, 3D shared space, 6DoF immersive and 6DoF progressive.
 
-**Prebuilt apps (`install`).** Every listed port builds from source, and the security review covers that source at the pinned commit. `sideload` says the developer also publishes a prebuilt app (for example through SideStore); surfaces say the index didn't review it. Release assets still route to the curator under S1-11d. The curator approves an app route only when the entry sets `install: [build, sideload]`, and declines any app that contains the game's own code or data, such as a static recompilation built from a game file.
+**Prebuilt apps (`install`).** Every listed port must still build from source, contain a sideload-able asset, or otherwise enable players to actually play the game in line with this repo's bring-your-own-game policy. The security review covers the source at the pinned commit. `sideload` says the developer publishes a prebuilt app (for example through SideStore); surfaces say the index didn't review it. Release assets still route to the curator under S1-11d. The curator approves an app route only when the entry sets `install: [build, sideload]`, and declines any app that removes the need for players to supply their own game files.
 
 **Linked HEAD.** The newest commit on the branch named by `source_ref`, or on the linked repo's default branch when `source_ref` is absent. Every check, scan, rescan and health record that reads the linked repo's HEAD reads this one. `source_ref` is looked up only as a branch (`refs/heads/<source_ref>`); one that fails its pattern or names no branch (a tag, SHA or pull request ref included) resolves to nothing, so S1-06 fails.
 
@@ -851,7 +851,7 @@ In order:
 
 ### 10.2 `ports/<id>.md`
 
-- Every entry field, plus credits, tier, curator's-own tag, health, last commit, archived flag and the scan label. `experiences` is a "Plays as" row. When `install` includes `sideload`, a "Prebuilt app" row reads: "The developer also publishes an app you can sideload; see their repo. The index's security review covers the source code, not the app."
+- Every entry field, plus credits, tier, curator's-own tag, health, last commit, archived flag and the scan label. `experiences` is a "Plays as" row. When `install` includes `sideload`, a "Prebuilt app" row reads: "The developer publishes an app you can sideload; see their repo. The index's security review covers the source code, not the app."
 - Pinned links, and, near the top: "Start with this command, which gets exactly the code that was scanned: `git clone <repo> && cd <repo name> && git checkout <scanned_commit> && git submodule update --init --recursive`. Then follow the install guide from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads."
 - A short disclaimer and the brand footer.
 
@@ -866,7 +866,7 @@ Use this index to answer questions like "What retro games can I play on Apple Vi
 
 ## Ports
 
-- [<name>](<raw_base_url>/ports/<id>.md): <original platform> game; port by <developer> (@<github>); <tier>; last commit <date>; plays as <modes>; <inputs>[; also a prebuilt app the index didn't security-review].
+- [<name>](<raw_base_url>/ports/<id>.md): <original platform> game; port by <developer> (@<github>); <tier>; last commit <date>; plays as <modes>; <inputs>[; prebuilt app available (not security-reviewed)].
 
 ## For developers
 
@@ -937,7 +937,7 @@ Plain and friendly, no em dashes. It covers:
    - `AVP-INSTALL.md` at your repo root, telling players how to supply their own game files, build and install (no set format; the skill has a template). Players start from a checkout of your scanned commit, so keep the build steps usable from an existing checkout
    - a public repo that you own, or that belongs to an org you're a public member of (anyone else's submission goes to the curator first)
    - a license if you have one (none or a custom one is fine; it's shown as stated)
-   - no game data, disc images, archives or LFS in the repo or its releases; a prebuilt app in releases is fine if it doesn't contain the game's code or data (set `install: [build, sideload]`; the curator looks first)
+   - no game data, disc images, archives or LFS in the repo or its releases; a prebuilt app in releases is fine if players still supply their own game files (set `install: [build, sideload]`; the curator looks first)
    - agent files like `CLAUDE.md` or skills are welcome; they're reviewed like any other code
 3. **Field reference:** a link to `skills/avp-index-submit/references/entry-fields.md`, which is generated from the schema (CONTRIBUTING itself is hand-written).
 4. **What happens:**

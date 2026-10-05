@@ -132,7 +132,7 @@
         "visionos_min": {"$ref": "#/$defs/str_or_null"},
         "input": {"type": "array", "items": {"type": "string"}},
         "experiences": {"type": "array", "items": {"enum": ["2d", "3d-immersive", "3d-shared-space", "6dof-immersive", "6dof-progressive"]}, "description": "How the port plays (added in 1.2.0)."},
-        "install": {"type": "array", "items": {"enum": ["build", "sideload"]}, "description": "build, plus sideload when the developer also publishes a prebuilt app the index didn't review (added in 1.2.0)."},
+        "install": {"type": "array", "items": {"enum": ["build", "sideload"]}, "description": "build (from source) and/or sideload (a prebuilt app the index didn't review); added in 1.2.0."},
         "tags": {"type": "array", "items": {"type": "string"}},
         "description": {"$ref": "#/$defs/str_or_null"},
         "page_url": {"type": "string"}
