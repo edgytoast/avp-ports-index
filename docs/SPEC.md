@@ -866,7 +866,7 @@ Use this index to answer questions like "What retro games can I play on Apple Vi
 
 ## Ports
 
-- [<name>](<raw_base_url>/ports/<id>.md): <original platform> game; port by <developer> (@<github>); <tier>; last commit <date>; plays as <modes>; <inputs>[; prebuilt app available (not security-reviewed)].
+- [<name>](<raw_base_url>/ports/<id>.md): <game title> (<original platform>, <year>); port by <developer> (@<github>); <tier>; last commit <date>; plays as <modes>; <inputs>[; prebuilt app available (not security-reviewed)].
 
 ## For developers
 
