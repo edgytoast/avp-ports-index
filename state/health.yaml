@@ -37,7 +37,7 @@ twilight-princess-vr:
   github_verified: true
   health: ok
   last_checked: null
-  last_commit_date: '2026-10-04T06:42:55Z'
+  last_commit_date: '2026-10-04T18:47:59Z'
   license:
     kind: open-source
     spdx: CC0-1.0
@@ -46,9 +46,9 @@ twilight-princess-vr:
   rescan_after: null
   rescan_hold: false
   routes: []
-  scan_confidence: 95
+  scan_confidence: 100
   scan_kind: automated
   scan_state: current
-  scanned_at: '2026-10-04T17:42:37Z'
-  scanned_commit: 69873b7cecd5bb99ae05d64f7592fb9ac1937b80
+  scanned_at: '2026-10-05T00:17:00Z'
+  scanned_commit: c6b2ecb59fb05c23c96ba77a556662f5aa7050b7
   warnings: []

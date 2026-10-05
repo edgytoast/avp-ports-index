@@ -6,19 +6,20 @@ Port by trevorbilt ([@edgytoast](https://github.com/edgytoast))
 Start with this command, which gets exactly the code that was scanned:
 
 ```
-git clone https://github.com/edgytoast/tpvr-visionos && cd tpvr-visionos && git checkout 69873b7cecd5bb99ae05d64f7592fb9ac1937b80 && git submodule update --init --recursive
+git clone https://github.com/edgytoast/tpvr-visionos && cd tpvr-visionos && git checkout c6b2ecb59fb05c23c96ba77a556662f5aa7050b7 && git submodule update --init --recursive
 ```
 
-Then follow the [install guide](https://github.com/edgytoast/tpvr-visionos/blob/69873b7cecd5bb99ae05d64f7592fb9ac1937b80/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+Then follow the [install guide](https://github.com/edgytoast/tpvr-visionos/blob/c6b2ecb59fb05c23c96ba77a556662f5aa7050b7/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
 
 | | |
 | --- | --- |
 | Trust | Working · Curator's own port |
 | Status | Working: Plays on Apple Vision Pro \(visionOS 27\) in full and progressive immersion, with PS VR2 Sense controllers or bare hands. Window mode \(third person, gamepad\) is newer: characters look a little flatter than in the game. |
+| Plays as | 3D shared space, 6DoF immersive, 6DoF progressive |
 | Health | OK |
-| Scan | Scanned 2026-10-04 · 0 commits since |
-| Source (scanned) | [edgytoast/tpvr-visionos at 69873b7cecd5](https://github.com/edgytoast/tpvr-visionos/tree/69873b7cecd5bb99ae05d64f7592fb9ac1937b80) |
-| Install guide | [AVP-INSTALL.md at 69873b7cecd5](https://github.com/edgytoast/tpvr-visionos/blob/69873b7cecd5bb99ae05d64f7592fb9ac1937b80/AVP-INSTALL.md) |
+| Scan | Scanned 2026-10-05 · 0 commits since |
+| Source (scanned) | [edgytoast/tpvr-visionos at c6b2ecb59fb0](https://github.com/edgytoast/tpvr-visionos/tree/c6b2ecb59fb05c23c96ba77a556662f5aa7050b7) |
+| Install guide | [AVP-INSTALL.md at c6b2ecb59fb0](https://github.com/edgytoast/tpvr-visionos/blob/c6b2ecb59fb05c23c96ba77a556662f5aa7050b7/AVP-INSTALL.md) |
 | Repo | [edgytoast/tpvr-visionos](https://github.com/edgytoast/tpvr-visionos) |
 | Developer site | <https://trevorbilt.com> |
 | License | CC0-1.0 |
