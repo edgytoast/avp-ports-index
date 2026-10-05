@@ -34,7 +34,7 @@ If you also publish a prebuilt app, add `install: [build, sideload]`, or `instal
 2. If everything passes, your PR joins the queue for the automated security review, first come, first served. Expect minutes to hours.
 3. Clean PRs merge on their own, and your port appears in the README, on its own page, in the JSON feed and in `llms.txt`.
 
-The checks rerun whenever you push to the PR branch. If you fix something in your port's repo instead (adding `AVP-INSTALL.md`, say), close and reopen the PR to rerun them.
+The checks rerun whenever you push to the PR branch. If you fix something in your port's repo instead (adding `AVP-INSTALL.md`, say), the index re-checks within a few hours of a new commit there, and at least daily otherwise; close and reopen the PR to rerun them right away.
 
 ## A badge for your README
 

@@ -25,3 +25,7 @@ health:                             # the schedule itself is fixed in health-che
   grace_days: 30
   outreach_max_per_run: 10
 stale_pr_close_days: 14
+stale_pr_close_days_owner: 90      # PRs the curator opened for someone else's port
+stage1_recheck_hours: 24           # rerun Stage 1 on PRs waiting on their port's repo at least this often
+stage1_recheck_max_per_run: 10
+app_review_extensions: [.z64, .n64, .v64, .xex, .xbe, .pak, .pk3, .pk4, .wad, .iso, .rom, .o2r, .otr]  # listed for the curator, not failed

@@ -70,3 +70,11 @@ jobs:
           MERGE_TOKEN: ${{ steps.merge-token.outputs.token }}
           BLOCKLIST_SALT: ${{ secrets.BLOCKLIST_SALT }}
         run: '"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli merge --sweep'
+      - name: Re-check PRs waiting on their port's repo
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        timeout-minutes: 10
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          BLOCKLIST_SALT: ${{ secrets.BLOCKLIST_SALT }}
+        run: '"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli recheck'

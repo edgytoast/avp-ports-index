@@ -16,6 +16,7 @@ from .sync import repo_facts, sync_all
 ISSUE_URL = re.compile(r"^https://github\.com/([A-Za-z0-9-]+/[A-Za-z0-9._-]+)/issues/(\d+)(#issuecomment-\d+)?$")
 STALE_NOTE = ("Closing this for now, since it has been quiet for {days} days. Reopening it reruns the checks, "
               "and the curator is happy to help if something is unclear.")
+OWN_STALE_NOTE = "Closing this invitation after {days} quiet days. Reopening it reruns the checks."
 
 
 def clear_outreach(health: dict) -> None:
@@ -195,14 +196,16 @@ def recover(rt, outreach: Outreach, health: dict, name: str, entry_id: str) -> N
 
 def close_stale_prs(rt) -> None:
     days = int(rt.policy["stale_pr_close_days"])
-    cutoff = store.utcnow() - dt.timedelta(days=days)
+    owner_days = int(rt.policy.get("stale_pr_close_days_owner", days))  # the curator's own invitations
     for issue in rt.gh.issues(labels="needs-author", state="open"):
         if "pull_request" not in issue:
             continue
         labels = {label["name"] for label in issue.get("labels") or []}
         if labels & {"needs-owner", "stage2:flagged"}:
             continue  # waiting for the curator, not the author
-        if store.parse_iso(issue["updated_at"]) < cutoff:
-            rt.gh.comment(issue["number"], STALE_NOTE.format(days=days))
+        own = (issue.get("user") or {}).get("id") == rt.owner_id
+        limit = owner_days if own else days
+        if store.parse_iso(issue["updated_at"]) < store.utcnow() - dt.timedelta(days=limit):
+            rt.gh.comment(issue["number"], (OWN_STALE_NOTE if own else STALE_NOTE).format(days=limit))
             rt.gh.close_pr(issue["number"])
             rt.summary(f"closed stale PR #{issue['number']}")

@@ -13,10 +13,13 @@ import re
 
 from . import blocklist, checks, messages, store, validate
 from .checks import PASS, ROUTE, IndexView, Report, Result, Subject
-from .gate import STAGE1, STAGE2, entry_bytes_at, latest_check, parse_external_id, post_stage1
+from .gate import (STAGE1, STAGE1_MARKER_RE, STAGE2, entry_bytes_at, entry_pr, latest_check, parse_external_id,
+                   post_stage1, read_marker)
 from .lifecycle import LISTED
 
 SCAN_WORKFLOW = "stage2-scan.yml"
+UPSTREAM_CHECKS = {"S1-06", "S1-07", "S1-11a", "S1-11d"}  # failures fixed in the port's repo
+RECHECK_SECONDS = 300  # stop starting new re-checks after this; the workflow step has its own hard limit
 RUN_NAME_RE = re.compile(r"^stage2 (pr|rescan) ([0-9]+|[a-z0-9]+(?:-[a-z0-9]+)*)$")
 
 
@@ -112,6 +115,58 @@ def _deferred_recently(rt, recent: list[dict]) -> bool:
         if any(a.get("name") == "result-deferred" for a in rt.gh.run_artifacts(run["id"])):
             return True
     return False
+
+
+def recheck_waiting(rt, now: dt.datetime) -> list[str]:
+    """Rerun Stage 1 on open entry PRs whose only failures are fixed in the port's own repo, once
+    that repo has a new commit (or every `stage1_recheck_hours`), so a fix there moves the PR on
+    without a close and reopen. Runs as its own step after the merge sweep (§8.3), so a slow or
+    failing re-check never holds up scans or merges."""
+    import time
+    from .classify import ENTRY_ADD, ENTRY_EDIT, classify
+    budget = int(rt.policy.get("stage1_recheck_max_per_run", 10))
+    every = dt.timedelta(hours=int(rt.policy.get("stage1_recheck_hours", 24)))
+    started = time.monotonic()
+    log = []
+    for listed in rt.gh.open_prs():
+        if budget <= 0 or time.monotonic() - started > RECHECK_SECONDS:
+            break
+        labels = {label["name"] for label in listed.get("labels") or []}
+        if listed.get("draft") or "stage1:fail" not in labels:
+            continue
+        number = listed["number"]
+        try:
+            check = latest_check(rt, listed["head"]["sha"], STAGE1)
+            failures = set(read_marker(check, STAGE1_MARKER_RE).get("failures") or [])
+            if not failures or not failures <= UPSTREAM_CHECKS:
+                continue
+            ext = parse_external_id((check or {}).get("external_id"))
+            due = False
+            if ext:
+                entry_id, entry, _ = _pr_entry(rt, listed)
+                repo = rt.gh.repo_by_id(ext[0]) if entry else None
+                due = bool(repo) and checks.linked_head(rt.gh, repo, entry) not in (None, ext[1])
+            if not due:
+                try:
+                    due = now - store.parse_iso((check or {}).get("completed_at") or "") >= every
+                except (TypeError, ValueError):
+                    due = False
+            if not due:
+                continue
+            pr = rt.gh.pr(number)  # fresh: the PR may have moved on since the list was read
+            labels = {label["name"] for label in pr.get("labels") or []}
+            if (pr.get("state") != "open" or pr.get("draft") or "stage1:fail" not in labels
+                    or pr["head"]["sha"] != listed["head"]["sha"]):
+                continue
+            cls = classify(rt.gh.pr_files(number), pr["user"]["id"], pr["user"]["login"], rt.owner_id)
+            if cls.kind not in (ENTRY_ADD, ENTRY_EDIT):
+                continue
+            entry_pr(rt, pr, cls, labels)
+            budget -= 1
+            log.append(f"recheck #{number} ({cls.stem})")
+        except Exception as exc:  # one PR never stops the others
+            log.append(f"recheck #{number}: skipped ({type(exc).__name__})")
+    return log
 
 
 def dispatch(rt) -> list[str]:

@@ -20,6 +20,7 @@ WATCHED_LABELS = ("owner:scan", "blocklist", "kill-switch")
 PIPELINE_LABELS = ("stage1:pass", "stage1:fail", "stage1:route", "needs-author", "needs-owner")
 WAITING = "Waiting for the curator"
 MARKER_RE = re.compile(r"<!-- avp:stage2 (\{.*?\}) -->")
+STAGE1_MARKER_RE = re.compile(r"<!-- avp:stage1 (\{.*?\}) -->")
 
 
 # --- check runs ------------------------------------------------------------------------
@@ -28,9 +29,9 @@ def stage2_marker(**data) -> str:
     return f"<!-- avp:stage2 {json.dumps(data, sort_keys=True)} -->"
 
 
-def read_marker(check: dict | None) -> dict:
+def read_marker(check: dict | None, pattern: re.Pattern = MARKER_RE) -> dict:
     summary = ((check or {}).get("output") or {}).get("summary") or ""
-    match = MARKER_RE.search(summary)
+    match = pattern.search(summary)
     if not match:
         return {}
     try:
@@ -56,10 +57,25 @@ def stage1_title(outcome: str) -> str:
     return {PASS: "Passed", FAIL: "Changes needed", ROUTE: WAITING}[outcome]
 
 
+def apps_table(apps: list[dict]) -> str:
+    """What's inside the prebuilt apps S1-11d routed, for the curator."""
+    if not apps:
+        return ""
+    lines = ["**Prebuilt apps** (file lists read from each app; nothing was run):", "",
+             "| App | Size | Files | Worth a look |", "| --- | --- | --- | --- |"]
+    for app in apps:
+        files = "couldn't be listed" if app.get("files") is None else str(app["files"])
+        review = ", ".join(validate.md_inline(n, 120) for n in app.get("review") or []) or "none"
+        lines.append(f"| {validate.md_inline(app['name'], 120)} | {app['size'] / 1e6:.1f} MB | {files} | {review} |")
+    return "\n".join(lines)
+
+
 def post_stage1(rt, head: str, report: Report, *, note: str = "") -> None:
     outcome = report.overall
+    marker = f"<!-- avp:stage1 {json.dumps({'failures': report.failures, 'routes': report.routes}, sort_keys=True)} -->"
+    parts = [note, results_table(report), apps_table(report.apps), marker]
     rt.gh.create_check(head, STAGE1, conclusion="success" if outcome == PASS else "failure",
-                       title=stage1_title(outcome), summary=(note + "\n\n" if note else "") + results_table(report),
+                       title=stage1_title(outcome), summary="\n\n".join(p for p in parts if p),
                        external_id=report.external_id)
 
 
@@ -298,7 +314,8 @@ def _render_stage1(rt, number: int, name: str, report: Report) -> None:
     if report.overall == FAIL:
         text = messages.render("stage1-fail", rt.root, name=name, rows=messages.fail_rows(report.results))
     else:
-        text = messages.render("route", rt.root, name=name, reasons=messages.route_reasons(report.routes))
+        text = messages.render("route", rt.root, name=name, reasons=messages.route_reasons(report.routes),
+                               apps=apps_table(report.apps))
     messages.upsert(rt, number, text)
 
 
