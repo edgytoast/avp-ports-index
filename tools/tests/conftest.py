@@ -310,6 +310,7 @@ class FakeGitHub(GitHub):
         self.checks.setdefault(head_sha, []).append({
             "id": next(self.ids), "name": name, "status": status, "conclusion": conclusion,
             "external_id": external_id, "app": {"id": APP_ID}, "started_at": f"{next(self.ids):012d}",
+            "completed_at": store.iso(store.utcnow()) if status == "completed" else None,
             "output": {"title": title, "summary": summary}})
 
     def check_runs(self, sha, app_id, name=None):

@@ -3,13 +3,14 @@
 
 from __future__ import annotations
 
+import datetime as dt
 import json
 
 import pytest
 import yaml
 from conftest import APP_ID, BOT_ID, OWNER_ID, SALT, SHA, STRANGER_ID, FakeHTTP, entry_yaml, git, list_entry, write_entry
 
-from avpindex import blocklist, gate, generate, health, killswitch, messages, store, sync
+from avpindex import blocklist, gate, generate, health, killswitch, messages, queue, store, sync
 from avpindex.gate import STAGE1, STAGE2, stage2_marker
 
 
@@ -602,6 +603,74 @@ def test_play_modes_and_prebuilt_apps(rt, gh):
     assert "· prebuilt app (not security-reviewed)" in out["README.md"] and "prebuilt app available (not security-reviewed)" in out["llms.txt"]
     feed = json.loads(out["feed/v1/index.json"])
     assert feed["schema_version"] == "1.2.0" and feed["entries"][0]["install"] == ["build", "sideload"]
+
+
+class TestRecheck:
+    """A fix in the port's own repo moves its PR on without a close and reopen."""
+
+    def stage1_runs(self, gh, number):
+        return len([c for c in gh.checks[gh.prs[number]["head"]["sha"]] if c["name"] == STAGE1])
+
+    def test_fix_in_port_repo_moves_the_pr_on(self, rt, gh, event):
+        gh.add_repo("trevorbilt-bot/good", 11, install=None)
+        gh.open_pr(5, "trevorbilt-bot", "entries/good.yaml", "added", entry_yaml("good", "trevorbilt-bot/good"))
+        event(pr_event(gh, 5))
+        gate.run(rt)
+        assert "stage1:fail" in gh.labels_of(5)
+        before = self.stage1_runs(gh, 5)
+        queue.recheck_waiting(rt, store.utcnow())
+        assert self.stage1_runs(gh, 5) == before  # the port's repo hasn't changed yet
+        gh.move_head("trevorbilt-bot/good", SHA(12))  # the developer adds AVP-INSTALL.md
+        assert queue.recheck_waiting(rt, store.utcnow()) == ["recheck #5 (good)"]
+        assert gh.latest(gh.prs[5]["head"]["sha"], STAGE1)["conclusion"] == "success"
+        assert {"stage1:pass", "stage2:queued"} <= gh.labels_of(5)
+        queue.dispatch(rt)  # the next dispatcher run starts its review
+        assert "stage2:scanning" in gh.labels_of(5)
+
+    def test_daily_fallback_and_one_bad_pr(self, rt, gh, event, monkeypatch):
+        """A fix that leaves HEAD alone (say, a release asset removed) is seen within a day, and one
+        PR that errors doesn't stop the others."""
+        for number, name in ((5, "good"), (6, "other")):
+            gh.add_repo(f"trevorbilt-bot/{name}", 10 + number, install=None)
+            gh.open_pr(number, "trevorbilt-bot", f"entries/{name}.yaml", "added", entry_yaml(name, f"trevorbilt-bot/{name}"))
+            event(pr_event(gh, number))
+            gate.run(rt)
+        before = {n: self.stage1_runs(gh, n) for n in (5, 6)}
+        assert queue.recheck_waiting(rt, store.utcnow()) == []  # not due yet
+        monkeypatch.setenv("AVP_NOW", store.iso(store.utcnow() + dt.timedelta(hours=25)))
+        real = gh.pr_files
+        monkeypatch.setattr(gh, "pr_files", lambda n: (_ for _ in ()).throw(RuntimeError("boom")) if n == 6 else real(n))
+        log = queue.recheck_waiting(rt, store.utcnow())
+        assert "recheck #5 (good)" in log and "recheck #6: skipped (RuntimeError)" in log
+        assert self.stage1_runs(gh, 5) == before[5] + 1 and self.stage1_runs(gh, 6) == before[6]
+
+    def test_entry_failures_and_drafts_wait(self, rt, gh, event):
+        gh.add_repo("trevorbilt-bot/good", 11, install=None)
+        gh.add_repo("trevorbilt-bot/other", 12, install=None)
+        gh.open_pr(5, "trevorbilt-bot", "entries/good.yaml", "added",
+                   entry_yaml("good", "trevorbilt-bot/good", status="bogus"))  # the entry itself is wrong
+        gh.open_pr(6, "trevorbilt-bot", "entries/other.yaml", "added", entry_yaml("other", "trevorbilt-bot/other"),
+                   draft=True)
+        for number in (5, 6):
+            event(pr_event(gh, number))
+            gate.run(rt)
+        before = {n: self.stage1_runs(gh, n) for n in (5, 6)}
+        gh.move_head("trevorbilt-bot/good", SHA(13))
+        gh.move_head("trevorbilt-bot/other", SHA(14))
+        queue.recheck_waiting(rt, store.utcnow())
+        assert {n: self.stage1_runs(gh, n) for n in (5, 6)} == before
+
+
+def test_stale_prs_and_the_curators_invitations(rt, gh, monkeypatch):
+    gh.open_pr(5, "trevorbilt-bot", "entries/a.yaml", "added", None, labels=("needs-author",))
+    gh.open_pr(6, "edgytoast", "entries/b.yaml", "added", None, labels=("needs-author",))
+    monkeypatch.setenv("AVP_NOW", "2026-11-01T00:00:00Z")  # 31 days quiet
+    health.close_stale_prs(rt)
+    assert gh.prs[5]["state"] == "closed" and gh.prs[6]["state"] == "open"
+    monkeypatch.setenv("AVP_NOW", "2027-01-05T00:00:00Z")  # 96 days quiet
+    health.close_stale_prs(rt)
+    assert gh.prs[6]["state"] == "closed"
+    assert "invitation after 90 quiet days" in gh.comment_store[6][-1]["body"]
 
 
 def test_surfaces_and_brand(rt, gh):

@@ -393,6 +393,10 @@ health:                             # the schedule itself is fixed in health-che
   grace_days: 30
   outreach_max_per_run: 10
 stale_pr_close_days: 14
+stale_pr_close_days_owner: 90      # PRs the curator opened for someone else's port
+stage1_recheck_hours: 24           # rerun Stage 1 on PRs waiting on their port's repo at least this often
+stage1_recheck_max_per_run: 10
+app_review_extensions: [.z64, .n64, .v64, .xex, .xbe, .pak, .pk3, .pk4, .wad, .iso, .rom, .o2r, .otr]  # listed for the curator, not failed
 ```
 
 Nothing in the review is secret: the prompt and schema are public, and only `JULES_API_KEY` is held back.
@@ -420,7 +424,7 @@ Each check returns `pass`, `fail` (the contributor must fix something) or `route
 | S1-11a | Recursive tree contains a `forbidden_extensions` file | fail | ✓ | ✓ |
 | S1-11b | Recursive tree API returns `truncated: true` | route | ✓ | ✓ |
 | S1-11c | Tree has an `archive_extensions` file, a blob over `large_blob_bytes`, or `.gitattributes` with `filter=lfs` | route | ✓ | ✓ |
-| S1-11d | Release assets (newest 30): a name ending in a `forbidden_extensions` entry is a fail; one ending in an `archive_extensions` or `release_binary_extensions` entry is a route; any other name passes | fail/route | ✓ | ✓ |
+| S1-11d | Release assets (newest 30): a name ending in a `forbidden_extensions` entry is a fail; one ending in an `archive_extensions` or `release_binary_extensions` entry is a route; any other name passes; on a route in the gate, the check and the route message list up to 3 `.ipa` apps from the newest release that has any (visionOS builds first): size, file count and any files ending in `app_review_extensions`, read from each app's zip directory with range requests (never downloaded whole or run). Archives and other app formats aren't listed. | fail/route | ✓ | ✓ |
 | S1-15 | An add, edit or delete of an id whose lifecycle is `pulled` | fail | ✓ | — |
 | S1-16 | Repo identity: when the entry's `repo` URL is unchanged from the lifecycle record, the linked repo's numeric ID equals the recorded `repo_id`. A mismatch means the account or repo name was reclaimed by someone else | route (gate; not waivable); immediate `pulled` (health check); rescans skip the entry | ✓ | ✓ |
 | S1-17 | Previously flagged repo: the linked repo's hashed ID is in `state/flags.yaml` (§5.7) and this PR would need a scan, meaning an add, an edit that changes `repo`, or an edit whose linked HEAD differs from the entry's `scanned_commit` | route | ✓ | — |
@@ -675,8 +679,9 @@ Classification goes by changed paths first, then author.
 
 ### 8.3 `stage2-dispatcher.yml`
 
-- **Triggers:** `workflow_run` of `stage2-scan` (completed), `workflow_run` of `pr-gate` (completed), schedule `7 * * * *` (hourly), and `workflow_dispatch`.
+- **Triggers:** `workflow_run` of `stage2-scan`, `pr-gate`, `health-check`, `build-surfaces` and `kill-switch` (completed), schedule `7 * * * *` (hourly), and `workflow_dispatch`.
 - **Concurrency:** `stage2-dispatcher`, no cancel. Runs are idempotent, so dropped duplicates are harmless.
+- **Re-check waiting PRs** (`avpindex.cli recheck`, its own step after the merge sweep, `continue-on-error` with a 10-minute limit, so it never holds up scans or merges): for each open, non-draft entry PR labeled `stage1:fail` whose latest `gate/stage1` failures (recorded in an `avp:stage1` marker) are all fixed in the port's own repo (S1-06, S1-07, S1-11a, S1-11d), rerun the gate's entry-PR step when the linked HEAD differs from the one in its `external_id`, or when the check is older than `stage1_recheck_hours`. It reads the PR afresh and skips it if it moved, isolates each PR's errors, runs at most `stage1_recheck_max_per_run` per run and starts none after 5 minutes. A pass is queued for Stage 2 and scanned on the next dispatcher run; a route waits for the curator.
 - **Algorithm:**
   1. **Ledger:**
      - `used_hour` and `used_day` = the number of `stage2-scan.yml` runs created in the last 60 minutes and 24 hours (Actions API). Rescans count toward `rescan_daily_max` the same way.
@@ -758,7 +763,7 @@ Classification goes by changed paths first, then author.
   - **Recovery:** whenever an entry's checks pass, set `health: ok`, `failing_since: null`, `consecutive_failures: 0` and `failures: []`. If it has an outreach issue open (whatever its `health` was), also comment `outreach-resolved`, close the issue and clear the outreach fields.
   - **Left the index:** for any entry that is `pulled`, `taken-down` or `withdrawn` and still has an open outreach issue, comment `outreach-closed`, close it and clear the outreach fields, since its promise to close once the checks pass can no longer happen.
   - Where the fallback "Health tracking" comment stood in for the issue (Stage B), the same comments are posted there instead, and nothing is closed.
-- **Stale PRs:** close PRs labeled `needs-author` with no activity for `stale_pr_close_days`.
+- **Stale PRs:** close PRs labeled `needs-author` with no activity for `stale_pr_close_days`, or `stale_pr_close_days_owner` for PRs the curator opened (invitations for someone else's port).
 - **Output:** regenerate surfaces and make one `[skip ci]` commit. `last_checked` changes daily, so this also keeps scheduled workflows active.
 
 ### 8.7 `kill-switch.yml`
@@ -944,7 +949,7 @@ Plain and friendly, no em dashes. It covers:
    - Stage 1 runs right away.
    - The security review is queued, first come, first served. Expect minutes to hours.
    - Clean PRs merge on their own.
-   - The checks rerun when you push to the PR branch. If you fix something in your port's repo instead, close and reopen the PR to rerun them.
+   - The checks rerun when you push to the PR branch. If you fix something in your port's repo instead, the index re-checks within a few hours of a new commit there, and at least daily otherwise; closing and reopening the PR reruns them right away.
 5. **"fail" vs "route":** what each means; `owner:scan` is applied by the curator only.
 6. **Labels explained.**
 7. **Updating your entry:** edit your file. Only current state is tracked; your git history holds versions. Edits re-scan only when your repo changed.
@@ -1021,8 +1026,8 @@ Rules for every template:
 | Template | Text |
 | --- | --- |
 | `queued` | Thanks for adding {name}! Everything checked out, so it's waiting for the automated security review (position {n}, roughly {eta} at the current pace). Nothing to do on your end, and it'll merge on its own once the review clears. |
-| `stage1-fail` | Thanks for submitting {name}. A few things need fixing before it can be listed: {table: check, what's wrong, how to fix}. Push a fix to this branch and the checks rerun automatically. If the fix is in your port's repo (adding `AVP-INSTALL.md`, say), push it there, then close and reopen this PR to rerun the checks. If something here looks wrong, say so in a comment and the curator will take a look. |
-| `route` | Thanks for submitting {name}. Everything required is in place, but {plain reasons}, so the curator will take a quick look before it can go further. Nothing to do on your end for now. If you change something in your port's repo meanwhile, close and reopen this PR to rerun the checks. |
+| `stage1-fail` | Thanks for submitting {name}. A few things need fixing before it can be listed: {table: check, what's wrong, how to fix}. Push a fix to this branch and the checks rerun automatically. If the fix is in your port's repo (adding `AVP-INSTALL.md`, say), push it there: the index re-checks waiting PRs within a few hours of a new commit there, and at least daily otherwise. To re-check right away, close and reopen this PR. If something here looks wrong, say so in a comment and the curator will take a look. |
+| `route` | Thanks for submitting {name}. Everything required is in place, but {plain reasons}, so the curator will take a quick look before it can go further. Nothing to do on your end for now. If you change something in your port's repo meanwhile, close and reopen this PR to rerun the checks. Followed, when S1-11d listed prebuilt apps, by a collapsed "What's inside the prebuilt app" table (one row per app). |
 | `owner-review` | Thanks for your patience with {name}. The automated security review couldn't settle this one on its own, so the curator will review it by hand. That can take a few days, and there's nothing to do on your end. |
 | `flag` | Thanks for submitting {name}. The automated security review would like a person to take a closer look at {repo} before it's listed, so the curator will review it by hand. It pointed to: {file: category list}. Automated reviews do get things wrong, so nothing has been decided yet, and new pushes won't start another automated review until the curator has looked. |
 | `blocklisted` | Thanks for the time you put into this submission. After a closer look, the curator has closed it, and the repository can't be resubmitted. If you think that's a mistake, please open an appeal ({link}). |

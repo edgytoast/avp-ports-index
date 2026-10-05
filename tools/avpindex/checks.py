@@ -12,12 +12,14 @@ import base64
 import hashlib
 import re
 import socket
+import struct
 import time
 from dataclasses import dataclass, field
 from urllib.parse import quote
 
 import jsonschema
 import requests
+import urllib3
 
 from .validate import SOURCE_REF_RE, YamlError, load_untrusted_yaml, parse_repo_url
 
@@ -214,6 +216,90 @@ def probe_url(session: requests.Session, url: str) -> tuple[str, str]:
     return "ok", ""
 
 
+# --- what's inside a prebuilt app ------------------------------------------------------
+# An .ipa is a zip. Its file list sits in the central directory at the end of the file, so two
+# small range requests list the app without downloading it. Nothing in it is ever run.
+
+APP_EXTENSIONS = (".ipa",)
+ZIP_TAIL = 66 * 1024                 # end-of-central-directory record, plus room for a comment
+ZIP_DIRECTORY_CAP = 4 * 1024 * 1024  # larger directories aren't listed
+
+
+def _byte_range(session: requests.Session, url: str, start: int, end: int) -> bytes | None:
+    """Bytes start..end of a release asset, or None unless the server honours the range."""
+    try:
+        resp = session.get(url, headers={"Range": f"bytes={start}-{end}", "Accept-Encoding": "identity"},
+                           allow_redirects=True, timeout=30, stream=True)
+    except requests.RequestException:
+        return None
+    try:
+        if resp.status_code != 206:
+            return None  # never fall back to downloading the whole app
+        data = resp.raw.read(end - start + 1) if getattr(resp, "raw", None) else resp.content
+        return data[: end - start + 1]
+    except (requests.RequestException, urllib3.exceptions.HTTPError, OSError, ValueError):
+        return None  # a dropped or stalled connection just means "couldn't be listed"
+    finally:
+        try:
+            resp.close()
+        except Exception:
+            pass
+
+
+def zip_listing(session: requests.Session, url: str, size: int) -> list[tuple[str, int]] | None:
+    """(name, unpacked size) for each file in a zip, read from its central directory."""
+    if size < 22:
+        return None
+    tail_start = max(0, size - ZIP_TAIL)
+    tail = _byte_range(session, url, tail_start, size - 1)
+    if not tail:
+        return None
+    at = tail.rfind(b"PK\x05\x06")
+    if at < 0 or len(tail) - at < 22:
+        return None
+    count, dir_size, dir_offset = struct.unpack_from("<HII", tail, at + 10)
+    if count == 0xFFFF or dir_offset == 0xFFFFFFFF or dir_size > ZIP_DIRECTORY_CAP:
+        return None  # zip64 or too big to list
+    if dir_offset >= tail_start:
+        directory = tail[dir_offset - tail_start: dir_offset - tail_start + dir_size]
+    else:
+        directory = _byte_range(session, url, dir_offset, dir_offset + dir_size - 1)
+    if not directory:
+        return None
+    files, i = [], 0
+    while i + 46 <= len(directory) and directory[i:i + 4] == b"PK\x01\x02":
+        unpacked = struct.unpack_from("<I", directory, i + 24)[0]
+        name_len, extra_len, comment_len = struct.unpack_from("<HHH", directory, i + 28)
+        name = directory[i + 46: i + 46 + name_len].decode("utf-8", "replace")
+        files.append((name, unpacked))
+        i += 46 + name_len + extra_len + comment_len
+    if len(files) != count:
+        return None  # the directory doesn't match the zip's own count: don't guess
+    return [(n, s) for n, s in files if not n.endswith("/")]
+
+
+def app_inventories(session: requests.Session, releases: list, policy: dict, limit: int = 3) -> list[dict]:
+    """List up to `limit` apps from the newest release that has any, visionOS builds first."""
+    review = tuple(policy.get("app_review_extensions") or ())
+    for release in releases:
+        apps = [a for a in release.get("assets") or [] if str(a.get("name", "")).lower().endswith(APP_EXTENSIONS)]
+        if not apps:
+            continue
+        apps.sort(key=lambda a: "vision" not in str(a.get("name", "")).lower())
+        out = []
+        for asset in apps[:limit]:
+            url, size = asset.get("browser_download_url") or "", int(asset.get("size") or 0)
+            item = {"name": str(asset.get("name", "")), "size": size, "files": None, "review": []}
+            if url.startswith("https://github.com/") and size:
+                listing = zip_listing(session, url, size)
+                if listing is not None:
+                    item["files"] = len(listing)
+                    item["review"] = sorted({n for n, _ in listing if review and n.lower().endswith(review)})[:20]
+            out.append(item)
+        return out
+    return []
+
+
 # --- results ----------------------------------------------------------------------------
 
 @dataclass
@@ -269,6 +355,7 @@ class Report:
     head: str | None = None                          # linked HEAD (see linked_head)
     license: dict | None = None
     curator_flags: dict = field(default_factory=dict)
+    apps: list = field(default_factory=list)         # what's inside routed prebuilt apps (S1-11d)
 
     def add(self, result: Result | None) -> None:
         if result is not None:
@@ -690,13 +777,15 @@ def s1_11d(ctx: Ctx) -> Result | None:
     if ctx.repo is None:
         return None
     policy = ctx.idx.policy
-    names = [a.get("name", "") for r in ctx.gh.releases(ctx.owner, ctx.name, 30)
-             for a in r.get("assets") or []]
+    releases = ctx.gh.releases(ctx.owner, ctx.name, 30)
+    names = [a.get("name", "") for r in releases for a in r.get("assets") or []]
     bad = [n for n in names if _ends(n, policy["forbidden_extensions"])]
     if bad:
         return Result("S1-11d", FAIL, "release assets with game data: " + ", ".join(bad[:5]))
     binaries = [n for n in names if _ends(n, policy["archive_extensions"] + policy["release_binary_extensions"])]
     if binaries:
+        if ctx.s.mode == "gate":
+            ctx.report.apps = app_inventories(ctx.http, releases, policy)
         return Result("S1-11d", ROUTE, "release assets with prebuilt apps or archives: " + ", ".join(binaries[:5]))
     return Result("S1-11d", PASS)
 

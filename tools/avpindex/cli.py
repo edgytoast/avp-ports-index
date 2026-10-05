@@ -60,6 +60,15 @@ def cmd_merge(args) -> int:
     return 0
 
 
+def cmd_recheck(_args) -> int:
+    from . import queue
+    rt = _runtime()
+    for line in queue.recheck_waiting(rt, store.utcnow()):
+        rt.summary(line)
+    rt.flush_summary()
+    return 0
+
+
 def cmd_dispatch(_args) -> int:
     from . import queue
     rt = _runtime()
@@ -256,7 +265,7 @@ def cmd_check_data(_args) -> int:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="avpindex")
     sub = parser.add_subparsers(dest="command", required=True)
-    for name, func in [("gate", cmd_gate), ("blocklist-label", cmd_blocklist_label), ("dispatch", cmd_dispatch),
+    for name, func in [("gate", cmd_gate), ("blocklist-label", cmd_blocklist_label), ("dispatch", cmd_dispatch), ("recheck", cmd_recheck),
                        ("build-surfaces", cmd_build_surfaces), ("health", cmd_health),
                        ("kill-switch", cmd_kill_switch), ("intake", cmd_intake),
                        ("jules-smoke", cmd_jules_smoke), ("check-data", cmd_check_data)]:
