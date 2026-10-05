@@ -5,7 +5,7 @@
   "description": "One entries/<id>.yaml file. Only these fields are allowed; owner and bot fields (owner_verified, last_commit_date, health, lifecycle, scanned_commit) are never accepted.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["id", "name", "game", "repo", "developer", "status"],
+  "required": ["id", "name", "game", "repo", "developer", "status", "experiences"],
   "properties": {
     "schema_version": {
       "description": "Always 1. Treated as 1 when absent.",
