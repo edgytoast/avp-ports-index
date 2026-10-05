@@ -593,6 +593,7 @@ def test_play_modes_and_prebuilt_apps(rt, gh):
     assert "| Plays as | 3D shared space, 6DoF immersive |" in out["ports/good.md"]  # canonical order
     assert "| Prebuilt app |" not in out["ports/good.md"] and "prebuilt app (not security-reviewed)" not in out["README.md"]
     assert "plays as 3D shared space, 6DoF immersive" in out["llms.txt"]
+    assert "/ports/good.md): good game; port by" in out["llms.txt"]  # the game right after the project link
     entry = json.loads(out["feed/v1/index.json"])["entries"][0]
     assert entry["experiences"] == ["3d-shared-space", "6dof-immersive"] and entry["install"] == ["build"]
     write_entry(rt.root, "good", "trevorbilt-bot/good", experiences=["2d"], install=["build", "sideload"])
