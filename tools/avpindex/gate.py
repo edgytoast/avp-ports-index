@@ -58,15 +58,22 @@ def stage1_title(outcome: str) -> str:
 
 
 def apps_table(apps: list[dict]) -> str:
-    """What's inside the prebuilt apps S1-11d routed, for the curator."""
+    """The release assets S1-11d routed, for the curator: sizes, and what's inside zip-format files."""
     if not apps:
         return ""
-    lines = ["**Prebuilt apps** (file lists read from each app; nothing was run):", "",
-             "| App | Size | Files | Worth a look |", "| --- | --- | --- | --- |"]
+    lines = ["**Release assets** (sizes from GitHub; file lists read from zip-format files; nothing was "
+             "downloaded whole or run):", "", "| Asset | Size | Files | Worth a look |", "| --- | --- | --- | --- |"]
     for app in apps:
-        files = "couldn't be listed" if app.get("files") is None else str(app["files"])
-        review = ", ".join(validate.md_inline(n, 120) for n in app.get("review") or []) or "none"
-        lines.append(f"| {validate.md_inline(app['name'], 120)} | {app['size'] / 1e6:.1f} MB | {files} | {review} |")
+        if "more" in app:
+            lines.append(f"| …and {app['more']} more | | | |")
+            continue
+        if not app.get("listable", True):
+            ext = app["name"].rsplit(".", 1)[-1] if "." in app["name"] else "?"
+            files, review = f"not listed (.{validate.md_inline(ext, 12)})", "n/a"
+        else:
+            files = "couldn't be listed" if app.get("files") is None else str(app["files"])
+            review = ", ".join(validate.md_inline(n, 120) for n in app.get("review") or []) or "none"
+        lines.append(f"| {validate.md_inline(app['name'], 120)} | {app['size'] / 1e6:,.1f} MB | {files} | {review} |")
     return "\n".join(lines)
 
 
@@ -138,7 +145,7 @@ def entry_bytes_at(rt, path: str, ref: str) -> bytes | None:
 def index_view(rt, state: store.State, entries: dict) -> IndexView:
     return IndexView(policy=rt.policy, schema=rt.entry_schema(), index_repo=rt.repo, entries=entries,
                      lifecycle=state.lifecycle, blocked=blocklist.hashes(state),
-                     flagged=blocklist.flag_hashes(state), salt=rt.salt)
+                     flagged=blocklist.flag_hashes(state), salt=rt.salt, owner_id=rt.owner_id)
 
 
 def stage1_report(rt, pr: dict, cls, labels: set[str], state: store.State | None = None,

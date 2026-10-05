@@ -606,7 +606,7 @@ def probe_url(session: requests.Session, url: str) -> tuple[str, str]:
 # An .ipa is a zip. Its file list sits in the central directory at the end of the file, so two
 # small range requests list the app without downloading it. Nothing in it is ever run.
 
-APP_EXTENSIONS = (".ipa",)
+ZIP_FORMATS = (".ipa", ".zip", ".apk")  # zip files inside: their file list can be read
 ZIP_TAIL = 66 * 1024                 # end-of-central-directory record, plus room for a comment
 ZIP_DIRECTORY_CAP = 4 * 1024 * 1024  # larger directories aren't listed
 
@@ -664,24 +664,36 @@ def zip_listing(session: requests.Session, url: str, size: int) -> list[tuple[st
     return [(n, s) for n, s in files if not n.endswith("/")]
 
 
-def app_inventories(session: requests.Session, releases: list, policy: dict, limit: int = 3) -> list[dict]:
-    """List up to `limit` apps from the newest release that has any, visionOS builds first."""
+def app_inventories(session: requests.Session, releases: list, policy: dict, reads: int = 3,
+                    rows: int = 8) -> list[dict]:
+    """The flagged assets (archives and prebuilt apps) of the newest release that has any: each
+    one's size, and for up to `reads` zip-format files their file count and files worth a look.
+    Sizes come from the releases API; nothing is downloaded whole or run."""
+    flagged = tuple(policy.get("archive_extensions") or ()) + tuple(policy.get("release_binary_extensions") or ())
     review = tuple(policy.get("app_review_extensions") or ())
     for release in releases:
-        apps = [a for a in release.get("assets") or [] if str(a.get("name", "")).lower().endswith(APP_EXTENSIONS)]
-        if not apps:
+        assets = [a for a in release.get("assets") or [] if str(a.get("name", "")).lower().endswith(flagged)]
+        if not assets:
             continue
-        apps.sort(key=lambda a: "vision" not in str(a.get("name", "")).lower())
+        def order(a):
+            name = str(a.get("name", "")).lower()
+            return ("vision" not in name, not name.endswith(ZIP_FORMATS), -int(a.get("size") or 0))
+        assets.sort(key=order)
         out = []
-        for asset in apps[:limit]:
-            url, size = asset.get("browser_download_url") or "", int(asset.get("size") or 0)
-            item = {"name": str(asset.get("name", "")), "size": size, "files": None, "review": []}
-            if url.startswith("https://github.com/") and size:
+        for asset in assets[:rows]:
+            name, size = str(asset.get("name", "")), int(asset.get("size") or 0)
+            url = asset.get("browser_download_url") or ""
+            item = {"name": name, "size": size, "listable": name.lower().endswith(ZIP_FORMATS),
+                    "files": None, "review": []}
+            if item["listable"] and reads > 0 and url.startswith("https://github.com/") and size:
+                reads -= 1
                 listing = zip_listing(session, url, size)
                 if listing is not None:
                     item["files"] = len(listing)
                     item["review"] = sorted({n for n, _ in listing if review and n.lower().endswith(review)})[:20]
             out.append(item)
+        if len(assets) > rows:
+            out.append({"more": len(assets) - rows})
         return out
     return []
 
@@ -730,6 +742,7 @@ class IndexView:
     blocked: set = field(default_factory=set)            # blocklist hashes
     flagged: set = field(default_factory=set)            # flag-memory hashes
     salt: str | None = None
+    owner_id: int | None = None                          # the curator: PRs they open pass S1-08
 
 
 @dataclass
@@ -988,9 +1001,12 @@ def s1_08(ctx: Ctx) -> Result | None:
     """S1-08 · Authority. Decided by numeric user IDs. Adds: the PR author owns the linked repo
     or is a public member of its owning org. Edits and deletes: the author owns (or is a public
     member of the org that owns) the entry's current repo, found by its recorded repo ID, or is
-    the person who first listed the entry. An edit that changes `repo` must pass both."""
+    the person who first listed the entry. An edit that changes `repo` must pass both. PRs the
+    curator opens always pass."""
     if ctx.s.mode == "health":
         return None
+    if ctx.s.mode == "gate" and _by_curator(ctx):
+        return Result("S1-08", PASS, "opened by the curator")
     if ctx.s.mode == "preflight":
         if ctx.repo is None or ctx.s.author_id is None:
             return None
@@ -1286,8 +1302,12 @@ def run(subject: Subject, index: IndexView, reader: LinkedRepoReader,
     return ctx.report
 
 
+def _by_curator(ctx: Ctx) -> bool:
+    return ctx.idx.owner_id is not None and ctx.s.author_id == ctx.idx.owner_id
+
+
 def _run_remove(ctx: Ctx) -> Report:
-    ok = authority_a(ctx.gh, ctx.s, ctx.s.old_entry)
+    ok = _by_curator(ctx) or authority_a(ctx.gh, ctx.s, ctx.s.old_entry)
     ctx.report.add(Result("S1-08", PASS) if ok else
                    Result("S1-08", ROUTE, "the PR author has no authority over the listed entry", waivable=False))
     ctx.report.add(s1_15(ctx))
