@@ -4,8 +4,13 @@
   "title": "Security review verdict",
   "type": "object",
   "additionalProperties": false,
-  "required": ["safe_confidence", "summary", "findings", "steering_attempt"],
+  "required": ["review_id", "safe_confidence", "summary", "findings", "steering_attempt"],
   "properties": {
+    "review_id": {
+      "description": "This review's id, copied exactly from the instructions.",
+      "type": "string",
+      "pattern": "^[0-9a-f]{32}$"
+    },
     "safe_confidence": {
       "description": "How confident you are that the repo is not malicious, from 0 to 100.",
       "type": "integer",
