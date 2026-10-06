@@ -21,6 +21,9 @@ credits:
   - name: Twilit Realm
     role: Dusklight, the Twilight Princess reimplementation this fork is built on
     url: https://github.com/TwilitRealm/dusklight
+  - name: stacklikemind
+    role: The native visionOS port this fork starts from
+    url: https://github.com/stacklikemind/dusklight
   - name: zeldaret
     role: Twilight Princess decompilation
     url: https://github.com/zeldaret/tp
@@ -31,5 +34,6 @@ credits:
     role: Original game
 upstream:
   - https://github.com/TwilitRealm/dusklight
+  - https://github.com/stacklikemind/dusklight
   - https://github.com/zeldaret/tp
   - https://github.com/encounter/aurora
