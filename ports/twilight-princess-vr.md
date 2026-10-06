@@ -1,7 +1,7 @@
 # Twilight Princess VR
 
 **The Legend of Zelda: Twilight Princess** · originally on GameCube (2006)
-Port by trevorbilt ([@edgytoast](https://github.com/edgytoast))
+Port by Trevorbilt ([@edgytoast](https://github.com/edgytoast))
 
 Start with this command, which gets exactly the code that was scanned:
 

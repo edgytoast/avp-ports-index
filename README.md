@@ -51,7 +51,7 @@ Everything below "Verified by trevorbilt" is self-reported by whoever submitted 
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Half-Life | [Lambda VisionPro](ports/half-life-vr.md) | Ixion ([@illixion](https://github.com/illixion)) | 6DoF immersive | Working | OK | GPL-3.0 | 2026-10-06 | Scanned 2026-10-06 · 0 commits since | [AVP-INSTALL.md](https://github.com/illixion/halflife-visionos/blob/289207393355fa68384b49c189218d1fa07705e8/AVP-INSTALL.md) |
 | The Simpsons: Hit &amp; Run | [SHAR VR](ports/shar-visionos.md) | Trevorbilt ([@edgytoast](https://github.com/edgytoast)) | 3D shared space, 6DoF immersive, 6DoF progressive | Working · Curator's own port | OK | MIT | 2026-10-04 | Scanned 2026-10-05 · 0 commits since | [AVP-INSTALL.md](https://github.com/edgytoast/shar-visionos/blob/218b0cd2baa279d32fb6418ef19fb52c466e71e7/AVP-INSTALL.md) |
-| The Legend of Zelda: Twilight Princess | [Twilight Princess VR](ports/twilight-princess-vr.md) | trevorbilt ([@edgytoast](https://github.com/edgytoast)) | 3D shared space, 6DoF immersive, 6DoF progressive | Working · Curator's own port | OK | CC0-1.0 | 2026-10-04 | Scanned 2026-10-05 · 0 commits since | [AVP-INSTALL.md](https://github.com/edgytoast/tpvr-visionos/blob/c6b2ecb59fb05c23c96ba77a556662f5aa7050b7/AVP-INSTALL.md) |
+| The Legend of Zelda: Twilight Princess | [Twilight Princess VR](ports/twilight-princess-vr.md) | Trevorbilt ([@edgytoast](https://github.com/edgytoast)) | 3D shared space, 6DoF immersive, 6DoF progressive | Working · Curator's own port | OK | CC0-1.0 | 2026-10-04 | Scanned 2026-10-05 · 0 commits since | [AVP-INSTALL.md](https://github.com/edgytoast/tpvr-visionos/blob/c6b2ecb59fb05c23c96ba77a556662f5aa7050b7/AVP-INSTALL.md) |
 
 ## Developers: get your port listed
 
