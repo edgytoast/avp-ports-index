@@ -1,0 +1,46 @@
+schema_version: 1
+id: wiicompiled-vr
+name: WiiCompiled Vision
+game:
+  title: "Mario Kart Wii"
+  original_platform: wii
+  original_release_year: 2008
+repo: https://github.com/iChris4/Wiicompiled_VR
+source_ref: vision-pro
+developer:
+  github: iChris4
+status: working
+status_notes: "Runs on Apple Vision Pro (tested on visionOS 26.6.1): menus on a virtual screen, races in stereo. The docs call the port experimental; comfort, frame timing and bare-hand driving are still being tuned."
+visionos_min: "2.0"
+input: [game-controller, hand-tracking]
+experiences: [3d-immersive, 6dof-immersive]
+description: >-
+  Mario Kart Wii on Apple Vision Pro through WiiCompiled, a static recompilation with no emulator.
+  Menus sit on a virtual screen in your room; races play in stereo from the chase camera or
+  life-size in the cockpit, steered with bare hands or a controller. Bring your own PAL disc image.
+tags: [racing, kart, mario-kart, wii, recompilation, vr, first-person, hand-tracking]
+credits:
+  - name: WiiCompiled
+    role: The Mario Kart Wii static recompilation this fork builds on
+    url: https://github.com/patchzyy/Wiicompiled
+  - name: Aurora
+    role: GameCube and Wii graphics layer
+    url: https://github.com/encounter/aurora
+  - name: Dawn
+    role: WebGPU implementation under Aurora
+    url: https://dawn.googlesource.com/dawn
+  - name: heurazy
+    role: mario-kart-wii-VR-port, source of the cockpit wheel and hand steering
+    url: https://github.com/heurazy/mario-kart-wii-VR-port
+  - name: Dolphin Emulator
+    role: Hardware reference, DSP coefficient ROM and WiiConnect24 bootstrap files
+    url: https://github.com/dolphin-emu/dolphin
+  - name: Retro Rewind (ZPL)
+    role: The supported mod distribution
+    url: https://wiki.tockdom.com/wiki/Retro_Rewind
+  - name: Nintendo
+    role: Original game
+upstream:
+  - https://github.com/patchzyy/Wiicompiled
+  - https://github.com/encounter/aurora
+  - https://github.com/heurazy/mario-kart-wii-VR-port
