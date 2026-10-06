@@ -12,7 +12,7 @@ status: partially-working
 status_notes: "Early but playable on Apple Vision Pro: the first campaign mission plays with look and pinch, the engine at about 15–28 fps. Skirmish setup, save/load and multiplayer aren't in yet."
 visionos_min: "26.0"
 input: [hand-tracking]
-experiences: [6dof-immersive]
+experiences: [3d-tabletop, 6dof-immersive]
 description: >-
   Command & Conquer: Generals – Zero Hour as a stereo miniature battlefield in your room, with
   passthrough around it, commanded by look and pinch; Ground View walks it at human scale. The
