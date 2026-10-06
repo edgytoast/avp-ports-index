@@ -17,7 +17,7 @@ status: working                      # developer-verified, working, partially-wo
 status_notes: "Playable start to finish with a controller."
 visionos_min: "26.0"                 # keep the quotes
 input: [game-controller]             # game-controller, hand-tracking, keyboard-mouse
-experiences: [6dof-immersive]        # every mode it has: 2d, 3d-immersive, 3d-shared-space, 6dof-immersive, 6dof-progressive
+experiences: [6dof-immersive]        # every mode it has: 2d, 3d-immersive, 3d-shared-space, 3d-tabletop, 6dof-immersive, 6dof-progressive
 # install: [build, sideload]         # only if you also publish a prebuilt app
 description: "One or two sentences about the port."
 tags: [platformer]

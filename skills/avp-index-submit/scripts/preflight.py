@@ -177,16 +177,20 @@ SCHEMA = {'$schema': 'https://json-schema.org/draft/2020-12/schema',
                                                'front of you, with your other apps put away, seen '
                                                "from the game's camera. 3d-shared-space: the "
                                                "game's 3D world with real depth, in a window "
-                                               'beside other apps. 6dof-immersive: inside the game '
-                                               'at life scale, with your head as the camera. '
-                                               '6dof-progressive: the same, through a portal the '
-                                               'Digital Crown widens and narrows.',
+                                               "beside other apps. 3d-tabletop: the game's world "
+                                               'as a miniature in your room, in real 3D you can '
+                                               'walk around, with your other apps put away. '
+                                               '6dof-immersive: inside the game at life scale, '
+                                               'with your head as the camera. 6dof-progressive: '
+                                               'the same, through a portal the Digital Crown '
+                                               'widens and narrows.',
                                 'type': 'array',
                                 'minItems': 1,
                                 'uniqueItems': True,
                                 'items': {'enum': ['2d',
                                                    '3d-immersive',
                                                    '3d-shared-space',
+                                                   '3d-tabletop',
                                                    '6dof-immersive',
                                                    '6dof-progressive']}},
                 'install': {'description': 'How players can install it. build: from source with '

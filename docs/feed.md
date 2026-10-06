@@ -20,6 +20,7 @@ Missing optional fields are `null`, or empty lists, except `install`, which is `
 - Any removal, rename or change of meaning creates `feed/v2/`. Version 1 stays available for at least 6 months after that.
 - 1.1.0 added `entries[].source_ref`.
 - 1.2.0 added `entries[].experiences` (how the port plays) and `entries[].install` (`build` from source and/or `sideload`, a prebuilt app the index didn't review).
+- 1.3.0 added the `3d-tabletop` value to `entries[].experiences`.
 
 ## Polling
 
