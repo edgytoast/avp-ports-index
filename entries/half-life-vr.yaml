@@ -1,0 +1,39 @@
+schema_version: 1
+id: half-life-vr
+name: Lambda VisionPro
+game:
+  title: "Half-Life"
+  original_platform: pc
+  original_release_year: 1998
+repo: https://github.com/illixion/halflife-visionos
+developer:
+  github: illixion
+  name: Ixion
+status: working
+status_notes: "Playable end to end on Apple Vision Pro, per the README. The hand-tracked VR input is described there as proof-of-concept quality: functional, with rough edges."
+visionos_min: "26.4"
+input: [hand-tracking, game-controller]
+experiences: [6dof-immersive]
+description: >-
+  Half-Life in full immersion on Apple Vision Pro: the Xash3D-FWGS engine with its ref_gl renderer
+  on Metal through ANGLE, presented with Compositor Services, with hand-tracked weapons and
+  locomotion. Bring your own Half-Life from Steam (the pre-25th-anniversary build).
+tags: [fps, half-life, vr, 6dof, hand-tracking, xash3d]
+credits:
+  - name: FWGS
+    role: Xash3D-FWGS, the engine
+    url: https://github.com/FWGS/xash3d-fwgs
+  - name: FWGS
+    role: hlsdk-portable, the Half-Life game code
+    url: https://github.com/FWGS/hlsdk-portable
+  - name: ANGLE
+    role: OpenGL ES on Metal
+    url: https://github.com/google/angle
+  - name: Lambda1VR (DrBeef)
+    role: Inspiration (Quest VR port); no code reused
+    url: https://github.com/DrBeef/Lambda1VR
+  - name: Valve
+    role: Original game
+upstream:
+  - https://github.com/FWGS/xash3d-fwgs
+  - https://github.com/FWGS/hlsdk-portable
