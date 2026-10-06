@@ -6,6 +6,7 @@ from __future__ import annotations
 import datetime as dt
 import json
 
+import jsonschema
 import pytest
 import yaml
 from conftest import APP_ID, BOT_ID, OWNER_ID, SALT, SHA, STRANGER_ID, FakeHTTP, entry_yaml, git, list_entry, write_entry
@@ -593,16 +594,71 @@ def test_source_ref_facts_and_surfaces(rt, gh):
     assert feed["entries"][0]["source_ref"] == "vision-pro"
 
 
-def test_credit_without_url(rt, gh):
-    """A credit's url is optional (e.g. the original game's maker); the port page lists it as plain text."""
-    repo = gh.add_repo("trevorbilt-bot/good", 11)
-    list_entry(rt, "good", repo)
-    write_entry(rt.root, "good", "trevorbilt-bot/good",
-                credits=[{"name": "Valve", "role": "Original game"},
-                         {"name": "FWGS", "role": "Engine", "url": "https://github.com/FWGS/xash3d-fwgs"}])
-    out = generate.generate(rt.root, rt.repo)
-    assert "- Valve: Original game" in out["ports/good.md"]
-    assert "- [FWGS](https://github.com/FWGS/xash3d-fwgs): Engine" in out["ports/good.md"]
+def _schema_paths(node, defs, path="", required=True):
+    """(path, required) for every property in the entry schema, list items marked []. A path is required
+    when it and all of its parents are."""
+    if "$ref" in node:
+        node = defs[node["$ref"].rsplit("/", 1)[-1]]
+    if node.get("type") == "array" and "items" in node:
+        return _schema_paths(node["items"], defs, path + "[]", required)
+    out = []
+    for key, sub in (node.get("properties") or {}).items():
+        sub_path = f"{path}.{key}" if path else key
+        sub_required = required and key in node.get("required", [])
+        out.append((sub_path, sub_required))
+        out.extend(_schema_paths(sub, defs, sub_path, sub_required))
+    return out
+
+
+def _data_paths(data, path=""):
+    if isinstance(data, list):
+        return set().union(*(_data_paths(item, path + "[]") for item in data))
+    if not isinstance(data, dict):
+        return set()
+    out = set()
+    for key, value in data.items():
+        sub_path = f"{path}.{key}" if path else key
+        out |= {sub_path} | _data_paths(value, sub_path)
+    return out
+
+
+FULL_ENTRY = {  # every field the entry schema defines; a credit with and one without a url
+    "schema_version": 1, "id": "full", "name": "Full port",
+    "game": {"title": "Full game", "original_platform": "pc", "original_release_year": 1998},
+    "repo": "https://github.com/trevorbilt-bot/full", "source_ref": "visionos",
+    "developer": {"github": "trevorbilt-bot", "name": "Bot", "url": "https://example.com/bot"},
+    "status": "working", "status_notes": "Runs on the headset.", "visionos_min": "26.0",
+    "input": ["game-controller", "hand-tracking"], "experiences": ["2d", "6dof-immersive"],
+    "install": ["build", "sideload"], "description": "A port with every field. Bring your own game.",
+    "tags": ["test"], "upstream": ["https://example.com/engine"],
+    "credits": [{"name": "Upstream", "role": "Engine", "url": "https://example.com/engine"},
+                {"name": "Maker", "role": "Original game"}],
+}
+
+
+def test_every_entry_field_renders_present_and_absent(rt, gh):
+    """Every surface renders an entry with only the required fields and one with every field. The schema
+    drives both, so a field added later fails here until the templates read it safely."""
+    schema = store.load_json("schema/entry.schema.json")
+    paths = _schema_paths(schema, schema.get("$defs", {}))
+    assert _data_paths(FULL_ENTRY) == {p for p, _ in paths}, "FULL_ENTRY must use every schema field"
+    minimal = json.loads(entry_yaml("min", "trevorbilt-bot/min"))
+    assert _data_paths(minimal) == {p for p, required in paths if required}
+    for data in (minimal, FULL_ENTRY):
+        jsonschema.Draft202012Validator(schema).validate(data)
+    for entry_id, data, repo_id in (("min", minimal, 11), ("full", FULL_ENTRY, 12)):
+        repo = gh.add_repo(f"trevorbilt-bot/{entry_id}", repo_id)
+        (rt.root / "entries" / f"{entry_id}.yaml").write_text(json.dumps(data))
+        list_entry(rt, entry_id, repo, write=False)
+    out = generate.generate(rt.root, rt.repo)  # also validates the feed against its schema
+    assert "- Maker: Original game" in out["ports/full.md"]
+    assert "- [Upstream](https://example.com/engine): Engine" in out["ports/full.md"]
+    assert "ports/min.md" in out
+    state = store.State.load(rt.root)
+    for entry_id in ("min", "full"):
+        state.lifecycle[entry_id]["status"] = "delisted-decay"
+    state.save()
+    assert "Maker (Original game)" in generate.generate(rt.root, rt.repo)["README.md"]
 
 
 def test_play_modes_and_prebuilt_apps(rt, gh):
