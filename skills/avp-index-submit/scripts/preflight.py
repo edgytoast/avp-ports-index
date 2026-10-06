@@ -172,18 +172,19 @@ SCHEMA = {'$schema': 'https://json-schema.org/draft/2020-12/schema',
                                              'hand-tracking',
                                              'keyboard-mouse']}},
                 'experiences': {'description': 'How the port plays on Apple Vision Pro: list every '
-                                               'mode it has. 2d: a flat picture in a window beside '
-                                               'other apps. 3d-immersive: a stereo 3D screen in '
-                                               'front of you, with your other apps put away, seen '
-                                               "from the game's camera. 3d-shared-space: the "
-                                               "game's 3D world with real depth, in a window "
-                                               "beside other apps. 3d-tabletop: the game's world "
-                                               'as a miniature in your room, in real 3D you can '
-                                               'walk around, with your other apps put away. '
-                                               '6dof-immersive: inside the game at life scale, '
-                                               'with your head as the camera. 6dof-progressive: '
-                                               'the same, through a portal the Digital Crown '
-                                               'widens and narrows.',
+                                               'mode it has. 2d: a flat picture, in a window '
+                                               'beside other apps or on a virtual screen. '
+                                               '3d-immersive: a stereo 3D screen in front of you, '
+                                               'with your other apps put away, seen from the '
+                                               "game's camera. 3d-shared-space: the game's 3D "
+                                               'world with real depth, in a window beside other '
+                                               "apps. 3d-tabletop: the game's world as a miniature "
+                                               'in your room, in real 3D you can walk around, with '
+                                               'your other apps put away. 6dof-immersive: inside '
+                                               'the game world, all around you, with your head as '
+                                               'the camera (first person or a chase view). '
+                                               '6dof-progressive: the same, through a portal the '
+                                               'Digital Crown widens and narrows.',
                                 'type': 'array',
                                 'minItems': 1,
                                 'uniqueItems': True,
