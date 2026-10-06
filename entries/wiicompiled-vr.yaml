@@ -13,11 +13,11 @@ status: working
 status_notes: "Runs on Apple Vision Pro (tested on visionOS 26.6.1): menus on a virtual screen, races in stereo. The docs call the port experimental; comfort, frame timing and bare-hand driving are still being tuned."
 visionos_min: "2.0"
 input: [game-controller, hand-tracking]
-experiences: [3d-immersive, 6dof-immersive]
+experiences: [2d, 3d-immersive, 6dof-immersive]
 description: >-
-  Mario Kart Wii on Apple Vision Pro through WiiCompiled, a static recompilation with no emulator.
-  Menus sit on a virtual screen in your room; races play in stereo from the chase camera or
-  life-size in the cockpit, steered with bare hands or a controller. Bring your own PAL disc image.
+  Mario Kart Wii on Apple Vision Pro through WiiCompiled, a static recompilation with no emulator:
+  6DoF immersive stereo races, from the chase camera or a life-size cockpit, with menus on a virtual
+  screen, plus Immersive window and Flat screen views. Bring your own PAL disc image.
 tags: [racing, kart, mario-kart, wii, recompilation, vr, first-person, hand-tracking]
 credits:
   - name: WiiCompiled
