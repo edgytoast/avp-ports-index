@@ -35,6 +35,7 @@ Everything below "Verified by trevorbilt" is self-reported by whoever submitted 
 - **2D:** a flat picture in a window beside your other apps.
 - **3D immersive:** a stereo 3D screen in front of you, with your other apps put away, seen from the game's camera.
 - **3D shared space:** the game's 3D world with real depth, in a window beside your other apps. Lean and you see around things.
+- **3D tabletop:** the game's world as a miniature in your room, in real 3D you can walk around, with your other apps put away.
 - **6DoF immersive:** inside the game at life scale, with your head as the camera.
 - **6DoF progressive:** the same, through a portal the Digital Crown widens and narrows.
 

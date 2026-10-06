@@ -219,7 +219,7 @@ YAML files are parsed **only** with `yaml.safe_load`. Each file is capped at 16 
 | `repo` | `^https://github\.com/[A-Za-z0-9-]+/[A-Za-z0-9._-]+$`, and must not end in `.git` (a separate `not: {pattern: "\\.git$"}`) | yes |
 | `developer.github` | GitHub login | yes |
 | `status` | enum `developer-verified, working, partially-working, not-working` | yes |
-| `experiences[]` | enum `2d, 3d-immersive, 3d-shared-space, 6dof-immersive, 6dof-progressive`; at least one, no repeats | yes |
+| `experiences[]` | enum `2d, 3d-immersive, 3d-shared-space, 3d-tabletop, 6dof-immersive, 6dof-progressive`; at least one, no repeats | yes |
 | `schema_version` | const `1`; treated as `1` when absent | no |
 | `source_ref` | branch name, `^(?!.*\.\.)[A-Za-z0-9_][A-Za-z0-9._/-]{0,99}$`; set only when the port isn't on the repo's default branch | no |
 | `game.original_platform` | enum `gamecube, wii, n64, ps1, ps2, xbox, dreamcast, pc, other` | no |
@@ -237,9 +237,9 @@ YAML files are parsed **only** with `yaml.safe_load`. Each file is capped at 16 
 
 Missing optional fields are left out of text surfaces and are `null` (or empty lists) in the feed, except `install`, which is `["build"]` when absent.
 
-**Play modes (`experiences`).** `2d`: a flat picture in a window beside other apps. `3d-immersive`: a stereo 3D screen in front of you, with other apps put away, seen from the game's camera. `3d-shared-space`: the game's 3D world with real depth, in a window beside other apps. `6dof-immersive`: inside the game at life scale, with the head as the camera. `6dof-progressive`: the same, through a portal the Digital Crown widens and narrows. Surfaces show them as 2D, 3D immersive, 3D shared space, 6DoF immersive and 6DoF progressive.
+**Play modes (`experiences`).** `2d`: a flat picture in a window beside other apps. `3d-immersive`: a stereo 3D screen in front of you, with other apps put away, seen from the game's camera. `3d-shared-space`: the game's 3D world with real depth, in a window beside other apps. `3d-tabletop`: the game's world as a miniature in your room, in real 3D you can walk around, with other apps put away. `6dof-immersive`: inside the game at life scale, with the head as the camera. `6dof-progressive`: the same, through a portal the Digital Crown widens and narrows. Surfaces show them as 2D, 3D immersive, 3D shared space, 6DoF immersive and 6DoF progressive.
 
-**Prebuilt apps (`install`).** Every listed port must still build from source, contain a sideload-able asset, or otherwise enable players to actually play the game in line with this repo's bring-your-own-game policy. The security review covers the source at the pinned commit. `sideload` says the developer publishes a prebuilt app (for example through SideStore); surfaces say the index didn't review it. Release assets still route to the curator under S1-11d. The curator approves an app route only when the entry sets `install: [build, sideload]`, and declines any app that removes the need for players to supply their own game files. These rules cover only what's on GitHub, the linked repo and its releases: the index doesn't vet content hosted anywhere else, such as files an app downloads from its developer's server.
+**Prebuilt apps (`install`).** Every listed port must still build from source, contain a sideload-able asset, or otherwise enable players to actually play the game in line with this repo's bring-your-own-game policy. The security review covers the source at the pinned commit. `sideload` says the developer publishes a prebuilt app (for example through SideStore); surfaces say the index didn't review it. Release assets still route to the curator under S1-11d. When the release holds an installable Vision Pro app, the curator approves the route only once the entry's `install` includes `sideload`; builds for other platforms (a Quest APK, a Windows installer) don't change `install`. The curator declines any app that removes the need for players to supply their own game files. These rules cover only what's on GitHub, the linked repo and its releases: the index doesn't vet content hosted anywhere else, such as files an app downloads from its developer's server.
 
 **Linked HEAD.** The newest commit on the branch named by `source_ref`, or on the linked repo's default branch when `source_ref` is absent. Every check, scan, rescan and health record that reads the linked repo's HEAD reads this one. `source_ref` is looked up only as a branch (`refs/heads/<source_ref>`); one that fails its pattern or names no branch (a tag, SHA or pull request ref included) resolves to nothing, so S1-06 fails.
 
@@ -895,7 +895,7 @@ Use this index to answer questions like "What retro games can I play on Apple Vi
 ```json
 {
   "$schema": "<raw_base_url>/schema/feed-v1.schema.json",
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.0",
   "identifier": "com.trevorbilt.avp-ports-index",
   "generated_at": "<ISO8601>",
   "publisher": {"name": "trevorbilt", "curator": "Trevor \"Toast\"", "github": "edgytoast", "url": "https://trevorbilt.com", "contact": "admin@trevorbilt.com"},
