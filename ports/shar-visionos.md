@@ -32,12 +32,12 @@ The Simpsons: Hit &amp; Run in six degrees of freedom on Apple Vision Pro. Walk 
 
 ## Credits
 
+- [Trevorbilt](https://trevorbilt.com): visionOS port
 - [Radical Entertainment](https://en.wikipedia.org/wiki/Radical_Entertainment): Original game \(2003\)
 - [Svxy](https://github.com/Svxy/The-Simpsons-Hit-and-Run): The original source code, on GitHub
 - [ZenoArrows](https://github.com/ZenoArrows/The-Simpsons-Hit-and-Run): Source port \(Nintendo Switch, PS Vita\)
 - [Carlox33](https://github.com/Carlox33/The-Simpsons-Hit-and-Run-Android): Android port
 - [kote2345](https://github.com/kote2345/The-Simpsons-Hit-and-Run-VR): VR mod \(Meta Quest 3, PC VR\)
-- [Trevorbilt](https://trevorbilt.com): visionOS port
 
 ## Upstream projects
 
