@@ -593,6 +593,18 @@ def test_source_ref_facts_and_surfaces(rt, gh):
     assert feed["entries"][0]["source_ref"] == "vision-pro"
 
 
+def test_credit_without_url(rt, gh):
+    """A credit's url is optional (e.g. the original game's maker); the port page lists it as plain text."""
+    repo = gh.add_repo("trevorbilt-bot/good", 11)
+    list_entry(rt, "good", repo)
+    write_entry(rt.root, "good", "trevorbilt-bot/good",
+                credits=[{"name": "Valve", "role": "Original game"},
+                         {"name": "FWGS", "role": "Engine", "url": "https://github.com/FWGS/xash3d-fwgs"}])
+    out = generate.generate(rt.root, rt.repo)
+    assert "- Valve: Original game" in out["ports/good.md"]
+    assert "- [FWGS](https://github.com/FWGS/xash3d-fwgs): Engine" in out["ports/good.md"]
+
+
 def test_play_modes_and_prebuilt_apps(rt, gh):
     repo = gh.add_repo("trevorbilt-bot/good", 11)
     list_entry(rt, "good", repo)

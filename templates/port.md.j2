@@ -53,7 +53,7 @@ Then follow the [install guide]({{ v.install_url }}) from its build steps. Skip 
 ## Credits
 
 {% for c in v.entry.credits %}
-- {% if c.url %}[{{ c.name | md(80) }}]({{ c.url }}){% else %}{{ c.name | md(80) }}{% endif %}: {{ c.role | md(80) }}
+- {% if c.get("url") %}[{{ c.name | md(80) }}]({{ c.url }}){% else %}{{ c.name | md(80) }}{% endif %}: {{ c.role | md(80) }}
 {% endfor %}
 {% endif %}
 {% if v.entry.upstream %}
