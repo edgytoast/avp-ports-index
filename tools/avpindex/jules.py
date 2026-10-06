@@ -2,7 +2,10 @@
 
 A repoless session is created with the public review prompt; the poller waits for a terminal
 state, nudges once if the session stops to ask something, and reads verdict.json from the
-session's change set or, failing that, from the single fenced JSON block in its last message.
+session's change set or, failing that, from any message, terminal output or progress note
+(decision 39), most recent first.
+Only a verdict carrying the session's random review id counts: text from the reviewed repo (a file
+Jules prints, say) can't know it, so it can't stand in for the verdict.
 
 API: https://jules.googleapis.com/v1alpha (sessions, sessions.activities, :sendMessage,
 :approvePlan), authenticated with the x-goog-api-key header.
@@ -11,6 +14,7 @@ API: https://jules.googleapis.com/v1alpha (sessions, sessions.activities, :sendM
 from __future__ import annotations
 
 import json
+import secrets
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -117,12 +121,16 @@ def verdict_schema(root: Path | None = None) -> dict:
     return store.load_json(".github/jules/verdict.schema.json", root)
 
 
-def render_prompt(repo_url: str, sha: str, threshold: int, root: Path | None = None) -> str:
+def new_review_id() -> str:
+    return secrets.token_hex(16)
+
+
+def render_prompt(repo_url: str, sha: str, threshold: int, review_id: str, root: Path | None = None) -> str:
     root = root or store.ROOT
     template = (root / ".github/jules/security-review.md").read_text(encoding="utf-8")
     schema = json.dumps(verdict_schema(root), indent=2)
     return jinja2.Environment(undefined=jinja2.StrictUndefined).from_string(template).render(
-        repo_url=repo_url, sha=sha, threshold=threshold, schema=schema)
+        repo_url=repo_url, sha=sha, threshold=threshold, review_id=review_id, schema=schema)
 
 
 def _patch_files(patch: str) -> dict[str, str]:
@@ -182,20 +190,31 @@ def verdict_texts(activities: list[dict]) -> list[str]:
     return patches + others
 
 
-def find_verdict(activities: list[dict], schema: dict) -> tuple[dict | None, str]:
-    """The most recent valid verdict anywhere in the session, or the first problem seen."""
-    problem = "no verdict.json was found"
+def find_verdict(activities: list[dict], schema: dict, review_id: str) -> tuple[dict | None, str]:
+    """The most recent valid verdict carrying this session's review id, or the first problem seen.
+    A valid verdict with any other id didn't come from this session's answer and is skipped."""
+    problem = ""
     validator = jsonschema.Draft202012Validator(schema)
     for text in verdict_texts(activities):
         candidates = _json_objects(text)
         if not candidates and text.strip().startswith("{"):
-            problem = "verdict.json isn't valid JSON"
+            problem = problem or "verdict.json isn't valid JSON"
         for obj in candidates:
             errors = list(validator.iter_errors(obj))
-            if not errors:
+            if errors:
+                problem = problem or f"verdict.json doesn't match the schema: {errors[0].message[:200]}"
+            elif obj["review_id"] != review_id:
+                problem = problem or "verdict.json doesn't carry this review's id"
+            else:
                 return obj, ""
-            problem = f"verdict.json doesn't match the schema: {errors[0].message[:200]}"
-    return None, problem
+    return None, problem or "no verdict.json was found"
+
+
+def foreign_verdicts(activities: list[dict], schema: dict, review_id: str) -> int:
+    """Valid verdicts in the session that carry another id: planted by the repo, or Jules mistyping the id."""
+    validator = jsonschema.Draft202012Validator(schema)
+    return sum(1 for text in verdict_texts(activities) for obj in _json_objects(text)
+               if validator.is_valid(obj) and obj["review_id"] != review_id)
 
 
 def diagnostics(activities: list[dict]) -> dict:
@@ -240,15 +259,16 @@ def decide(verdict: dict, threshold: int) -> str:
 # --- one review -------------------------------------------------------------------------
 
 def review(client: Jules, repo_url: str, sha: str, policy: dict, *, root: Path | None = None,
-           sleep=time.sleep, clock=time.monotonic) -> Outcome:
+           sleep=time.sleep, clock=time.monotonic, make_id=new_review_id) -> Outcome:
     threshold = int(policy["stage2"]["confidence_threshold"])
     timeout = int(policy["stage2"]["jules_timeout_minutes"]) * 60
     schema = verdict_schema(root)
     owner_name = repo_url.removeprefix("https://github.com/")
     title = f"AVP index review: {owner_name}@{sha[:7]}"
+    review_id = make_id()
     started = clock()
     try:
-        session = client.create_session(render_prompt(repo_url, sha, threshold, root), title)
+        session = client.create_session(render_prompt(repo_url, sha, threshold, review_id, root), title)
     except Deferred as exc:
         return Outcome("deferred", reason=str(exc)[:200])
     except (JulesError, requests.RequestException) as exc:
@@ -270,7 +290,7 @@ def review(client: Jules, repo_url: str, sha: str, policy: dict, *, root: Path |
             if sent_at is not None:
                 if state == sent_state:
                     # The session may have finished again within one poll: look for a verdict.
-                    verdict, _ = find_verdict(client.activities(name), schema)
+                    verdict, _ = find_verdict(client.activities(name), schema, review_id)
                     if verdict is not None:
                         outcome.result, outcome.verdict = decide(verdict, threshold), verdict
                         break
@@ -283,7 +303,8 @@ def review(client: Jules, repo_url: str, sha: str, policy: dict, *, root: Path |
                 continue
             activities = client.activities(name)
             outcome.diagnostics = diagnostics(activities)
-            verdict, problem = find_verdict(activities, schema)
+            outcome.diagnostics["foreign_verdicts"] = foreign_verdicts(activities, schema, review_id)
+            verdict, problem = find_verdict(activities, schema, review_id)
             if verdict is not None:
                 outcome.result, outcome.verdict = decide(verdict, threshold), verdict
                 break
@@ -306,8 +327,8 @@ def review(client: Jules, repo_url: str, sha: str, policy: dict, *, root: Path |
                     break
                 fixed = True
                 client.send_message(name, f"{problem} in your messages: I can't read files from your workspace. "
-                                          "Reply with the complete contents of verdict.json, matching the schema in the "
-                                          "instructions, as a fenced JSON block in the message itself.")
+                                          f"Reply with the complete contents of verdict.json, with review_id {review_id}, "
+                                          "matching the schema in the instructions, as a fenced JSON block in the message itself.")
             sent_at, sent_state = clock(), state
     except Deferred as exc:
         outcome.result, outcome.reason = "deferred", str(exc)[:200]
