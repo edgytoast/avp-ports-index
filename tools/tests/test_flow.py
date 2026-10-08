@@ -602,6 +602,8 @@ def _schema_paths(node, defs, path="", required=True):
     if node.get("type") == "array" and "items" in node:
         return _schema_paths(node["items"], defs, path + "[]", required)
     out = []
+    for alternative in node.get("oneOf") or []:  # e.g. media: false, or an object of picks
+        out.extend(_schema_paths(alternative, defs, path, False))
     for key, sub in (node.get("properties") or {}).items():
         sub_path = f"{path}.{key}" if path else key
         sub_required = required and key in node.get("required", [])
@@ -633,6 +635,7 @@ FULL_ENTRY = {  # every field the entry schema defines; a credit with and one wi
     "tags": ["test"], "upstream": ["https://example.com/engine"],
     "credits": [{"name": "Upstream", "role": "Engine", "url": "https://example.com/engine"},
                 {"name": "Maker", "role": "Original game"}],
+    "media": {"screenshots": ["docs/shot.png"], "icon": "App/Assets.xcassets/AppIcon.solidimagestack"},
 }
 
 
@@ -677,7 +680,7 @@ def test_play_modes_and_prebuilt_apps(rt, gh):
     assert "| Prebuilt app | The developer publishes an app you can sideload; see their repo." in out["ports/good.md"]
     assert "· prebuilt app (not security-reviewed)" in out["README.md"] and "prebuilt app available (not security-reviewed)" in out["llms.txt"]
     feed = json.loads(out["feed/v1/index.json"])
-    assert feed["schema_version"] == "1.3.0" and feed["entries"][0]["install"] == ["build", "sideload"]
+    assert feed["schema_version"] == "1.4.0" and feed["entries"][0]["install"] == ["build", "sideload"]
 
 
 class TestRecheck:

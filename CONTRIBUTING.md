@@ -19,6 +19,8 @@ These mirror the automated checks (the [full list of checks](skills/avp-index-su
 
 [entry-fields.md](skills/avp-index-submit/references/entry-fields.md) lists every allowed field. It's generated from the schema, so it's always current. Seven fields are required: `id`, `name`, `game.title`, `repo`, `developer.github`, `status` and `experiences`. Please credit the upstream decompilation and VR-port projects you built on in `credits`. If your port lives on a branch other than your repo's default branch, set the optional `source_ref` to that branch, and the index scans and follows it instead.
 
+Your port page and apps that read the index show up to three screenshots from your README and your app icon, at the commit the index scanned. Only your repo's own files and GitHub attachments are used, never images from other sites. To choose the pictures yourself, set `media` with `screenshots` (up to three image files in your repo) and `icon`; to turn them off, set `media: false`.
+
 `experiences` lists every way your port plays:
 
 - **2D:** a flat picture, in a window beside your other apps or on a virtual screen.

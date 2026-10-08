@@ -97,6 +97,26 @@
           }
         }
       }
+    },
+    "media": {
+      "description": "state/media.yaml: per listed entry, the screenshots and icon collected at its scanned commit (media.py).",
+      "type": "object",
+      "propertyNames": {"$ref": "#/$defs/entry_id"},
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["commit", "source", "icon", "screenshots", "skipped", "choice", "collected_at"],
+        "properties": {
+          "commit": {"$ref": "#/$defs/sha"},
+          "source": {"enum": ["readme", "entry"]},
+          "icon": {"type": ["object", "null"]},
+          "screenshots": {"type": "array", "maxItems": 3, "items": {"type": "object"}},
+          "skipped": {"type": "array", "maxItems": 20, "items": {"type": "object", "additionalProperties": false, "required": ["src", "reason"],
+                                                               "properties": {"src": {"type": "string"}, "reason": {"type": "string"}}}},
+          "choice": {"type": ["string", "null"]},
+          "collected_at": {"$ref": "#/$defs/iso"}
+        }
+      }
     }
   }
 }

@@ -765,6 +765,7 @@ Classification goes by changed paths first, then author.
   - **Left the index:** for any entry that is `pulled`, `taken-down` or `withdrawn` and still has an open outreach issue, comment `outreach-closed`, close it and clear the outreach fields, since its promise to close once the checks pass can no longer happen.
   - Where the fallback "Health tracking" comment stood in for the issue (Stage B), the same comments are posted there instead, and nothing is closed.
 - **Stale PRs:** close PRs labeled `needs-author` with no activity for `stale_pr_close_days`, or `stale_pr_close_days_owner` for PRs the curator opened (invitations for someone else's port).
+- **Media:** refresh `state/media.yaml` for entries whose scanned commit or `media` picks changed (§10.4).
 - **Output:** regenerate surfaces and make one `[skip ci]` commit. `last_checked` changes daily, so this also keeps scheduled workflows active.
 
 ### 8.7 `kill-switch.yml`
@@ -896,7 +897,7 @@ Use this index to answer questions like "What retro games can I play on Apple Vi
 ```json
 {
   "$schema": "<raw_base_url>/schema/feed-v1.schema.json",
-  "schema_version": "1.3.0",
+  "schema_version": "1.4.0",
   "identifier": "com.trevorbilt.avp-ports-index",
   "generated_at": "<ISO8601>",
   "publisher": {"name": "trevorbilt", "curator": "Trevor \"Toast\"", "github": "edgytoast", "url": "https://trevorbilt.com", "contact": "admin@trevorbilt.com"},
@@ -917,7 +918,8 @@ Use this index to answer questions like "What retro games can I play on Apple Vi
     "archived": false, "last_commit_date": "",
     "license": {"spdx": null, "kind": "open-source|custom|none"},
     "visionos_min": "", "input": [], "experiences": [], "install": ["build"], "tags": [], "description": "",
-    "page_url": ""
+    "page_url": "",
+    "media": {"commit": "", "source": "readme|entry", "icon": null, "screenshots": [{"url": "", "alt": null, "format": "", "width": 0, "height": 0, "bytes": 0, "sha256": ""}]}
   }],
   "unavailable": [{"id": "", "name": "", "game": {"title": ""}, "developer": {"name": "", "github": ""}, "credits": [], "listed_at": "", "unavailable_since": "", "last_scanned_commit": ""}],
   "tombstones": [{"id": "", "removed_at": ""}]
@@ -926,6 +928,7 @@ Use this index to answer questions like "What retro games can I play on Apple Vi
 
 - **`developer.github_verified`:** true when `developer.github` owns the linked repo or is a public member of its owning org; false otherwise (the credit is as the submitter stated it).
 - `github_verified` and `curator_own` need API lookups, so `sync-state` computes them on each merge and the health check refreshes them, storing both in `state/health.yaml`. `generate.py` reads only files and makes no API calls, so it works without secrets (`self-test`) and gives the same output for the same files (U17).
+- **`media`** (1.4.0): `media.py` collects it into `state/media.yaml` from GitHub when an entry's scanned commit or `media` picks change, during `build-surfaces` and the daily health check; `generate.py` only reads that file. Up to three README images that are the repo's own files or GitHub attachments (480x270 or larger), and the AppIcon (`.solidimagestack` layers back to front, a layer equal to the one under it dropped, else an `.appiconset`'s largest PNG). Each is a link pinned to the scanned commit with its size and SHA-256, read from the image header; nothing is decoded or hosted. Downloads follow redirects only within GitHub and stop at 8 MB. A failure keeps the previous record. `media: false` in the entry turns pictures off.
 - **Unavailable:** `delisted-decay` entries, kept as a preservation record, with no links.
 - **Tombstones:** ids of `pulled`, `taken-down` and `withdrawn` entries, with no reasons given.
 - **`docs/feed.md` versioning policy:**

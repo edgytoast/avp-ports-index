@@ -7,7 +7,7 @@ from __future__ import annotations
 import datetime as dt
 import re
 
-from . import checks, gate, lifecycle, messages, store, validate
+from . import checks, gate, lifecycle, media, messages, store, validate
 from .checks import GitHubError
 from .checks import FIXES, PASS, Subject
 from .lifecycle import DECAY, LISTED, PULLED, TAKEN_DOWN, WITHDRAWN
@@ -148,6 +148,7 @@ def run(rt) -> None:
                 clear_outreach(health)
         for stem, error in parse_errors.items():
             rt.summary(f"entries/{stem}.yaml can't be parsed: {error}")
+        media.refresh(rt, state, entries)
         state.save()
 
     rt.commit(mutate, "health: daily check")
