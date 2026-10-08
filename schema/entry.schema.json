@@ -136,6 +136,21 @@
       "uniqueItems": true,
       "items": {"enum": ["build", "sideload"]}
     },
+    "media": {
+      "description": "Pictures for apps and your port page. Leave it out and the index takes up to three images from your README (your repo's own files or GitHub attachments, 480x270 or larger) and your app icon, at the scanned commit. false turns pictures off. Or pick them: screenshots lists up to three image files in your repo; icon is your AppIcon's .solidimagestack folder or a square PNG.",
+      "oneOf": [
+        {"const": false},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "properties": {
+            "screenshots": {"type": "array", "minItems": 1, "maxItems": 3, "uniqueItems": true, "items": {"$ref": "#/$defs/repo_path"}},
+            "icon": {"$ref": "#/$defs/repo_path"}
+          }
+        }
+      ]
+    },
     "description": {
       "description": "One or two sentences about the port.",
       "type": "string",
@@ -155,6 +170,11 @@
       "type": "string",
       "pattern": "^https://[A-Za-z0-9.-]+(:[0-9]+)?(/[A-Za-z0-9._~!$&*+,;=:@%/?#-]*)?$",
       "maxLength": 2048
+    },
+    "repo_path": {
+      "type": "string",
+      "pattern": "^(?![./])(?!.*(^|/)\\.\\.?(/|$))[A-Za-z0-9 _.()+,@/-]+$",
+      "maxLength": 300
     }
   }
 }

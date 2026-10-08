@@ -48,6 +48,16 @@ Then follow the [install guide]({{ v.install_url }}) from its build steps. Skip 
 
 {{ v.entry.description | md }}
 {% endif %}
+{% if v.media and v.media.screenshots %}
+
+## Screenshots
+
+From the port's {{ "README" if v.media.source == "readme" else "repo" }} at {{ v.media.commit[:12] }}.
+
+{% for shot in v.media.screenshots %}
+<img src="{{ shot.url | attr(2048) }}" alt="{{ (shot.alt or ("Screenshot of " ~ v.name)) | attr }}" width="400">
+{% endfor %}
+{% endif %}
 {% if v.entry.credits %}
 
 ## Credits

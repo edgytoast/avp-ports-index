@@ -141,8 +141,11 @@ def cmd_build_surfaces(_args) -> int:
     rt = _runtime()
 
     def mutate() -> None:
+        from . import media
         state = store.State.load(rt.root)
         sync_all(rt, state)
+        entries, _errors = store.load_entries(rt.root)
+        media.refresh(rt, state, entries)
         state.save()
 
     rt.commit(mutate, "build: sync state and regenerate surfaces")
@@ -247,6 +250,7 @@ def cmd_check_data(_args) -> int:
     check(store.LIFECYCLE, "schema/state.schema.json", "lifecycle")
     check(store.SYNC, "schema/state.schema.json", "sync")
     check(store.FLAGS, "schema/state.schema.json", "flags")
+    check(store.MEDIA, "schema/state.schema.json", "media")
     check(store.BLOCKLIST, "schema/blocklist.schema.json")
     check(store.VERIFIED, "schema/owner-verified.schema.json")
     schema = store.load_json("schema/entry.schema.json", root)

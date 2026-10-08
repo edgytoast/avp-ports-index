@@ -1,8 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
-  "schema_version": "1.3.0",
+  "schema_version": "1.4.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-07T07:26:52Z",
+  "generated_at": "2026-10-08T14:08:20Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -110,7 +110,8 @@
         "hand-tracking"
       ],
       "description": "Twilight Princess in first person on Apple Vision Pro: JoeyAW's TPVR mod on Dusklight, built natively for visionOS. Full or progressive immersion with PS VR2 Sense controllers or bare hands, or the GameCube game in a window beside your apps, with real depth. Bring your own disc.",
-      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/twilight-princess-vr.md"
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/twilight-princess-vr.md",
+      "media": null
     },
     {
       "id": "shar-visionos",
@@ -212,7 +213,8 @@
         "source-port"
       ],
       "description": "The Simpsons: Hit & Run in six degrees of freedom on Apple Vision Pro. Walk Springfield with a Sense controller in each hand, drive from the driver's seat, or play it as a 3D window beside your other apps. A native visionOS port of kote2345's Hit & Run VR mod.",
-      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/shar-visionos.md"
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/shar-visionos.md",
+      "media": null
     },
     {
       "id": "half-life-vr",
@@ -307,7 +309,8 @@
         "xash3d"
       ],
       "description": "Half-Life in full immersion on Apple Vision Pro: the Xash3D-FWGS engine with its ref_gl renderer on Metal through ANGLE, presented with Compositor Services, with hand-tracked weapons and locomotion. Bring your own Half-Life from Steam (the pre-25th-anniversary build).",
-      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/half-life-vr.md"
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/half-life-vr.md",
+      "media": null
     }
   ],
   "unavailable": [],

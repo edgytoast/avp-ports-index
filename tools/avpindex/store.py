@@ -23,6 +23,7 @@ HEALTH = "state/health.yaml"
 LIFECYCLE = "state/lifecycle.yaml"
 SYNC = "state/sync.yaml"
 FLAGS = "state/flags.yaml"
+MEDIA = "state/media.yaml"
 BLOCKLIST = "blocklist/blocklist.yaml"
 VERIFIED = "verification/owner-verified.yaml"
 POLICY = "config/policy.yaml"
@@ -146,6 +147,7 @@ class State:
     flags: dict = field(default_factory=lambda: copy.deepcopy(EMPTY_LIST_FILE))
     blocklist: dict = field(default_factory=lambda: copy.deepcopy(EMPTY_LIST_FILE))
     verified: dict = field(default_factory=lambda: {"schema_version": 1, "records": {}})
+    media: dict = field(default_factory=dict)
 
     @classmethod
     def load(cls, root: Path | None = None) -> "State":
@@ -158,6 +160,7 @@ class State:
             flags=read_yaml(root / FLAGS, EMPTY_LIST_FILE),
             blocklist=read_yaml(root / BLOCKLIST, EMPTY_LIST_FILE),
             verified=read_yaml(root / VERIFIED, {"schema_version": 1, "records": {}}),
+            media=read_yaml(root / MEDIA, {}),
         )
 
     def save(self) -> None:
@@ -167,6 +170,7 @@ class State:
         write_text_if_changed(self.root / SYNC, dump_yaml(self.sync))
         write_text_if_changed(self.root / FLAGS, dump_yaml(self.flags))
         write_text_if_changed(self.root / BLOCKLIST, dump_yaml(self.blocklist))
+        write_text_if_changed(self.root / MEDIA, dump_yaml(self.media) if self.media else "{}\n")
 
     def health_record(self, entry_id: str) -> dict:
         return self.health.setdefault(entry_id, default_health())

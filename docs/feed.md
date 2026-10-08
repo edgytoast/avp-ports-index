@@ -21,6 +21,18 @@ Missing optional fields are `null`, or empty lists, except `install`, which is `
 - 1.1.0 added `entries[].source_ref`.
 - 1.2.0 added `entries[].experiences` (how the port plays) and `entries[].install` (`build` from source and/or `sideload`, a prebuilt app the index didn't review).
 - 1.3.0 added the `3d-tabletop` value to `entries[].experiences`.
+- 1.4.0 added `entries[].media`: screenshots and the app icon.
+
+## Media
+
+`entries[].media` is `null`, or the port's pictures at the commit the index scanned (`media.commit`):
+
+- `screenshots`: up to three images from the port's README (`source: readme`) or chosen in its entry (`source: entry`).
+- `icon`: `null`, a single picture (`kind: flat`), or a visionOS icon's layers, back to front (`kind: layered`).
+
+Every picture has `url`, `format` (png, jpeg, gif or webp), `width`, `height`, `bytes` and `sha256`; screenshots also have `alt`. The URLs are on GitHub only: raw files pinned to the scanned commit, or GitHub attachments. The index links to them and never hosts them.
+
+Apps showing them should load them only from GitHub hosts, check `sha256` and show nothing on a mismatch, and fall back to text quietly when a picture is gone.
 
 ## Polling
 

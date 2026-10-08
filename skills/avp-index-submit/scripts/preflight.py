@@ -202,6 +202,23 @@ SCHEMA = {'$schema': 'https://json-schema.org/draft/2020-12/schema',
                             'minItems': 1,
                             'uniqueItems': True,
                             'items': {'enum': ['build', 'sideload']}},
+                'media': {'description': 'Pictures for apps and your port page. Leave it out and '
+                                         'the index takes up to three images from your README '
+                                         "(your repo's own files or GitHub attachments, 480x270 or "
+                                         'larger) and your app icon, at the scanned commit. false '
+                                         'turns pictures off. Or pick them: screenshots lists up '
+                                         'to three image files in your repo; icon is your '
+                                         "AppIcon's .solidimagestack folder or a square PNG.",
+                          'oneOf': [{'const': False},
+                                    {'type': 'object',
+                                     'additionalProperties': False,
+                                     'minProperties': 1,
+                                     'properties': {'screenshots': {'type': 'array',
+                                                                    'minItems': 1,
+                                                                    'maxItems': 3,
+                                                                    'uniqueItems': True,
+                                                                    'items': {'$ref': '#/$defs/repo_path'}},
+                                                    'icon': {'$ref': '#/$defs/repo_path'}}}]},
                 'description': {'description': 'One or two sentences about the port.',
                                 'type': 'string',
                                 'minLength': 1,
@@ -215,7 +232,10 @@ SCHEMA = {'$schema': 'https://json-schema.org/draft/2020-12/schema',
                                    'maxLength': 32}}},
  '$defs': {'https_url': {'type': 'string',
                          'pattern': '^https://[A-Za-z0-9.-]+(:[0-9]+)?(/[A-Za-z0-9._~!$&*+,;=:@%/?#-]*)?$',
-                         'maxLength': 2048}}}
+                         'maxLength': 2048},
+           'repo_path': {'type': 'string',
+                         'pattern': '^(?![./])(?!.*(^|/)\\.\\.?(/|$))[A-Za-z0-9 _.()+,@/-]+$',
+                         'maxLength': 300}}}
 
 # ---- validate.py ----
 """Validators for untrusted input (spec §8.0 rule 3) and escaping for untrusted text (rule 4).
