@@ -29,6 +29,12 @@ Then follow the [install guide](https://github.com/illixion/halflife-visionos/bl
 
 Half-Life in full immersion on Apple Vision Pro: the Xash3D-FWGS engine with its ref\_gl renderer on Metal through ANGLE, presented with Compositor Services, with hand-tracked weapons and locomotion. Bring your own Half-Life from Steam \(the pre-25th-anniversary build\).
 
+## Screenshots
+
+From the port's README at 289207393355.
+
+<img src="https://raw.githubusercontent.com/illixion/halflife-visionos/289207393355fa68384b49c189218d1fa07705e8/images/ingame.jpg" alt="In-game screenshot" width="400">
+
 ## Credits
 
 - [FWGS](https://github.com/FWGS/xash3d-fwgs): Xash3D-FWGS, the engine

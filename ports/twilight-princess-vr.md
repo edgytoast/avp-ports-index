@@ -30,6 +30,14 @@ Then follow the [install guide](https://github.com/edgytoast/tpvr-visionos/blob/
 
 Twilight Princess in first person on Apple Vision Pro: JoeyAW's TPVR mod on Dusklight, built natively for visionOS. Full or progressive immersion with PS VR2 Sense controllers or bare hands, or the GameCube game in a window beside your apps, with real depth. Bring your own disc.
 
+## Screenshots
+
+From the port's README at a4fbe68d0a84.
+
+<img src="https://raw.githubusercontent.com/edgytoast/tpvr-visionos/a4fbe68d0a8446e6678bb328e273cb1e3d6b72e9/docs/images/window-view.jpg" alt="Link at Ordon Ranch, in a window floating in a living room" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/tpvr-visionos/a4fbe68d0a8446e6678bb328e273cb1e3d6b72e9/docs/images/full-immersion.jpg" alt="Ordon Ranch in first person: the ranch house, goats and a rancher, with the HUD floating ahead" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/tpvr-visionos/a4fbe68d0a8446e6678bb328e273cb1e3d6b72e9/docs/images/window-angle.jpg" alt="The same window seen from the side: Link and the ranch house have real depth behind the glass" width="400">
+
 ## Credits
 
 - [JoeyAW](https://github.com/JoeyAW/TPVR): TPVR, the VR mod this port is built on

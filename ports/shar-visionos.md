@@ -30,6 +30,13 @@ Then follow the [install guide](https://github.com/edgytoast/shar-visionos/blob/
 
 The Simpsons: Hit &amp; Run in six degrees of freedom on Apple Vision Pro. Walk Springfield with a Sense controller in each hand, drive from the driver's seat, or play it as a 3D window beside your other apps. A native visionOS port of kote2345's Hit &amp; Run VR mod.
 
+## Screenshots
+
+From the port's README at 6d34c501924f.
+
+<img src="https://raw.githubusercontent.com/edgytoast/shar-visionos/6d34c501924fcb414263ebbee197b718860446b6/docs/images/window-view.jpg" alt="Homer outside 742 Evergreen Terrace, in a window floating in a living room" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/shar-visionos/6d34c501924fcb414263ebbee197b718860446b6/docs/images/window-angle.jpg" alt="The same window seen from the side: the scene has real depth behind the glass" width="400">
+
 ## Credits
 
 - [Trevorbilt](https://trevorbilt.com): visionOS port
