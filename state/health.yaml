@@ -1,30 +1,30 @@
 half-life-vr:
   archived: false
-  commits_since_scan: 127
+  commits_since_scan: 1
   consecutive_failures: 0
   curator_own: false
-  decay_reset_at: '2026-10-06T19:07:04Z'
+  decay_reset_at: '2026-10-09T17:02:19Z'
   failing_since: null
   failures: []
-  flagged_commit: b22c5744c706c4bc4a9331706726fe2760063578
+  flagged_commit: null
   github_verified: true
   health: ok
   last_checked: '2026-10-09T06:48:13Z'
-  last_commit_date: '2026-10-08T21:36:26Z'
+  last_commit_date: '2026-10-09T11:06:59Z'
   license:
     kind: open-source
     spdx: GPL-3.0
   outreach_issue_url: null
   outreach_opened_at: null
   rescan_after: null
-  rescan_hold: true
+  rescan_hold: false
   routes:
   - S1-11d
-  scan_confidence: 100
-  scan_kind: automated
+  scan_confidence: null
+  scan_kind: curator-reviewed
   scan_state: behind
-  scanned_at: '2026-10-06T19:07:03Z'
-  scanned_commit: 289207393355fa68384b49c189218d1fa07705e8
+  scanned_at: '2026-10-09T17:02:24Z'
+  scanned_commit: b22c5744c706c4bc4a9331706726fe2760063578
   warnings: []
 shar-visionos:
   archived: false
