@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.4.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-09T18:59:24Z",
+  "generated_at": "2026-10-09T19:11:26Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -107,7 +107,7 @@
       "description": "Half-Life in full immersion on Apple Vision Pro: the Xash3D-FWGS engine with its ref_gl renderer on Metal through ANGLE, presented with Compositor Services, with hand-tracked weapons and locomotion. Bring your own Half-Life from Steam (the pre-25th-anniversary build).",
       "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/half-life-vr.md",
       "media": {
-        "commit": "b22c5744c706c4bc4a9331706726fe2760063578",
+        "commit": "195fe2e8ca4a11f2a4ccc1c11b9a3a0cb9059616",
         "source": "readme",
         "icon": {
           "kind": "layered",
@@ -118,7 +118,7 @@
               "height": 1024,
               "layer": "back",
               "sha256": "9b3b1d9bafcb61017537acb5a797ccab2df0e5cba03b9c090ba30e6ad4254a77",
-              "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/b22c5744c706c4bc4a9331706726fe2760063578/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png",
+              "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/195fe2e8ca4a11f2a4ccc1c11b9a3a0cb9059616/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png",
               "width": 1024
             },
             {
@@ -127,7 +127,7 @@
               "height": 1024,
               "layer": "middle",
               "sha256": "89431a2ade4de6fbcbb22180a364579895536b6db7e6cd6d2b024f8d772ceb81",
-              "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/b22c5744c706c4bc4a9331706726fe2760063578/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/middle.png",
+              "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/195fe2e8ca4a11f2a4ccc1c11b9a3a0cb9059616/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/middle.png",
               "width": 1024
             }
           ]
@@ -139,7 +139,7 @@
             "format": "jpeg",
             "height": 1080,
             "sha256": "7f6bc0a96597f1e73a417fa9a8ce93ae191a295c7653e683b6eb6bda0397aa69",
-            "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/b22c5744c706c4bc4a9331706726fe2760063578/images/ingame.jpg",
+            "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/195fe2e8ca4a11f2a4ccc1c11b9a3a0cb9059616/images/ingame.jpg",
             "width": 1920
           }
         ]

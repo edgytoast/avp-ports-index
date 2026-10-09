@@ -1,7 +1,7 @@
 half-life-vr:
   choice: null
-  collected_at: '2026-10-09T17:03:14Z'
-  commit: b22c5744c706c4bc4a9331706726fe2760063578
+  collected_at: '2026-10-09T19:11:26Z'
+  commit: 195fe2e8ca4a11f2a4ccc1c11b9a3a0cb9059616
   icon:
     kind: layered
     layers:
@@ -10,14 +10,14 @@ half-life-vr:
       height: 1024
       layer: back
       sha256: 9b3b1d9bafcb61017537acb5a797ccab2df0e5cba03b9c090ba30e6ad4254a77
-      url: https://raw.githubusercontent.com/illixion/halflife-visionos/b22c5744c706c4bc4a9331706726fe2760063578/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png
+      url: https://raw.githubusercontent.com/illixion/halflife-visionos/195fe2e8ca4a11f2a4ccc1c11b9a3a0cb9059616/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png
       width: 1024
     - bytes: 14776
       format: png
       height: 1024
       layer: middle
       sha256: 89431a2ade4de6fbcbb22180a364579895536b6db7e6cd6d2b024f8d772ceb81
-      url: https://raw.githubusercontent.com/illixion/halflife-visionos/b22c5744c706c4bc4a9331706726fe2760063578/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/middle.png
+      url: https://raw.githubusercontent.com/illixion/halflife-visionos/195fe2e8ca4a11f2a4ccc1c11b9a3a0cb9059616/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/middle.png
       width: 1024
   screenshots:
   - alt: In-game screenshot
@@ -25,7 +25,7 @@ half-life-vr:
     format: jpeg
     height: 1080
     sha256: 7f6bc0a96597f1e73a417fa9a8ce93ae191a295c7653e683b6eb6bda0397aa69
-    url: https://raw.githubusercontent.com/illixion/halflife-visionos/b22c5744c706c4bc4a9331706726fe2760063578/images/ingame.jpg
+    url: https://raw.githubusercontent.com/illixion/halflife-visionos/195fe2e8ca4a11f2a4ccc1c11b9a3a0cb9059616/images/ingame.jpg
     width: 1920
   skipped: []
   source: readme
