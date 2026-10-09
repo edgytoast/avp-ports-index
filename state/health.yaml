@@ -55,7 +55,7 @@ shar-visionos:
   warnings: []
 twilight-princess-vr:
   archived: false
-  commits_since_scan: 36
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: true
   decay_reset_at: '2026-10-04T17:42:38Z'
@@ -76,7 +76,7 @@ twilight-princess-vr:
   routes: []
   scan_confidence: 100
   scan_kind: automated
-  scan_state: behind
-  scanned_at: '2026-10-07T07:01:57Z'
-  scanned_commit: a4fbe68d0a8446e6678bb328e273cb1e3d6b72e9
+  scan_state: current
+  scanned_at: '2026-10-09T07:40:11Z'
+  scanned_commit: b7d2f56c5721447f27148d535c40ac68953fc480
   warnings: []

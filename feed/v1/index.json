@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.4.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-09T07:14:44Z",
+  "generated_at": "2026-10-09T07:40:11Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -22,8 +22,8 @@
       },
       "repo_url": "https://github.com/edgytoast/tpvr-visionos",
       "source_ref": null,
-      "source_url": "https://github.com/edgytoast/tpvr-visionos/tree/a4fbe68d0a8446e6678bb328e273cb1e3d6b72e9",
-      "install_doc_url": "https://github.com/edgytoast/tpvr-visionos/blob/a4fbe68d0a8446e6678bb328e273cb1e3d6b72e9/AVP-INSTALL.md",
+      "source_url": "https://github.com/edgytoast/tpvr-visionos/tree/b7d2f56c5721447f27148d535c40ac68953fc480",
+      "install_doc_url": "https://github.com/edgytoast/tpvr-visionos/blob/b7d2f56c5721447f27148d535c40ac68953fc480/AVP-INSTALL.md",
       "developer": {
         "name": "Trevorbilt",
         "github": "edgytoast",
@@ -75,11 +75,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "a4fbe68d0a8446e6678bb328e273cb1e3d6b72e9",
-      "scanned_at": "2026-10-07T07:01:57Z",
+      "scanned_commit": "b7d2f56c5721447f27148d535c40ac68953fc480",
+      "scanned_at": "2026-10-09T07:40:11Z",
       "scan_kind": "automated",
-      "commits_since_scan": 36,
-      "scan_state": "behind",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-10-08T23:11:41Z",
       "license": {

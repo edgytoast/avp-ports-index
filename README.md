@@ -49,7 +49,7 @@ Everything below "Verified by trevorbilt" is self-reported by whoever submitted 
 
 | Game | Port | Developer | Plays as | Trust | Health | License | Last commit | Scan | Install guide |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| The Legend of Zelda: Twilight Princess | [Twilight Princess VR](ports/twilight-princess-vr.md) | Trevorbilt ([@edgytoast](https://github.com/edgytoast)) | 3D shared space, 6DoF immersive, 6DoF progressive | Working · Curator's own port | OK | CC0-1.0 | 2026-10-08 | Scanned 2026-10-07 · 36 commits since | [AVP-INSTALL.md](https://github.com/edgytoast/tpvr-visionos/blob/a4fbe68d0a8446e6678bb328e273cb1e3d6b72e9/AVP-INSTALL.md) |
+| The Legend of Zelda: Twilight Princess | [Twilight Princess VR](ports/twilight-princess-vr.md) | Trevorbilt ([@edgytoast](https://github.com/edgytoast)) | 3D shared space, 6DoF immersive, 6DoF progressive | Working · Curator's own port | OK | CC0-1.0 | 2026-10-08 | Scanned 2026-10-09 · 0 commits since | [AVP-INSTALL.md](https://github.com/edgytoast/tpvr-visionos/blob/b7d2f56c5721447f27148d535c40ac68953fc480/AVP-INSTALL.md) |
 | The Simpsons: Hit &amp; Run | [SHAR VR](ports/shar-visionos.md) | Trevorbilt ([@edgytoast](https://github.com/edgytoast)) | 3D shared space, 6DoF immersive, 6DoF progressive | Working · Curator's own port | OK | MIT | 2026-10-08 | Scanned 2026-10-07 · 3 commits since | [AVP-INSTALL.md](https://github.com/edgytoast/shar-visionos/blob/6d34c501924fcb414263ebbee197b718860446b6/AVP-INSTALL.md) |
 
 ## Developers: get your port listed
