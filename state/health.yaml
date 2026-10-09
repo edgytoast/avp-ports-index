@@ -1,6 +1,6 @@
 half-life-vr:
   archived: false
-  commits_since_scan: 0
+  commits_since_scan: 127
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-10-06T19:07:04Z'
@@ -9,8 +9,8 @@ half-life-vr:
   flagged_commit: null
   github_verified: true
   health: ok
-  last_checked: '2026-10-08T06:48:24Z'
-  last_commit_date: '2026-10-06T18:15:14Z'
+  last_checked: '2026-10-09T06:48:13Z'
+  last_commit_date: '2026-10-08T21:36:26Z'
   license:
     kind: open-source
     spdx: GPL-3.0
@@ -18,16 +18,17 @@ half-life-vr:
   outreach_opened_at: null
   rescan_after: null
   rescan_hold: false
-  routes: []
+  routes:
+  - S1-11d
   scan_confidence: 100
   scan_kind: automated
-  scan_state: current
+  scan_state: behind
   scanned_at: '2026-10-06T19:07:03Z'
   scanned_commit: 289207393355fa68384b49c189218d1fa07705e8
   warnings: []
 shar-visionos:
   archived: false
-  commits_since_scan: 0
+  commits_since_scan: 3
   consecutive_failures: 0
   curator_own: true
   decay_reset_at: '2026-10-04T17:59:25Z'
@@ -36,8 +37,8 @@ shar-visionos:
   flagged_commit: null
   github_verified: true
   health: ok
-  last_checked: '2026-10-08T06:48:24Z'
-  last_commit_date: '2026-10-06T21:13:19Z'
+  last_checked: '2026-10-09T06:48:13Z'
+  last_commit_date: '2026-10-08T20:53:28Z'
   license:
     kind: open-source
     spdx: MIT
@@ -48,13 +49,13 @@ shar-visionos:
   routes: []
   scan_confidence: 95
   scan_kind: automated
-  scan_state: current
+  scan_state: behind
   scanned_at: '2026-10-07T07:26:52Z'
   scanned_commit: 6d34c501924fcb414263ebbee197b718860446b6
   warnings: []
 twilight-princess-vr:
   archived: false
-  commits_since_scan: 0
+  commits_since_scan: 36
   consecutive_failures: 0
   curator_own: true
   decay_reset_at: '2026-10-04T17:42:38Z'
@@ -63,8 +64,8 @@ twilight-princess-vr:
   flagged_commit: null
   github_verified: true
   health: ok
-  last_checked: '2026-10-08T06:48:24Z'
-  last_commit_date: '2026-10-07T04:17:02Z'
+  last_checked: '2026-10-09T06:48:13Z'
+  last_commit_date: '2026-10-08T23:11:41Z'
   license:
     kind: open-source
     spdx: CC0-1.0
@@ -75,7 +76,7 @@ twilight-princess-vr:
   routes: []
   scan_confidence: 100
   scan_kind: automated
-  scan_state: current
+  scan_state: behind
   scanned_at: '2026-10-07T07:01:57Z'
   scanned_commit: a4fbe68d0a8446e6678bb328e273cb1e3d6b72e9
   warnings: []

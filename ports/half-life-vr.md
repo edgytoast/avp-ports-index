@@ -17,12 +17,12 @@ Then follow the [install guide](https://github.com/illixion/halflife-visionos/bl
 | Status | Working: Playable end to end on Apple Vision Pro, per the README. The hand-tracked VR input is described there as proof-of-concept quality: functional, with rough edges. |
 | Plays as | 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-10-06 · 0 commits since |
+| Scan | Scanned 2026-10-06 · 127 commits since |
 | Source (scanned) | [illixion/halflife-visionos at 289207393355](https://github.com/illixion/halflife-visionos/tree/289207393355fa68384b49c189218d1fa07705e8) |
 | Install guide | [AVP-INSTALL.md at 289207393355](https://github.com/illixion/halflife-visionos/blob/289207393355fa68384b49c189218d1fa07705e8/AVP-INSTALL.md) |
 | Repo | [illixion/halflife-visionos](https://github.com/illixion/halflife-visionos) |
 | License | GPL-3.0 |
-| Last commit | 2026-10-06 |
+| Last commit | 2026-10-08 |
 | visionOS | 26.4 or later |
 | Input | hand tracking, game controller |
 | Tags | fps, half-life, vr, 6dof, hand-tracking, xash3d |

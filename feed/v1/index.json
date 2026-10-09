@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.4.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-08T15:45:44Z",
+  "generated_at": "2026-10-09T06:48:36Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -78,10 +78,10 @@
       "scanned_commit": "a4fbe68d0a8446e6678bb328e273cb1e3d6b72e9",
       "scanned_at": "2026-10-07T07:01:57Z",
       "scan_kind": "automated",
-      "commits_since_scan": 0,
-      "scan_state": "current",
+      "commits_since_scan": 36,
+      "scan_state": "behind",
       "archived": false,
-      "last_commit_date": "2026-10-07T04:17:02Z",
+      "last_commit_date": "2026-10-08T23:11:41Z",
       "license": {
         "kind": "open-source",
         "spdx": "CC0-1.0"
@@ -178,6 +178,139 @@
       }
     },
     {
+      "id": "half-life-vr",
+      "name": "Lambda VisionPro",
+      "game": {
+        "title": "Half-Life",
+        "original_platform": "pc",
+        "original_release_year": 1998
+      },
+      "repo_url": "https://github.com/illixion/halflife-visionos",
+      "source_ref": null,
+      "source_url": "https://github.com/illixion/halflife-visionos/tree/289207393355fa68384b49c189218d1fa07705e8",
+      "install_doc_url": "https://github.com/illixion/halflife-visionos/blob/289207393355fa68384b49c189218d1fa07705e8/AVP-INSTALL.md",
+      "developer": {
+        "name": "Ixion",
+        "github": "illixion",
+        "url": null,
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "FWGS",
+          "role": "Xash3D-FWGS, the engine",
+          "url": "https://github.com/FWGS/xash3d-fwgs"
+        },
+        {
+          "name": "FWGS",
+          "role": "hlsdk-portable, the Half-Life game code",
+          "url": "https://github.com/FWGS/hlsdk-portable"
+        },
+        {
+          "name": "ANGLE",
+          "role": "OpenGL ES on Metal",
+          "url": "https://github.com/google/angle"
+        },
+        {
+          "name": "Lambda1VR (DrBeef)",
+          "role": "Inspiration (Quest VR port); no code reused",
+          "url": "https://github.com/DrBeef/Lambda1VR"
+        },
+        {
+          "name": "Valve",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/FWGS/xash3d-fwgs",
+        "https://github.com/FWGS/hlsdk-portable"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "Playable end to end on Apple Vision Pro, per the README. The hand-tracked VR input is described there as proof-of-concept quality: functional, with rough edges.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "289207393355fa68384b49c189218d1fa07705e8",
+      "scanned_at": "2026-10-06T19:07:03Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 127,
+      "scan_state": "behind",
+      "archived": false,
+      "last_commit_date": "2026-10-08T21:36:26Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "GPL-3.0"
+      },
+      "visionos_min": "26.4",
+      "input": [
+        "hand-tracking",
+        "game-controller"
+      ],
+      "experiences": [
+        "6dof-immersive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "fps",
+        "half-life",
+        "vr",
+        "6dof",
+        "hand-tracking",
+        "xash3d"
+      ],
+      "description": "Half-Life in full immersion on Apple Vision Pro: the Xash3D-FWGS engine with its ref_gl renderer on Metal through ANGLE, presented with Compositor Services, with hand-tracked weapons and locomotion. Bring your own Half-Life from Steam (the pre-25th-anniversary build).",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/half-life-vr.md",
+      "media": {
+        "commit": "289207393355fa68384b49c189218d1fa07705e8",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 5689,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "9b3b1d9bafcb61017537acb5a797ccab2df0e5cba03b9c090ba30e6ad4254a77",
+              "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/289207393355fa68384b49c189218d1fa07705e8/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 14776,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "89431a2ade4de6fbcbb22180a364579895536b6db7e6cd6d2b024f8d772ceb81",
+              "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/289207393355fa68384b49c189218d1fa07705e8/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/middle.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "In-game screenshot",
+            "bytes": 301711,
+            "format": "jpeg",
+            "height": 1080,
+            "sha256": "7f6bc0a96597f1e73a417fa9a8ce93ae191a295c7653e683b6eb6bda0397aa69",
+            "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/289207393355fa68384b49c189218d1fa07705e8/images/ingame.jpg",
+            "width": 1920
+          }
+        ]
+      }
+    },
+    {
       "id": "shar-visionos",
       "name": "SHAR VR",
       "game": {
@@ -248,10 +381,10 @@
       "scanned_commit": "6d34c501924fcb414263ebbee197b718860446b6",
       "scanned_at": "2026-10-07T07:26:52Z",
       "scan_kind": "automated",
-      "commits_since_scan": 0,
-      "scan_state": "current",
+      "commits_since_scan": 3,
+      "scan_state": "behind",
       "archived": false,
-      "last_commit_date": "2026-10-06T21:13:19Z",
+      "last_commit_date": "2026-10-08T20:53:28Z",
       "license": {
         "kind": "open-source",
         "spdx": "MIT"
@@ -331,139 +464,6 @@
             "sha256": "9878be455e47250e07507e710fdbfba0e193ea6d05f4f4effaa045ced787f657",
             "url": "https://raw.githubusercontent.com/edgytoast/shar-visionos/6d34c501924fcb414263ebbee197b718860446b6/docs/images/window-angle.jpg",
             "width": 1600
-          }
-        ]
-      }
-    },
-    {
-      "id": "half-life-vr",
-      "name": "Lambda VisionPro",
-      "game": {
-        "title": "Half-Life",
-        "original_platform": "pc",
-        "original_release_year": 1998
-      },
-      "repo_url": "https://github.com/illixion/halflife-visionos",
-      "source_ref": null,
-      "source_url": "https://github.com/illixion/halflife-visionos/tree/289207393355fa68384b49c189218d1fa07705e8",
-      "install_doc_url": "https://github.com/illixion/halflife-visionos/blob/289207393355fa68384b49c189218d1fa07705e8/AVP-INSTALL.md",
-      "developer": {
-        "name": "Ixion",
-        "github": "illixion",
-        "url": null,
-        "github_verified": true
-      },
-      "credits": [
-        {
-          "name": "FWGS",
-          "role": "Xash3D-FWGS, the engine",
-          "url": "https://github.com/FWGS/xash3d-fwgs"
-        },
-        {
-          "name": "FWGS",
-          "role": "hlsdk-portable, the Half-Life game code",
-          "url": "https://github.com/FWGS/hlsdk-portable"
-        },
-        {
-          "name": "ANGLE",
-          "role": "OpenGL ES on Metal",
-          "url": "https://github.com/google/angle"
-        },
-        {
-          "name": "Lambda1VR (DrBeef)",
-          "role": "Inspiration (Quest VR port); no code reused",
-          "url": "https://github.com/DrBeef/Lambda1VR"
-        },
-        {
-          "name": "Valve",
-          "role": "Original game",
-          "url": null
-        }
-      ],
-      "upstream": [
-        "https://github.com/FWGS/xash3d-fwgs",
-        "https://github.com/FWGS/hlsdk-portable"
-      ],
-      "self_reported_status": "working",
-      "status_notes": "Playable end to end on Apple Vision Pro, per the README. The hand-tracked VR input is described there as proof-of-concept quality: functional, with rough edges.",
-      "owner_verified": {
-        "verified": false,
-        "verified_on": null,
-        "verified_commit": null
-      },
-      "trust_tier": "working",
-      "curator_own": false,
-      "health": {
-        "status": "ok",
-        "failing_since": null
-      },
-      "scanned_commit": "289207393355fa68384b49c189218d1fa07705e8",
-      "scanned_at": "2026-10-06T19:07:03Z",
-      "scan_kind": "automated",
-      "commits_since_scan": 0,
-      "scan_state": "current",
-      "archived": false,
-      "last_commit_date": "2026-10-06T18:15:14Z",
-      "license": {
-        "kind": "open-source",
-        "spdx": "GPL-3.0"
-      },
-      "visionos_min": "26.4",
-      "input": [
-        "hand-tracking",
-        "game-controller"
-      ],
-      "experiences": [
-        "6dof-immersive"
-      ],
-      "install": [
-        "build"
-      ],
-      "tags": [
-        "fps",
-        "half-life",
-        "vr",
-        "6dof",
-        "hand-tracking",
-        "xash3d"
-      ],
-      "description": "Half-Life in full immersion on Apple Vision Pro: the Xash3D-FWGS engine with its ref_gl renderer on Metal through ANGLE, presented with Compositor Services, with hand-tracked weapons and locomotion. Bring your own Half-Life from Steam (the pre-25th-anniversary build).",
-      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/half-life-vr.md",
-      "media": {
-        "commit": "289207393355fa68384b49c189218d1fa07705e8",
-        "source": "readme",
-        "icon": {
-          "kind": "layered",
-          "layers": [
-            {
-              "bytes": 5689,
-              "format": "png",
-              "height": 1024,
-              "layer": "back",
-              "sha256": "9b3b1d9bafcb61017537acb5a797ccab2df0e5cba03b9c090ba30e6ad4254a77",
-              "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/289207393355fa68384b49c189218d1fa07705e8/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png",
-              "width": 1024
-            },
-            {
-              "bytes": 14776,
-              "format": "png",
-              "height": 1024,
-              "layer": "middle",
-              "sha256": "89431a2ade4de6fbcbb22180a364579895536b6db7e6cd6d2b024f8d772ceb81",
-              "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/289207393355fa68384b49c189218d1fa07705e8/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/middle.png",
-              "width": 1024
-            }
-          ]
-        },
-        "screenshots": [
-          {
-            "alt": "In-game screenshot",
-            "bytes": 301711,
-            "format": "jpeg",
-            "height": 1080,
-            "sha256": "7f6bc0a96597f1e73a417fa9a8ce93ae191a295c7653e683b6eb6bda0397aa69",
-            "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/289207393355fa68384b49c189218d1fa07705e8/images/ingame.jpg",
-            "width": 1920
           }
         ]
       }
