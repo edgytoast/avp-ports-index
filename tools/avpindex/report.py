@@ -12,7 +12,7 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 
-from . import blocklist, jules, lifecycle, messages, store, validate
+from . import approvals, blocklist, jules, lifecycle, messages, store, validate
 from .gate import STAGE1, STAGE2, WAITING, latest_check, stage2_marker
 from .lifecycle import LISTED, PULLED
 from .sync import pin
@@ -84,6 +84,11 @@ def verdict_summary(outcome: dict, threshold: int) -> str:
              f"**Steering attempt:** {'yes' if verdict['steering_attempt'] else 'no'}", "",
              "Summary from the automated review (untrusted text):", "", validate.fence(verdict.get("summary", "")), ""]
     findings = verdict.get("findings") or []
+    cleared = outcome.get("approved_files") or []
+    if cleared:
+        files = ", ".join(f"`{validate.md_inline(f['path'], 200)}` (SHA-256 `{f['sha256'][:12]}`)" for f in cleared)
+        lines += ["", f"**Passed on approved files:** every finding above info is on a file the curator approved "
+                      f"with these exact bytes: {files}.", ""]
     if findings:
         rows = []
         for f in findings[:50]:
@@ -111,6 +116,7 @@ def apply_rescan_flag(rt, state: store.State, inputs: Inputs, outcome: dict, thr
     entry_id = inputs.entry_id
     health = state.health_record(entry_id)
     health["flagged_commit"] = inputs.linked_commit
+    health["flagged_files"] = approvals.flagged_files(outcome.get("verdict")) or []
     health["rescan_hold"] = True
     blocklist.add_flag(state, rt.salt, inputs.repo_id)
     record = state.lifecycle[entry_id]
@@ -125,11 +131,26 @@ def apply_rescan_flag(rt, state: store.State, inputs: Inputs, outcome: dict, thr
 def run(rt, inputs: Inputs, outcome: dict) -> tuple[str, list[int]]:
     """Apply the result. Returns (result, PR numbers for the merge step)."""
     threshold = int(rt.policy["stage2"]["confidence_threshold"])
+    outcome = clear_approved(rt, inputs, outcome)
     result = outcome["result"]
     if inputs.mode == "rescan":
         rescan(rt, inputs, outcome, threshold)
         return result, []
     return result, pr_mode(rt, inputs, outcome, threshold)
+
+
+def clear_approved(rt, inputs: Inputs, outcome: dict) -> dict:
+    """A flag whose findings above info are all on files the curator approved, byte for byte, is a pass
+    (decision 62). A changed file, any other finding or any failure to check keeps the flag."""
+    if outcome.get("result") != "flag":
+        return outcome
+    state = store.State.load(rt.root)
+    cleared = approvals.clearance(state, inputs.entry_id, inputs.repo_id, inputs.linked_repo, inputs.linked_commit,
+                                  outcome.get("verdict"), rt.policy, rt.http)
+    if cleared is None:
+        return outcome
+    rt.summary(f"Flag cleared: {len(cleared)} curator-approved file(s) with unchanged SHA-256.")
+    return {**outcome, "result": "pass", "approved_files": cleared}
 
 
 def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
@@ -171,8 +192,9 @@ def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
                 swap(("stage2:scanning",), ("stage2:queued",))
             messages.upsert(rt, number, scans=scans, passed=passed, **clear_scanning)
             return []
-        rt.gh.create_check(head, STAGE2, conclusion="success",
-                           title=f"Passed: confidence {confidence} (threshold {threshold})",
+        title = (f"Passed: confidence {confidence}, findings only on curator-approved files"
+                 if outcome.get("approved_files") else f"Passed: confidence {confidence} (threshold {threshold})")
+        rt.gh.create_check(head, STAGE2, conclusion="success", title=title,
                            summary=summary + "\n\n" + stage2_marker(kind="scan", confidence=confidence),
                            external_id=inputs.external_id)
         swap(("stage2:scanning", "stage2:queued"), ("stage2:pass",))
@@ -181,7 +203,8 @@ def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
 
     if result == "flag":
         rt.gh.create_check(head, STAGE2, conclusion="failure", title=WAITING,
-                           summary=summary + "\n\n" + stage2_marker(kind="result", result="flag"),
+                           summary=summary + "\n\n" + stage2_marker(
+                               kind="result", result="flag", files=approvals.flagged_files(outcome.get("verdict")) or []),
                            external_id=inputs.external_id)
         swap(("stage2:scanning", "stage2:queued", "stage2:pass"), ("stage2:flagged", "needs-owner"))
         name = _entry_name(rt, inputs)

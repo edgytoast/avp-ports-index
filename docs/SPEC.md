@@ -297,13 +297,14 @@ records: {}          # empty at handoff
   commits_since_scan: <int|null>
   scan_state: current | behind | unknown
   flagged_commit: <sha|null>         # last commit a rescan (or a PR scan of a same-repo edit) flagged; never rescanned again (§8.3)
+  flagged_files: [<repo path>]       # the files that flag's findings above info point at; `approve` records their SHA-256 (§5.9)
   rescan_hold: <bool>                # true after such a flag; no rescans until the owner acts (§8.7)
   rescan_after: <ISO8601|null>       # set 24 hours ahead after a rescan error; no rescans before it
   decay_reset_at: <ISO8601|null>     # when the decay fields were last reset by a relisting
   warnings: [<check IDs>]            # S1-10 warnings seen by the health check (owner info only)
 ```
 
-**When the pin moves.** Whenever `scanned_commit` moves to a different commit (a rescan `pass`, an edit merge that records a new scan, or `approve`), `flagged_commit` and `rescan_after` are cleared and `rescan_hold` becomes false: the new pin has passed a scan or been reviewed by the owner, so nothing older can be `approve`d onto it and rescans resume. The job that moves the pin also compares it with the current linked HEAD (§5.1) and sets `commits_since_scan` and `scan_state` from that, rather than waiting for the next health check.
+**When the pin moves.** Whenever `scanned_commit` moves to a different commit (a rescan `pass`, an edit merge that records a new scan, or `approve`), `flagged_commit`, `flagged_files` and `rescan_after` are cleared and `rescan_hold` becomes false: the new pin has passed a scan or been reviewed by the owner, so nothing older can be `approve`d onto it and rescans resume. The job that moves the pin also compares it with the current linked HEAD (§5.1) and sets `commits_since_scan` and `scan_state` from that, rather than waiting for the next health check.
 
 **When an entry is relisted.** On any transition into `listed` from another state (a merge, or kill-switch `restore`), the decay fields reset: `health: ok`, `failing_since: null`, `consecutive_failures: 0`, `failures: []`, and `decay_reset_at` is set to now. A port that comes back starts its grace period fresh. An outreach issue left open from before is closed by the next health check (§8.6).
 
@@ -387,6 +388,7 @@ stage2:
   per_pr_max_scans: 3                # then the PR waits for the owner
   rescan_daily_max: 6
   confidence_threshold: 80          # Jules safe_confidence needed to pass (0-100)
+  approved_files_min_confidence: 50  # a flag whose findings are all on curator-approved files (same SHA-256) passes from here up (§5.9)
   jules_timeout_minutes: 60          # enforced by the poller; the job's own timeout-minutes is fixed at 200
 health:                             # the schedule itself is fixed in health-check.yml (17 6 * * *); workflows can't read it from here
   confirm_runs_before_outreach: 2
@@ -400,6 +402,21 @@ app_review_extensions: [.z64, .n64, .v64, .xex, .xbe, .pak, .pk3, .pk4, .wad, .i
 ```
 
 Nothing in the review is secret: the prompt and schema are public, and only `JULES_API_KEY` is held back.
+
+### 5.9 `state/approvals.yaml` (bot-written)
+
+The files the owner has approved, by SHA-256, so the same bytes never need approving twice (decision 62):
+
+```yaml
+<id>:
+  repo_id: <int>                     # approvals hold only while the entry links this repo
+  files:
+    - {path: <repo path>, sha256: <hex>, bytes: <int>, commit: <sha it was read at>, approved_at: <ISO8601>}
+```
+
+- Recorded when the owner accepts a flagged commit: kill-switch `approve` reads each of the entry's `flagged_files` at `flagged_commit` (§8.7), and a bypass merge of a flagged PR reads the files named in its `gate/stage2` marker (§8.5). Files are fetched from raw.githubusercontent.com at the pinned commit without a token, up to 64 MB each, and only hashed. A file that can't be read isn't recorded; the commit is approved all the same and the note says so.
+- Used by the `report` job (§8.4): a `flag` becomes a `pass` when every finding above `info` names a file whose bytes at the scanned commit hash to an approved SHA-256 for that entry and repo, no finding is `critical`, `steering_attempt` is false, and `safe_confidence` is at least `approved_files_min_confidence`. Any other finding, a changed file, findings on more than 20 files, a finding that names no file, or any failure to read a file keeps the `flag`. The pass is recorded as `scan_kind: automated` with the reviewer's confidence, and `gate/stage2` and the run summary list the approved files that cleared it.
+- Not hashed like `state/flags.yaml`: an approval is the owner's acceptance of a listed entry, not a doubt.
 
 ---
 
@@ -495,6 +512,8 @@ Field names and session states come from the Jules API reference at build time; 
 | `deferred` | The Jules API refuses the session for quota or rate limits | in progress (unchanged) | The PR goes back to `stage2:queued`; the scan doesn't count toward `per_pr_max_scans`; the dispatcher retries next hour | The entry stays a rescan candidate and is retried in a later hourly run |
 
 The `gate/stage2` summary shows the confidence, the threshold, Jules's summary and the findings, fenced as untrusted text (§8.0 rule 4). The session link goes only in the owner triage issue, the run log and the scan artifact; it opens only for the owner's Jules account.
+
+**Approved files.** Before a `flag` takes effect in either mode, the `report` job checks it against `state/approvals.yaml` (§5.9): a flag whose findings above `info` are all on files the owner already approved, byte for byte, is applied as a `pass`.
 
 **A `flag` in PR mode** never closes a PR or blocklists anything on its own, because an LLM judgment is exactly the kind of doubt the guiding rule sends to the owner.
 
@@ -711,7 +730,7 @@ Classification goes by changed paths first, then author.
 - **Timeout:** `timeout-minutes: 200` on the `scan` job, fixed in the YAML (it can't be read from `policy.yaml`). The poller gives up at `jules_timeout_minutes`, which must stay at or under 180.
 - **Jobs:**
   1. `scan` (§6.2): environment `jules`.
-  2. `report` runs with `if: always()`, so it runs even when `scan` fails, is cancelled or hits its timeout; in that case, or when no valid verdict artifact exists, the result is `error`. It then applies §6.3 for the given mode:
+  2. `report` runs with `if: always()`, so it runs even when `scan` fails, is cancelled or hits its timeout; in that case, or when no valid verdict artifact exists, the result is `error`. A `flag` whose findings are all on approved files becomes a `pass` (§5.9); a `flag` that stands records its `flagged_files` and puts them in the `gate/stage2` marker. It then applies §6.3 for the given mode:
      - **PR `pass`:** `gate/stage2` success on the PR's **current** head, if that head still has the scanned `external_id` (§8.2 step 2), with the confidence and the summary; label `stage2:pass`; `try_merge`. If the head now links a different commit, discard the result and requeue.
      - **PR `flag` or `error`:** labels and messages per §6.3. A `flag` also adds the repo to `state/flags.yaml`, and for a same-repo edit of a `listed` entry applies the rescan-mode effects to that entry (§6.3), all in one App `[skip ci]` commit, with push retry.
      - **PR `deferred`:** label back to `stage2:queued`; the scan count marker doesn't change.
@@ -731,7 +750,7 @@ Classification goes by changed paths first, then author.
        - If it was "Not required: unchanged", keep the existing scan record.
        - Whenever this moves `scanned_commit`, apply the pin-move rule (§5.4).
        - If it did not succeed (owner bypass), it depends on whether this PR has a **Stage 2 result**: a completed `gate/stage2` posted by `report` (a `flag` or `error`), or the gate's re-post of a flag after a push, which carries the scanned commit's `external_id` (§8.2 step 2). Queued or in-progress checks don't count.
-         - **With a Stage 2 result:** the owner read it and merged anyway. Set `scanned_commit` to the SHA in that check's `external_id`, `scan_kind: curator-reviewed` and `owner_approved: true`, and remove the repo's record from `state/flags.yaml` if there is one.
+         - **With a Stage 2 result:** the owner read it and merged anyway. Set `scanned_commit` to the SHA in that check's `external_id`, `scan_kind: curator-reviewed` and `owner_approved: true`, remove the repo's record from `state/flags.yaml` if there is one, and record the SHA-256 of the files named in the check's marker in `state/approvals.yaml` (§5.9).
          - **Without one, for an edit that keeps the same `repo`** (for example the owner fixing a typo in someone else's entry): keep the existing scan record, `owner_approved` and flag record unchanged. Rescans move the pin as usual.
          - **Without one, for an add or an edit that changes `repo`:** the owner listed it without a scan (§6.3 owner bypass rule). Set `scanned_commit` to the SHA in `gate/stage1`'s `external_id`, `scan_kind: curator-reviewed` and `owner_approved: true`, and remove the repo's record from `state/flags.yaml` if there is one.
      - **Approval:** a new listing starts with `owner_approved: false` unless this merge recorded `curator-reviewed` or the linked repo's owner ID is `OWNER_ID`. An edit that changes `repo` resets it to `false` unless this merge recorded `curator-reviewed` or the new repo's owner ID is `OWNER_ID`.
@@ -778,7 +797,7 @@ Classification goes by changed paths first, then author.
 - **Actions:**
   - `pull`: lifecycle `pulled`; blocklist hashes are optional.
   - `restore`: lifecycle `listed`; remove any blocklist hashes; for `taken-down`, restore the entry file from git history. Re-record the linked repo's current `repo_id`, since the owner has looked at it, which is how an entry pulled by S1-16 comes back after a developer re-creates their repo. The pin stays on `scanned_commit`, and `flagged_commit` is kept, so a restored entry is not rescanned at the commit that was flagged. Sets `owner_approved: true` and clears `rescan_hold`. On an entry that is already `listed` but held after a flag, `restore` only clears `rescan_hold` and sets `owner_approved: true`: the pin stays, and later commits are rescanned again. In both cases the entry's triage issue is closed.
-  - `approve`: for a `listed` entry; for a `pulled` entry, run `restore` first (it keeps `flagged_commit`). The owner has reviewed the repo and accepts it. If the entry has a `flagged_commit`, `scanned_commit` moves to it with `scan_kind: curator-reviewed` (the pin-move rule applies, §5.4). In every case the repo's record is removed from `state/flags.yaml`, `owner_approved: true`, and the entry's triage issue is closed. With neither a `flagged_commit` nor a flag record, it's a no-op with a comment.
+  - `approve`: for a `listed` entry; for a `pulled` entry, run `restore` first (it keeps `flagged_commit`). The owner has reviewed the repo and accepts it. If the entry has a `flagged_commit`, `scanned_commit` moves to it with `scan_kind: curator-reviewed` (the pin-move rule applies, §5.4), and the SHA-256 of each of its `flagged_files` at that commit goes into `state/approvals.yaml` (§5.9), so those exact bytes never flag again; the comment names them. In every case the repo's record is removed from `state/flags.yaml`, `owner_approved: true`, and the entry's triage issue is closed. With neither a `flagged_commit` nor a flag record, it's a no-op with a comment.
   - `takedown`: lifecycle `taken-down`; always blocklist; delete `entries/<id>.yaml`.
 - Every action regenerates surfaces and makes one `[skip ci]` commit. There are no free-text reason inputs.
 
@@ -1167,6 +1186,7 @@ Test T8 alone lowers `hourly_cap` to 1 and restores it afterwards.
 | U18 | Rescan results | A rescan `error` opens or updates one triage issue and sets `rescan_after` 24 hours ahead; a `deferred` rescan stays a candidate for the next hourly run. A result for an entry that, during the scan, stopped being `listed`, had its `repo_id` or `scanned_commit` changed, or was put on hold by a PR flag is discarded and writes nothing |
 | U19 | Curator's own | A stranger's entry for their own repo with `developer.github: edgytoast` gets no tag and `owner_approved: false`. An entry for a repo `OWNER_ID` owns gets the tag and `owner_approved: true`, so a later rescan `flag` keeps it listed. An owner-submitted entry crediting `edgytoast` for someone else's repo gets the tag but not `owner_approved` |
 | U20 | Reclaimed id (S1-18) | Re-adding a withdrawn id with the same repo passes; with a different repo it routes, and `owner:scan` waives it |
+| U21 | Approved files (§5.9) | A rescan or PR `flag` whose findings above `info` are all on files with an approved SHA-256 passes and moves the pin as `automated`; changed bytes, another repo or entry, any other finding, a `critical` finding, a steering attempt, a confidence under `approved_files_min_confidence`, a flag with no findings or an unreadable file keep the flag, which records `flagged_files`. `approve` records those files at `flagged_commit`, after which a later commit with the same bytes passes; a file it can't read is noted and the commit is still approved. Merging a flagged PR records the files in its marker, ignoring paths outside the repo |
 
 `self-test` also runs zizmor and actionlint, which must be green, with only the ignores allowed in §8.9. If actionlint doesn't yet recognize `concurrency.queue`, add a targeted ignore in `.github/actionlint.yaml` and note it. If Dependabot opens a PR during the build, confirm the gate skipped it and `self-test` ran; otherwise note "not yet observed" (not blocking).
 

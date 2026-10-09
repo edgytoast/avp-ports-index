@@ -103,8 +103,9 @@ def is_github(url: str) -> bool:
     return parsed.scheme == "https" and (host in GITHUB_HOSTS or host.endswith(GITHUB_SUFFIX))
 
 
-def download(http: requests.Session, url: str) -> bytes:
-    """A file's bytes, following redirects only within GitHub, capped at MAX_BYTES."""
+def download(http: requests.Session, url: str, limit: int = MAX_BYTES) -> bytes:
+    """A file's bytes, following redirects only within GitHub, capped at `limit` (8 MB for pictures)."""
+    too_big = f"over {limit // (1024 * 1024)} MB"
     for _hop in range(MAX_HOPS + 1):
         if not is_github(url):
             raise ValueError("not a GitHub URL")
@@ -115,13 +116,13 @@ def download(http: requests.Session, url: str) -> bytes:
                 continue
             if resp.status_code != 200:
                 raise ValueError(f"HTTP {resp.status_code}")
-            if int(resp.headers.get("Content-Length") or 0) > MAX_BYTES:
-                raise ValueError("over 8 MB")
+            if int(resp.headers.get("Content-Length") or 0) > limit:
+                raise ValueError(too_big)
             data = bytearray()
             for chunk in resp.iter_content(65536):
                 data += chunk
-                if len(data) > MAX_BYTES:
-                    raise ValueError("over 8 MB")
+                if len(data) > limit:
+                    raise ValueError(too_big)
             return bytes(data)
         finally:
             resp.close()

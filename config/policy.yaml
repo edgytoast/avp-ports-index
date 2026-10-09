@@ -19,6 +19,7 @@ stage2:
   per_pr_max_scans: 3                # then the PR waits for the owner
   rescan_daily_max: 6
   confidence_threshold: 80          # Jules safe_confidence needed to pass (0-100)
+  approved_files_min_confidence: 50  # a flag whose findings are all on curator-approved files (same SHA-256) passes from here up
   jules_timeout_minutes: 60          # enforced by the poller; the job's own timeout-minutes is fixed at 200
 health:                             # the schedule itself is fixed in health-check.yml (17 6 * * *); workflows can't read it from here
   confirm_runs_before_outreach: 2

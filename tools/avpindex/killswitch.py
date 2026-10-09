@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 import re
 
-from . import blocklist, lifecycle, store, validate
+from . import approvals, blocklist, lifecycle, store, validate
 from .lifecycle import DECAY, LISTED, PULLED, TAKEN_DOWN, WITHDRAWN
 from .sync import pin, repo_facts, sync_all
 from .writer import git, git_bytes
@@ -196,13 +196,26 @@ def approve(rt, state: store.State, entry_id: str, outcome: dict) -> None:
     if not flagged_commit and not has_flag:
         outcome["note"] = f"The kill switch did nothing: `{entry_id}` has no flagged commit or flag record."
         return
+    files: list[str] = []
+    notes: list[str] = []
     if flagged_commit:
         repo = rt.gh.repo_by_id(repo_id) if repo_id else None
+        flagged = list(health.get("flagged_files") or [])
         pin(rt, state, entry_id, flagged_commit, "curator-reviewed", None, repo, _entry(rt, entry_id))
+        if repo:
+            # The flagged files' exact bytes are now approved: they won't flag again unless they change.
+            files, notes = approvals.record(state, entry_id, repo, flagged_commit, flagged, rt.http)
     if repo_id:
         blocklist.remove_flag(state, rt.salt, repo_id)
     record["owner_approved"] = True
-    rt.close_triage(entry_id, "Approved by the curator.")
+    text = "Approved by the curator."
+    if files:
+        text += " These files are approved by SHA-256 and won't be flagged again unless they change: " + \
+                ", ".join(f"`{validate.md_inline(p, 200)}`" for p in files) + "."
+    if notes:
+        text += " " + "; ".join(notes) + "."
+    outcome["note"] = f"Kill switch: approve `{entry_id}` done. {text}"
+    rt.close_triage(entry_id, text)
 
 
 def takedown(rt, state: store.State, entry_id: str, outcome: dict) -> None:

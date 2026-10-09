@@ -251,6 +251,7 @@ def cmd_check_data(_args) -> int:
     check(store.SYNC, "schema/state.schema.json", "sync")
     check(store.FLAGS, "schema/state.schema.json", "flags")
     check(store.MEDIA, "schema/state.schema.json", "media")
+    check(store.APPROVALS, "schema/state.schema.json", "approvals")
     check(store.BLOCKLIST, "schema/blocklist.schema.json")
     check(store.VERIFIED, "schema/owner-verified.schema.json")
     schema = store.load_json("schema/entry.schema.json", root)

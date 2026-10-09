@@ -45,6 +45,8 @@
           "commits_since_scan": {"type": ["integer", "null"], "minimum": 0},
           "scan_state": {"enum": ["current", "behind", "unknown"]},
           "flagged_commit": {"$ref": "#/$defs/sha_or_null"},
+          "flagged_files": {"description": "Files the findings above info at flagged_commit point at; approve records their SHA-256 (approvals.py).",
+                            "type": "array", "maxItems": 20, "items": {"type": "string", "minLength": 1}},
           "rescan_hold": {"type": "boolean"},
           "rescan_after": {"$ref": "#/$defs/iso_or_null"},
           "decay_reset_at": {"$ref": "#/$defs/iso_or_null"},
@@ -115,6 +117,26 @@
                                                                "properties": {"src": {"type": "string"}, "reason": {"type": "string"}}}},
           "choice": {"type": ["string", "null"]},
           "collected_at": {"$ref": "#/$defs/iso"}
+        }
+      }
+    },
+    "approvals": {
+      "description": "state/approvals.yaml: per entry, the files the curator approved by SHA-256, for the repo they were approved in (approvals.py).",
+      "type": "object",
+      "propertyNames": {"$ref": "#/$defs/entry_id"},
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["repo_id", "files"],
+        "properties": {
+          "repo_id": {"type": "integer", "minimum": 1},
+          "files": {"type": "array", "items": {"type": "object", "additionalProperties": false,
+                                               "required": ["path", "sha256", "bytes", "commit", "approved_at"],
+                                               "properties": {"path": {"type": "string", "minLength": 1},
+                                                              "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+                                                              "bytes": {"type": "integer", "minimum": 0},
+                                                              "commit": {"$ref": "#/$defs/sha"},
+                                                              "approved_at": {"$ref": "#/$defs/iso"}}}}
         }
       }
     }
