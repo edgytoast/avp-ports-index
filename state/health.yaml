@@ -1,12 +1,12 @@
 half-life-vr:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-10-09T17:02:19Z'
   failing_since: null
   failures: []
-  flagged_commit: 195fe2e8ca4a11f2a4ccc1c11b9a3a0cb9059616
+  flagged_commit: null
   github_verified: true
   health: ok
   last_checked: '2026-10-09T06:48:13Z'
@@ -17,14 +17,14 @@ half-life-vr:
   outreach_issue_url: null
   outreach_opened_at: null
   rescan_after: null
-  rescan_hold: true
+  rescan_hold: false
   routes:
   - S1-11d
   scan_confidence: null
   scan_kind: curator-reviewed
-  scan_state: behind
-  scanned_at: '2026-10-09T17:02:24Z'
-  scanned_commit: b22c5744c706c4bc4a9331706726fe2760063578
+  scan_state: current
+  scanned_at: '2026-10-09T18:59:21Z'
+  scanned_commit: 195fe2e8ca4a11f2a4ccc1c11b9a3a0cb9059616
   warnings: []
 shar-visionos:
   archived: false
