@@ -1,0 +1,36 @@
+schema_version: 1
+id: tiberian-dawn
+name: Tiberian Dawn for Apple Vision Pro
+game:
+  title: "Command & Conquer: Tiberian Dawn"
+  original_platform: pc
+  original_release_year: 1995
+repo: https://github.com/Cesarus85/Tiberian-Dawn-for-iPad-and-macOS
+developer:
+  github: Cesarus85
+status: partially-working
+status_notes: "A native visionOS prototype: it has launched on a physical Apple Vision Pro, imported the Gold data and entered gameplay. The reworked gaze-and-pinch controls are waiting on one more headset re-test."
+input: [hand-tracking, keyboard-mouse, game-controller]
+experiences: [2d]
+description: >-
+  Command & Conquer: Tiberian Dawn in a native visionOS command window, from the same Vanilla
+  Conquer-based engine as the iPad and Mac apps: look and pinch to select and command, with Look
+  to Scroll at the map edges and optional modern art. Bring your own C&C Gold discs.
+tags: [rts, strategy, command-and-conquer, vanilla-conquer, source-port, pc]
+credits:
+  - name: Westwood Studios / Electronic Arts
+    role: Original game
+  - name: Electronic Arts
+    role: C&C source code release
+    url: https://github.com/electronicarts/CnC_Remastered_Collection
+  - name: Vanilla Conquer
+    role: The portable engine foundation this fork uses
+    url: https://github.com/TheAssemblyArmada/Vanilla-Conquer
+  - name: SDL
+    role: Platform, rendering and input foundation
+    url: https://github.com/libsdl-org/SDL
+  - name: unshieldv3
+    role: InstallShield archive extraction for the importer
+upstream:
+  - https://github.com/TheAssemblyArmada/Vanilla-Conquer
+  - https://github.com/electronicarts/CnC_Remastered_Collection
