@@ -6,10 +6,10 @@ Port by Trevorbilt ([@edgytoast](https://github.com/edgytoast))
 Start with this command, which gets exactly the code that was scanned:
 
 ```
-git clone https://github.com/edgytoast/shar-visionos && cd shar-visionos && git checkout 6d34c501924fcb414263ebbee197b718860446b6 && git submodule update --init --recursive
+git clone https://github.com/edgytoast/shar-visionos && cd shar-visionos && git checkout 8c1f827f67c5c18950fc00f9f3dc58c4cf58284f && git submodule update --init --recursive
 ```
 
-Then follow the [install guide](https://github.com/edgytoast/shar-visionos/blob/6d34c501924fcb414263ebbee197b718860446b6/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+Then follow the [install guide](https://github.com/edgytoast/shar-visionos/blob/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
 
 | | |
 | --- | --- |
@@ -17,9 +17,9 @@ Then follow the [install guide](https://github.com/edgytoast/shar-visionos/blob/
 | Status | Working: Plays in the Full, Progressive and Window views, with PS VR2 Sense controllers, a gamepad or bare hands. Built and played on Apple Vision Pro. |
 | Plays as | 3D shared space, 6DoF immersive, 6DoF progressive |
 | Health | OK |
-| Scan | Scanned 2026-10-07 · 3 commits since |
-| Source (scanned) | [edgytoast/shar-visionos at 6d34c501924f](https://github.com/edgytoast/shar-visionos/tree/6d34c501924fcb414263ebbee197b718860446b6) |
-| Install guide | [AVP-INSTALL.md at 6d34c501924f](https://github.com/edgytoast/shar-visionos/blob/6d34c501924fcb414263ebbee197b718860446b6/AVP-INSTALL.md) |
+| Scan | Scanned 2026-10-09 · 0 commits since |
+| Source (scanned) | [edgytoast/shar-visionos at 8c1f827f67c5](https://github.com/edgytoast/shar-visionos/tree/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f) |
+| Install guide | [AVP-INSTALL.md at 8c1f827f67c5](https://github.com/edgytoast/shar-visionos/blob/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/AVP-INSTALL.md) |
 | Repo | [edgytoast/shar-visionos](https://github.com/edgytoast/shar-visionos) |
 | Developer site | <https://trevorbilt.com> |
 | License | MIT |

@@ -28,7 +28,7 @@ half-life-vr:
   warnings: []
 shar-visionos:
   archived: false
-  commits_since_scan: 3
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: true
   decay_reset_at: '2026-10-04T17:59:25Z'
@@ -47,11 +47,11 @@ shar-visionos:
   rescan_after: null
   rescan_hold: false
   routes: []
-  scan_confidence: 95
+  scan_confidence: 100
   scan_kind: automated
-  scan_state: behind
-  scanned_at: '2026-10-07T07:26:52Z'
-  scanned_commit: 6d34c501924fcb414263ebbee197b718860446b6
+  scan_state: current
+  scanned_at: '2026-10-09T08:02:35Z'
+  scanned_commit: 8c1f827f67c5c18950fc00f9f3dc58c4cf58284f
   warnings: []
 twilight-princess-vr:
   archived: false

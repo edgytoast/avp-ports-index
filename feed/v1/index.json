@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.4.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-09T07:40:11Z",
+  "generated_at": "2026-10-09T08:02:35Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -187,8 +187,8 @@
       },
       "repo_url": "https://github.com/edgytoast/shar-visionos",
       "source_ref": null,
-      "source_url": "https://github.com/edgytoast/shar-visionos/tree/6d34c501924fcb414263ebbee197b718860446b6",
-      "install_doc_url": "https://github.com/edgytoast/shar-visionos/blob/6d34c501924fcb414263ebbee197b718860446b6/AVP-INSTALL.md",
+      "source_url": "https://github.com/edgytoast/shar-visionos/tree/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f",
+      "install_doc_url": "https://github.com/edgytoast/shar-visionos/blob/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/AVP-INSTALL.md",
       "developer": {
         "name": "Trevorbilt",
         "github": "edgytoast",
@@ -245,11 +245,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "6d34c501924fcb414263ebbee197b718860446b6",
-      "scanned_at": "2026-10-07T07:26:52Z",
+      "scanned_commit": "8c1f827f67c5c18950fc00f9f3dc58c4cf58284f",
+      "scanned_at": "2026-10-09T08:02:35Z",
       "scan_kind": "automated",
-      "commits_since_scan": 3,
-      "scan_state": "behind",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-10-08T20:53:28Z",
       "license": {
