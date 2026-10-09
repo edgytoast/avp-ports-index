@@ -1,11 +1,11 @@
 half-life-vr:
-  by: merge
-  changed_at: '2026-10-06T19:07:04Z'
+  by: stage2
+  changed_at: '2026-10-09T07:14:43Z'
   listed_at: '2026-10-06T19:07:04Z'
   owner_approved: false
   repo: https://github.com/illixion/halflife-visionos
   repo_id: 1344976623
-  status: listed
+  status: pulled
   submitted_by: edgytoast
   submitted_by_id: 146565462
 shar-visionos:
