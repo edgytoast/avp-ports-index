@@ -6,7 +6,7 @@ half-life-vr:
   decay_reset_at: '2026-10-09T17:02:19Z'
   failing_since: null
   failures: []
-  flagged_commit: null
+  flagged_commit: 195fe2e8ca4a11f2a4ccc1c11b9a3a0cb9059616
   github_verified: true
   health: ok
   last_checked: '2026-10-09T06:48:13Z'
@@ -17,7 +17,7 @@ half-life-vr:
   outreach_issue_url: null
   outreach_opened_at: null
   rescan_after: null
-  rescan_hold: false
+  rescan_hold: true
   routes:
   - S1-11d
   scan_confidence: null
