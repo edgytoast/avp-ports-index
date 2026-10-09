@@ -1,0 +1,8 @@
+half-life-vr:
+  files:
+  - approved_at: '2026-10-09T17:02:29Z'
+    bytes: 1002547
+    commit: b22c5744c706c4bc4a9331706726fe2760063578
+    path: LambdaVision/Packages/GameLibrary/Sources/GameLibraryServer/Web/vendor/libarchive/libarchive.wasm
+    sha256: 8a66066ed3ea1e6db0469ec752d8fca888a6bf737c6cff21fdbcb62241a72424
+  repo_id: 1344976623

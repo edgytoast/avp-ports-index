@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import datetime as dt
 
-from . import blocklist, lifecycle, messages, store, validate
+from . import approvals, blocklist, lifecycle, messages, store, validate
 from .checks import controls, linked_head
 from .classify import ENTRY_FILE
 from .gate import STAGE1, STAGE2, latest_check, parse_external_id, read_marker
@@ -79,6 +79,7 @@ def pin(rt, state: store.State, entry_id: str, sha: str, kind: str, confidence: 
     health["scan_confidence"] = confidence if kind == "automated" else None
     if moved:
         health["flagged_commit"] = None
+        health["flagged_files"] = []
         health["rescan_after"] = None
         health["rescan_hold"] = False
         if repo:
@@ -144,6 +145,8 @@ def replay_entry(rt, state: store.State, pr: dict, entry_id: str, raw: bytes, by
         pin(rt, state, entry_id, sha, "automated", confidence, repo, entry)
     elif kind == "result":
         pin(rt, state, entry_id, sha, "curator-reviewed", None, repo, entry)
+        # Merging a flagged PR approves the flagged files' exact bytes too (decision 62).
+        approvals.record(state, entry_id, repo, sha, read_marker(s2).get("files"), rt.http)
         curator = True
     elif kind == "none" and (new_listing or repo_changed):
         fallback = ext1[1] if ext1 else linked_head(rt.gh, repo, entry)

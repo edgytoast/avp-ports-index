@@ -24,6 +24,7 @@ LIFECYCLE = "state/lifecycle.yaml"
 SYNC = "state/sync.yaml"
 FLAGS = "state/flags.yaml"
 MEDIA = "state/media.yaml"
+APPROVALS = "state/approvals.yaml"
 BLOCKLIST = "blocklist/blocklist.yaml"
 VERIFIED = "verification/owner-verified.yaml"
 POLICY = "config/policy.yaml"
@@ -90,6 +91,9 @@ def load_policy(root: Path | None = None) -> dict:
     timeout = policy["stage2"]["jules_timeout_minutes"]
     if not isinstance(timeout, int) or not 1 <= timeout <= 180:
         raise ValueError("stage2.jules_timeout_minutes must be between 1 and 180")
+    floor = policy["stage2"]["approved_files_min_confidence"]
+    if not isinstance(floor, int) or not 0 <= floor <= 100:
+        raise ValueError("stage2.approved_files_min_confidence must be between 0 and 100")
     return policy
 
 
@@ -148,6 +152,7 @@ class State:
     blocklist: dict = field(default_factory=lambda: copy.deepcopy(EMPTY_LIST_FILE))
     verified: dict = field(default_factory=lambda: {"schema_version": 1, "records": {}})
     media: dict = field(default_factory=dict)
+    approvals: dict = field(default_factory=dict)
 
     @classmethod
     def load(cls, root: Path | None = None) -> "State":
@@ -161,6 +166,7 @@ class State:
             blocklist=read_yaml(root / BLOCKLIST, EMPTY_LIST_FILE),
             verified=read_yaml(root / VERIFIED, {"schema_version": 1, "records": {}}),
             media=read_yaml(root / MEDIA, {}),
+            approvals=read_yaml(root / APPROVALS, {}),
         )
 
     def save(self) -> None:
@@ -171,6 +177,7 @@ class State:
         write_text_if_changed(self.root / FLAGS, dump_yaml(self.flags))
         write_text_if_changed(self.root / BLOCKLIST, dump_yaml(self.blocklist))
         write_text_if_changed(self.root / MEDIA, dump_yaml(self.media) if self.media else "{}\n")
+        write_text_if_changed(self.root / APPROVALS, dump_yaml(self.approvals) if self.approvals else "{}\n")
 
     def health_record(self, entry_id: str) -> dict:
         return self.health.setdefault(entry_id, default_health())
@@ -202,6 +209,7 @@ def default_health() -> dict:
         "commits_since_scan": None,
         "scan_state": "unknown",
         "flagged_commit": None,
+        "flagged_files": [],
         "rescan_hold": False,
         "rescan_after": None,
         "decay_reset_at": None,
