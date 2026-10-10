@@ -141,8 +141,8 @@ def decline_body(inputs: Inputs, outcome: dict, declines: int, retry_at: dt.date
     else:
         plan = (f"That's {declines} declines in a row, so it now waits a day between tries: the next is after "
                 f"{when}. You may want to look: open the session below, or review the commit yourself. The entry "
-                "stays listed at the commit already reviewed. Kill switch `restore` resets the count and tries "
-                "again at once (it also records that you've reviewed the entry).")
+                "stays listed at the commit already reviewed. Kill switch `rescan` resets the count and tries "
+                "again at once; it changes nothing else.")
     return "\n".join([
         (f"**Jules declined to review** the new commit of `{inputs.entry_id}` ({inputs.linked_repo} at "
          f"`{inputs.linked_commit}`)."), "", plan, "", "Jules's reply (untrusted text):", "",

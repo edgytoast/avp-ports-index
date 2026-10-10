@@ -1,5 +1,5 @@
 # The curator's kill switch (docs/SPEC.md §8.7). The kill-switch issue label always means
-# "pull without blocklisting"; restore, takedown, approve and blocklisting use the dispatch form.
+# "pull without blocklisting"; restore, takedown, approve, rescan and blocklisting use the dispatch form.
 name: kill-switch
 
 on:
@@ -10,7 +10,7 @@ on:
         required: true
       action:
         type: choice
-        options: [pull, restore, takedown, approve]
+        options: [pull, restore, takedown, approve, rescan]
         required: true
       blocklist:
         type: boolean

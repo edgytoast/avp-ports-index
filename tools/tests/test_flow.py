@@ -560,6 +560,45 @@ class TestKillSwitch:
         state = store.State.load(rt.root)
         assert state.lifecycle["good"]["status"] == "listed" and state.health["good"]["scan_declines"] == 0
 
+    def test_rescan_only_clears_the_wait(self, rt, gh, event):
+        """U22: `rescan` retries a declined or failed rescan at once and changes nothing else: unlike `restore`
+        it never sets owner_approved (so a later flag still pulls the entry), and a hold after a flag stays."""
+        repo = gh.add_repo("trevorbilt-bot/good", 11)
+        list_entry(rt, "good", repo, scanned=SHA(5))
+        state = store.State.load(rt.root)
+        state.health["good"].update(scan_declines=3, rescan_after="2026-10-04T12:00:00Z")
+        blocklist.add_flag(state, SALT, 11)
+        state.save()
+        rt.upsert_triage("good", "**Jules declined to review** ...")
+        before = store.State.load(rt.root)
+        assert self.ks(rt, event, "good", "rescan") == "Kill switch: rescan `good` done."
+        after = store.State.load(rt.root)
+        assert after.health["good"]["scan_declines"] == 0 and after.health["good"]["rescan_after"] is None
+        assert after.lifecycle["good"] == before.lifecycle["good"]  # owner_approved stays false
+        assert after.lifecycle["good"]["owner_approved"] is False
+        for key in ("scanned_commit", "scan_kind", "flagged_commit", "rescan_hold"):
+            assert after.health["good"][key] == before.health["good"][key]
+        assert blocklist.is_flagged(after, SALT, 11) and after.blocklist == before.blocklist
+        triage = [i for i in gh.issue_store.values() if i["title"] == "Triage: good"][0]
+        assert triage["state"] == "open"
+        assert "tried again" in gh.comment_store[triage["number"]][-1]["body"]
+        # Held after a flag: rescan does nothing and says what to use instead.
+        after.health["good"].update(rescan_hold=True, flagged_commit=SHA(6), rescan_after="2026-10-04T12:00:00Z")
+        after.save()
+        note = self.ks(rt, event, "good", "rescan")
+        assert "held after a flag" in note and "`approve` or `restore`" in note
+        held = store.State.load(rt.root).health["good"]
+        assert held["rescan_hold"] and held["rescan_after"] == "2026-10-04T12:00:00Z"
+        # Not listed: nothing.
+        self.ks(rt, event, "good", "pull")
+        assert "rescan works on listed entries" in self.ks(rt, event, "good", "rescan")
+
+    def test_rescan_is_a_dispatch_action(self):
+        from conftest import REPO_ROOT
+        assert "rescan" in killswitch.ACTIONS
+        flow = yaml.safe_load((REPO_ROOT / ".github/workflows/kill-switch.yml").read_text())
+        assert flow[True]["workflow_dispatch"]["inputs"]["action"]["options"] == list(killswitch.ACTIONS)
+
 
 def test_blocklist_label_scope(rt, gh, event, monkeypatch):
     """U15: entry-add blocks repo and slug; an edit that repoints blocks only the new repo."""

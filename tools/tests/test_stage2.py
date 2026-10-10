@@ -528,6 +528,7 @@ class TestRescan:
         assert "https://jules.google.com/session/1" in first
         assert len(comments) == 3 and "waits a day" not in comments[0]
         assert "3 declines in a row, so it now waits a day" in comments[1] and "You may want to look" in comments[1]
+        assert "Kill switch `rescan`" in comments[1] and "restore" not in comments[1]  # restore sets owner_approved
         assert "next is after 2026-10-04T12:00:00Z" in comments[1]
         report.run(rt, inputs, {"result": "pass", "verdict": verdict(90), "session_url": "u"})
         health = store.State.load(rt.root).health["good"]
