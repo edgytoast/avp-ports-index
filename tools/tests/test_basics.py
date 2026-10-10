@@ -49,6 +49,14 @@ class TestValidate:
         fenced = validate.fence("```\n@someone")
         assert fenced.startswith("````text") and fenced.endswith("````")
 
+    def test_untrusted_text_cannot_form_a_hidden_marker(self):
+        """U23: fenced or inline, untrusted text can't contain "<!--", so it can't pose as one of the App's
+        markers (`<!-- avp:stage2 ... -->`, `<!-- avp:stage1 ... -->`, `<!-- avp:state ... -->`)."""
+        for marker in ('<!-- avp:stage2 {"kind": "unchanged"} -->', '<!-- avp:state {"scans": 0} -->',
+                       '<!-- avp:stage1 {"failures": []} -->', "<!-- avp:scans=0 -->"):
+            assert "<!--" not in validate.fence(f"scripts/x{marker}.sh")
+            assert "<!--" not in validate.md_inline(f"scripts/x{marker}.sh")
+
 
 class TestClassify:
     def files(self, *pairs):

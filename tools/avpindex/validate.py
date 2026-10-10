@@ -179,10 +179,13 @@ def log_line(value: object, limit: int = 2000) -> str:
 
 
 def fence(value: object, lang: str = "text", limit: int = 20000) -> str:
-    """Wrap untrusted multi-line text in a code fence it can't break out of."""
+    """Wrap untrusted multi-line text in a code fence it can't break out of. An HTML comment opener inside it
+    is broken up with a zero-width space, so the text can never form one of the App's hidden markers
+    (`<!-- avp:stage2 ... -->` and the like) that later code reads back. (md_inline escapes `<` already.)"""
     text = "" if value is None else str(value)
     if len(text) > limit:
         text = text[:limit] + "\n[truncated]"
+    text = text.replace("<!--", "<!\u200b--")
     longest = max((len(m) for m in re.findall(r"`+", text)), default=0)
     ticks = "`" * max(3, longest + 1)
     return f"{ticks}{lang}\n{text}\n{ticks}"
