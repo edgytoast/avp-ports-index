@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.4.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-10T04:09:20Z",
+  "generated_at": "2026-10-10T15:56:06Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -12,6 +12,176 @@
   },
   "license": "CC0-1.0",
   "entries": [
+    {
+      "id": "animal-crossing-vr",
+      "name": "Animal Crossing VR",
+      "game": {
+        "title": "Animal Crossing",
+        "original_platform": "gamecube",
+        "original_release_year": 2002
+      },
+      "repo_url": "https://github.com/edgytoast/animalcrossing-visionos",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/animalcrossing-visionos/tree/b5b463f8e29a51a5718db30ecb5d38ee175f0a40",
+      "install_doc_url": "https://github.com/edgytoast/animalcrossing-visionos/blob/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/AVP-INSTALL.md",
+      "developer": {
+        "name": "Trevorbilt",
+        "github": "edgytoast",
+        "url": "https://trevorbilt.com",
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "Trevorbilt",
+          "role": "visionOS port",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "LiquidAzir",
+          "role": "animal-crossing-vr, the VR mod this port is built on",
+          "url": "https://github.com/LiquidAzir/animal-crossing-vr"
+        },
+        {
+          "name": "ACreTeam",
+          "role": "Animal Crossing decompilation",
+          "url": "https://github.com/ACreTeam/ac-decomp"
+        },
+        {
+          "name": "flyngmt",
+          "role": "ACGC-PC-Port, the native PC port",
+          "url": "https://github.com/flyngmt/ACGC-PC-Port"
+        },
+        {
+          "name": "zwaetschge",
+          "role": "ACGC-Android-Port, the 64-bit base",
+          "url": "https://github.com/zwaetschge/ACGC-Android-Port"
+        },
+        {
+          "name": "iChris4",
+          "role": "WiiCompiled Vision, source of the visionOS OpenXR provider",
+          "url": "https://github.com/iChris4/Wiicompiled_VR"
+        }
+      ],
+      "upstream": [
+        "https://github.com/LiquidAzir/animal-crossing-vr",
+        "https://github.com/zwaetschge/ACGC-Android-Port",
+        "https://github.com/flyngmt/ACGC-PC-Port",
+        "https://github.com/ACreTeam/ac-decomp"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "Plays in Full and Progressive immersion with PS VR2 Sense controllers, bare hands or a gamepad, and in a 3D window with a gamepad. Played on Apple Vision Pro in the Window view; Full and Progressive tested in the visionOS Simulator.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": true,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "b5b463f8e29a51a5718db30ecb5d38ee175f0a40",
+      "scanned_at": "2026-10-10T15:55:59Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-10-10T05:22:45Z",
+      "license": {
+        "kind": "custom",
+        "spdx": null
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller",
+        "hand-tracking"
+      ],
+      "experiences": [
+        "3d-shared-space",
+        "6dof-immersive",
+        "6dof-progressive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "animal-crossing",
+        "vr",
+        "first-person",
+        "life-sim",
+        "gamecube",
+        "decompilation",
+        "hand-tracking"
+      ],
+      "description": "Animal Crossing in six degrees of freedom on Apple Vision Pro: walk your town at life size and swing the net with your own arm, or keep it in a 3D window beside your apps. A native visionOS port of LiquidAzir's VR mod. Bring your own disc.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/animal-crossing-vr.md",
+      "media": {
+        "commit": "b5b463f8e29a51a5718db30ecb5d38ee175f0a40",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 103665,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "cd106f05a2a245e9cdbc30d85ed5e9c347a4ef747a09bc265833d14440318bfb",
+              "url": "https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 62278,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "87c97c335c21810adcd7d5bb88408d0801d0b5e41c2b0cbcfcb9fc315af5c7d9",
+              "url": "https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 172170,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "c2f84baf2c48322809d2c1bf9911c014c17a4bd4ed03f69939c6d75295e6f2f9",
+              "url": "https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "The player outside their house, beside the town's notice board and mailbox, in a window floating in a living room",
+            "bytes": 202308,
+            "format": "jpeg",
+            "height": 900,
+            "sha256": "000034e745656dd6c267f89b8a58eabe03cfb9a8ccfc5357bc1929958d6a6f3f",
+            "url": "https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/docs/images/window-view.jpg",
+            "width": 1600
+          },
+          {
+            "alt": "First person in town: a house with a green roof behind a white fence, fruit trees, a paved path and a notice board, under a blue sky",
+            "bytes": 196566,
+            "format": "jpeg",
+            "height": 900,
+            "sha256": "f6a2976b30a12b6c6b33d919814e1bc664abf3074c0b8ac17ef76ea5e00f9b94",
+            "url": "https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/docs/images/full-immersion.jpg",
+            "width": 1600
+          },
+          {
+            "alt": "The same window seen from the side: the notice board and the house stand out of the town behind the glass",
+            "bytes": 189667,
+            "format": "jpeg",
+            "height": 1025,
+            "sha256": "9d7bd63197fd75a5deea92ed2830f5cc9ae769ef4b24bfd7cdba9ba17c4fd43e",
+            "url": "https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/docs/images/window-angle.jpg",
+            "width": 1600
+          }
+        ]
+      }
+    },
     {
       "id": "twilight-princess-vr",
       "name": "Twilight Princess VR",
