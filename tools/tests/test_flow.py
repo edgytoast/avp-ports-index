@@ -775,7 +775,7 @@ def test_play_modes_and_prebuilt_apps(rt, gh):
     write_entry(rt.root, "good", "trevorbilt-bot/good", experiences=["6dof-immersive", "3d-tabletop", "3d-shared-space"])
     out = generate.generate(rt.root, rt.repo)
     assert "| Plays as | 3D shared space, 3D tabletop, 6DoF immersive |" in out["ports/good.md"]  # canonical order
-    assert "| Prebuilt app |" not in out["ports/good.md"] and "prebuilt app (not security-reviewed)" not in out["README.md"]
+    assert "| Prebuilt app |" not in out["ports/good.md"] and "prebuilt app (not safety-checked)" not in out["README.md"]
     assert "plays as 3D shared space, 3D tabletop, 6DoF immersive" in out["llms.txt"]
     assert "/ports/good.md): good game; port by" in out["llms.txt"]  # the game right after the project link
     entry = json.loads(out["feed/v1/index.json"])["entries"][0]
@@ -783,7 +783,7 @@ def test_play_modes_and_prebuilt_apps(rt, gh):
     write_entry(rt.root, "good", "trevorbilt-bot/good", experiences=["2d"], install=["build", "sideload"])
     out = generate.generate(rt.root, rt.repo)
     assert "| Prebuilt app | The developer publishes an app you can sideload; see their repo." in out["ports/good.md"]
-    assert "· prebuilt app (not security-reviewed)" in out["README.md"] and "prebuilt app available (not security-reviewed)" in out["llms.txt"]
+    assert "· prebuilt app (not safety-checked)" in out["README.md"] and "prebuilt app available (not safety-checked)" in out["llms.txt"]
     feed = json.loads(out["feed/v1/index.json"])
     assert feed["schema_version"] == "1.4.0" and feed["entries"][0]["install"] == ["build", "sideload"]
 

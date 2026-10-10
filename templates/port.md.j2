@@ -24,7 +24,7 @@ Then follow the [install guide]({{ v.install_url }}) from its build steps. Skip 
 | Source (scanned) | [{{ v.repo_owner }}/{{ v.repo_name }} at {{ v.scanned_commit[:12] }}]({{ v.source_url }}) |
 | Install guide | [AVP-INSTALL.md at {{ v.scanned_commit[:12] }}]({{ v.install_url }}) |
 {% if v.sideload %}
-| Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's security review covers the source code, not the app. |
+| Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 {% endif %}
 | Repo | [{{ v.repo_owner }}/{{ v.repo_name }}]({{ v.repo }}){% if v.archived %} (archived){% endif %} |
 {% if v.entry.source_ref %}
@@ -77,6 +77,6 @@ From the port's {{ "README" if v.media.source == "readme" else "repo" }} at {{ v
 
 ---
 
-This index only links to the developer's own repository. Automated checks and an AI security review can miss things, and they can't confirm the port runs on Apple Vision Pro. Building runs the port's build scripts on your Mac with your permissions. You must own the game and supply your own legally obtained game files. [Report a problem](https://github.com/{{ repo_full }}/issues/new?template=report-entry.yml).
+This index only links to the developer's own repository. Automated checks and an AI safety check can miss things, and they can't confirm the port runs on Apple Vision Pro. Building runs the port's build scripts on your Mac with your permissions. You must own the game and supply your own legally obtained game files. [Report a problem](https://github.com/{{ repo_full }}/issues/new?template=report-entry.yml).
 
 {{ footer }}

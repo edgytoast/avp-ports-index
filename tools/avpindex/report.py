@@ -261,7 +261,7 @@ def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
         # A newer scan was dispatched, or the PR now links another commit and is queued again.
         messages.upsert(rt, number, scans=scans, **clear_scanning)
         return []
-    rt.gh.create_check(head, STAGE2, conclusion="failure", title="Security review error; waiting for the curator",
+    rt.gh.create_check(head, STAGE2, conclusion="failure", title="Safety check error; waiting for the curator",
                        summary=summary + "\n\n" + stage2_marker(kind="result", result="error"),
                        external_id=inputs.external_id)
     swap(("stage2:scanning", "stage2:queued"), ("needs-owner",))

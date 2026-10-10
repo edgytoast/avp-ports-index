@@ -242,7 +242,7 @@ def dispatch(rt) -> list[str]:
             report = Report(results=[Result("S1-17", ROUTE, "an earlier automated review of this repo asked "
                                                             "for a closer look")])
             report.repo, report.head = {"id": repo_id}, linked
-            post_stage1(rt, head, report, note="Re-checked before the security review started.")
+            post_stage1(rt, head, report, note="Re-checked before the safety check started.")
             rt.gh.remove_label(number, "stage2:queued")
             rt.gh.add_labels(number, ["needs-owner", "stage1:route"])
             rt.gh.remove_label(number, "stage1:pass")
