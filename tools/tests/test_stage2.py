@@ -241,6 +241,17 @@ class TestDeclines:
         "I can't help with that either.",
         "I refuse.",
         "I am programmed not to perform security reviews.",
+        # The third review's fresh phrasings.
+        "**I can't help with that**",
+        "I can't help with requests like this.",
+        "I can't help with this one.",
+        "I'm going to have to decline this one.",
+        "I'm designed to refuse requests like this one.",
+        "I cannot help you analyze this repository.",
+        "I can't help with analyzing code for security vulnerabilities.",
+        "I can't assist with requests involving malware analysis.",
+        "I'm unable to review third-party GitHub repositories for security issues.",
+        "I won't help with analyzing this code for malware.",
     ])
     def test_refusals(self, text):
         assert jules.looks_like_refusal(text, RID)
@@ -286,6 +297,9 @@ class TestDeclines:
         "I cannot review vendored repositories line by line, so I checked their versions.",
         "The binary's behaviour is beyond the scope of this review.",
         "I cannot help with building it.",
+        "I cannot help but notice that this one script downloads MoltenVK.",
+        "I could not review this one file because it is a compiled archive; confidence is 40.",
+        "The `scan_repositories` function lists the user's own game folders only.",
         # An attempt at this review's verdict is a format problem, not a refusal.
         "Sorry, I cannot fulfill the format exactly: ```json\n" + json.dumps(verdict(90)) + "\n```",
         "",
