@@ -24,14 +24,15 @@ The AVP Ports Index is a free, link-only list of community game ports for Apple 
 Decide how confident you are that the repository is **safe for the people who build and run it**. It isn't safe if it has code, whether or not anything runs it yet, that:
 
 - takes passwords, keys, tokens or other credentials
-- reads or sends people's files or personal information anywhere
+- reads people's files or personal information it has no need for, or sends them anywhere
 - contacts servers it has no reason to, or hides what it contacts
-- leaves anything installed or running after the build that keeps going or starts again on its own (login items, launch agents, cron jobs, changed shell profiles)
+- leaves anything installed or running that keeps going or starts again on its own (login items, launch agents, cron jobs, changed shell profiles)
 - uses the computer for something else, such as mining cryptocurrency
+- attacks other computers, services or people (for example, flooding a service with traffic, sending spam, or spreading to the person's other projects)
 - opens a way for someone else to control the computer
-- tries to get around the computer's or headset's protections (for example, to gain administrator rights)
+- takes advantage of weaknesses in the computer, the headset or other software to get around their protections (for example, to gain administrator rights)
 - hides what it does (encoded or obfuscated scripts, code disguised as data)
-- does anything else that puts their information, privacy or devices at risk
+- does anything else that puts their information, privacy, security or devices at risk
 
 Building a port runs its build scripts on that person's Mac, unsandboxed, with their permissions. The visionOS app itself runs sandboxed on the headset. So check build-time code that runs on the Mac first:
 
@@ -53,7 +54,7 @@ Sort what you find into three kinds, and treat them differently:
 - **Data** (images, audio, fonts, asset catalogs such as `Assets.car`, lookup tables such as SMAA's `AreaTex.h` and `SearchTex.h`, shader sources): normal in game ports and not a finding, unless it is clearly something else in disguise.
 - **Downloads at build time** (fetching a dependency such as MoltenVK, or cloning an upstream engine): normal for ports. Report each one as an `info` or `low` finding with its URL and whether it is pinned to a version, tag or commit. It only lowers your confidence if it comes from an unofficial or unexpected source, runs a downloaded script directly (`curl ... | sh`), or hides where it comes from.
 
-Use severity `critical` only for code you believe would actually harm the people who build or run it.
+Use severity `critical` only for code you believe would actually harm the people who build or run it, or anyone else.
 
 Harmful code counts even if nothing runs it. A script or file that would harm people if it were run, such as one that collects credentials or sends data out, is a `critical` finding, and your confidence must be below the threshold, whether or not any build step, script or document calls it. Don't discount it as unused, inert or a test: a person, a tool or a later commit can run it.
 

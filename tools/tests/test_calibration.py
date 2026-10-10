@@ -80,19 +80,22 @@ SUBSTANCE = [
 
 # Every harm the live prompt names ("hidden backdoors, exploits, credential or token harvesting, data
 # exfiltration, hidden network beacons, persistence, cryptominers, or anything else that would jeopardize a
-# user's information, privacy or security"), in the candidate's plain words.
+# user's information, privacy or security"), in the candidate's plain words, plus harm to anyone else.
 HARMS = [
-    "whether or not anything runs it yet",
-    "takes passwords, keys, tokens or other credentials",                         # credential harvesting
-    "reads or sends people's files or personal information anywhere",             # exfiltration
-    "contacts servers it has no reason to, or hides what it contacts",            # hidden beacons
-    "(login items, launch agents, cron jobs, changed shell profiles)",            # persistence
-    "uses the computer for something else, such as mining cryptocurrency",        # cryptominers
-    "opens a way for someone else to control the computer",                       # backdoors
-    "tries to get around the computer's or headset's protections",                # exploits
-    "to gain administrator rights",
-    "hides what it does (encoded or obfuscated scripts, code disguised as data)",  # hidden anything
-    "puts their information, privacy or devices at risk",                         # anything else
+    "It isn't safe if it has code, whether or not anything runs it yet, that:",
+    "- takes passwords, keys, tokens or other credentials",                              # credential harvesting
+    "- reads people's files or personal information it has no need for, or sends them anywhere",  # exfiltration
+    "- contacts servers it has no reason to, or hides what it contacts",                 # hidden beacons
+    ("- leaves anything installed or running that keeps going or starts again on its own (login items, launch "
+     "agents, cron jobs, changed shell profiles)"),                                      # persistence
+    "- uses the computer for something else, such as mining cryptocurrency",             # cryptominers
+    ("- attacks other computers, services or people (for example, flooding a service with traffic, sending spam, "
+     "or spreading to the person's other projects)"),                                    # harm beyond the user
+    "- opens a way for someone else to control the computer",                            # backdoors
+    ("- takes advantage of weaknesses in the computer, the headset or other software to get around their "
+     "protections (for example, to gain administrator rights)"),                         # exploits
+    "- hides what it does (encoded or obfuscated scripts, code disguised as data)",      # hidden anything
+    "- does anything else that puts their information, privacy, security or devices at risk",  # anything else
 ]
 
 
@@ -111,13 +114,15 @@ def test_candidate_wording():
     text = render(jules.CANDIDATE)
     flat = " ".join(text.split())
     assert text.startswith("# AVP Ports Index safety check\n")
-    assert "malicious" not in text.lower() and "security review" not in text.lower().split("```json")[0]
+    for word in ("malicious", "malware", "exploit", "backdoor", "security review"):  # words Jules declined on
+        assert word not in text.lower(), word
     for phrase in HARMS:
         assert phrase in flat, phrase
     assert ("We recommend these repositories to members of the public, who build them on their own Macs. Before we "
             "recommend this one, check that it is safe for those people: that building and running it does only "
             "what a game port needs. This prompt is public, so developers know what we check.") in flat
-    assert "Use severity `critical` only for code you believe would actually harm the people who build or run it." in flat
+    assert ("Use severity `critical` only for code you believe would actually harm the people who build or run it, "
+            "or anyone else.") in flat
     assert "Harmful code counts even if nothing runs it." in flat
 
 
