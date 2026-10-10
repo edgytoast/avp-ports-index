@@ -102,17 +102,20 @@ def cmd_scan(args) -> int:
     (out / "outcome.json").write_text(json.dumps(outcome.to_json(), indent=2), encoding="utf-8")
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
     line = (f"Scan of {repo}@{sha[:12]}: {outcome.result} after {outcome.minutes:.1f} min; "
-            f"states {', '.join(outcome.states) or 'none'}; {outcome.reason}")
-    print(line)
+            f"states {', '.join(outcome.states) or 'none'}; ")
+    print(line + outcome.reason)
     print(f"Session: {outcome.session_url}")
     if summary:
+        # The reason can be Jules's own words (a decline), so it's escaped in the rendered summary.
         with open(summary, "a", encoding="utf-8") as fh:
-            fh.write(line + f"\n\nSession: {outcome.session_url}\n")
+            fh.write(line + validate.md_inline(outcome.reason, 500) + f"\n\nSession: {outcome.session_url}\n")
     return 0
 
 
 def cmd_report_plan(args) -> int:
-    """Whether the report job's token needs contents: write (any rescan, or a PR-mode flag)."""
+    """Whether the report job's token needs contents: write. Every rescan result can write state/ (a pass,
+    flag, error or decline; a deferral writes nothing, but is cheap to over-grant), and so does a PR-mode
+    flag. PR-mode pass, error, deferred and declined results only touch labels, checks and comments."""
     from . import report
     mode = validate.choice(os.environ.get("INPUT_MODE"), ("pr", "rescan"), "mode")
     outcome = report.load_outcome(Path(args.outcome), os.environ.get("SCAN_RESULT", ""), store.load_policy())
@@ -194,6 +197,52 @@ def cmd_review(args) -> int:
     outcome = jules.review(jules.Jules(key), f"https://github.com/{owner}/{name}", sha, store.load_policy())
     print(json.dumps(outcome.to_json(), indent=2))
     return 0
+
+
+def cmd_calibrate(args) -> int:
+    """stage2-calibrate (decision 63): one real Jules review with the live or the candidate prompt. It writes
+    the outcome to --out and a summary to the run; nothing else. It holds no GitHub token, and its sessions
+    are outside the dispatcher's caps."""
+    from . import jules
+    repo = validate.repo_name(os.environ.get("INPUT_LINKED_REPO"))
+    sha = validate.sha(os.environ.get("INPUT_LINKED_COMMIT"))
+    label = validate.label(os.environ.get("INPUT_LABEL"))
+    prompt = validate.choice(args.prompt, tuple(jules.PROMPTS), "prompt")
+    key = os.environ.get("JULES_API_KEY")
+    if not key:
+        print("JULES_API_KEY is not set", file=sys.stderr)
+        return 1
+    policy = store.load_policy()
+    outcome = jules.review(jules.Jules(key), f"https://github.com/{repo}", sha, policy, prompt=prompt)
+    data = {**outcome.to_json(), "calibration": {"label": label, "prompt": prompt, "repo": repo, "commit": sha}}
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "outcome.json").write_text(json.dumps(data, indent=2), encoding="utf-8")
+    text = _calibration_summary(data, int(policy["stage2"]["confidence_threshold"]))
+    print(text)
+    summary = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summary:
+        with open(summary, "a", encoding="utf-8") as fh:
+            fh.write(text + "\n")
+    return 0
+
+
+def _calibration_summary(data: dict, threshold: int) -> str:
+    """Result, confidence, steering, findings and the session link. Jules's text is fenced as untrusted."""
+    from . import report
+    cal = data["calibration"]
+    verdict = data.get("verdict")
+    states = validate.md_inline(", ".join(map(str, data.get("states") or [])) or "none")
+    follow_ups = ", ".join((data.get("diagnostics") or {}).get("follow_ups") or []) or "none"
+    result = f"**Result:** {data['result']} after {data.get('minutes', 0)} min (states: {states}; follow-ups: {follow_ups})"
+    lines = [f"### Calibration `{cal['label']}`: {cal['repo']}@{cal['commit'][:12]} ({cal['prompt']} prompt)", "",
+             result, ""]
+    if verdict:
+        lines.append(report.verdict_summary({"verdict": verdict}, threshold))
+    else:
+        lines.append(report.verdict_summary({"result": data["result"], "reason": data.get("reason")}, threshold))
+    lines += ["", f"Session: {data.get('session_url') or 'none'}"]
+    return "\n".join(lines)
 
 
 def cmd_jules_smoke(_args) -> int:
@@ -287,6 +336,10 @@ def main(argv: list[str] | None = None) -> int:
     plan = sub.add_parser("report-plan")
     plan.add_argument("--outcome", default="out/outcome.json")
     plan.set_defaults(func=cmd_report_plan)
+    calibrate = sub.add_parser("calibrate")
+    calibrate.add_argument("--prompt", choices=("live", "candidate"), default="live")
+    calibrate.add_argument("--out", default="out")
+    calibrate.set_defaults(func=cmd_calibrate)
     review = sub.add_parser("review")
     review.add_argument("repo_url")
     review.add_argument("sha")

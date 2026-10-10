@@ -1,7 +1,9 @@
 """The stage2-scan report job (spec §8.4, §6.3): apply a scan result in PR or rescan mode.
 
 It runs with if: always(), so a failed, cancelled or timed-out scan job still produces an
-`error` here and no PR is left at stage2:scanning.
+`error` here and no PR is left at stage2:scanning. A `declined` scan (Jules refused to review,
+decision 63) never passes: a rescan is retried soon, a PR goes back in the queue until its scans
+run out.
 """
 
 from __future__ import annotations
@@ -16,6 +18,10 @@ from . import approvals, blocklist, jules, lifecycle, messages, store, validate
 from .gate import STAGE1, STAGE2, WAITING, latest_check, stage2_marker
 from .lifecycle import LISTED, PULLED
 from .sync import pin
+
+DECLINE_RETRY = dt.timedelta(hours=2)    # a declined rescan is tried again this soon,
+DECLINE_QUICK_TRIES = 3                  # until it has declined this many times in a row;
+ERROR_RETRY = dt.timedelta(hours=24)     # then it waits as long as after an error
 
 
 @dataclass
@@ -63,9 +69,15 @@ def load_outcome(path: Path, scan_result: str, policy: dict) -> dict:
         data = json.loads(path.read_text(encoding="utf-8"))
     except ValueError:
         return {"result": "error", "reason": "the scan artifact couldn't be read"}
+    if not isinstance(data, dict):
+        return {"result": "error", "reason": "the scan artifact couldn't be read"}
     result = data.get("result")
     if result == "deferred":
         return {"result": "deferred", "reason": data.get("reason", "")}
+    if result == "declined":
+        # Jules refused to review. Whatever else the artifact holds, this is never a verdict or a pass.
+        return {"result": "declined", "reason": str(data.get("reason") or "")[:jules.EXCERPT_CHARS],
+                "session_url": data.get("session_url"), "minutes": data.get("minutes")}
     verdict, problem = jules.check_verdict(json.dumps(data.get("verdict")) if data.get("verdict") else None,
                                            jules.verdict_schema())
     out = {"result": "error", "reason": data.get("reason") or problem, "session_url": data.get("session_url"),
@@ -76,7 +88,14 @@ def load_outcome(path: Path, scan_result: str, policy: dict) -> dict:
     return out
 
 
+def decline_summary(outcome: dict) -> str:
+    return "\n".join(["Jules declined to review this repository, so there is no verdict. Its reply (untrusted text):",
+                      "", validate.fence(outcome.get("reason") or "(no message)")])
+
+
 def verdict_summary(outcome: dict, threshold: int) -> str:
+    if outcome.get("result") == "declined":
+        return decline_summary(outcome)
     verdict = outcome.get("verdict")
     if not verdict:
         return f"No valid verdict: {validate.md_inline(outcome.get('reason') or 'unknown error', 300)}"
@@ -111,6 +130,27 @@ def triage_body(inputs: Inputs, outcome: dict, threshold: int, what: str) -> str
     ])
 
 
+def decline_body(inputs: Inputs, outcome: dict, declines: int, retry_at: dt.datetime) -> str:
+    """The triage note for a declined rescan (spec §6.3)."""
+    session = outcome.get("session_url")
+    when = store.iso(retry_at)
+    if declines < DECLINE_QUICK_TRIES:
+        plan = (f"Jules turns a review down now and then. The rescan will try again after {when} "
+                f"({declines} decline{'s' if declines > 1 else ''} in a row). The entry stays listed at the commit "
+                "already reviewed; nothing to do.")
+    else:
+        plan = (f"That's {declines} declines in a row, so it now waits a day between tries: the next is after "
+                f"{when}. You may want to look: open the session below, or review the commit yourself. The entry "
+                "stays listed at the commit already reviewed. Kill switch `restore` resets the count and tries "
+                "again at once (it also records that you've reviewed the entry).")
+    return "\n".join([
+        (f"**Jules declined to review** the new commit of `{inputs.entry_id}` ({inputs.linked_repo} at "
+         f"`{inputs.linked_commit}`)."), "", plan, "", "Jules's reply (untrusted text):", "",
+        validate.fence(outcome.get("reason") or "(no message)"), "",
+        f"Jules session (opens for the owner's account only): {session}" if session else "No Jules session link.",
+    ])
+
+
 def apply_rescan_flag(rt, state: store.State, inputs: Inputs, outcome: dict, threshold: int) -> None:
     """The rescan-mode flag effects (spec §6.3), also used for a PR flag on a same-repo edit."""
     entry_id = inputs.entry_id
@@ -118,6 +158,7 @@ def apply_rescan_flag(rt, state: store.State, inputs: Inputs, outcome: dict, thr
     health["flagged_commit"] = inputs.linked_commit
     health["flagged_files"] = approvals.flagged_files(outcome.get("verdict")) or []
     health["rescan_hold"] = True
+    health["scan_declines"] = 0  # Jules did review this commit
     blocklist.add_flag(state, rt.salt, inputs.repo_id)
     record = state.lifecycle[entry_id]
     if not record.get("owner_approved") and record.get("status") == LISTED:
@@ -160,7 +201,7 @@ def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
     labels = {label["name"] for label in pr.get("labels") or []}
     bot_state = messages.read_state(messages.find_bot_comment(rt, number))
     mine = bot_state.get("scanning") in (None, inputs.external_id)
-    increment = 1 if inputs.counted and result in ("pass", "flag", "error") else 0
+    increment = 1 if inputs.counted and result in ("pass", "flag", "error", "declined") else 0
     scans = int(bot_state.get("scans") or 0) + increment
     clear_scanning = {"scanning": None} if mine else {}
 
@@ -174,6 +215,8 @@ def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
         if pr.get("state") == "open" and mine:
             swap(("stage2:scanning",), ("stage2:queued",))
         return []
+    if result == "declined":
+        return _pr_declined(rt, inputs, outcome, pr, bot_state, scans, mine, swap)
     if result == "flag":
         _record_flag(rt, inputs, outcome, threshold)
     if pr.get("state") != "open":
@@ -227,6 +270,35 @@ def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
     return []
 
 
+def _pr_declined(rt, inputs: Inputs, outcome: dict, pr: dict, bot_state: dict, scans: int, mine: bool,
+                 swap) -> list[int]:
+    """Jules declined to review: the scan counts (it used a session), and the PR goes back in the queue
+    while it has scans left. Declines are also counted on their own, so scans the curator asked for
+    (`owner:scan`, not counted) can't loop forever: after `per_pr_max_scans` declines the curator decides."""
+    number = inputs.pr
+    max_scans = int(rt.policy["stage2"]["per_pr_max_scans"])
+    declines = int(bot_state.get("declines") or 0) + 1
+    clear_scanning = {"scanning": None} if mine else {}
+    head = pr["head"]["sha"]
+    if (pr.get("state") != "open" or not mine
+            or (latest_check(rt, head, STAGE1) or {}).get("external_id") != inputs.external_id):
+        # Closed, a newer scan was dispatched, or the PR now links another commit and is queued again.
+        messages.upsert(rt, number, scans=scans, declines=declines, **clear_scanning)
+        return []
+    if scans < max_scans and declines < max_scans:
+        swap(("stage2:scanning",), ("stage2:queued",))
+        messages.upsert(rt, number, scans=scans, declines=declines, **clear_scanning)
+        rt.summary(f"#{number}: Jules declined to review; back in the queue ({declines} decline(s)).")
+        return []
+    rt.gh.create_check(head, STAGE2, conclusion="failure", title="Jules declined to review; waiting for the curator",
+                       summary=decline_summary(outcome) + "\n\n" + stage2_marker(kind="result", result="declined"),
+                       external_id=inputs.external_id)
+    swap(("stage2:scanning", "stage2:queued"), ("needs-owner",))
+    messages.upsert(rt, number, messages.render("owner-review", rt.root, name=_entry_name(rt, inputs)),
+                    scans=scans, declines=declines, **clear_scanning)
+    return []
+
+
 def _entry_name(rt, inputs: Inputs) -> str:
     entries, _ = store.load_entries(rt.root)
     if inputs.entry_id and inputs.entry_id in entries:
@@ -263,13 +335,26 @@ def rescan(rt, inputs: Inputs, outcome: dict, threshold: int) -> None:
         if result == "pass":
             repo = rt.gh.repo_by_id(inputs.repo_id)
             entries, _ = store.load_entries(rt.root)
-            pin(rt, state, inputs.entry_id, inputs.linked_commit, "automated",
-                outcome["verdict"]["safe_confidence"], repo, entries.get(inputs.entry_id))
+            confidence = outcome["verdict"]["safe_confidence"]
+            declined_before = int(health.get("scan_declines") or 0)
+            pin(rt, state, inputs.entry_id, inputs.linked_commit, "automated", confidence, repo,
+                entries.get(inputs.entry_id))
+            state.health_record(inputs.entry_id)["scan_declines"] = 0
+            if declined_before:
+                rt.note_triage(inputs.entry_id, f"Jules reviewed `{inputs.linked_commit}` on a later try and it "
+                                                f"passed (confidence {confidence}), so the pin moved there. The "
+                                                "declines above need nothing more.")
         elif result == "flag":
             apply_rescan_flag(rt, state, inputs, outcome, threshold)
+        elif result == "declined":
+            health = state.health_record(inputs.entry_id)
+            declines = int(health.get("scan_declines") or 0) + 1
+            retry_at = store.utcnow() + (DECLINE_RETRY if declines < DECLINE_QUICK_TRIES else ERROR_RETRY)
+            health["scan_declines"] = declines
+            health["rescan_after"] = store.iso(retry_at)
+            rt.upsert_triage(inputs.entry_id, decline_body(inputs, outcome, declines, retry_at))
         else:
-            state.health_record(inputs.entry_id)["rescan_after"] = store.iso(
-                store.utcnow() + dt.timedelta(hours=24))
+            state.health_record(inputs.entry_id)["rescan_after"] = store.iso(store.utcnow() + ERROR_RETRY)
             rt.upsert_triage(inputs.entry_id, triage_body(inputs, outcome, threshold,
                                                           "The automated rescan couldn't finish"))
         state.save()

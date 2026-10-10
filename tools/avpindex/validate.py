@@ -18,6 +18,7 @@ REPO_NAME_RE = re.compile(r"^[A-Za-z0-9-]+/[A-Za-z0-9._-]+$")
 REPO_URL_RE = re.compile(r"^https://github\.com/([A-Za-z0-9-]+)/([A-Za-z0-9._-]+)$")
 LOGIN_RE = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?(\[bot\])?$")
 SOURCE_REF_RE = re.compile(r"^(?!.*\.\.)[A-Za-z0-9_][A-Za-z0-9._/-]{0,99}$")  # same as the schema's
+LABEL_RE = ENTRY_ID_RE  # calibration run labels: the same safe slug as entry ids
 
 MAX_ENTRY_BYTES = 16 * 1024
 
@@ -34,6 +35,13 @@ def entry_id(value: object) -> str:
     """An entry id: ^[a-z0-9]+(-[a-z0-9]+)*$, at most 64 characters."""
     if not isinstance(value, str) or len(value) > 64 or not ENTRY_ID_RE.match(value):
         raise InvalidInput("invalid entry id")
+    return value
+
+
+def label(value: object) -> str:
+    """A calibration run's label: lowercase letters, digits and single hyphens, at most 40 characters."""
+    if not isinstance(value, str) or len(value) > 40 or not LABEL_RE.match(value):
+        raise InvalidInput("invalid label")
     return value
 
 

@@ -26,6 +26,10 @@ class TestValidate:
             with pytest.raises(validate.InvalidInput):
                 validate.pr_number(bad)
         assert validate.repo_name("a-b/c.d_e") == "a-b/c.d_e"
+        assert validate.label("tpvr-candidate-1") == "tpvr-candidate-1"
+        for bad in ("Upper", "a b", "a--b", "x" * 41, "", None, "a;rm -rf", "a/b", "${{ x }}"):
+            with pytest.raises(validate.InvalidInput):
+                validate.label(bad)
         for bad in ("a/b/c", "a b/c", "a/b.git"):
             with pytest.raises(validate.InvalidInput):
                 validate.repo_name(bad)

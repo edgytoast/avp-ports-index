@@ -149,6 +149,14 @@ class Runtime:
                                      assignees=[self.owner_login])
         self.once(f"triage:{entry_id}:{hash(body)}", act)
 
+    def note_triage(self, entry_id: str, body: str) -> None:
+        """Comment on the entry's open triage issue, if it has one; never opens one."""
+        def act():
+            issue = self.find_triage(entry_id)
+            if issue:
+                self.gh.comment(issue["number"], body)
+        self.once(f"note-triage:{entry_id}:{hash(body)}", act)
+
     def close_triage(self, entry_id: str, note: str) -> None:
         def act():
             issue = self.find_triage(entry_id)

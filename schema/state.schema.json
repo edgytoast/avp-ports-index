@@ -49,6 +49,8 @@
                             "type": "array", "maxItems": 20, "items": {"type": "string", "minLength": 1}},
           "rescan_hold": {"type": "boolean"},
           "rescan_after": {"$ref": "#/$defs/iso_or_null"},
+          "scan_declines": {"description": "Rescans in a row that Jules declined to review; reset by a pass, a flag, a pin move, restore or approve (report.py).",
+                            "type": "integer", "minimum": 0},
           "decay_reset_at": {"$ref": "#/$defs/iso_or_null"},
           "warnings": {"$ref": "#/$defs/check_ids"}
         }

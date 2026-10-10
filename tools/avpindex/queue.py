@@ -2,7 +2,10 @@
 
 Runs are idempotent. The ledger comes from the Actions API: each stage2-scan run is named
 "stage2 <mode> <pr or entry id>", and its report job uploads an empty artifact named
-result-<pass|flag|error|deferred>.
+result-<pass|flag|error|deferred|declined>. A declined scan used a Jules session, so it counts like
+any other run; only result-deferred (quota) pauses dispatching.
+Calibration runs (stage2-calibrate.yml, "stage2 calibrate <label>") are a separate workflow, outside
+these caps; the ledger never counts or parses them as scans.
 """
 
 from __future__ import annotations
@@ -21,6 +24,7 @@ SCAN_WORKFLOW = "stage2-scan.yml"
 UPSTREAM_CHECKS = {"S1-06", "S1-07", "S1-11a", "S1-11d"}  # failures fixed in the port's repo
 RECHECK_SECONDS = 300  # stop starting new re-checks after this; the workflow step has its own hard limit
 RUN_NAME_RE = re.compile(r"^stage2 (pr|rescan) ([0-9]+|[a-z0-9]+(?:-[a-z0-9]+)*)$")
+CALIBRATE_RUN_RE = re.compile(r"^stage2 calibrate\b")
 
 
 def parse_run_name(name: str | None) -> tuple[str, str] | None:
@@ -33,10 +37,11 @@ def ledger(runs: list[dict], now: dt.datetime) -> dict:
     out = {"used_hour": 0, "used_day": 0, "rescans_day": 0, "recent": [], "active_rescans": set()}
     for run in runs:
         created = store.parse_iso(run["created_at"])
-        if created < day_ago:
+        title = run.get("display_title") or run.get("name")
+        if created < day_ago or CALIBRATE_RUN_RE.match(title or ""):
             continue
         out["used_day"] += 1
-        parsed = parse_run_name(run.get("display_title") or run.get("name"))
+        parsed = parse_run_name(title)
         if parsed and parsed[0] == "rescan":
             out["rescans_day"] += 1
             if run.get("status") != "completed":

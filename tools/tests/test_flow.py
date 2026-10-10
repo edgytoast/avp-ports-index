@@ -529,6 +529,37 @@ class TestKillSwitch:
         assert state.health["good"]["scan_kind"] == "curator-reviewed" and not blocklist.is_flagged(state, SALT, 11)
         assert "no flagged commit" in self.ks(rt, event, "good", "approve")
 
+    def test_restore_and_approve_reset_declines(self, rt, gh, event):
+        """U22: the owner's restore or approve resets the decline count (restore also retries at once)."""
+        repo = gh.add_repo("trevorbilt-bot/good", 11)
+        list_entry(rt, "good", repo, scanned=SHA(5))
+        git(rt.root, "add", "-A")
+        git(rt.root, "commit", "-qm", "listed")
+
+        def declined(count: int, **extra) -> None:
+            state = store.State.load(rt.root)
+            state.health["good"].update(scan_declines=count, rescan_after="2026-10-04T12:00:00Z", **extra)
+            blocklist.add_flag(state, SALT, 11)  # so approve has something to approve
+            state.save()
+
+        declined(3)
+        self.ks(rt, event, "good", "restore")
+        health = store.State.load(rt.root).health["good"]
+        assert health["scan_declines"] == 0 and health["rescan_after"] is None
+        declined(2)
+        self.ks(rt, event, "good", "approve")  # a flag record only: the pin stays
+        health = store.State.load(rt.root).health["good"]
+        assert health["scan_declines"] == 0 and health["scanned_commit"] == SHA(5)
+        declined(4, flagged_commit=SHA(6))
+        self.ks(rt, event, "good", "approve")  # the pin moves to the flagged commit
+        health = store.State.load(rt.root).health["good"]
+        assert health["scan_declines"] == 0 and health["scanned_commit"] == SHA(6)
+        self.ks(rt, event, "good", "pull")
+        declined(5)
+        self.ks(rt, event, "good", "restore")  # a pulled entry comes back with the count reset
+        state = store.State.load(rt.root)
+        assert state.lifecycle["good"]["status"] == "listed" and state.health["good"]["scan_declines"] == 0
+
 
 def test_blocklist_label_scope(rt, gh, event, monkeypatch):
     """U15: entry-add blocks repo and slug; an edit that repoints blocks only the new repo."""

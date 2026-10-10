@@ -6,6 +6,9 @@ session's change set or, failing that, from any message, terminal output or prog
 (decision 39), most recent first.
 Only a verdict carrying the session's random review id counts: text from the reviewed repo (a file
 Jules prints, say) can't know it, so it can't stand in for the verdict.
+If Jules refuses the review, the poller restates the request once; a second refusal is the result
+`declined`, which never passes (decision 63). Calibration can render the candidate prompt in
+.github/jules/candidate/ instead of the live one; verdicts are always checked against the live schema.
 
 API: https://jules.googleapis.com/v1alpha (sessions, sessions.activities, :sendMessage,
 :approvePlan), authenticated with the x-goog-api-key header.
@@ -14,6 +17,7 @@ API: https://jules.googleapis.com/v1alpha (sessions, sessions.activities, :sendM
 from __future__ import annotations
 
 import json
+import re
 import secrets
 import time
 from dataclasses import dataclass, field
@@ -30,6 +34,14 @@ DONE_STATES = {"COMPLETED", "FAILED"}
 STOPPED_STATES = {"AWAITING_USER_FEEDBACK", "AWAITING_PLAN_APPROVAL", "PAUSED"}
 NUDGE = "Please continue without questions and write verdict.json as instructed."
 POLL_SECONDS = 30
+REPLY_SECONDS = 600     # how long a follow-up message may go unanswered
+EXCERPT_CHARS = 400     # how much of a refusal is kept as the reason
+
+# The prompts (decision 63). Live reviews always use LIVE; calibration may render CANDIDATE, whose wording
+# differs but whose schema must be structurally identical (only descriptions differ; a test checks it).
+LIVE, CANDIDATE = "live", "candidate"
+PROMPTS = {LIVE: ".github/jules", CANDIDATE: ".github/jules/candidate"}
+SESSION_TITLES = {LIVE: "AVP index review", CANDIDATE: "AVP index safety check"}
 
 
 class Deferred(Exception):
@@ -42,7 +54,7 @@ class JulesError(Exception):
 
 @dataclass
 class Outcome:
-    result: str                       # pass | flag | error | deferred
+    result: str                       # pass | flag | error | deferred | declined
     verdict: dict | None = None
     session_url: str | None = None
     session_name: str | None = None
@@ -117,18 +129,20 @@ def _quota(resp: requests.Response) -> bool:
 
 # --- verdicts ---------------------------------------------------------------------------
 
-def verdict_schema(root: Path | None = None) -> dict:
-    return store.load_json(".github/jules/verdict.schema.json", root)
+def verdict_schema(root: Path | None = None, prompt: str = LIVE) -> dict:
+    """The verdict schema shown with a prompt. Verdicts are only ever validated against the live one."""
+    return store.load_json(f"{PROMPTS[prompt]}/verdict.schema.json", root)
 
 
 def new_review_id() -> str:
     return secrets.token_hex(16)
 
 
-def render_prompt(repo_url: str, sha: str, threshold: int, review_id: str, root: Path | None = None) -> str:
+def render_prompt(repo_url: str, sha: str, threshold: int, review_id: str, root: Path | None = None,
+                  prompt: str = LIVE) -> str:
     root = root or store.ROOT
-    template = (root / ".github/jules/security-review.md").read_text(encoding="utf-8")
-    schema = json.dumps(verdict_schema(root), indent=2)
+    template = (root / PROMPTS[prompt] / "security-review.md").read_text(encoding="utf-8")
+    schema = json.dumps(verdict_schema(root, prompt), indent=2)
     return jinja2.Environment(undefined=jinja2.StrictUndefined).from_string(template).render(
         repo_url=repo_url, sha=sha, threshold=threshold, review_id=review_id, schema=schema)
 
@@ -217,6 +231,79 @@ def foreign_verdicts(activities: list[dict], schema: dict, review_id: str) -> in
                if validator.is_valid(obj) and obj["review_id"] != review_id)
 
 
+def agent_messages(activities: list[dict]) -> list[str]:
+    """The agent's messages, oldest first."""
+    return [m for m in ((a.get("agentMessaged") or {}).get("agentMessage") for a in activities) if m]
+
+
+# --- declines -----------------------------------------------------------------------------
+# Jules sometimes refuses a review outright, intermittently (2026-10-10: "I am programmed to strictly
+# refuse any requests to perform security reviews, ..."). Every phrase that marks a refusal lives in these
+# two lists. A message is a refusal if it matches one STRONG phrase, or two different WEAK ones, and holds
+# nothing shaped like a verdict (that is a format problem, not a refusal). Text is lowercased and
+# contractions are spelled out first (_plain), so "I can't" and "I cannot" read the same.
+
+_NOT = (r"(?:cannot|will not|must not|am not able to|am unable to|am not permitted to|am not allowed to|"
+        r"am not in a position to)(?: be able to)?")
+_TASK = r"(?:perform|carry out|conduct|do|complete|undertake|evaluate|review|analy[sz]e|scan|assess|audit|inspect)"
+_WORK = (r"(?:requests?|tasks?|reviews?|scans?|scanning|analys[ie]s|assessments?|evaluations?|audits?|"
+         r"repository|repositories|repo|repos)")
+_OBJECT = (rf"(?:(?:this|that|the|these|those|such|your|any|a|an)(?: [\w-]+){{0,2}} {_WORK}\b|"
+           rf"(?:security|vulnerability|malware|safety)(?: [\w-]+)? {_WORK}\b)")
+
+REFUSAL_STRONG = tuple(re.compile(p) for p in (
+    rf"\bi {_NOT} (?:help(?! but\b)|assist|comply)\b",                   # I can't help with that
+    r"\b(?:cannot|unable to|not able to|will not) fulfil+\b",             # I cannot fulfill your request
+    rf"\bi {_NOT} {_TASK} {_OBJECT}",                                     # I cannot evaluate the repository
+    r"\b(?:must|have to|need to|will have to|am required to) (?:respectfully |politely )?(?:refuse|decline)\b",
+    r"\bi (?:strictly |respectfully |politely )?(?:refuse|decline)\b",   # I decline
+    r"\bi (?:[\w-]+ ){0,4}refuse (?:any|all|such|these|this|your)\b",  # I am programmed to strictly refuse any
+    r"\bprogrammed (?:to|not to) (?:strictly )?(?:refuse|decline|not|never|avoid)\b",
+    r"\b(?:against|violates?) my (?:guidelines|policies|policy|programming|principles|rules|instructions)\b",
+    (r"\bnot (?:allowed|permitted) to (?:help|assist|perform|carry out|conduct|do) (?:with )?"
+     r"(?:this|that|such|these|security|vulnerability|malware)\b"),
+))
+REFUSAL_WEAK = tuple(re.compile(p) for p in (
+    r"\b(?:sorry|apologi[sz]e)\b",
+    rf"\bi {_NOT} {_TASK}\b",                                              # I cannot review (what, unsaid)
+    r"\b(?:this|your) request\b",
+))
+_CONTRACTIONS = (("can't", "cannot"), ("can not", "cannot"), ("won't", "will not"), ("i'm", "i am"),
+                 ("mustn't", "must not"))
+
+
+def _plain(text: str) -> str:
+    text = " ".join(text.replace("\u2019", "'").replace("\u2018", "'").lower().split())
+    for short, full in _CONTRACTIONS:
+        text = text.replace(short, full)
+    return text
+
+
+def looks_like_refusal(text: str | None) -> bool:
+    """Whether an agent message refuses the review (see the lists above)."""
+    if not text or _json_objects(text):
+        return False
+    plain = _plain(text)
+    if any(p.search(plain) for p in REFUSAL_STRONG):
+        return True
+    return sum(1 for p in REFUSAL_WEAK if p.search(plain)) >= 2
+
+
+def restate_message(review_id: str) -> str:
+    """The one follow-up sent when Jules refuses: what the check is, plainly; the instructions are unchanged."""
+    return ("To explain the request: this is the AVP Ports Index's routine safety check, run before the index "
+            "recommends an open-source repository to the public, and requested by the index's owner. The "
+            "instructions are public. Nothing is attacked, built or run: the task is to read the repository's "
+            "files and describe what they do, as the instructions above set out. Please continue with the "
+            f"instructions above and write verdict.json with review_id {review_id}, then print its contents as "
+            "a fenced JSON block in your message.")
+
+
+def excerpt(text: str, limit: int = EXCERPT_CHARS) -> str:
+    flat = " ".join(text.split())
+    return flat if len(flat) <= limit else flat[: limit - 1] + "\u2026"
+
+
 def diagnostics(activities: list[dict]) -> dict:
     """What the session produced, for explaining a missing verdict without the API key."""
     kinds: dict[str, int] = {}
@@ -258,26 +345,31 @@ def decide(verdict: dict, threshold: int) -> str:
 
 # --- one review -------------------------------------------------------------------------
 
-def review(client: Jules, repo_url: str, sha: str, policy: dict, *, root: Path | None = None,
+def review(client: Jules, repo_url: str, sha: str, policy: dict, *, root: Path | None = None, prompt: str = LIVE,
            sleep=time.sleep, clock=time.monotonic, make_id=new_review_id) -> Outcome:
     threshold = int(policy["stage2"]["confidence_threshold"])
     timeout = int(policy["stage2"]["jules_timeout_minutes"]) * 60
-    schema = verdict_schema(root)
+    schema = verdict_schema(root)  # always the live schema, whichever prompt was shown
     owner_name = repo_url.removeprefix("https://github.com/")
-    title = f"AVP index review: {owner_name}@{sha[:7]}"
+    title = f"{SESSION_TITLES[prompt]}: {owner_name}@{sha[:7]}"
     review_id = make_id()
     started = clock()
     try:
-        session = client.create_session(render_prompt(repo_url, sha, threshold, review_id, root), title)
+        session = client.create_session(render_prompt(repo_url, sha, threshold, review_id, root, prompt), title)
     except Deferred as exc:
         return Outcome("deferred", reason=str(exc)[:200])
     except (JulesError, requests.RequestException) as exc:
         return Outcome("error", reason=f"couldn't start the session: {exc}"[:300])
     name, url = session.get("name"), session.get("url")
     outcome = Outcome("error", session_url=url, session_name=name)
-    nudged = fixed = False
+    follow_ups: list[str] = []     # nudge, restate, fix: each sent at most once
     sent_at: float | None = None   # we sent a message and wait for the state to change
     sent_state = ""
+    seen = 0                       # agent messages in the session when we sent it
+
+    def declined(text: str) -> None:
+        outcome.result, outcome.reason = "declined", excerpt(text)
+
     try:
         while True:
             if clock() - started > timeout:
@@ -289,15 +381,22 @@ def review(client: Jules, repo_url: str, sha: str, policy: dict, *, root: Path |
                 outcome.states.append(state)
             if sent_at is not None:
                 if state == sent_state:
-                    # The session may have finished again within one poll: look for a verdict.
-                    verdict, _ = find_verdict(client.activities(name), schema, review_id)
+                    # The session may have answered within one poll, so its state looks unchanged.
+                    activities = client.activities(name)
+                    verdict, _ = find_verdict(activities, schema, review_id)
                     if verdict is not None:
                         outcome.result, outcome.verdict = decide(verdict, threshold), verdict
                         break
-                    if clock() - sent_at > 600:
-                        outcome.reason = "the session didn't respond to the follow-up message"
-                        break
-                    continue
+                    said = agent_messages(activities)
+                    if not (len(said) > seen and looks_like_refusal(said[-1])):
+                        if clock() - sent_at > REPLY_SECONDS:
+                            if said and looks_like_refusal(said[-1]):
+                                declined(said[-1])  # it refused, then didn't take up the follow-up
+                            else:
+                                outcome.reason = "the session didn't respond to the follow-up message"
+                            break
+                        continue
+                    # It already answered with a refusal: judge that now.
                 sent_at = None
             if state not in DONE_STATES | STOPPED_STATES:
                 continue
@@ -308,31 +407,48 @@ def review(client: Jules, repo_url: str, sha: str, policy: dict, *, root: Path |
             if verdict is not None:
                 outcome.result, outcome.verdict = decide(verdict, threshold), verdict
                 break
+            said = agent_messages(activities)
+            refused = bool(said) and looks_like_refusal(said[-1])
             if state == "FAILED":
-                failed = [a for a in activities if a.get("sessionFailed")]
-                outcome.reason = "session failed" + (f": {failed[-1]['sessionFailed'].get('reason', '')}" if failed else "")
+                if refused:
+                    declined(said[-1])
+                else:
+                    failed = [a for a in activities if a.get("sessionFailed")]
+                    outcome.reason = "session failed" + (
+                        f": {failed[-1]['sessionFailed'].get('reason', '')}" if failed else "")
                 break
-            if state in STOPPED_STATES:
-                if nudged:
+            if refused:
+                # Jules refused the review: say plainly what it is, once. A second refusal is `declined`.
+                if "restate" in follow_ups:
+                    declined(said[-1])
+                    break
+                follow_ups.append("restate")
+                if state == "AWAITING_PLAN_APPROVAL":
+                    client.approve_plan(name)
+                client.send_message(name, restate_message(review_id))
+            elif state in STOPPED_STATES:
+                if "nudge" in follow_ups:
                     outcome.reason = "the session stopped twice"
                     break
-                nudged = True
+                follow_ups.append("nudge")
                 if state == "AWAITING_PLAN_APPROVAL":
                     client.approve_plan(name)
                 client.send_message(name, NUDGE)
             else:
                 # COMPLETED without a usable verdict: ask once for a fix.
-                if fixed:
+                if "fix" in follow_ups:
                     outcome.reason = problem
                     break
-                fixed = True
+                follow_ups.append("fix")
                 client.send_message(name, f"{problem} in your messages: I can't read files from your workspace. "
                                           f"Reply with the complete contents of verdict.json, with review_id {review_id}, "
                                           "matching the schema in the instructions, as a fenced JSON block in the message itself.")
-            sent_at, sent_state = clock(), state
+            sent_at, sent_state, seen = clock(), state, len(said)
     except Deferred as exc:
         outcome.result, outcome.reason = "deferred", str(exc)[:200]
     except (JulesError, requests.RequestException) as exc:
-        outcome.reason = f"API error: {exc}"[:300]
+        outcome.result, outcome.reason = "error", f"API error: {exc}"[:300]
+    if outcome.diagnostics or follow_ups:
+        outcome.diagnostics["follow_ups"] = follow_ups  # which follow-up messages were sent, in order
     outcome.minutes = (clock() - started) / 60
     return outcome

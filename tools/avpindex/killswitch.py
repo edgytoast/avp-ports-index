@@ -154,6 +154,7 @@ def restore(rt, state: store.State, entry_id: str, outcome: dict) -> None:
     if status == LISTED:
         health["rescan_hold"] = False
         health["rescan_after"] = None  # the owner asked for rescans to resume
+        health["scan_declines"] = 0
         state.lifecycle[entry_id]["owner_approved"] = True
     elif status in (PULLED, TAKEN_DOWN):
         if status == TAKEN_DOWN and not _restore_file(rt, entry_id):
@@ -169,6 +170,7 @@ def restore(rt, state: store.State, entry_id: str, outcome: dict) -> None:
         lifecycle.transition(state, entry_id, LISTED, "kill-switch", **fields)
         health["rescan_hold"] = False
         health["rescan_after"] = None
+        health["scan_declines"] = 0
         if repo and entry:
             repo_facts(rt, entry_id, entry, repo, state)
     else:
@@ -208,6 +210,7 @@ def approve(rt, state: store.State, entry_id: str, outcome: dict) -> None:
     if repo_id:
         blocklist.remove_flag(state, rt.salt, repo_id)
     record["owner_approved"] = True
+    health["scan_declines"] = 0
     text = "Approved by the curator."
     if files:
         text += " These files are approved by SHA-256 and won't be flagged again unless they change: " + \
