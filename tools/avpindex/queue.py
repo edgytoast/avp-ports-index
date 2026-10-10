@@ -3,7 +3,8 @@
 Runs are idempotent. The ledger comes from the Actions API: each stage2-scan run is named
 "stage2 <mode> <pr or entry id>", and its report job uploads an empty artifact named
 result-<pass|flag|error|deferred|declined>. A declined scan used a Jules session, so it counts like
-any other run; only result-deferred (quota) pauses dispatching.
+any other run. A deferral (quota) in the last hour pauses dispatching, and so do DECLINE_PAUSE declines
+(any targets): a refusal storm shouldn't burn the caps or the contributors' tries.
 Calibration runs (stage2-calibrate.yml, "stage2 calibrate <label>") are a separate workflow, outside
 these caps; the ledger never counts or parses them as scans.
 """
@@ -23,6 +24,7 @@ from .lifecycle import LISTED
 SCAN_WORKFLOW = "stage2-scan.yml"
 UPSTREAM_CHECKS = {"S1-06", "S1-07", "S1-11a", "S1-11d"}  # failures fixed in the port's repo
 RECHECK_SECONDS = 300  # stop starting new re-checks after this; the workflow step has its own hard limit
+DECLINE_PAUSE = 2      # declined scans in the last hour that pause dispatching, as one deferral does
 RUN_NAME_RE = re.compile(r"^stage2 (pr|rescan) ([0-9]+|[a-z0-9]+(?:-[a-z0-9]+)*)$")
 CALIBRATE_RUN_RE = re.compile(r"^stage2 calibrate\b")
 
@@ -113,13 +115,19 @@ def rescan_precheck(rt, entry_id: str, entry: dict, state: store.State) -> tuple
     return ctx.repo, ctx.head
 
 
-def _deferred_recently(rt, recent: list[dict]) -> bool:
+def _pause_reason(rt, recent: list[dict]) -> str:
+    """Why dispatching pauses this hour, or "": a deferral, or DECLINE_PAUSE declines (spec §8.3 step 2)."""
+    declines = 0
     for run in recent:
         if run.get("status") != "completed":
             continue
-        if any(a.get("name") == "result-deferred" for a in rt.gh.run_artifacts(run["id"])):
-            return True
-    return False
+        names = {a.get("name") for a in rt.gh.run_artifacts(run["id"])}
+        if "result-deferred" in names:
+            return "a scan was deferred for quota in the last hour"
+        declines += "result-declined" in names
+    if declines >= DECLINE_PAUSE:
+        return f"Jules declined {declines} scans in the last hour"
+    return ""
 
 
 def recheck_waiting(rt, now: dt.datetime) -> list[str]:
@@ -179,9 +187,10 @@ def dispatch(rt) -> list[str]:
     policy = rt.policy
     runs = rt.gh.workflow_runs(SCAN_WORKFLOW, store.iso(now - dt.timedelta(days=1)))
     used = ledger(runs, now)
-    free = slots(policy, rt.stage2_enabled, used, _deferred_recently(rt, used["recent"]))
+    paused = _pause_reason(rt, used["recent"])
+    free = slots(policy, rt.stage2_enabled, used, bool(paused))
     log = [f"ledger: {used['used_hour']} this hour, {used['used_day']} today "
-           f"({used['rescans_day']} rescans); {free} slot(s)"]
+           f"({used['rescans_day']} rescans); {free} slot(s)" + (f"; paused: {paused}" if paused else "")]
     state = store.State.load(rt.root)
     entries, _ = store.load_entries(rt.root)
     max_scans = policy["stage2"]["per_pr_max_scans"]

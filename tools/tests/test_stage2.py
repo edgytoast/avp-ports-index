@@ -537,15 +537,16 @@ class TestReport:
         gh.add_labels(7, ["stage2:scanning"])
         messages.upsert(rt, 7, scanning=f"11@{SHA(11)}")
 
-    def test_pr_declined_requeues_until_scans_run_out(self, rt, gh):
-        """U22: a decline counts as a scan; the PR goes back in the queue while it has scans left."""
+    def test_pr_declined_requeues_until_declines_run_out(self, rt, gh):
+        """U22: a decline isn't charged to the contributor's scans; the PR goes back in the queue until it has
+        had per_pr_max_scans declines, then waits for the curator."""
         gh.add_repo("trevorbilt-bot/good", 11)
         queued_pr(gh, rt)
         for n in (1, 2):
             assert report.run(rt, scan_inputs(), DECLINED) == ("declined", [])
             assert "stage2:queued" in gh.labels_of(7) and "stage2:scanning" not in gh.labels_of(7)
             state = messages.read_state({"body": gh.bot_comment(7)})
-            assert (state["scans"], state["declines"], state["scanning"]) == (n, n, None)
+            assert (state["scans"], state["declines"], state["scanning"]) == (0, n, None)
             assert gh.latest(SHA(70), STAGE2) is None and "needs-owner" not in gh.labels_of(7)
             self.rescan_again(rt, gh)
         assert report.run(rt, scan_inputs(), DECLINED) == ("declined", [])
@@ -559,7 +560,15 @@ class TestReport:
         assert "needs-owner" in gh.labels_of(7) and not {"stage2:queued", "stage2:scanning"} & gh.labels_of(7)
         assert "couldn't settle this one" in gh.bot_comment(7)
         state = messages.read_state({"body": gh.bot_comment(7)})
-        assert (state["scans"], state["declines"]) == (3, 3)
+        assert (state["scans"], state["declines"]) == (0, 3)
+
+    def test_declines_leave_earlier_scans_alone(self, rt, gh):
+        gh.add_repo("trevorbilt-bot/good", 11)
+        queued_pr(gh, rt)
+        messages.upsert(rt, 7, scans=2)  # two earlier scans, e.g. passes discarded when the head moved
+        report.run(rt, scan_inputs(), DECLINED)
+        state = messages.read_state({"body": gh.bot_comment(7)})
+        assert (state["scans"], state["declines"]) == (2, 1) and "stage2:queued" in gh.labels_of(7)
 
     def test_owner_scan_declines_are_bounded(self, rt, gh):
         """Scans the owner asked for aren't counted, but declines are, so they can't loop forever."""
@@ -581,7 +590,7 @@ class TestReport:
         report.run(rt, scan_inputs(), DECLINED)
         assert gh.labels_of(7) == {"stage2:scanning"} and gh.latest(SHA(70), STAGE2) is None
         state = messages.read_state({"body": gh.bot_comment(7)})
-        assert state["scanning"] == f"11@{SHA(99)}" and state["scans"] == 1
+        assert state["scanning"] == f"11@{SHA(99)}" and (state["scans"], state["declines"]) == (0, 1)
 
 
 class TestRescan:
@@ -735,14 +744,32 @@ class TestQueue:
         assert (used["used_hour"], used["used_day"], used["rescans_day"]) == (1, 1, 1)
         assert used["active_rescans"] == set()
 
-    def test_declined_runs_count_but_dont_pause(self, rt, gh):
-        """A declined scan used a session: it counts toward the caps, but only a deferral pauses dispatching."""
-        used = queue.ledger([self.run_at(10)], store.utcnow())
-        assert used["used_hour"] == 1
+    def test_declined_runs_count_and_a_storm_pauses(self, rt, gh):
+        """A declined scan used a session, so it counts toward the caps; two in the last hour (any targets)
+        pause dispatching, as one deferral does."""
+        runs = [self.run_at(10, "stage2 pr 1"), self.run_at(20, "stage2 rescan good"), self.run_at(90, "stage2 pr 2")]
+        used = queue.ledger(runs, store.utcnow())
+        assert (used["used_hour"], used["used_day"]) == (2, 3)
         gh.artifacts[10] = [{"name": "result-declined"}]
-        assert not queue._deferred_recently(rt, used["recent"])
-        gh.artifacts[10] = [{"name": "result-deferred"}]
-        assert queue._deferred_recently(rt, used["recent"])
+        gh.artifacts[90] = [{"name": "result-declined"}]  # over an hour ago: doesn't count
+        assert queue._pause_reason(rt, used["recent"]) == ""
+        gh.artifacts[20] = [{"name": "result-declined"}]
+        assert queue._pause_reason(rt, used["recent"]) == "Jules declined 2 scans in the last hour"
+        gh.artifacts[20] = [{"name": "result-deferred"}]
+        assert "deferred" in queue._pause_reason(rt, used["recent"])
+
+    def test_dispatcher_pauses_after_two_declines(self, rt, gh):
+        gh.add_repo("trevorbilt-bot/q1", 21)
+        gh.open_pr(5, "trevorbilt-bot", "entries/q1.yaml", "added", entry_yaml("q1", "trevorbilt-bot/q1"),
+                   labels=("stage2:queued",), head=SHA(5))
+        gh.create_check(SHA(5), STAGE1, conclusion="success", external_id=f"21@{SHA(21)}")
+        gh.runs = [self.run_at(10, "stage2 pr 1"), self.run_at(20, "stage2 rescan good")]
+        gh.artifacts = {10: [{"name": "result-declined"}], 20: [{"name": "result-declined"}]}
+        log = queue.dispatch(rt)
+        assert gh.dispatched == [] and "paused: Jules declined 2 scans in the last hour" in log[0]
+        gh.artifacts[20] = [{"name": "result-pass"}]
+        queue.dispatch(rt)
+        assert [d[1]["pr"] for d in gh.dispatched] == ["5"]
 
     def test_fifo_by_first_label_and_dispatch(self, rt, gh):
         gh.add_repo("trevorbilt-bot/q1", 21)

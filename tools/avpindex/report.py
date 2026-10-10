@@ -201,7 +201,7 @@ def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
     labels = {label["name"] for label in pr.get("labels") or []}
     bot_state = messages.read_state(messages.find_bot_comment(rt, number))
     mine = bot_state.get("scanning") in (None, inputs.external_id)
-    increment = 1 if inputs.counted and result in ("pass", "flag", "error", "declined") else 0
+    increment = 1 if inputs.counted and result in ("pass", "flag", "error") else 0  # a decline isn't their fault
     scans = int(bot_state.get("scans") or 0) + increment
     clear_scanning = {"scanning": None} if mine else {}
 
@@ -272,9 +272,9 @@ def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
 
 def _pr_declined(rt, inputs: Inputs, outcome: dict, pr: dict, bot_state: dict, scans: int, mine: bool,
                  swap) -> list[int]:
-    """Jules declined to review: the scan counts (it used a session), and the PR goes back in the queue
-    while it has scans left. Declines are also counted on their own, so scans the curator asked for
-    (`owner:scan`, not counted) can't loop forever: after `per_pr_max_scans` declines the curator decides."""
+    """Jules declined to review. That isn't the contributor's doing, so it isn't charged to their scans; the
+    PR goes back in the queue while it has had fewer than `per_pr_max_scans` declines (counted on their own,
+    `owner:scan` or not, so it can't loop forever), then the curator decides."""
     number = inputs.pr
     max_scans = int(rt.policy["stage2"]["per_pr_max_scans"])
     declines = int(bot_state.get("declines") or 0) + 1
@@ -285,7 +285,7 @@ def _pr_declined(rt, inputs: Inputs, outcome: dict, pr: dict, bot_state: dict, s
         # Closed, a newer scan was dispatched, or the PR now links another commit and is queued again.
         messages.upsert(rt, number, scans=scans, declines=declines, **clear_scanning)
         return []
-    if scans < max_scans and declines < max_scans:
+    if declines < max_scans:
         swap(("stage2:scanning",), ("stage2:queued",))
         messages.upsert(rt, number, scans=scans, declines=declines, **clear_scanning)
         rt.summary(f"#{number}: Jules declined to review; back in the queue ({declines} decline(s)).")
