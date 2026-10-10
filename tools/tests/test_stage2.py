@@ -495,7 +495,13 @@ class TestDeclines:
         path.write_text(json.dumps({"result": "declined", "reason": REFUSAL, "session_url": "u", "minutes": 3.0,
                                     "verdict": verdict(100)}))
         out = report.load_outcome(path, "success", store.load_policy(root))
-        assert out == {"result": "declined", "reason": REFUSAL, "session_url": "u", "minutes": 3.0}
+        assert out == {"result": "declined", "reason": REFUSAL, "session_url": "u", "minutes": 3.0, "signal": "wording"}
+        # The signal comes through from the scan's diagnostics; anything but "no work" reads as wording.
+        for given, expected in (("no work", "no work"), ("wording", "wording"), ("odd", "wording"), (None, "wording")):
+            path.write_text(json.dumps({"result": "declined", "reason": "", "diagnostics": {"decline_signal": given}}))
+            assert report.load_outcome(path, "success", store.load_policy(root))["signal"] == expected
+        path.write_text(json.dumps({"result": "declined", "reason": "", "diagnostics": "junk"}))
+        assert report.load_outcome(path, "success", store.load_policy(root))["signal"] == "wording"
         path.write_text("[1, 2]")
         assert report.load_outcome(path, "success", store.load_policy(root))["result"] == "error"
 
@@ -666,6 +672,29 @@ class TestReport:
         state = messages.read_state({"body": gh.bot_comment(7)})
         assert (state["scans"], state["declines"]) == (2, 1) and "stage2:queued" in gh.labels_of(7)
 
+    def test_pr_no_work_is_worded_as_no_verdict(self, rt, gh):
+        """In PR mode too: the check, its summary and the dispatcher's limit check say "no verdict", not "declined"."""
+        gh.add_repo("trevorbilt-bot/good", 11)
+        queued_pr(gh, rt)
+        no_work = {"result": "declined", "reason": "All done!", "session_url": "u", "signal": "no work"}
+        for _ in range(3):
+            report.run(rt, scan_inputs(), no_work)
+            self.rescan_again(rt, gh)
+        check = gh.latest(SHA(70), STAGE2)
+        assert check["output"]["title"] == "No verdict from Jules; waiting for the curator"
+        summary = check["output"]["summary"]
+        assert summary.startswith("**Jules finished without a verdict** and without showing any work on the repository")
+        assert "declined to review" not in summary
+        assert messages.read_state({"body": gh.bot_comment(7)})["decline_signal"] == "no work"
+        # Pushed and requeued: the dispatcher holds it, in the same words.
+        gh.remove_label(7, "needs-owner")
+        gh.remove_label(7, "stage2:scanning")
+        gh.add_labels(7, ["stage2:queued"])
+        queue.dispatch(rt)
+        held = gh.latest(SHA(70), STAGE2)
+        assert held["output"]["title"] == "No verdict from Jules; waiting for the curator"
+        assert "finished without a verdict" in held["output"]["summary"] and gh.dispatched == []
+
     def test_owner_scan_declines_are_bounded(self, rt, gh):
         """Scans the owner asked for aren't counted, but declines are, so they can't loop forever."""
         gh.add_repo("trevorbilt-bot/good", 11)
@@ -755,7 +784,8 @@ class TestRescan:
         assert "```text\nSorry, I cannot fulfill your request.\n```" in first
         assert "https://jules.google.com/session/1" in first
         assert len(comments) == 3 and "waits a day" not in comments[0]
-        assert "3 declines in a row, so it now waits a day" in comments[1] and "You may want to look" in comments[1]
+        assert "3 tries in a row without a verdict, so it now waits a day" in comments[1]
+        assert "You may want to look" in comments[1] and "(2 tries in a row without a verdict)" in comments[0]
         assert "Kill switch `rescan`" in comments[1] and "restore" not in comments[1]  # restore sets owner_approved
         assert "next is after 2026-10-04T12:00:00Z" in comments[1]
         report.run(rt, inputs, {"result": "pass", "verdict": verdict(90), "session_url": "u"})
@@ -763,6 +793,19 @@ class TestRescan:
         assert health["scanned_commit"] == SHA(11) and health["scan_declines"] == 0 and health["rescan_after"] is None
         _, comments = self.triage(gh)
         assert "passed (confidence 90)" in comments[-1]
+
+    def test_no_work_is_worded_as_no_verdict(self, rt, gh):
+        """A decline on the no-work signal may be a review that never printed its verdict, so the triage note says
+        Jules finished without a verdict, not that it declined; the retry timing is the same."""
+        self.setup_entry(rt, gh)
+        inputs = scan_inputs(mode="rescan", base_commit=SHA(5), counted=False)
+        report.run(rt, inputs, {"result": "declined", "reason": "All done!", "session_url": "u", "signal": "no work"})
+        issue, _ = self.triage(gh)
+        body = issue["body"]
+        assert body.startswith("**Jules finished without a verdict** on the new commit of `good`")
+        assert "it may have declined, or just not printed its verdict" in body
+        assert "Jules's last message (untrusted text):" in body and "declined to review" not in body
+        assert store.State.load(rt.root).health["good"]["rescan_after"] == "2026-10-03T14:00:00Z"
 
     def test_declines_reset_by_flag_and_kept_by_error(self, rt, gh):
         self.setup_entry(rt, gh)

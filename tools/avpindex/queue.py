@@ -22,6 +22,7 @@ from . import blocklist, checks, messages, store, validate
 from .checks import PASS, ROUTE, IndexView, Report, Result, Subject
 from .gate import (
     DECLINED,
+    NO_VERDICT_TITLE,
     STAGE1,
     STAGE1_MARKER_RE,
     STAGE2,
@@ -258,6 +259,12 @@ def dispatch(rt) -> list[str]:
                 title, summary = "Scan limit reached; waiting for the curator", \
                     f"This PR has used its {max_scans} automated reviews."
                 why = "scan limit reached"
+            elif bot_state.get("decline_signal") == "no work":
+                title, summary = NO_VERDICT_TITLE, (
+                    f"Jules finished without a verdict on this PR's repository {declines} times in a row (it may "
+                    "have declined, or not printed its verdict), so the curator will look at it by hand. New "
+                    "pushes don't send it back.")
+                why = "decline limit reached"
             else:
                 title, summary = DECLINED, (f"Jules declined to review this PR's repository {declines} times, so "
                                             "the curator will look at it by hand. New pushes don't send it back.")

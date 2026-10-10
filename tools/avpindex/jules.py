@@ -251,8 +251,11 @@ def agent_messages(activities: list[dict]) -> list[str]:
 #     review is never a refusal (that is a format problem; a verdict with another id doesn't count).
 #  2. No work: the session finished with no verdict, no attempt at one (nothing verdict-shaped, with any
 #     id, and no other problem than "not found"), and no sign it touched the repository (no command output,
-#     no change set, no progress note about the clone), whatever it said. That command output shows in
-#     working sessions is the premise; calibration runs' diagnostics (artifact_kinds, decline_signal) check it.
+#     no change set, no progress note about the clone), whatever it said. Calibration (2026-10-10) showed
+#     that working sessions may expose only their messages, so this can't tell a refusal from a review whose
+#     verdict never got printed. It's kept because all it does is send the restatement, which asks for the
+#     verdict too, and retry a rescan in 2 hours instead of 24; it never passes anything. Its result is still
+#     `declined`, with decline_signal "no work", and the report job words it as "finished without a verdict".
 # Text is lowercased and contractions spelled out first (_plain), so "I can't" and "I cannot" read the same.
 
 _END = (r"(?:,? (?:again|once more|as well|too|either|here|now|at all|for you|i am afraid))?"
