@@ -212,6 +212,7 @@ def default_health() -> dict:
         "flagged_files": [],
         "rescan_hold": False,
         "rescan_after": None,
+        "scan_declines": 0,
         "decay_reset_at": None,
         "warnings": [],
     }

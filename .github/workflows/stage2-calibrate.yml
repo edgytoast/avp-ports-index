@@ -1,0 +1,67 @@
+# Calibration of the Stage 2 review (docs/SPEC.md §8.10, decision 63): one real Jules review of a
+# repo at a commit, with the live prompt or the candidate in .github/jules/candidate/, dispatched by
+# the owner. It runs with permissions: {} (its GITHUB_TOKEN has no scopes) and mints no App token,
+# and writes nothing to the repo, state, issues or PRs: the outcome is an artifact and the run summary. Its Jules sessions count against the plan's quota but
+# not the dispatcher's hourly or daily caps, and it never shares the jules-scan or main-writer groups.
+name: stage2-calibrate
+run-name: stage2 calibrate ${{ inputs.label }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      linked_repo:
+        description: Repository to review (owner/name)
+        type: string
+        required: true
+      linked_commit:
+        description: Commit to review (full 40-character SHA)
+        type: string
+        required: true
+      prompt:
+        description: Which prompt Jules gets
+        type: choice
+        options: [candidate, live]
+        default: candidate
+        required: true
+      label:
+        description: Short name for this run (lowercase letters, digits and hyphens, at most 40)
+        type: string
+        required: true
+
+permissions: {}
+
+jobs:
+  calibrate:
+    runs-on: ubuntu-latest
+    environment: jules
+    permissions: {}
+    timeout-minutes: 200
+    concurrency:
+      group: jules-calibrate-${{ inputs.label }}
+      cancel-in-progress: false
+      queue: max
+    env:
+      PYTHONPATH: tools
+      INPUT_LINKED_REPO: ${{ inputs.linked_repo }}
+      INPUT_LINKED_COMMIT: ${{ inputs.linked_commit }}
+      INPUT_PROMPT: ${{ inputs.prompt }}
+      INPUT_LABEL: ${{ inputs.label }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install the index tooling
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install --quiet --require-hashes --no-deps -r tools/requirements.txt
+      - name: Run one Jules review
+        env:
+          JULES_API_KEY: ${{ secrets.JULES_API_KEY }}
+        run: '"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli calibrate --prompt "$INPUT_PROMPT" --out "$RUNNER_TEMP/out"'
+      - name: Keep the outcome
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: calibration
+          path: ${{ runner.temp }}/out/
+          retention-days: 30
+          if-no-files-found: error

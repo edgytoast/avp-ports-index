@@ -19,6 +19,7 @@ REQUIRED = (POLICY_CHECK, STAGE1, STAGE2)
 WATCHED_LABELS = ("owner:scan", "blocklist", "kill-switch")
 PIPELINE_LABELS = ("stage1:pass", "stage1:fail", "stage1:route", "needs-author", "needs-owner")
 WAITING = "Waiting for the curator"
+DECLINED = "Jules declined to review; waiting for the curator"
 MARKER_RE = re.compile(r"<!-- avp:stage2 (\{.*?\}) -->")
 STAGE1_MARKER_RE = re.compile(r"<!-- avp:stage1 (\{.*?\}) -->")
 
@@ -30,10 +31,13 @@ def stage2_marker(**data) -> str:
 
 
 def read_marker(check: dict | None, pattern: re.Pattern = MARKER_RE) -> dict:
+    """The marker the App appended to a check summary: always the last one, since untrusted text (Jules's
+    summary and findings, fenced) comes before it. validate.fence also breaks up any "<!--" in that text."""
     summary = ((check or {}).get("output") or {}).get("summary") or ""
-    match = pattern.search(summary)
-    if not match:
+    matches = list(pattern.finditer(summary))
+    if not matches:
         return {}
+    match = matches[-1]
     try:
         return json.loads(match.group(1))
     except ValueError:

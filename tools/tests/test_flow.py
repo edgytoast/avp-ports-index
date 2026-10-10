@@ -468,6 +468,41 @@ class TestHealth:
         assert (rt.root / store.HEALTH).read_text() == before and not gh.external_issues
 
 
+class TestDeclinedPushes:
+    def test_pushes_dont_buy_a_declined_pr_new_reviews(self, rt, gh, event, monkeypatch):
+        """U22, the independent review's probe: a PR that keeps getting declined, pushed again and again, gets at
+        most per_pr_max_scans Jules sessions, an hour apart, and then waits for the curator however often it's
+        pushed: the gate requeues it on every push, and the dispatcher holds it at the decline limit."""
+        from avpindex import report
+        gh.add_repo("trevorbilt-bot/good", 11)
+        gh.open_pr(1, "trevorbilt-bot", "entries/good.yaml", "added", entry_yaml("good", "trevorbilt-bot/good"))
+        event(pr_event(gh, 1))
+        gate.run(rt)
+        declined = {"result": "declined", "reason": "I can't help with that.", "session_url": "u"}
+        now = dt.datetime(2026, 10, 3, 12, tzinfo=dt.timezone.utc)
+        for push in range(8):
+            monkeypatch.setenv("AVP_NOW", store.iso(now + dt.timedelta(hours=2 * push)))
+            gh.runs = []  # an empty ledger: only the PR's own limits can stop it
+            before = len(gh.dispatched)
+            queue.dispatch(rt)
+            if len(gh.dispatched) > before:  # Jules ran, and declined again
+                head = gh.prs[1]["head"]["sha"]
+                report.run(rt, report.Inputs(mode="pr", pr=1, head_sha=head, linked_repo="trevorbilt-bot/good",
+                                             linked_commit=SHA(11), entry_id="good", repo_id=11, base_commit=None,
+                                             counted=True), declined)
+            new_head = SHA(9_100_000 + push)  # the contributor pushes
+            gh.prs[1]["head"]["sha"] = new_head
+            gh.files[(gh.repo_full.lower(), "entries/good.yaml", new_head)] = entry_yaml("good", "trevorbilt-bot/good")
+            event(pr_event(gh, 1, "synchronize"))
+            gate.run(rt)
+            assert "stage2:queued" in gh.labels_of(1)  # the gate requeues it every time
+        queue.dispatch(rt)
+        state = messages.read_state({"body": gh.bot_comment(1)})
+        assert len(gh.dispatched) == 3 and (state["scans"], state["declines"]) == (0, 3)
+        assert "needs-owner" in gh.labels_of(1) and "stage2:queued" not in gh.labels_of(1)
+        assert gh.latest(gh.prs[1]["head"]["sha"], STAGE2)["output"]["title"] == gate.DECLINED
+
+
 class TestKillSwitch:
     def ks(self, rt, event, entry_id, action, block="false"):
         event({}, "workflow_dispatch", INPUT_ENTRY_ID=entry_id, INPUT_ACTION=action, INPUT_BLOCKLIST=block)
@@ -528,6 +563,76 @@ class TestKillSwitch:
         assert state.health["good"]["scanned_commit"] == SHA(6) and state.health["good"]["flagged_commit"] is None
         assert state.health["good"]["scan_kind"] == "curator-reviewed" and not blocklist.is_flagged(state, SALT, 11)
         assert "no flagged commit" in self.ks(rt, event, "good", "approve")
+
+    def test_restore_and_approve_reset_declines(self, rt, gh, event):
+        """U22: the owner's restore or approve resets the decline count (restore also retries at once)."""
+        repo = gh.add_repo("trevorbilt-bot/good", 11)
+        list_entry(rt, "good", repo, scanned=SHA(5))
+        git(rt.root, "add", "-A")
+        git(rt.root, "commit", "-qm", "listed")
+
+        def declined(count: int, **extra) -> None:
+            state = store.State.load(rt.root)
+            state.health["good"].update(scan_declines=count, rescan_after="2026-10-04T12:00:00Z", **extra)
+            blocklist.add_flag(state, SALT, 11)  # so approve has something to approve
+            state.save()
+
+        declined(3)
+        self.ks(rt, event, "good", "restore")
+        health = store.State.load(rt.root).health["good"]
+        assert health["scan_declines"] == 0 and health["rescan_after"] is None
+        declined(2)
+        self.ks(rt, event, "good", "approve")  # a flag record only: the pin stays
+        health = store.State.load(rt.root).health["good"]
+        assert health["scan_declines"] == 0 and health["scanned_commit"] == SHA(5)
+        declined(4, flagged_commit=SHA(6))
+        self.ks(rt, event, "good", "approve")  # the pin moves to the flagged commit
+        health = store.State.load(rt.root).health["good"]
+        assert health["scan_declines"] == 0 and health["scanned_commit"] == SHA(6)
+        self.ks(rt, event, "good", "pull")
+        declined(5)
+        self.ks(rt, event, "good", "restore")  # a pulled entry comes back with the count reset
+        state = store.State.load(rt.root)
+        assert state.lifecycle["good"]["status"] == "listed" and state.health["good"]["scan_declines"] == 0
+
+    def test_rescan_only_clears_the_wait(self, rt, gh, event):
+        """U22: `rescan` retries a declined or failed rescan at once and changes nothing else: unlike `restore`
+        it never sets owner_approved (so a later flag still pulls the entry), and a hold after a flag stays."""
+        repo = gh.add_repo("trevorbilt-bot/good", 11)
+        list_entry(rt, "good", repo, scanned=SHA(5))
+        state = store.State.load(rt.root)
+        state.health["good"].update(scan_declines=3, rescan_after="2026-10-04T12:00:00Z")
+        blocklist.add_flag(state, SALT, 11)
+        state.save()
+        rt.upsert_triage("good", "**Jules declined to review** ...")
+        before = store.State.load(rt.root)
+        assert self.ks(rt, event, "good", "rescan") == "Kill switch: rescan `good` done."
+        after = store.State.load(rt.root)
+        assert after.health["good"]["scan_declines"] == 0 and after.health["good"]["rescan_after"] is None
+        assert after.lifecycle["good"] == before.lifecycle["good"]  # owner_approved stays false
+        assert after.lifecycle["good"]["owner_approved"] is False
+        for key in ("scanned_commit", "scan_kind", "flagged_commit", "rescan_hold"):
+            assert after.health["good"][key] == before.health["good"][key]
+        assert blocklist.is_flagged(after, SALT, 11) and after.blocklist == before.blocklist
+        triage = [i for i in gh.issue_store.values() if i["title"] == "Triage: good"][0]
+        assert triage["state"] == "open"
+        assert "tried again" in gh.comment_store[triage["number"]][-1]["body"]
+        # Held after a flag: rescan does nothing and says what to use instead.
+        after.health["good"].update(rescan_hold=True, flagged_commit=SHA(6), rescan_after="2026-10-04T12:00:00Z")
+        after.save()
+        note = self.ks(rt, event, "good", "rescan")
+        assert "held after a flag" in note and "`approve` or `restore`" in note
+        held = store.State.load(rt.root).health["good"]
+        assert held["rescan_hold"] and held["rescan_after"] == "2026-10-04T12:00:00Z"
+        # Not listed: nothing.
+        self.ks(rt, event, "good", "pull")
+        assert "rescan works on listed entries" in self.ks(rt, event, "good", "rescan")
+
+    def test_rescan_is_a_dispatch_action(self):
+        from conftest import REPO_ROOT
+        assert "rescan" in killswitch.ACTIONS
+        flow = yaml.safe_load((REPO_ROOT / ".github/workflows/kill-switch.yml").read_text())
+        assert flow[True]["workflow_dispatch"]["inputs"]["action"]["options"] == list(killswitch.ACTIONS)
 
 
 def test_blocklist_label_scope(rt, gh, event, monkeypatch):

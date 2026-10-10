@@ -2,7 +2,14 @@
 
 Runs are idempotent. The ledger comes from the Actions API: each stage2-scan run is named
 "stage2 <mode> <pr or entry id>", and its report job uploads an empty artifact named
-result-<pass|flag|error|deferred>.
+result-<pass|flag|error|deferred|declined>. A declined scan used a Jules session, so it counts like
+any other run. A deferral (quota) in the last hour pauses dispatching, and so does a refusal storm: declines
+of DECLINE_PAUSE different PRs or entries in the hour with nothing passed or flagged meanwhile, so
+one PR that keeps getting declined can't pause everyone. That PR waits DECLINE_WAIT after each
+decline and stops at per_pr_max_scans declines (both kept in its bot comment, so pushes don't
+reset them).
+Calibration runs (stage2-calibrate.yml, "stage2 calibrate <label>") are a separate workflow, outside
+these caps; the ledger never counts or parses them as scans.
 """
 
 from __future__ import annotations
@@ -13,14 +20,27 @@ import re
 
 from . import blocklist, checks, messages, store, validate
 from .checks import PASS, ROUTE, IndexView, Report, Result, Subject
-from .gate import (STAGE1, STAGE1_MARKER_RE, STAGE2, entry_bytes_at, entry_pr, latest_check, parse_external_id,
-                   post_stage1, read_marker)
+from .gate import (
+    DECLINED,
+    STAGE1,
+    STAGE1_MARKER_RE,
+    STAGE2,
+    entry_bytes_at,
+    entry_pr,
+    latest_check,
+    parse_external_id,
+    post_stage1,
+    read_marker,
+)
 from .lifecycle import LISTED
 
 SCAN_WORKFLOW = "stage2-scan.yml"
 UPSTREAM_CHECKS = {"S1-06", "S1-07", "S1-11a", "S1-11d"}  # failures fixed in the port's repo
 RECHECK_SECONDS = 300  # stop starting new re-checks after this; the workflow step has its own hard limit
+DECLINE_PAUSE = 2      # different PRs or entries declined in the last hour, with no pass or flag, pause dispatching
+DECLINE_WAIT = dt.timedelta(hours=1)  # a declined PR isn't sent back to Jules sooner than this
 RUN_NAME_RE = re.compile(r"^stage2 (pr|rescan) ([0-9]+|[a-z0-9]+(?:-[a-z0-9]+)*)$")
+CALIBRATE_RUN_RE = re.compile(r"^stage2 calibrate\b")
 
 
 def parse_run_name(name: str | None) -> tuple[str, str] | None:
@@ -33,10 +53,11 @@ def ledger(runs: list[dict], now: dt.datetime) -> dict:
     out = {"used_hour": 0, "used_day": 0, "rescans_day": 0, "recent": [], "active_rescans": set()}
     for run in runs:
         created = store.parse_iso(run["created_at"])
-        if created < day_ago:
+        title = run.get("display_title") or run.get("name")
+        if created < day_ago or CALIBRATE_RUN_RE.match(title or ""):
             continue
         out["used_day"] += 1
-        parsed = parse_run_name(run.get("display_title") or run.get("name"))
+        parsed = parse_run_name(title)
         if parsed and parsed[0] == "rescan":
             out["rescans_day"] += 1
             if run.get("status") != "completed":
@@ -108,13 +129,26 @@ def rescan_precheck(rt, entry_id: str, entry: dict, state: store.State) -> tuple
     return ctx.repo, ctx.head
 
 
-def _deferred_recently(rt, recent: list[dict]) -> bool:
+def _pause_reason(rt, recent: list[dict]) -> str:
+    """Why dispatching pauses this hour, or "" (spec §8.3 step 2): a deferral for quota, or a refusal storm,
+    meaning declines of DECLINE_PAUSE different PRs or entries and no scan that passed or flagged. Declines
+    of one PR, however many, never pause the others."""
+    declined: set[str] = set()
+    reviewed = False
     for run in recent:
         if run.get("status") != "completed":
             continue
-        if any(a.get("name") == "result-deferred" for a in rt.gh.run_artifacts(run["id"])):
-            return True
-    return False
+        names = {a.get("name") for a in rt.gh.run_artifacts(run["id"])}
+        if "result-deferred" in names:
+            return "a scan was deferred for quota in the last hour"
+        reviewed = reviewed or bool(names & {"result-pass", "result-flag"})
+        if "result-declined" in names:
+            target = parse_run_name(run.get("display_title") or run.get("name"))
+            declined.add(" ".join(target) if target else f"run {run.get('id')}")
+    if len(declined) >= DECLINE_PAUSE and not reviewed:
+        return (f"Jules declined scans of {len(declined)} different PRs or entries in the last hour, and none "
+                "passed or flagged")
+    return ""
 
 
 def recheck_waiting(rt, now: dt.datetime) -> list[str]:
@@ -123,6 +157,7 @@ def recheck_waiting(rt, now: dt.datetime) -> list[str]:
     without a close and reopen. Runs as its own step after the merge sweep (§8.3), so a slow or
     failing re-check never holds up scans or merges."""
     import time
+
     from .classify import ENTRY_ADD, ENTRY_EDIT, classify
     budget = int(rt.policy.get("stage1_recheck_max_per_run", 10))
     every = dt.timedelta(hours=int(rt.policy.get("stage1_recheck_hours", 24)))
@@ -174,9 +209,10 @@ def dispatch(rt) -> list[str]:
     policy = rt.policy
     runs = rt.gh.workflow_runs(SCAN_WORKFLOW, store.iso(now - dt.timedelta(days=1)))
     used = ledger(runs, now)
-    free = slots(policy, rt.stage2_enabled, used, _deferred_recently(rt, used["recent"]))
+    paused = _pause_reason(rt, used["recent"])
+    free = slots(policy, rt.stage2_enabled, used, bool(paused))
     log = [f"ledger: {used['used_hour']} this hour, {used['used_day']} today "
-           f"({used['rescans_day']} rescans); {free} slot(s)"]
+           f"({used['rescans_day']} rescans); {free} slot(s)" + (f"; paused: {paused}" if paused else "")]
     state = store.State.load(rt.root)
     entries, _ = store.load_entries(rt.root)
     max_scans = policy["stage2"]["per_pr_max_scans"]
@@ -215,14 +251,26 @@ def dispatch(rt) -> list[str]:
             log.append(f"#{number}: S1-17 now routes")
             continue
         bot_state = messages.read_state(messages.find_bot_comment(rt, number))
-        if bot_state["scans"] >= max_scans and not owner_scan:
-            rt.gh.create_check(head, STAGE2, conclusion="failure", title="Scan limit reached; waiting for the curator",
-                               summary=f"This PR has used its {max_scans} automated reviews.")
+        declines = int(bot_state.get("declines") or 0)
+        if (bot_state["scans"] >= max_scans or declines >= max_scans) and not owner_scan:
+            # Both counts live in the bot comment, so a push (which requeues the PR) can't reset them.
+            if bot_state["scans"] >= max_scans:
+                title, summary = "Scan limit reached; waiting for the curator", \
+                    f"This PR has used its {max_scans} automated reviews."
+                why = "scan limit reached"
+            else:
+                title, summary = DECLINED, (f"Jules declined to review this PR's repository {declines} times, so "
+                                            "the curator will look at it by hand. New pushes don't send it back.")
+                why = "decline limit reached"
+            rt.gh.create_check(head, STAGE2, conclusion="failure", title=title, summary=summary)
             rt.gh.remove_label(number, "stage2:queued")
             rt.gh.add_labels(number, ["needs-owner"])
             messages.upsert(rt, number, messages.render("owner-review", rt.root, name=entry.get("name", entry_id)))
-            log.append(f"#{number}: scan limit reached")
+            log.append(f"#{number}: {why}")
             continue
+        if _declined_recently(bot_state, now):
+            log.append(f"#{number}: declined less than an hour ago; waiting")
+            continue  # not counted as waiting: it can't be dispatched yet, so rescans may run meanwhile
         if free <= 0:
             waiting += 1
             continue
@@ -287,6 +335,13 @@ def dispatch(rt) -> list[str]:
         messages.upsert(rt, item["number"], messages.render(
             "queued", rt.root, name=name, n=position, eta=eta_text(position, policy["stage2"]["hourly_cap"])))
     return log
+
+
+def _declined_recently(bot_state: dict, now: dt.datetime) -> bool:
+    try:
+        return now - store.parse_iso(bot_state.get("declined_at") or "") < DECLINE_WAIT
+    except (TypeError, ValueError):
+        return False
 
 
 def _repo_name(entry: dict) -> str:

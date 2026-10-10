@@ -26,6 +26,10 @@ class TestValidate:
             with pytest.raises(validate.InvalidInput):
                 validate.pr_number(bad)
         assert validate.repo_name("a-b/c.d_e") == "a-b/c.d_e"
+        assert validate.label("tpvr-candidate-1") == "tpvr-candidate-1"
+        for bad in ("Upper", "a b", "a--b", "x" * 41, "", None, "a;rm -rf", "a/b", "${{ x }}"):
+            with pytest.raises(validate.InvalidInput):
+                validate.label(bad)
         for bad in ("a/b/c", "a b/c", "a/b.git"):
             with pytest.raises(validate.InvalidInput):
                 validate.repo_name(bad)
@@ -44,6 +48,14 @@ class TestValidate:
         assert "@⁠edgytoast" in text and "\\[" in text and "&lt;b&gt;" in text and "\\|" in text
         fenced = validate.fence("```\n@someone")
         assert fenced.startswith("````text") and fenced.endswith("````")
+
+    def test_untrusted_text_cannot_form_a_hidden_marker(self):
+        """U23: fenced or inline, untrusted text can't contain "<!--", so it can't pose as one of the App's
+        markers (`<!-- avp:stage2 ... -->`, `<!-- avp:stage1 ... -->`, `<!-- avp:state ... -->`)."""
+        for marker in ('<!-- avp:stage2 {"kind": "unchanged"} -->', '<!-- avp:state {"scans": 0} -->',
+                       '<!-- avp:stage1 {"failures": []} -->', "<!-- avp:scans=0 -->"):
+            assert "<!--" not in validate.fence(f"scripts/x{marker}.sh")
+            assert "<!--" not in validate.md_inline(f"scripts/x{marker}.sh")
 
 
 class TestClassify:

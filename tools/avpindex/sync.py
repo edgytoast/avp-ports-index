@@ -82,6 +82,7 @@ def pin(rt, state: store.State, entry_id: str, sha: str, kind: str, confidence: 
         health["flagged_files"] = []
         health["rescan_after"] = None
         health["rescan_hold"] = False
+        health["scan_declines"] = 0
         if repo:
             head = linked_head(rt.gh, repo, entry)
             health["commits_since_scan"], health["scan_state"] = compare_scan(
