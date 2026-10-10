@@ -33,10 +33,12 @@ def render(prompt: str) -> str:
 
 
 def test_candidate_schema_is_structurally_identical():
+    """The candidate may reword the schema's title and descriptions, never its structure. (Since the
+    2026-10-10 promotion the two are the same files; the next rewording starts from the candidate.)"""
     live = jules.verdict_schema(REPO_ROOT)
     candidate = jules.verdict_schema(REPO_ROOT, jules.CANDIDATE)
-    assert candidate != live  # its descriptions are reworded
     assert strip_descriptions(candidate) == strip_descriptions(live)
+    assert live["title"] == "Safety check verdict"
 
 
 # What the review asks for, in both prompts (decision 63: the candidate rewords; it doesn't change the bar).
@@ -80,7 +82,7 @@ SUBSTANCE = [
 
 # Every harm the live prompt names ("hidden backdoors, exploits, credential or token harvesting, data
 # exfiltration, hidden network beacons, persistence, cryptominers, or anything else that would jeopardize a
-# user's information, privacy or security"), in the candidate's plain words, plus harm to anyone else.
+# user's information, privacy or security"), in the plain words of the promoted prompt, plus harm to anyone else.
 HARMS = [
     "It isn't safe if it has code, whether or not anything runs it yet, that:",
     "- takes passwords, keys, tokens or other credentials",                              # credential harvesting
@@ -110,12 +112,18 @@ def test_prompts_render_strictly_and_keep_the_substance(prompt):
     assert schema in text
 
 
-def test_candidate_wording():
-    text = render(jules.CANDIDATE)
+@pytest.mark.parametrize("prompt", [jules.LIVE, jules.CANDIDATE])
+def test_no_words_jules_declined_on(prompt):
+    text = render(prompt).lower()
+    for word in ("malicious", "malware", "exploit", "backdoor", "security review"):
+        assert word not in text, word
+
+
+def test_live_wording():
+    """The live prompt (promoted from the candidate after calibration, decision 63) names every harm."""
+    text = render(jules.LIVE)
     flat = " ".join(text.split())
     assert text.startswith("# AVP Ports Index safety check\n")
-    for word in ("malicious", "malware", "exploit", "backdoor", "security review"):  # words Jules declined on
-        assert word not in text.lower(), word
     for phrase in HARMS:
         assert phrase in flat, phrase
     assert ("We recommend these repositories to members of the public, who build them on their own Macs. Before we "
@@ -141,7 +149,7 @@ def test_live_reviews_use_the_live_prompt_and_every_verdict_the_live_schema():
     out = jules.review(client, "https://github.com/a/b", SHA(1), {"stage2": {"confidence_threshold": 80,
                        "jules_timeout_minutes": 60}}, root=REPO_ROOT, sleep=clock.sleep, clock=clock, make_id=lambda: RID)
     assert out.result == "pass" and client.prompt == render(jules.LIVE)
-    assert client.title == f"AVP index review: a/b@{SHA(1)[:7]}"
+    assert client.title == f"AVP index safety check: a/b@{SHA(1)[:7]}"
     client = FakeJules(["COMPLETED"], message_activity(verdict(91)))
     out = jules.review(client, "https://github.com/a/b", SHA(1), {"stage2": {"confidence_threshold": 80,
                        "jules_timeout_minutes": 60}}, root=REPO_ROOT, prompt=jules.CANDIDATE, sleep=clock.sleep,
@@ -232,7 +240,8 @@ def test_calibrate_live_and_declined(root, calibrate_env, monkeypatch):
     monkeypatch.setattr(jules, "Jules", lambda key: clients.append(
         FakeJules(["COMPLETED", "IN_PROGRESS", "COMPLETED"], said(REFUSAL))) or clients[-1])
     assert cli.main(["calibrate", "--prompt", "live", "--out", str(out / "out")]) == 0
-    assert clients[-1].prompt.startswith("# AVP Ports Index security review")
+    assert clients[-1].prompt == jules.render_prompt("https://github.com/edgytoast/twilight-princess-vr", SHA(42),
+                                                     80, RID, root, jules.LIVE)
     data = json.loads((out / "out/outcome.json").read_text())
     assert data["result"] == "declined" and data["calibration"]["prompt"] == "live"
     summary = (out / "summary.md").read_text()

@@ -1,4 +1,4 @@
-"""Stage 2 security review through Google's Jules agent (spec §6.2).
+"""Stage 2 safety check through Google's Jules agent (spec §6.2).
 
 A repoless session is created with the public review prompt; the poller waits for a terminal
 state, nudges once if the session stops to ask something, and reads verdict.json from the
@@ -38,11 +38,13 @@ REPLY_SECONDS = 600     # how long a follow-up message may go unanswered
 EXCERPT_CHARS = 400     # how much of a refusal is kept as the reason
 NO_VERDICT = "no verdict.json was found"
 
-# The prompts (decision 63). Live reviews always use LIVE; calibration may render CANDIDATE, whose wording
-# differs but whose schema must be structurally identical (only descriptions differ; a test checks it).
+# The prompts (decision 63). Live reviews always use LIVE; calibration may render CANDIDATE, a proposed
+# rewording tried on real repos before it replaces LIVE. Its schema must stay structurally identical (only
+# the title and descriptions may differ; a test checks it). Since the 2026-10-10 promotion the candidate
+# holds the same files as live, so the next rewording starts from there.
 LIVE, CANDIDATE = "live", "candidate"
 PROMPTS = {LIVE: ".github/jules", CANDIDATE: ".github/jules/candidate"}
-SESSION_TITLES = {LIVE: "AVP index review", CANDIDATE: "AVP index safety check"}
+SESSION_TITLES = {LIVE: "AVP index safety check", CANDIDATE: "AVP index safety check"}
 
 
 class Deferred(Exception):
