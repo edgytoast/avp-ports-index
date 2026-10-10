@@ -8,7 +8,7 @@ Curated by Trevor "Toast" ([@edgytoast](https://github.com/edgytoast)) · [trevo
 
 A list of games people have lovingly coaxed onto Apple Vision Pro. Every port here was built by someone in the community, standing on years of reverse-engineering and porting work by other someones, and this index exists so that work doesn't quietly disappear into an old Discord channel. It hosts nothing but links, credits and install guides, so you'll bring your own copy of the game (and a little patience with Xcode).
 
-> **Read before installing.** Most entries here are *not* human-reviewed. Each listing either passed automated checks or was reviewed by the curator, and is labeled accordingly. The automated checks confirm that the linked source repo exists and is public, has an install guide (`AVP-INSTALL.md`), its links resolve, and no disc images or other known game-data file types were found; anything that looked like archives or prebuilt downloads went to the curator. Each entry shows its license as stated; some ports have a custom license or none. An AI agent (Google's Jules) reviewed the specific commit linked as **Source (scanned)** for signs of malicious code, paying closest attention to its build scripts; build that commit to get what was reviewed, and check the "commits since scan" count. Building a port runs its build scripts on your Mac with your permissions. Automation **cannot** confirm a port runs on Apple Vision Pro, does not vet third-party code downloaded during the build, may not read every file, and can miss malicious code. Sideloading is at your own discretion. Some developers also publish prebuilt apps; the security review covers the source code, never the apps. This index hosts no games, ports, emulators or binaries. You must own the game and supply your own legally obtained game files, then build from the linked repo.
+> **Read before installing.** Most entries here are *not* human-reviewed. Each listing either passed automated checks or was reviewed by the curator, and is labeled accordingly. The automated checks confirm that the linked source repo exists and is public, has an install guide (`AVP-INSTALL.md`), its links resolve, and no disc images or other known game-data file types were found; anything that looked like archives or prebuilt downloads went to the curator. Each entry shows its license as stated; some ports have a custom license or none. An AI agent (Google's Jules) reviewed the specific commit linked as **Source (scanned)** for signs of malicious code, paying closest attention to its build scripts; build that commit to get what was reviewed, and check the "commits since scan" count. Building a port runs its build scripts on your Mac with your permissions. Automation **cannot** confirm a port runs on Apple Vision Pro, does not vet third-party code downloaded during the build, may not read every file, and can miss malicious code. Sideloading is at your own discretion. Some developers also publish prebuilt apps; the safety check covers the source code, never the apps. This index hosts no games, ports, emulators or binaries. You must own the game and supply your own legally obtained game files, then build from the linked repo.
 
 ## How to install a port
 
@@ -43,7 +43,7 @@ Everything below "Verified by trevorbilt" is self-reported by whoever submitted 
 
 **Health:** "OK", or "⚠ May have issues" when the daily check found a problem. The port stays listed while its developer has time to fix it.
 
-**Scan:** "Scanned <date> · N commits since" means the automated security review covered the commit the links point to, and the repo has N newer commits that haven't been reviewed. "Reviewed by the curator" means the curator looked at that commit instead.
+**Scan:** "Scanned <date> · N commits since" means the automated safety check covered the commit the links point to, and the repo has N newer commits that haven't been reviewed. "Reviewed by the curator" means the curator looked at that commit instead.
 
 ## Ports
 
@@ -56,7 +56,7 @@ Everything below "Verified by trevorbilt" is self-reported by whoever submitted 
 
 ## Developers: get your port listed
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md), or give your coding agent the [avp-index-submit skill](skills/avp-index-submit/SKILL.md). Clean submissions merge on their own after a queued security review.
+Read [CONTRIBUTING.md](CONTRIBUTING.md), or give your coding agent the [avp-index-submit skill](skills/avp-index-submit/SKILL.md). Clean submissions merge on their own after a queued safety check.
 
 ## Data
 
