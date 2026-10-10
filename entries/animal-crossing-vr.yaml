@@ -1,0 +1,31 @@
+schema_version: 1
+id: animal-crossing-vr
+name: Animal Crossing VR
+game:
+  title: "Animal Crossing"
+  original_platform: gamecube
+  original_release_year: 2002
+repo: https://github.com/edgytoast/animalcrossing-visionos
+developer:
+  github: edgytoast
+  name: Trevorbilt
+  url: https://trevorbilt.com
+status: working
+status_notes: "Plays in Full and Progressive immersion with PS VR2 Sense controllers, bare hands or a gamepad, and in a 3D window with a gamepad. Played on Apple Vision Pro in the Window view; Full and Progressive tested in the visionOS Simulator."
+visionos_min: "26.0"
+input: [game-controller, hand-tracking]
+experiences: [3d-shared-space, 6dof-immersive, 6dof-progressive]
+description: "Animal Crossing in six degrees of freedom on Apple Vision Pro: walk your town at life size and swing the net with your own arm, or keep it in a 3D window beside your apps. A native visionOS port of LiquidAzir's VR mod. Bring your own disc."
+tags: [animal-crossing, vr, first-person, life-sim, gamecube, decompilation, hand-tracking]
+credits:
+  - {name: Trevorbilt, role: "visionOS port", url: "https://trevorbilt.com"}
+  - {name: LiquidAzir, role: "animal-crossing-vr, the VR mod this port is built on", url: "https://github.com/LiquidAzir/animal-crossing-vr"}
+  - {name: ACreTeam, role: "Animal Crossing decompilation", url: "https://github.com/ACreTeam/ac-decomp"}
+  - {name: flyngmt, role: "ACGC-PC-Port, the native PC port", url: "https://github.com/flyngmt/ACGC-PC-Port"}
+  - {name: zwaetschge, role: "ACGC-Android-Port, the 64-bit base", url: "https://github.com/zwaetschge/ACGC-Android-Port"}
+  - {name: iChris4, role: "WiiCompiled Vision, source of the visionOS OpenXR provider", url: "https://github.com/iChris4/Wiicompiled_VR"}
+upstream:
+  - https://github.com/LiquidAzir/animal-crossing-vr
+  - https://github.com/zwaetschge/ACGC-Android-Port
+  - https://github.com/flyngmt/ACGC-PC-Port
+  - https://github.com/ACreTeam/ac-decomp
