@@ -257,6 +257,7 @@ REPO_NAME_RE = re.compile(r"^[A-Za-z0-9-]+/[A-Za-z0-9._-]+$")
 REPO_URL_RE = re.compile(r"^https://github\.com/([A-Za-z0-9-]+)/([A-Za-z0-9._-]+)$")
 LOGIN_RE = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?(\[bot\])?$")
 SOURCE_REF_RE = re.compile(r"^(?!.*\.\.)[A-Za-z0-9_][A-Za-z0-9._/-]{0,99}$")  # same as the schema's
+LABEL_RE = ENTRY_ID_RE  # calibration run labels: the same safe slug as entry ids
 
 MAX_ENTRY_BYTES = 16 * 1024
 
@@ -273,6 +274,13 @@ def entry_id(value: object) -> str:
     """An entry id: ^[a-z0-9]+(-[a-z0-9]+)*$, at most 64 characters."""
     if not isinstance(value, str) or len(value) > 64 or not ENTRY_ID_RE.match(value):
         raise InvalidInput("invalid entry id")
+    return value
+
+
+def label(value: object) -> str:
+    """A calibration run's label: lowercase letters, digits and single hyphens, at most 40 characters."""
+    if not isinstance(value, str) or len(value) > 40 or not LABEL_RE.match(value):
+        raise InvalidInput("invalid label")
     return value
 
 
@@ -401,11 +409,22 @@ def md_inline(value: object, limit: int = 300) -> str:
     return neutralize_mentions(text)
 
 
+def log_line(value: object, limit: int = 2000) -> str:
+    """Untrusted text made safe for a job's stdout or stderr: one line, so it can't start a line of its own,
+    and never starting with "::", so the runner can't read it as a workflow command (::add-mask::,
+    ::warning::, ::stop-commands:: and the like)."""
+    text = " ".join(("" if value is None else str(value)).split())[:limit]
+    return "\u200b" + text if text.startswith("::") else text
+
+
 def fence(value: object, lang: str = "text", limit: int = 20000) -> str:
-    """Wrap untrusted multi-line text in a code fence it can't break out of."""
+    """Wrap untrusted multi-line text in a code fence it can't break out of. An HTML comment opener inside it
+    is broken up with a zero-width space, so the text can never form one of the App's hidden markers
+    (`<!-- avp:stage2 ... -->` and the like) that later code reads back. (md_inline escapes `<` already.)"""
     text = "" if value is None else str(value)
     if len(text) > limit:
         text = text[:limit] + "\n[truncated]"
+    text = text.replace("<!--", "<!\u200b--")
     longest = max((len(m) for m in re.findall(r"`+", text)), default=0)
     ticks = "`" * max(3, longest + 1)
     return f"{ticks}{lang}\n{text}\n{ticks}"
