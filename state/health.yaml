@@ -9,7 +9,7 @@ half-life-vr:
   flagged_commit: null
   github_verified: true
   health: ok
-  last_checked: '2026-10-09T06:48:13Z'
+  last_checked: '2026-10-10T04:09:01Z'
   last_commit_date: '2026-10-09T11:06:59Z'
   license:
     kind: open-source
@@ -37,7 +37,7 @@ shar-visionos:
   flagged_commit: null
   github_verified: true
   health: ok
-  last_checked: '2026-10-09T06:48:13Z'
+  last_checked: '2026-10-10T04:09:01Z'
   last_commit_date: '2026-10-08T20:53:28Z'
   license:
     kind: open-source
@@ -55,7 +55,7 @@ shar-visionos:
   warnings: []
 twilight-princess-vr:
   archived: false
-  commits_since_scan: 0
+  commits_since_scan: 4
   consecutive_failures: 0
   curator_own: true
   decay_reset_at: '2026-10-04T17:42:38Z'
@@ -64,8 +64,8 @@ twilight-princess-vr:
   flagged_commit: null
   github_verified: true
   health: ok
-  last_checked: '2026-10-09T06:48:13Z'
-  last_commit_date: '2026-10-08T23:11:41Z'
+  last_checked: '2026-10-10T04:09:01Z'
+  last_commit_date: '2026-10-10T02:52:52Z'
   license:
     kind: open-source
     spdx: CC0-1.0
@@ -76,7 +76,7 @@ twilight-princess-vr:
   routes: []
   scan_confidence: 100
   scan_kind: automated
-  scan_state: current
+  scan_state: behind
   scanned_at: '2026-10-09T07:40:11Z'
   scanned_commit: b7d2f56c5721447f27148d535c40ac68953fc480
   warnings: []

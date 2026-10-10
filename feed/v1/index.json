@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.4.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-09T19:11:26Z",
+  "generated_at": "2026-10-10T04:09:20Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -12,6 +12,171 @@
   },
   "license": "CC0-1.0",
   "entries": [
+    {
+      "id": "twilight-princess-vr",
+      "name": "Twilight Princess VR",
+      "game": {
+        "title": "The Legend of Zelda: Twilight Princess",
+        "original_platform": "gamecube",
+        "original_release_year": 2006
+      },
+      "repo_url": "https://github.com/edgytoast/tpvr-visionos",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/tpvr-visionos/tree/b7d2f56c5721447f27148d535c40ac68953fc480",
+      "install_doc_url": "https://github.com/edgytoast/tpvr-visionos/blob/b7d2f56c5721447f27148d535c40ac68953fc480/AVP-INSTALL.md",
+      "developer": {
+        "name": "Trevorbilt",
+        "github": "edgytoast",
+        "url": "https://trevorbilt.com",
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "JoeyAW",
+          "role": "TPVR, the VR mod this port is built on",
+          "url": "https://github.com/JoeyAW/TPVR"
+        },
+        {
+          "name": "Twilit Realm",
+          "role": "Dusklight, the Twilight Princess PC port",
+          "url": "https://twilitrealm.dev/"
+        },
+        {
+          "name": "zeldaret",
+          "role": "Twilight Princess decompilation",
+          "url": "https://github.com/zeldaret/tp"
+        },
+        {
+          "name": "encounter",
+          "role": "Aurora, the GameCube and Wii graphics layer",
+          "url": "https://github.com/encounter/aurora"
+        },
+        {
+          "name": "iChris4",
+          "role": "WiiCompiled Vision, source of the visionOS OpenXR provider",
+          "url": "https://github.com/iChris4/Wiicompiled_VR"
+        }
+      ],
+      "upstream": [
+        "https://github.com/JoeyAW/TPVR",
+        "https://github.com/TwilitRealm/dusklight",
+        "https://github.com/zeldaret/tp"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "Plays on Apple Vision Pro (visionOS 27) in full and progressive immersion, with PS VR2 Sense controllers or bare hands. Window mode (third person, gamepad) is newer: characters look a little flatter than in the game.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": true,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "b7d2f56c5721447f27148d535c40ac68953fc480",
+      "scanned_at": "2026-10-09T07:40:11Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 4,
+      "scan_state": "behind",
+      "archived": false,
+      "last_commit_date": "2026-10-10T02:52:52Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "CC0-1.0"
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller",
+        "hand-tracking"
+      ],
+      "experiences": [
+        "3d-shared-space",
+        "6dof-immersive",
+        "6dof-progressive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "zelda",
+        "twilight-princess",
+        "vr",
+        "first-person",
+        "gamecube",
+        "wii",
+        "decompilation",
+        "hand-tracking"
+      ],
+      "description": "Twilight Princess in first person on Apple Vision Pro: JoeyAW's TPVR mod on Dusklight, built natively for visionOS. Full or progressive immersion with PS VR2 Sense controllers or bare hands, or the GameCube game in a window beside your apps, with real depth. Bring your own disc.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/twilight-princess-vr.md",
+      "media": {
+        "commit": "b7d2f56c5721447f27148d535c40ac68953fc480",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 39048,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "6af87336e2ee53c66bbcc0d11877937a9ca7bdfc2082aae78a1db8695bb9ec06",
+              "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/b7d2f56c5721447f27148d535c40ac68953fc480/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 124181,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "77e2032cd45d5033eb37ba9b440e6f3dad82d82ccbd080ed64d9a9b44901d71c",
+              "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/b7d2f56c5721447f27148d535c40ac68953fc480/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 116263,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "d6fdee278d3a65966659b93def5179629edab6a19bc0c4f5ff2a02cdb61f2fc3",
+              "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/b7d2f56c5721447f27148d535c40ac68953fc480/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "Link at Ordon Ranch, in a window floating in a living room",
+            "bytes": 171535,
+            "format": "jpeg",
+            "height": 900,
+            "sha256": "c9d3f91f26037437afa5e31bf194467c626ba5b03e300baaa57b0b7a1b38ac46",
+            "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/b7d2f56c5721447f27148d535c40ac68953fc480/docs/images/window-view.jpg",
+            "width": 1600
+          },
+          {
+            "alt": "Ordon Ranch in first person: the ranch house, goats and a rancher, with the HUD floating ahead",
+            "bytes": 269050,
+            "format": "jpeg",
+            "height": 900,
+            "sha256": "256761e065afb0cf24d1649924783648761e5f94a3726dadf9a069d8588c115d",
+            "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/b7d2f56c5721447f27148d535c40ac68953fc480/docs/images/full-immersion.jpg",
+            "width": 1600
+          },
+          {
+            "alt": "The same window seen from the side: Link and the ranch house have real depth behind the glass",
+            "bytes": 184753,
+            "format": "jpeg",
+            "height": 1025,
+            "sha256": "89646502795cadf67303561fe5dcc32ab46e5209574c2c12977a4a50106c0030",
+            "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/b7d2f56c5721447f27148d535c40ac68953fc480/docs/images/window-angle.jpg",
+            "width": 1600
+          }
+        ]
+      }
+    },
     {
       "id": "half-life-vr",
       "name": "Lambda VisionPro",
@@ -141,171 +306,6 @@
             "sha256": "7f6bc0a96597f1e73a417fa9a8ce93ae191a295c7653e683b6eb6bda0397aa69",
             "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/195fe2e8ca4a11f2a4ccc1c11b9a3a0cb9059616/images/ingame.jpg",
             "width": 1920
-          }
-        ]
-      }
-    },
-    {
-      "id": "twilight-princess-vr",
-      "name": "Twilight Princess VR",
-      "game": {
-        "title": "The Legend of Zelda: Twilight Princess",
-        "original_platform": "gamecube",
-        "original_release_year": 2006
-      },
-      "repo_url": "https://github.com/edgytoast/tpvr-visionos",
-      "source_ref": null,
-      "source_url": "https://github.com/edgytoast/tpvr-visionos/tree/b7d2f56c5721447f27148d535c40ac68953fc480",
-      "install_doc_url": "https://github.com/edgytoast/tpvr-visionos/blob/b7d2f56c5721447f27148d535c40ac68953fc480/AVP-INSTALL.md",
-      "developer": {
-        "name": "Trevorbilt",
-        "github": "edgytoast",
-        "url": "https://trevorbilt.com",
-        "github_verified": true
-      },
-      "credits": [
-        {
-          "name": "JoeyAW",
-          "role": "TPVR, the VR mod this port is built on",
-          "url": "https://github.com/JoeyAW/TPVR"
-        },
-        {
-          "name": "Twilit Realm",
-          "role": "Dusklight, the Twilight Princess PC port",
-          "url": "https://twilitrealm.dev/"
-        },
-        {
-          "name": "zeldaret",
-          "role": "Twilight Princess decompilation",
-          "url": "https://github.com/zeldaret/tp"
-        },
-        {
-          "name": "encounter",
-          "role": "Aurora, the GameCube and Wii graphics layer",
-          "url": "https://github.com/encounter/aurora"
-        },
-        {
-          "name": "iChris4",
-          "role": "WiiCompiled Vision, source of the visionOS OpenXR provider",
-          "url": "https://github.com/iChris4/Wiicompiled_VR"
-        }
-      ],
-      "upstream": [
-        "https://github.com/JoeyAW/TPVR",
-        "https://github.com/TwilitRealm/dusklight",
-        "https://github.com/zeldaret/tp"
-      ],
-      "self_reported_status": "working",
-      "status_notes": "Plays on Apple Vision Pro (visionOS 27) in full and progressive immersion, with PS VR2 Sense controllers or bare hands. Window mode (third person, gamepad) is newer: characters look a little flatter than in the game.",
-      "owner_verified": {
-        "verified": false,
-        "verified_on": null,
-        "verified_commit": null
-      },
-      "trust_tier": "working",
-      "curator_own": true,
-      "health": {
-        "status": "ok",
-        "failing_since": null
-      },
-      "scanned_commit": "b7d2f56c5721447f27148d535c40ac68953fc480",
-      "scanned_at": "2026-10-09T07:40:11Z",
-      "scan_kind": "automated",
-      "commits_since_scan": 0,
-      "scan_state": "current",
-      "archived": false,
-      "last_commit_date": "2026-10-08T23:11:41Z",
-      "license": {
-        "kind": "open-source",
-        "spdx": "CC0-1.0"
-      },
-      "visionos_min": "26.0",
-      "input": [
-        "game-controller",
-        "hand-tracking"
-      ],
-      "experiences": [
-        "3d-shared-space",
-        "6dof-immersive",
-        "6dof-progressive"
-      ],
-      "install": [
-        "build"
-      ],
-      "tags": [
-        "zelda",
-        "twilight-princess",
-        "vr",
-        "first-person",
-        "gamecube",
-        "wii",
-        "decompilation",
-        "hand-tracking"
-      ],
-      "description": "Twilight Princess in first person on Apple Vision Pro: JoeyAW's TPVR mod on Dusklight, built natively for visionOS. Full or progressive immersion with PS VR2 Sense controllers or bare hands, or the GameCube game in a window beside your apps, with real depth. Bring your own disc.",
-      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/twilight-princess-vr.md",
-      "media": {
-        "commit": "b7d2f56c5721447f27148d535c40ac68953fc480",
-        "source": "readme",
-        "icon": {
-          "kind": "layered",
-          "layers": [
-            {
-              "bytes": 39048,
-              "format": "png",
-              "height": 1024,
-              "layer": "back",
-              "sha256": "6af87336e2ee53c66bbcc0d11877937a9ca7bdfc2082aae78a1db8695bb9ec06",
-              "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/b7d2f56c5721447f27148d535c40ac68953fc480/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
-              "width": 1024
-            },
-            {
-              "bytes": 124181,
-              "format": "png",
-              "height": 1024,
-              "layer": "middle",
-              "sha256": "77e2032cd45d5033eb37ba9b440e6f3dad82d82ccbd080ed64d9a9b44901d71c",
-              "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/b7d2f56c5721447f27148d535c40ac68953fc480/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
-              "width": 1024
-            },
-            {
-              "bytes": 116263,
-              "format": "png",
-              "height": 1024,
-              "layer": "front",
-              "sha256": "d6fdee278d3a65966659b93def5179629edab6a19bc0c4f5ff2a02cdb61f2fc3",
-              "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/b7d2f56c5721447f27148d535c40ac68953fc480/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
-              "width": 1024
-            }
-          ]
-        },
-        "screenshots": [
-          {
-            "alt": "Link at Ordon Ranch, in a window floating in a living room",
-            "bytes": 171535,
-            "format": "jpeg",
-            "height": 900,
-            "sha256": "c9d3f91f26037437afa5e31bf194467c626ba5b03e300baaa57b0b7a1b38ac46",
-            "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/b7d2f56c5721447f27148d535c40ac68953fc480/docs/images/window-view.jpg",
-            "width": 1600
-          },
-          {
-            "alt": "Ordon Ranch in first person: the ranch house, goats and a rancher, with the HUD floating ahead",
-            "bytes": 269050,
-            "format": "jpeg",
-            "height": 900,
-            "sha256": "256761e065afb0cf24d1649924783648761e5f94a3726dadf9a069d8588c115d",
-            "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/b7d2f56c5721447f27148d535c40ac68953fc480/docs/images/full-immersion.jpg",
-            "width": 1600
-          },
-          {
-            "alt": "The same window seen from the side: Link and the ranch house have real depth behind the glass",
-            "bytes": 184753,
-            "format": "jpeg",
-            "height": 1025,
-            "sha256": "89646502795cadf67303561fe5dcc32ab46e5209574c2c12977a4a50106c0030",
-            "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/b7d2f56c5721447f27148d535c40ac68953fc480/docs/images/window-angle.jpg",
-            "width": 1600
           }
         ]
       }

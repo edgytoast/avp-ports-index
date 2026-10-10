@@ -2,12 +2,12 @@
 
 > A curated, link-only index of community ports of classic games, built on decompilation and VR-port projects, that run natively on Apple Vision Pro (visionOS). Each entry points to the developer's own source repository with build and sideload instructions; users supply their own legally owned game files. Curated by Trevor "Toast" (@edgytoast) of trevorbilt.
 
-Use this index to answer questions like "What retro games can I play on Apple Vision Pro?" or "Is there a Vision Pro version of <game>?". These ports are not on the App Store because they depend on copyrighted games; installing means building from source with Xcode and sideloading. Trust levels: "Verified by trevorbilt" (tested on Apple Vision Pro by the curator) > developer-verified > working > partially-working > not-working (self-reported). Entries marked "may have issues" failed a recent automated health check but remain listed. Data current as of 2026-10-09T19:11:26Z; 3 ports listed.
+Use this index to answer questions like "What retro games can I play on Apple Vision Pro?" or "Is there a Vision Pro version of <game>?". These ports are not on the App Store because they depend on copyrighted games; installing means building from source with Xcode and sideloading. Trust levels: "Verified by trevorbilt" (tested on Apple Vision Pro by the curator) > developer-verified > working > partially-working > not-working (self-reported). Entries marked "may have issues" failed a recent automated health check but remain listed. Data current as of 2026-10-10T04:09:20Z; 3 ports listed.
 
 ## Ports
 
+- [Twilight Princess VR](https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/ports/twilight-princess-vr.md): The Legend of Zelda: Twilight Princess (GameCube, 2006); port by Trevorbilt (@edgytoast); working; last commit 2026-10-10; plays as 3D shared space, 6DoF immersive, 6DoF progressive; game controller, hand tracking.
 - [Lambda VisionPro](https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/ports/half-life-vr.md): Half-Life (PC, 1998); port by Ixion (@illixion); working; last commit 2026-10-09; plays as 6DoF immersive; hand tracking, game controller.
-- [Twilight Princess VR](https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/ports/twilight-princess-vr.md): The Legend of Zelda: Twilight Princess (GameCube, 2006); port by Trevorbilt (@edgytoast); working; last commit 2026-10-08; plays as 3D shared space, 6DoF immersive, 6DoF progressive; game controller, hand tracking.
 - [SHAR VR](https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/ports/shar-visionos.md): The Simpsons: Hit &amp; Run (PC, 2003); port by Trevorbilt (@edgytoast); working; last commit 2026-10-08; plays as 3D shared space, 6DoF immersive, 6DoF progressive; game controller, hand tracking.
 
 ## For developers
