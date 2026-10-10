@@ -18,10 +18,11 @@ THRESHOLD = 80
 
 
 def strip_descriptions(node, parent: str | None = None):
-    """The schema without its `description` annotations (a property *named* description would stay)."""
+    """The schema without its `description` and `title` annotations (a property *named* either would stay):
+    the words may differ, never the structure."""
     if isinstance(node, dict):
         return {k: strip_descriptions(v, k) for k, v in node.items()
-                if not (k == "description" and isinstance(v, str) and parent != "properties")}
+                if not (k in ("description", "title") and isinstance(v, str) and parent != "properties")}
     if isinstance(node, list):
         return [strip_descriptions(v) for v in node]
     return node

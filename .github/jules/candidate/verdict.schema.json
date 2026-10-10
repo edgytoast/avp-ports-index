@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/edgytoast/avp-ports-index/.github/jules/verdict.schema.json",
-  "title": "Security review verdict",
+  "title": "Safety check verdict",
   "type": "object",
   "additionalProperties": false,
   "required": ["review_id", "safe_confidence", "summary", "findings", "steering_attempt"],
