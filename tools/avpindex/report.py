@@ -15,10 +15,20 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from . import approvals, blocklist, jules, lifecycle, messages, store, validate
-from .gate import DECLINED, STAGE1, STAGE2, WAITING, latest_check, stage2_marker
+from .gate import (
+    DECLINED,
+    NO_VERDICT_TITLE,
+    STAGE1,
+    STAGE2,
+    WAITING,
+    latest_check,
+    stage2_marker,
+)
 from .lifecycle import LISTED, PULLED
 from .sync import pin
 
+NO_WORK = "no work"                      # jules.review's decline_signal for a session that showed no work
+NO_VERDICT_LEAD = "**Jules finished without a verdict**"
 DECLINE_RETRY = dt.timedelta(hours=2)    # a declined rescan is tried again this soon,
 DECLINE_QUICK_TRIES = 3                  # until it has declined this many times in a row;
 ERROR_RETRY = dt.timedelta(hours=24)     # then it waits as long as after an error
@@ -75,9 +85,12 @@ def load_outcome(path: Path, scan_result: str, policy: dict) -> dict:
     if result == "deferred":
         return {"result": "deferred", "reason": data.get("reason", "")}
     if result == "declined":
-        # Jules refused to review. Whatever else the artifact holds, this is never a verdict or a pass.
+        # Jules refused to review, or finished without a verdict and without showing any work (the "no work"
+        # signal, which can't tell the two apart). Whatever else the artifact holds, this is never a pass.
+        diagnostics = data.get("diagnostics") if isinstance(data.get("diagnostics"), dict) else {}
+        signal = NO_WORK if diagnostics.get("decline_signal") == NO_WORK else "wording"
         return {"result": "declined", "reason": str(data.get("reason") or "")[:jules.EXCERPT_CHARS],
-                "session_url": data.get("session_url"), "minutes": data.get("minutes")}
+                "session_url": data.get("session_url"), "minutes": data.get("minutes"), "signal": signal}
     verdict, problem = jules.check_verdict(json.dumps(data.get("verdict")) if data.get("verdict") else None,
                                            jules.verdict_schema())
     out = {"result": "error", "reason": data.get("reason") or problem, "session_url": data.get("session_url"),
@@ -88,9 +101,20 @@ def load_outcome(path: Path, scan_result: str, policy: dict) -> dict:
     return out
 
 
+def no_work(outcome: dict) -> bool:
+    """A `declined` result on the no-work signal: Jules finished without a verdict and without showing any
+    work. Calibration showed working sessions may show only their messages, so that may not be a refusal at
+    all, and it's never worded as one."""
+    return outcome.get("signal") == NO_WORK
+
+
 def decline_summary(outcome: dict) -> str:
-    return "\n".join(["Jules declined to review this repository, so there is no verdict. Its reply (untrusted text):",
-                      "", validate.fence(outcome.get("reason") or "(no message)")])
+    if no_work(outcome):
+        lead = (f"{NO_VERDICT_LEAD} and without showing any work on the repository; it may have declined, or just "
+                "not printed its verdict. Its last message (untrusted text):")
+    else:
+        lead = "Jules declined to review this repository, so there is no verdict. Its reply (untrusted text):"
+    return "\n".join([lead, "", validate.fence(outcome.get("reason") or "(no message)")])
 
 
 def verdict_summary(outcome: dict, threshold: int) -> str:
@@ -134,18 +158,24 @@ def decline_body(inputs: Inputs, outcome: dict, declines: int, retry_at: dt.date
     """The triage note for a declined rescan (spec §6.3)."""
     session = outcome.get("session_url")
     when = store.iso(retry_at)
-    if declines < DECLINE_QUICK_TRIES:
-        plan = (f"Jules turns a review down now and then. The rescan will try again after {when} "
-                f"({declines} decline{'s' if declines > 1 else ''} in a row). The entry stays listed at the commit "
-                "already reviewed; nothing to do.")
+    where = f"the new commit of `{inputs.entry_id}` ({inputs.linked_repo} at `{inputs.linked_commit}`)"
+    if no_work(outcome):
+        headline = (f"{NO_VERDICT_LEAD} on {where}, and without showing any work on the repository; it may have "
+                    "declined, or just not printed its verdict.")
+        quoted = "Jules's last message (untrusted text):"
     else:
-        plan = (f"That's {declines} declines in a row, so it now waits a day between tries: the next is after "
-                f"{when}. You may want to look: open the session below, or review the commit yourself. The entry "
-                "stays listed at the commit already reviewed. Kill switch `rescan` resets the count and tries "
-                "again at once; it changes nothing else.")
+        headline, quoted = f"**Jules declined to review** {where}.", "Jules's reply (untrusted text):"
+    tries = f"{declines} {'try' if declines == 1 else 'tries'} in a row without a verdict"
+    if declines < DECLINE_QUICK_TRIES:
+        plan = (f"This happens now and then. The rescan will try again after {when} ({tries}). The entry stays "
+                "listed at the commit already reviewed; nothing to do.")
+    else:
+        plan = (f"That's {tries}, so it now waits a day between tries: the next is after {when}. You may want to "
+                "look: open the session below, or review the commit yourself. The entry stays listed at the commit "
+                "already reviewed. Kill switch `rescan` resets the count and tries again at once; it changes nothing "
+                "else.")
     return "\n".join([
-        (f"**Jules declined to review** the new commit of `{inputs.entry_id}` ({inputs.linked_repo} at "
-         f"`{inputs.linked_commit}`)."), "", plan, "", "Jules's reply (untrusted text):", "",
+        headline, "", plan, "", quoted, "",
         validate.fence(outcome.get("reason") or "(no message)"), "",
         f"Jules session (opens for the owner's account only): {session}" if session else "No Jules session link.",
     ])
@@ -261,7 +291,7 @@ def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
         # A newer scan was dispatched, or the PR now links another commit and is queued again.
         messages.upsert(rt, number, scans=scans, **clear_scanning)
         return []
-    rt.gh.create_check(head, STAGE2, conclusion="failure", title="Security review error; waiting for the curator",
+    rt.gh.create_check(head, STAGE2, conclusion="failure", title="Safety check error; waiting for the curator",
                        summary=summary + "\n\n" + stage2_marker(kind="result", result="error"),
                        external_id=inputs.external_id)
     swap(("stage2:scanning", "stage2:queued"), ("needs-owner",))
@@ -279,7 +309,8 @@ def _pr_declined(rt, inputs: Inputs, outcome: dict, pr: dict, bot_state: dict, s
     max_scans = int(rt.policy["stage2"]["per_pr_max_scans"])
     # The count and time live in the bot comment, so pushes can't reset them: the dispatcher holds a PR at the
     # cap (as it does at the scan cap) and waits an hour after each decline before sending it back to Jules.
-    declined = {"declines": int(bot_state.get("declines") or 0) + 1, "declined_at": store.iso(store.utcnow())}
+    declined = {"declines": int(bot_state.get("declines") or 0) + 1, "declined_at": store.iso(store.utcnow()),
+                "decline_signal": NO_WORK if no_work(outcome) else "wording"}  # how the dispatcher words its limit
     declines = declined["declines"]
     clear_scanning = {"scanning": None} if mine else {}
     head = pr["head"]["sha"]
@@ -291,9 +322,10 @@ def _pr_declined(rt, inputs: Inputs, outcome: dict, pr: dict, bot_state: dict, s
     if declines < max_scans:
         swap(("stage2:scanning",), ("stage2:queued",))
         messages.upsert(rt, number, scans=scans, **declined, **clear_scanning)
-        rt.summary(f"#{number}: Jules declined to review; back in the queue ({declines} decline(s)).")
+        what = "finished without a verdict" if no_work(outcome) else "declined to review"
+        rt.summary(f"#{number}: Jules {what}; back in the queue ({declines} in a row).")
         return []
-    rt.gh.create_check(head, STAGE2, conclusion="failure", title=DECLINED,
+    rt.gh.create_check(head, STAGE2, conclusion="failure", title=NO_VERDICT_TITLE if no_work(outcome) else DECLINED,
                        summary=decline_summary(outcome) + "\n\n" + stage2_marker(kind="result", result="declined"),
                        external_id=inputs.external_id)
     swap(("stage2:scanning", "stage2:queued"), ("needs-owner",))
@@ -346,7 +378,7 @@ def rescan(rt, inputs: Inputs, outcome: dict, threshold: int) -> None:
             if declined_before:
                 rt.note_triage(inputs.entry_id, f"Jules reviewed `{inputs.linked_commit}` on a later try and it "
                                                 f"passed (confidence {confidence}), so the pin moved there. The "
-                                                "declines above need nothing more.")
+                                                "notes above need nothing more.")
         elif result == "flag":
             apply_rescan_flag(rt, state, inputs, outcome, threshold)
         elif result == "declined":

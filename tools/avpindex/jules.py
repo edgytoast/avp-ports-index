@@ -1,4 +1,4 @@
-"""Stage 2 security review through Google's Jules agent (spec §6.2).
+"""Stage 2 safety check through Google's Jules agent (spec §6.2).
 
 A repoless session is created with the public review prompt; the poller waits for a terminal
 state, nudges once if the session stops to ask something, and reads verdict.json from the
@@ -38,11 +38,13 @@ REPLY_SECONDS = 600     # how long a follow-up message may go unanswered
 EXCERPT_CHARS = 400     # how much of a refusal is kept as the reason
 NO_VERDICT = "no verdict.json was found"
 
-# The prompts (decision 63). Live reviews always use LIVE; calibration may render CANDIDATE, whose wording
-# differs but whose schema must be structurally identical (only descriptions differ; a test checks it).
+# The prompts (decision 63). Live reviews always use LIVE; calibration may render CANDIDATE, a proposed
+# rewording tried on real repos before it replaces LIVE. Its schema must stay structurally identical (only
+# the title and descriptions may differ; a test checks it). Since the 2026-10-10 promotion the candidate
+# holds the same files as live, so the next rewording starts from there.
 LIVE, CANDIDATE = "live", "candidate"
 PROMPTS = {LIVE: ".github/jules", CANDIDATE: ".github/jules/candidate"}
-SESSION_TITLES = {LIVE: "AVP index review", CANDIDATE: "AVP index safety check"}
+SESSION_TITLES = {LIVE: "AVP index safety check", CANDIDATE: "AVP index safety check"}
 
 
 class Deferred(Exception):
@@ -249,8 +251,11 @@ def agent_messages(activities: list[dict]) -> list[str]:
 #     review is never a refusal (that is a format problem; a verdict with another id doesn't count).
 #  2. No work: the session finished with no verdict, no attempt at one (nothing verdict-shaped, with any
 #     id, and no other problem than "not found"), and no sign it touched the repository (no command output,
-#     no change set, no progress note about the clone), whatever it said. That command output shows in
-#     working sessions is the premise; calibration runs' diagnostics (artifact_kinds, decline_signal) check it.
+#     no change set, no progress note about the clone), whatever it said. Calibration (2026-10-10) showed
+#     that working sessions may expose only their messages, so this can't tell a refusal from a review whose
+#     verdict never got printed. It's kept because all it does is send the restatement, which asks for the
+#     verdict too, and retry a rescan in 2 hours instead of 24; it never passes anything. Its result is still
+#     `declined`, with decline_signal "no work", and the report job words it as "finished without a verdict".
 # Text is lowercased and contractions spelled out first (_plain), so "I can't" and "I cannot" read the same.
 
 _END = (r"(?:,? (?:again|once more|as well|too|either|here|now|at all|for you|i am afraid))?"

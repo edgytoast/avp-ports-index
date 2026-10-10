@@ -1,4 +1,4 @@
-# One Stage 2 security review (docs/SPEC.md §6.2, §8.4). Dispatched only by the dispatcher.
+# One Stage 2 safety check (docs/SPEC.md §6.2, §8.4). Dispatched only by the dispatcher.
 # The scan job holds no GitHub token; Jules runs in Google's environment.
 name: stage2-scan
 run-name: stage2 ${{ inputs.mode }} ${{ inputs.mode == 'pr' && inputs.pr || inputs.entry_id }}

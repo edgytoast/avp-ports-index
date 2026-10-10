@@ -20,6 +20,7 @@ WATCHED_LABELS = ("owner:scan", "blocklist", "kill-switch")
 PIPELINE_LABELS = ("stage1:pass", "stage1:fail", "stage1:route", "needs-author", "needs-owner")
 WAITING = "Waiting for the curator"
 DECLINED = "Jules declined to review; waiting for the curator"
+NO_VERDICT_TITLE = "No verdict from Jules; waiting for the curator"  # a `declined` result on the no-work signal
 MARKER_RE = re.compile(r"<!-- avp:stage2 (\{.*?\}) -->")
 STAGE1_MARKER_RE = re.compile(r"<!-- avp:stage1 (\{.*?\}) -->")
 
@@ -261,7 +262,7 @@ def entry_pr(rt, pr: dict, cls, labels: set[str]) -> list[int]:
         # §8.2 step 2: keep the flag on the new head; no new scan until the owner acts.
         scanned = bot_state.get("flagged")
         rt.gh.create_check(head, STAGE2, conclusion="failure", title=WAITING,
-                           summary="The automated security review asked for a closer look. The curator "
+                           summary="The automated safety check asked for a closer look. The curator "
                                    "decides; new pushes don't start another review.\n\n"
                                    + stage2_marker(kind="result", result="flag"),
                            external_id=scanned)
@@ -283,8 +284,8 @@ def entry_pr(rt, pr: dict, cls, labels: set[str]) -> list[int]:
     record_health = state.health.get(cls.stem) or {}
     repo_changed = bool(report.repo and (state.lifecycle.get(cls.stem) or {}).get("repo_id") not in (None, report.repo["id"]))
     if "stage2:scanning" in labels and bot_state.get("scanning") == ext:
-        rt.gh.create_check(head, STAGE2, status="in_progress", title="Security review in progress",
-                           summary="The automated security review of this commit is running.", external_id=ext)
+        rt.gh.create_check(head, STAGE2, status="in_progress", title="Safety check in progress",
+                           summary="The automated safety check of this commit is running.", external_id=ext)
         return []
     if cls.kind != ENTRY_ADD and not repo_changed and report.head == record_health.get("scanned_commit"):
         _clear(rt, number, labels, ("stage2:queued",))
@@ -303,12 +304,12 @@ def entry_pr(rt, pr: dict, cls, labels: set[str]) -> list[int]:
         return [number]
     if pr.get("draft"):
         rt.gh.create_check(head, STAGE2, status="in_progress", title="Waiting until the PR is marked ready",
-                           summary="Draft PRs run Stage 1 but aren't queued for the security review.")
+                           summary="Draft PRs run Stage 1 but aren't queued for the safety check.")
         return []
     if "stage2:queued" not in labels:
         rt.gh.add_labels(number, ["stage2:queued"])
     _clear(rt, number, labels, ("stage2:pass",))
-    rt.gh.create_check(head, STAGE2, status="in_progress", title="Queued for the security review",
+    rt.gh.create_check(head, STAGE2, status="in_progress", title="Queued for the safety check",
                        summary="Queued, first come, first served.", external_id=ext)
     position, eta = queue_position(rt, number)
     messages.upsert(rt, number, messages.render("queued", rt.root, name=name, n=position, eta=eta))
