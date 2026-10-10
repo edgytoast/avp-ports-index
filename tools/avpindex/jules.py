@@ -238,55 +238,93 @@ def agent_messages(activities: list[dict]) -> list[str]:
 
 # --- declines -----------------------------------------------------------------------------
 # Jules sometimes refuses a review outright, intermittently (2026-10-10: "I am programmed to strictly
-# refuse any requests to perform security reviews, ..."). Every phrase that marks a refusal lives in these
-# two lists. A message is a refusal if it matches one STRONG phrase, or two different WEAK ones, and holds
-# nothing shaped like a verdict (that is a format problem, not a refusal). Text is lowercased and
-# contractions are spelled out first (_plain), so "I can't" and "I cannot" read the same.
+# refuse any requests to perform security reviews, ..."). Two signals mark a refusal, both kept here:
+#  1. Wording: any agent message since our last follow-up in one of the first-person refusal shapes in
+#     REFUSAL_PATTERNS ("I can't help with that", "I'm not able to provide a security assessment of this
+#     repository", "my guidelines prevent me ..."). Third-person mentions ("the server will refuse any
+#     request", "nothing refuses to build") don't match, and a message carrying a verdict for this review
+#     is never a refusal (that is a format problem; a verdict with another id doesn't count).
+#  2. No work: the session finished with no verdict and no sign it touched the repository (no command
+#     output, no change set, no progress note about the clone), whatever it said.
+# Text is lowercased and contractions spelled out first (_plain), so "I can't" and "I cannot" read the same.
 
-_NOT = (r"(?:cannot|will not|must not|am not able to|am unable to|am not permitted to|am not allowed to|"
-        r"am not in a position to)(?: be able to)?")
-_TASK = r"(?:perform|carry out|conduct|do|complete|undertake|evaluate|review|analy[sz]e|scan|assess|audit|inspect)"
-_WORK = (r"(?:requests?|tasks?|reviews?|scans?|scanning|analys[ie]s|assessments?|evaluations?|audits?|"
-         r"repository|repositories|repo|repos)")
-_OBJECT = (rf"(?:(?:this|that|the|these|those|such|your|any|a|an)(?: [\w-]+){{0,2}} {_WORK}\b|"
-           rf"(?:security|vulnerability|malware|safety)(?: [\w-]+)? {_WORK}\b)")
+_NOT = (r"(?:cannot|will not|must not|do not|am not able to|am unable to|am not permitted to|am not allowed to|"
+        r"am not in a position to|am not going to|am not designed to|am not built to|am not programmed to)"
+        r"(?: be able to)?")
+_TASK = (r"(?:perform|carry out|conduct|do|complete|undertake|provide|evaluate|review|analy[sz]e|scan|assess|"
+         r"audit|inspect|examine|check|look into|proceed with|continue with|engage in|help with|assist with|"
+         r"take on|handle|process)")
+_WORK = (r"(?:requests?|tasks?|reviews?|scans?|scanning|analys[ie]s|assessments?|evaluations?|audits?|auditing|"
+         r"inspections?|checks?|repository|repositories|repos?|codebases?|code base)")
+_DET = r"(?:this|that|the|these|those|such|your|any|a|an|its)"
+_WORDS = r"(?: (?!(?:of|in|on|from|for|with|at|by|to|and|or|but)\b)[\w-]+){0,2}"  # up to two adjectives
+_AFTER = (r"(?!'| by\b| without\b| beyond\b| except\b| other than\b| until\b| unless\b| in depth\b| fully\b|"
+          r" further\b| directly\b| yet\b)")  # "the repository's binaries", "the repository without running it"
+_OBJECT = (rf"(?:{_DET}{_WORDS}(?: (?:kind|type|sort)s? of{_WORDS})? {_WORK}\b{_AFTER}"
+           rf"|(?:security|vulnerability|malware|safety)(?: [\w-]+)? {_WORK}\b{_AFTER}"
+           rf"|(?:repositories|repos|codebases|code) for (?:malware|vulnerabilities|security)\b"
+           rf"|(?:the )?security of {_DET}(?: [\w-]+)? (?:repository|repo|codebase|project|target)\b{_AFTER}"
+           rf"|(?:this|that)(?=[.!?,;:]|$))")
 
-REFUSAL_STRONG = tuple(re.compile(p) for p in (
-    rf"\bi {_NOT} (?:help(?! but\b)|assist|comply)\b",                   # I can't help with that
-    r"\b(?:cannot|unable to|not able to|will not) fulfil+\b",             # I cannot fulfill your request
-    rf"\bi {_NOT} {_TASK} {_OBJECT}",                                     # I cannot evaluate the repository
-    r"\b(?:must|have to|need to|will have to|am required to) (?:respectfully |politely )?(?:refuse|decline)\b",
-    r"\bi (?:strictly |respectfully |politely )?(?:refuse|decline)\b",   # I decline
-    r"\bi (?:[\w-]+ ){0,4}refuse (?:any|all|such|these|this|your)\b",  # I am programmed to strictly refuse any
-    r"\bprogrammed (?:to|not to) (?:strictly )?(?:refuse|decline|not|never|avoid)\b",
-    r"\b(?:against|violates?) my (?:guidelines|policies|policy|programming|principles|rules|instructions)\b",
-    (r"\bnot (?:allowed|permitted) to (?:help|assist|perform|carry out|conduct|do) (?:with )?"
+REFUSAL_PATTERNS = tuple(re.compile(p) for p in (
+    rf"\bi {_NOT} (?:help(?! but\b)|assist|comply)\b",                        # I can't help with that
+    rf"\bi {_NOT} fulfil+\b",                                                  # I cannot fulfill your request
+    rf"\bi {_NOT} {_TASK} {_OBJECT}",                     # I'm unable to provide a security assessment of this repo
+    rf"\bi {_NOT} do (?:that|this|it|so)(?=[.!?,;:]|$)",                       # I can't do that.
+    (rf"\bi {_NOT} (?:proceed|continue)(?=[.!?,;:]|$| (?:any )?further\b| with (?:this|that|it|the request|"
+     r"the task|your request)\b)"),                                            # I cannot proceed.
+    (r"\bi (?:must |have to |need to |will have to |am going to have to |"
+     r"(?:am|have been|was) (?:programmed|designed|built|trained|instructed|required) to )?"
+     r"(?:strictly |respectfully |politely |firmly )?(?:refuse|decline)\b"),  # I must decline; I am programmed to refuse
+    r"\bi (?:am|have been|was) (?:programmed|designed|built|trained|instructed) (?:not to|never to|to never|to avoid)\b",
+    (r"\b(?:against|violates?|outside(?: of)?) my (?:guidelines|policies|policy|programming|principles|rules|"
+     r"safety guidelines|usage policies|capabilities|scope|remit)\b"),       # this goes against my guidelines
+    (r"\bmy (?:guidelines|policies|policy|programming|principles|rules|instructions|safety guidelines) "
+     r"(?:prevent|prohibit|forbid|bar|restrict|stop|do not allow|does not allow|do not permit|does not permit|"
+     r"will not allow|will not let|do not let|does not let) me\b"),          # my guidelines prevent me from ...
+    (r"\bfalls? outside (?:of )?(?:what i (?:can|am able to|am allowed to|am permitted to)\b|my\b|"
+     r"the (?:scope|bounds|limits) of what i\b)"),                           # this falls outside what I can do
+    r"\boutside (?:of )?the scope of what i (?:can|am able to|am allowed to|am permitted to)\b",
+    (r"\bnot something i (?:can|am able to|am allowed to|am permitted to|will) (?:help|assist|do|provide|perform|"
+     r"support|undertake|carry out|engage in)\b"),                           # that's not something I can help with
+    (r"\bi am not (?:allowed|permitted) to (?:help|assist|perform|carry out|conduct|do|provide|engage in) (?:with )?"
      r"(?:this|that|such|these|security|vulnerability|malware)\b"),
 ))
-REFUSAL_WEAK = tuple(re.compile(p) for p in (
-    r"\b(?:sorry|apologi[sz]e)\b",
-    rf"\bi {_NOT} {_TASK}\b",                                              # I cannot review (what, unsaid)
-    r"\b(?:this|your) request\b",
-))
 _CONTRACTIONS = (("can't", "cannot"), ("can not", "cannot"), ("won't", "will not"), ("i'm", "i am"),
-                 ("mustn't", "must not"))
+                 ("i've", "i have"), ("i'll", "i will"), ("i'd", "i would"), ("n't", " not"))
+WORK_HINTS = ("clone", "cloning", "/tmp/target")  # progress notes that show the session got to the repository
 
 
 def _plain(text: str) -> str:
-    text = " ".join(text.replace("\u2019", "'").replace("\u2018", "'").lower().split())
+    text = " ".join(text.replace("’", "'").replace("‘", "'").lower().split())
     for short, full in _CONTRACTIONS:
         text = text.replace(short, full)
     return text
 
 
-def looks_like_refusal(text: str | None) -> bool:
-    """Whether an agent message refuses the review (see the lists above)."""
-    if not text or _json_objects(text):
+def looks_like_refusal(text: str | None, review_id: str | None = None) -> bool:
+    """Whether an agent message refuses the review (signal 1 above). A message holding a verdict-shaped
+    object with this review's id is an attempt at the verdict, not a refusal."""
+    if not text:
+        return False
+    if review_id and any(obj.get("review_id") == review_id for obj in _json_objects(text)):
         return False
     plain = _plain(text)
-    if any(p.search(plain) for p in REFUSAL_STRONG):
-        return True
-    return sum(1 for p in REFUSAL_WEAK if p.search(plain)) >= 2
+    return any(p.search(plain) for p in REFUSAL_PATTERNS)
+
+
+def worked_on_repo(activities: list[dict], repo_url: str) -> bool:
+    """Signal 2's evidence: command output, a change set, or a progress note about the clone or the repo."""
+    name = repo_url.removeprefix("https://github.com/").lower()
+    for activity in activities:
+        for artifact in activity.get("artifacts") or []:
+            if artifact.get("bashOutput") or artifact.get("changeSet"):
+                return True
+        progress = activity.get("progressUpdated") or {}
+        text = " ".join(str(progress.get(key) or "") for key in ("title", "description")).lower()
+        if any(hint in text for hint in (*WORK_HINTS, name)):
+            return True
+    return False
 
 
 def restate_message(review_id: str) -> str:
@@ -365,10 +403,13 @@ def review(client: Jules, repo_url: str, sha: str, policy: dict, *, root: Path |
     follow_ups: list[str] = []     # nudge, restate, fix: each sent at most once
     sent_at: float | None = None   # we sent a message and wait for the state to change
     sent_state = ""
-    seen = 0                       # agent messages in the session when we sent it
+    seen = 0                       # agent messages in the session when we sent it: only later ones are judged
+    settled = -1                   # while waiting: the message count at the previous poll
+    refusal = ""                   # what the restatement answered
 
-    def declined(text: str) -> None:
+    def declined(text: str, signal: str) -> None:
         outcome.result, outcome.reason = "declined", excerpt(text)
+        outcome.diagnostics["decline_signal"] = signal
 
     try:
         while True:
@@ -387,17 +428,20 @@ def review(client: Jules, repo_url: str, sha: str, policy: dict, *, root: Path |
                     if verdict is not None:
                         outcome.result, outcome.verdict = decide(verdict, threshold), verdict
                         break
-                    said = agent_messages(activities)
-                    if not (len(said) > seen and looks_like_refusal(said[-1])):
-                        if clock() - sent_at > REPLY_SECONDS:
-                            if said and looks_like_refusal(said[-1]):
-                                declined(said[-1])  # it refused, then didn't take up the follow-up
-                            else:
-                                outcome.reason = "the session didn't respond to the follow-up message"
-                            break
+                    count = len(agent_messages(activities))
+                    late = clock() - sent_at > REPLY_SECONDS
+                    if count > seen and (count == settled or late):
+                        pass  # it answered and has stopped writing: judge the answer now, below
+                    elif late:
+                        if follow_ups[-1] == "restate":
+                            declined(refusal, outcome.diagnostics.get("decline_signal", "wording"))
+                        else:
+                            outcome.reason = "the session didn't respond to the follow-up message"
+                        break
+                    else:
+                        settled = count if count > seen else -1
                         continue
-                    # It already answered with a refusal: judge that now.
-                sent_at = None
+                sent_at, settled = None, -1
             if state not in DONE_STATES | STOPPED_STATES:
                 continue
             activities = client.activities(name)
@@ -408,21 +452,27 @@ def review(client: Jules, repo_url: str, sha: str, policy: dict, *, root: Path |
                 outcome.result, outcome.verdict = decide(verdict, threshold), verdict
                 break
             said = agent_messages(activities)
-            refused = bool(said) and looks_like_refusal(said[-1])
+            # Only what Jules said since our last follow-up counts, so an old refusal isn't judged twice.
+            found = next((text for text in reversed(said[seen:]) if looks_like_refusal(text, review_id)), None)
+            signal = "wording" if found is not None else ""
+            if found is None and state == "COMPLETED" and not worked_on_repo(activities, repo_url):
+                found, signal = (said[-1] if said else ""), "no work"
             if state == "FAILED":
-                if refused:
-                    declined(said[-1])
+                if signal == "wording":
+                    declined(found, signal)
                 else:
                     failed = [a for a in activities if a.get("sessionFailed")]
                     outcome.reason = "session failed" + (
                         f": {failed[-1]['sessionFailed'].get('reason', '')}" if failed else "")
                 break
-            if refused:
+            if signal:
                 # Jules refused the review: say plainly what it is, once. A second refusal is `declined`.
                 if "restate" in follow_ups:
-                    declined(said[-1])
+                    declined(found, signal)
                     break
                 follow_ups.append("restate")
+                refusal = found
+                outcome.diagnostics["decline_signal"] = signal
                 if state == "AWAITING_PLAN_APPROVAL":
                     client.approve_plan(name)
                 client.send_message(name, restate_message(review_id))
