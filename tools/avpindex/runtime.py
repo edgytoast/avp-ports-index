@@ -111,7 +111,7 @@ class Runtime:
 
     def summary(self, line: str) -> None:
         self.summary_lines.append(line)
-        print(line)
+        print(validate.log_line(line))  # one line, never a workflow command
 
     def flush_summary(self) -> None:
         path = os.environ.get("GITHUB_STEP_SUMMARY")

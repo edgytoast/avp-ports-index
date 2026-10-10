@@ -102,11 +102,12 @@ def cmd_scan(args) -> int:
     (out / "outcome.json").write_text(json.dumps(outcome.to_json(), indent=2), encoding="utf-8")
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
     line = (f"Scan of {repo}@{sha[:12]}: {outcome.result} after {outcome.minutes:.1f} min; "
-            f"states {', '.join(outcome.states) or 'none'}; ")
-    print(line + outcome.reason)
-    print(f"Session: {outcome.session_url}")
+            f"states {validate.log_line(', '.join(outcome.states)) or 'none'}; ")
+    # The reason can be Jules's own words (a decline): one line on stdout, so it can't pose as a workflow
+    # command, and escaped in the rendered summary.
+    print(line + validate.log_line(outcome.reason))
+    print(f"Session: {validate.log_line(outcome.session_url)}")
     if summary:
-        # The reason can be Jules's own words (a decline), so it's escaped in the rendered summary.
         with open(summary, "a", encoding="utf-8") as fh:
             fh.write(line + validate.md_inline(outcome.reason, 500) + f"\n\nSession: {outcome.session_url}\n")
     return 0
@@ -219,7 +220,12 @@ def cmd_calibrate(args) -> int:
     out.mkdir(parents=True, exist_ok=True)
     (out / "outcome.json").write_text(json.dumps(data, indent=2), encoding="utf-8")
     text = _calibration_summary(data, int(policy["stage2"]["confidence_threshold"]))
-    print(text)
+    # Jules's text goes only to the rendered summary; stdout gets one JSON line, which no workflow command
+    # can hide in.
+    verdict = data.get("verdict") or {}
+    print(json.dumps({"label": label, "prompt": prompt, "repo": repo, "commit": sha, "result": data["result"],
+                      "confidence": verdict.get("safe_confidence"), "steering": verdict.get("steering_attempt"),
+                      "findings": len(verdict.get("findings") or []), "session_url": data.get("session_url")}))
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
     if summary:
         with open(summary, "a", encoding="utf-8") as fh:

@@ -198,6 +198,29 @@ def test_calibrate_writes_the_outcome_and_nothing_else(root, calibrate_env):
     assert "Session: https://jules.google.com/session/1" in summary
 
 
+def test_calibrate_stdout_carries_no_workflow_commands(root, calibrate_env, monkeypatch, capsys):
+    """Jules's summary and findings go to the rendered summary only; stdout is one JSON line."""
+    out, clients = calibrate_env
+    nasty = "fine\n::add-mask::ghs_secret\n::warning file=x::spoofed\n  ::stop-commands::t"
+    finding = {"severity": "low", "file": "a\n::error::x", "category": "c", "explanation": nasty}
+    monkeypatch.setattr(jules, "Jules", lambda key: clients.append(FakeJules(["COMPLETED"], message_activity(
+        {**verdict(90, findings=[finding]), "summary": nasty}))) or clients[-1])
+    assert cli.main(["calibrate", "--prompt", "candidate", "--out", str(out / "out")]) == 0
+    printed = capsys.readouterr().out
+    no_workflow_commands(printed)
+    line = json.loads(printed.strip().splitlines()[-1])
+    assert line["result"] == "pass" and line["confidence"] == 90 and line["findings"] == 1
+    assert "::add-mask::ghs_secret" in (out / "summary.md").read_text()  # fenced there, as text
+
+
+def test_runtime_summary_prints_one_line(capsys):
+    from avpindex.runtime import Runtime
+    rt = Runtime(repo="a/b", gh=None)
+    rt.summary("media not collected (x\n::add-mask::y)")
+    no_workflow_commands(capsys.readouterr().out)
+    assert rt.summary_lines == ["media not collected (x\n::add-mask::y)"]
+
+
 def test_calibrate_live_and_declined(root, calibrate_env, monkeypatch):
     out, clients = calibrate_env
     from test_stage2 import REFUSAL, said
@@ -254,8 +277,21 @@ def test_calibrate_workflow_is_isolated():
                     '--out "$RUNNER_TEMP/out"')]
 
 
-def test_scan_summary_escapes_a_decline(tmp_path, monkeypatch):
-    """A decline's reason is Jules's own words: the live scan's run summary escapes it."""
+def no_workflow_commands(output: str) -> None:
+    """The runner reads any stdout or stderr line that starts with "::" (after leading spaces) as a command."""
+    for line in output.splitlines():
+        assert not line.lstrip().startswith("::"), line
+
+
+def test_log_line():
+    assert validate.log_line("a\n::add-mask::secret\r\n::warning::x") == "a ::add-mask::secret ::warning::x"
+    assert validate.log_line("::error::spoof").startswith("\u200b::")
+    assert validate.log_line(None) == ""
+
+
+def test_scan_summary_escapes_a_decline(tmp_path, monkeypatch, capsys):
+    """A decline's reason is Jules's own words: the live scan's run summary escapes it, and stdout keeps it on
+    one line where it can't pose as a workflow command."""
     summary = tmp_path / "summary.md"
     monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(summary))
     for name, value in (("INPUT_LINKED_REPO", "a/b"), ("INPUT_LINKED_COMMIT", SHA(1)), ("INPUT_MODE", "rescan"),
@@ -264,8 +300,10 @@ def test_scan_summary_escapes_a_decline(tmp_path, monkeypatch):
     monkeypatch.delenv("INPUT_PR", raising=False)
     monkeypatch.setattr(jules, "Jules", lambda key: None)
     monkeypatch.setattr(jules, "review", lambda *a, **k: jules.Outcome(
-        "declined", reason="I refuse. @victim ![beacon](https://evil.example/x.png)", session_url="u"))
+        "declined", reason="I refuse. @victim ![beacon](https://evil.example/x.png)\n::add-mask::x\n::error::spoof",
+        session_url="u\n::warning::spoof", states=["COMPLETED\n::notice::x"]))
     assert cli.main(["scan", "--out", str(tmp_path / "out")]) == 0
+    no_workflow_commands(capsys.readouterr().out)
     text = summary.read_text()
     assert "declined" in text and "![beacon](" not in text and "@victim" not in text
     assert json.loads((tmp_path / "out/outcome.json").read_text())["result"] == "declined"

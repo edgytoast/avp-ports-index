@@ -170,6 +170,14 @@ def md_inline(value: object, limit: int = 300) -> str:
     return neutralize_mentions(text)
 
 
+def log_line(value: object, limit: int = 2000) -> str:
+    """Untrusted text made safe for a job's stdout or stderr: one line, so it can't start a line of its own,
+    and never starting with "::", so the runner can't read it as a workflow command (::add-mask::,
+    ::warning::, ::stop-commands:: and the like)."""
+    text = " ".join(("" if value is None else str(value)).split())[:limit]
+    return "\u200b" + text if text.startswith("::") else text
+
+
 def fence(value: object, lang: str = "text", limit: int = 20000) -> str:
     """Wrap untrusted multi-line text in a code fence it can't break out of."""
     text = "" if value is None else str(value)
