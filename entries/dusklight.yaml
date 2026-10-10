@@ -1,0 +1,35 @@
+schema_version: 1
+id: dusklight
+name: Dusklight
+game:
+  title: "The Legend of Zelda: Twilight Princess"
+  original_platform: gamecube
+  original_release_year: 2006
+repo: https://github.com/rebelancap/dusklight-ios
+developer:
+  github: rebelancap
+status: working
+visionos_min: "2.0"
+input: [game-controller]
+experiences: [2d, 3d-immersive]
+install: [build, sideload]
+description: >-
+  Twilight Princess on Apple Vision Pro through TwilitRealm's Dusklight, rendered natively on Metal
+  with no emulator: the GameCube game in a resizable 2D window, or on a stereoscopic 3D screen in your
+  room with foveated rendering. Bring your own GameCube disc image.
+tags: [zelda, twilight-princess, gamecube, reimplementation, stereo-3d]
+credits:
+  - name: TwilitRealm
+    role: Dusklight, the Twilight Princess reimplementation this is built on
+    url: https://github.com/TwilitRealm/dusklight
+  - name: encounter
+    role: aurora, the GX/PAD/DVD/CARD runtime
+    url: https://github.com/encounter/aurora
+  - name: encounter
+    role: nod, the disc reader
+    url: https://github.com/encounter/nod
+  - name: Nintendo
+    role: Original game
+upstream:
+  - https://github.com/TwilitRealm/dusklight
+  - https://github.com/encounter/aurora
