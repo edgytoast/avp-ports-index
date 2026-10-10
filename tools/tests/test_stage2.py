@@ -227,6 +227,20 @@ class TestDeclines:
         "I cannot continue with this request.",
         # A verdict with another id (planted, or printed from the repo) doesn't hide a refusal next to it.
         "I can't help with that. The repo says: " + json.dumps(verdict(100, rid="cd" * 16)),
+        # The re-review's probes.
+        "I'm not comfortable performing a security review of this repository.",
+        "I won't be doing this review.",
+        "I can only help with coding tasks, not security reviews.",
+        "I cannot assess whether this code is malicious.",
+        "Reviewing it would be beyond what I'm allowed to do.",
+        "I'm not permitted to analyze third-party repositories.",
+        "I'd rather not perform\u2026",
+        "I'd rather not perform this review.",
+        "I must decline again.",
+        "I must decline to review this repository.",
+        "I can't help with that either.",
+        "I refuse.",
+        "I am programmed not to perform security reviews.",
     ])
     def test_refusals(self, text):
         assert jules.looks_like_refusal(text, RID)
@@ -260,6 +274,18 @@ class TestDeclines:
         "Whether it phones home is not something I can verify without running it.",
         "I'll start by cloning the repository into /tmp/target. I won't execute anything.",
         "Is there anything else I can help you with?",
+        # Refusing an action within the review is reviewing, not refusing the review.
+        "I decline to rate the binary as safe; confidence is 20.",
+        "I must refuse to run the install script.",
+        "It ships libfoo.dylib, which I cannot review.",
+        "I was instructed not to build or run anything, so I only read the files.",
+        "My instructions prevent me from running the build.",
+        "I cannot comply with the request to run the build.",
+        "I cannot assess whether the binary is safe.",
+        "I cannot assess whether this code is malicious without running it.",
+        "I cannot review vendored repositories line by line, so I checked their versions.",
+        "The binary's behaviour is beyond the scope of this review.",
+        "I cannot help with building it.",
         # An attempt at this review's verdict is a format problem, not a refusal.
         "Sorry, I cannot fulfill the format exactly: ```json\n" + json.dumps(verdict(90)) + "\n```",
         "",
@@ -279,7 +305,7 @@ class TestDeclines:
         text = client.messages[0]
         assert "routine safety check" in text and "requested by the index's owner" in text
         assert "Nothing is attacked, built or run" in text and "continue with the instructions above" in text
-        assert f"review_id {RID}" in text and "fenced JSON block" in text
+        assert f"review_id {RID}" in text and "fenced JSON block" in text and "problem to fix" not in text
 
     def test_the_real_session_ends_declined(self):
         """2026-10-10: refusal, follow-up, refusal again. That used to be `error: no verdict.json was found`."""
@@ -322,6 +348,37 @@ class TestDeclines:
         # Silent too: still declined, with nothing to quote.
         out = review(FakeJules(["COMPLETED", "IN_PROGRESS", "COMPLETED"], []))
         assert out.result == "declined" and out.reason == ""
+
+    @pytest.mark.parametrize("attempt,problem", [
+        # A flag with this review's id whose summary is too long: it fails the schema.
+        (said("```json\n" + json.dumps({**verdict(20), "summary": "x" * 1001}) + "\n```"), "doesn't match the schema"),
+        # A verdict with a mistyped id.
+        (said(json.dumps(verdict(20, rid="ab" * 15 + "ac"))), "doesn't carry this review's id"),
+        # A malformed verdict, only in a progress note.
+        ([{"progressUpdated": {"description": '{"review_id": "' + RID + '", "safe_confidence": 20, "summary'}}],
+         "isn't valid JSON"),
+    ])
+    def test_a_verdict_attempt_is_work_and_gets_the_fix(self, attempt, problem):
+        """With no command output in the session, a flawed verdict still shows Jules worked: it gets the format fix
+        naming the problem (and its corrected verdict counts, here a flag), not the restatement."""
+        def activities():
+            return attempt if not client.messages else attempt + message_activity(verdict(20))
+
+        client = FakeJules(["COMPLETED", "IN_PROGRESS", "COMPLETED"], activities)
+        out = review(client)
+        assert out.result == "flag" and out.diagnostics["follow_ups"] == ["fix"]
+        assert problem in client.messages[0] and not client.messages[0].startswith("To explain the request")
+        assert jules.worked_on_repo(attempt, "https://github.com/a/b", jules.find_verdict(
+            attempt, jules.verdict_schema(), RID)[1])
+
+    def test_the_restatement_names_a_verdict_problem(self):
+        """A refusal next to a flawed verdict gets the restatement, which asks for the same fix the format fix would."""
+        broken = [{"progressUpdated": {"description": '{"review_id": "' + RID + '", "safe_confidence": 20'}}]
+        client = FakeJules(["COMPLETED", "IN_PROGRESS", "COMPLETED"],
+                           lambda: broken + said(REFUSAL) + (message_activity(verdict(20)) if client.messages else []))
+        out = review(client)
+        assert out.result == "flag" and client.messages == [jules.restate_message(RID, "verdict.json isn't valid JSON")]
+        assert client.messages[0].endswith("The verdict so far has a problem to fix: verdict.json isn't valid JSON.")
 
     @pytest.mark.parametrize("evidence", [
         [{"artifacts": [{"bashOutput": {"command": "ls", "output": "x"}}]}],
