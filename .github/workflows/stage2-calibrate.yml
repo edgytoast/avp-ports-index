@@ -1,7 +1,7 @@
 # Calibration of the Stage 2 review (docs/SPEC.md §8.10, decision 63): one real Jules review of a
 # repo at a commit, with the live prompt or the candidate in .github/jules/candidate/, dispatched by
-# the owner. It holds no GitHub token and writes nothing to the repo, state, issues or PRs: the
-# outcome is an artifact and the run summary. Its Jules sessions count against the plan's quota but
+# the owner. It runs with permissions: {} (its GITHUB_TOKEN has no scopes) and mints no App token,
+# and writes nothing to the repo, state, issues or PRs: the outcome is an artifact and the run summary. Its Jules sessions count against the plan's quota but
 # not the dispatcher's hourly or daily caps, and it never shares the jules-scan or main-writer groups.
 name: stage2-calibrate
 run-name: stage2 calibrate ${{ inputs.label }}

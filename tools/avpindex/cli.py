@@ -202,8 +202,8 @@ def cmd_review(args) -> int:
 
 def cmd_calibrate(args) -> int:
     """stage2-calibrate (decision 63): one real Jules review with the live or the candidate prompt. It writes
-    the outcome to --out and a summary to the run; nothing else. It holds no GitHub token, and its sessions
-    are outside the dispatcher's caps."""
+    the outcome to --out and a summary to the run; nothing else. It uses no GitHub token (the job's has no
+    scopes), and its sessions are outside the dispatcher's caps."""
     from . import jules
     repo = validate.repo_name(os.environ.get("INPUT_LINKED_REPO"))
     sha = validate.sha(os.environ.get("INPUT_LINKED_COMMIT"))

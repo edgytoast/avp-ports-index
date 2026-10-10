@@ -159,7 +159,7 @@ def test_scan_command_has_no_prompt_choice():
 
 @pytest.fixture
 def calibrate_env(root, tmp_path_factory, monkeypatch):
-    """stage2-calibrate's environment: validated inputs, a Jules key, no GitHub token, and a fake Jules."""
+    """stage2-calibrate's environment: validated inputs, a Jules key, no usable GitHub token, and a fake Jules."""
     monkeypatch.setattr(store, "ROOT", root)
     out = tmp_path_factory.mktemp("calibration")
     monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(out / "summary.md"))
@@ -252,7 +252,7 @@ def test_calibrate_validates_its_inputs(calibrate_env, monkeypatch, name, value)
 
 
 def test_calibrate_workflow_is_isolated():
-    """stage2-calibrate: dispatch only, no token, environment jules, its own concurrency group, the same pinned
+    """stage2-calibrate: dispatch only, permissions {} and no App token, environment jules, its own concurrency group, the same pinned
     actions as stage2-scan, inputs only through env, and nothing that writes to the repo."""
     path = REPO_ROOT / ".github/workflows/stage2-calibrate.yml"
     text = path.read_text()
