@@ -9,7 +9,7 @@ half-life-vr:
   flagged_commit: null
   github_verified: true
   health: ok
-  last_checked: '2026-10-10T04:09:01Z'
+  last_checked: '2026-10-10T06:43:51Z'
   last_commit_date: '2026-10-09T11:06:59Z'
   license:
     kind: open-source
@@ -37,7 +37,7 @@ shar-visionos:
   flagged_commit: null
   github_verified: true
   health: ok
-  last_checked: '2026-10-10T04:09:01Z'
+  last_checked: '2026-10-10T06:43:51Z'
   last_commit_date: '2026-10-08T20:53:28Z'
   license:
     kind: open-source
@@ -64,7 +64,7 @@ twilight-princess-vr:
   flagged_commit: null
   github_verified: true
   health: ok
-  last_checked: '2026-10-10T04:09:01Z'
+  last_checked: '2026-10-10T06:43:51Z'
   last_commit_date: '2026-10-10T02:52:52Z'
   license:
     kind: open-source
