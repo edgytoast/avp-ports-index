@@ -468,6 +468,41 @@ class TestHealth:
         assert (rt.root / store.HEALTH).read_text() == before and not gh.external_issues
 
 
+class TestDeclinedPushes:
+    def test_pushes_dont_buy_a_declined_pr_new_reviews(self, rt, gh, event, monkeypatch):
+        """U22, the independent review's probe: a PR that keeps getting declined, pushed again and again, gets at
+        most per_pr_max_scans Jules sessions, an hour apart, and then waits for the curator however often it's
+        pushed: the gate requeues it on every push, and the dispatcher holds it at the decline limit."""
+        from avpindex import report
+        gh.add_repo("trevorbilt-bot/good", 11)
+        gh.open_pr(1, "trevorbilt-bot", "entries/good.yaml", "added", entry_yaml("good", "trevorbilt-bot/good"))
+        event(pr_event(gh, 1))
+        gate.run(rt)
+        declined = {"result": "declined", "reason": "I can't help with that.", "session_url": "u"}
+        now = dt.datetime(2026, 10, 3, 12, tzinfo=dt.timezone.utc)
+        for push in range(8):
+            monkeypatch.setenv("AVP_NOW", store.iso(now + dt.timedelta(hours=2 * push)))
+            gh.runs = []  # an empty ledger: only the PR's own limits can stop it
+            before = len(gh.dispatched)
+            queue.dispatch(rt)
+            if len(gh.dispatched) > before:  # Jules ran, and declined again
+                head = gh.prs[1]["head"]["sha"]
+                report.run(rt, report.Inputs(mode="pr", pr=1, head_sha=head, linked_repo="trevorbilt-bot/good",
+                                             linked_commit=SHA(11), entry_id="good", repo_id=11, base_commit=None,
+                                             counted=True), declined)
+            new_head = SHA(9_100_000 + push)  # the contributor pushes
+            gh.prs[1]["head"]["sha"] = new_head
+            gh.files[(gh.repo_full.lower(), "entries/good.yaml", new_head)] = entry_yaml("good", "trevorbilt-bot/good")
+            event(pr_event(gh, 1, "synchronize"))
+            gate.run(rt)
+            assert "stage2:queued" in gh.labels_of(1)  # the gate requeues it every time
+        queue.dispatch(rt)
+        state = messages.read_state({"body": gh.bot_comment(1)})
+        assert len(gh.dispatched) == 3 and (state["scans"], state["declines"]) == (0, 3)
+        assert "needs-owner" in gh.labels_of(1) and "stage2:queued" not in gh.labels_of(1)
+        assert gh.latest(gh.prs[1]["head"]["sha"], STAGE2)["output"]["title"] == gate.DECLINED
+
+
 class TestKillSwitch:
     def ks(self, rt, event, entry_id, action, block="false"):
         event({}, "workflow_dispatch", INPUT_ENTRY_ID=entry_id, INPUT_ACTION=action, INPUT_BLOCKLIST=block)

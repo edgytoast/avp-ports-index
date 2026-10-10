@@ -19,6 +19,7 @@ REQUIRED = (POLICY_CHECK, STAGE1, STAGE2)
 WATCHED_LABELS = ("owner:scan", "blocklist", "kill-switch")
 PIPELINE_LABELS = ("stage1:pass", "stage1:fail", "stage1:route", "needs-author", "needs-owner")
 WAITING = "Waiting for the curator"
+DECLINED = "Jules declined to review; waiting for the curator"
 MARKER_RE = re.compile(r"<!-- avp:stage2 (\{.*?\}) -->")
 STAGE1_MARKER_RE = re.compile(r"<!-- avp:stage1 (\{.*?\}) -->")
 

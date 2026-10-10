@@ -769,32 +769,74 @@ class TestQueue:
         assert (used["used_hour"], used["used_day"], used["rescans_day"]) == (1, 1, 1)
         assert used["active_rescans"] == set()
 
-    def test_declined_runs_count_and_a_storm_pauses(self, rt, gh):
-        """A declined scan used a session, so it counts toward the caps; two in the last hour (any targets)
-        pause dispatching, as one deferral does."""
-        runs = [self.run_at(10, "stage2 pr 1"), self.run_at(20, "stage2 rescan good"), self.run_at(90, "stage2 pr 2")]
+    def test_declined_runs_count_and_only_a_storm_pauses(self, rt, gh):
+        """A declined scan used a session, so it counts toward the caps. Only a storm pauses dispatching:
+        declines of two different PRs or entries in the hour with nothing passed or flagged. One PR declining
+        again and again doesn't pause anyone."""
+        runs = [self.run_at(10, "stage2 pr 7"), self.run_at(20, "stage2 pr 7"), self.run_at(30, "stage2 rescan good"),
+                self.run_at(40, "stage2 pr 8"), self.run_at(90, "stage2 pr 9")]
         used = queue.ledger(runs, store.utcnow())
-        assert (used["used_hour"], used["used_day"]) == (2, 3)
-        gh.artifacts[10] = [{"name": "result-declined"}]
-        gh.artifacts[90] = [{"name": "result-declined"}]  # over an hour ago: doesn't count
-        assert queue._pause_reason(rt, used["recent"]) == ""
-        gh.artifacts[20] = [{"name": "result-declined"}]
-        assert queue._pause_reason(rt, used["recent"]) == "Jules declined 2 scans in the last hour"
-        gh.artifacts[20] = [{"name": "result-deferred"}]
+        assert (used["used_hour"], used["used_day"]) == (4, 5)
+        gh.artifacts = {10: [{"name": "result-declined"}], 20: [{"name": "result-declined"}],
+                        90: [{"name": "result-declined"}]}  # 90 minutes ago: outside the hour
+        assert queue._pause_reason(rt, used["recent"]) == ""  # the same PR twice
+        gh.artifacts[30] = [{"name": "result-declined"}]
+        assert queue._pause_reason(rt, used["recent"]) == (
+            "Jules declined scans of 2 different PRs or entries in the last hour, and none passed or flagged")
+        for healthy in ("result-pass", "result-flag"):
+            gh.artifacts[40] = [{"name": healthy}]  # Jules reviewed something meanwhile: not a storm
+            assert queue._pause_reason(rt, used["recent"]) == ""
+        gh.artifacts[40] = [{"name": "result-deferred"}]
         assert "deferred" in queue._pause_reason(rt, used["recent"])
 
-    def test_dispatcher_pauses_after_two_declines(self, rt, gh):
-        gh.add_repo("trevorbilt-bot/q1", 21)
-        gh.open_pr(5, "trevorbilt-bot", "entries/q1.yaml", "added", entry_yaml("q1", "trevorbilt-bot/q1"),
-                   labels=("stage2:queued",), head=SHA(5))
-        gh.create_check(SHA(5), STAGE1, conclusion="success", external_id=f"21@{SHA(21)}")
+    def queued(self, rt, gh, number, name, rid):
+        gh.add_repo(f"trevorbilt-bot/{name}", rid)
+        gh.open_pr(number, "trevorbilt-bot", f"entries/{name}.yaml", "added", entry_yaml(name, f"trevorbilt-bot/{name}"),
+                   labels=("stage2:queued",), head=SHA(number))
+        gh.create_check(SHA(number), STAGE1, conclusion="success", external_id=f"{rid}@{SHA(rid)}")
+
+    def test_dispatcher_pauses_on_a_refusal_storm(self, rt, gh):
+        self.queued(rt, gh, 5, "q1", 21)
         gh.runs = [self.run_at(10, "stage2 pr 1"), self.run_at(20, "stage2 rescan good")]
         gh.artifacts = {10: [{"name": "result-declined"}], 20: [{"name": "result-declined"}]}
         log = queue.dispatch(rt)
-        assert gh.dispatched == [] and "paused: Jules declined 2 scans in the last hour" in log[0]
+        assert gh.dispatched == [] and "paused: Jules declined scans of 2 different PRs or entries" in log[0]
         gh.artifacts[20] = [{"name": "result-pass"}]
         queue.dispatch(rt)
         assert [d[1]["pr"] for d in gh.dispatched] == ["5"]
+
+    def test_a_declined_pr_waits_an_hour_and_others_go_first(self, rt, gh):
+        """An honest PR is dispatched while a declined one waits out its hour, even ahead of it in the queue."""
+        self.queued(rt, gh, 5, "q1", 21)
+        self.queued(rt, gh, 6, "q2", 22)
+        gh.events[5][0]["created_at"] = "2026-10-01T00:00:00Z"  # q1's PR was queued first
+        messages.upsert(rt, 5, "x", declines=1, declined_at=store.iso(store.utcnow() - dt.timedelta(minutes=30)))
+        rt.memo["policy"] = dict(store.load_policy(rt.root))
+        rt.memo["policy"]["stage2"] = dict(rt.memo["policy"]["stage2"], hourly_cap=1)
+        log = queue.dispatch(rt)
+        assert [d[1]["pr"] for d in gh.dispatched] == ["6"] and "#5: declined less than an hour ago; waiting" in log
+        assert "stage2:queued" in gh.labels_of(5) and "needs-owner" not in gh.labels_of(5)
+        messages.upsert(rt, 5, declined_at=store.iso(store.utcnow() - dt.timedelta(minutes=61)))
+        gh.runs = []
+        queue.dispatch(rt)
+        assert [d[1]["pr"] for d in gh.dispatched] == ["6", "5"]
+
+    def test_decline_limit_holds_like_the_scan_limit(self, rt, gh):
+        """At per_pr_max_scans declines the dispatcher sends the PR to the curator instead of to Jules, every time
+        it's requeued; only owner:scan sends it back."""
+        self.queued(rt, gh, 5, "q1", 21)
+        self.queued(rt, gh, 6, "q2", 22)
+        messages.upsert(rt, 5, "x", declines=3, declined_at="2026-10-01T00:00:00Z")
+        queue.dispatch(rt)
+        assert [d[1]["pr"] for d in gh.dispatched] == ["6"]  # the honest PR still goes
+        check = gh.latest(SHA(5), STAGE2)
+        assert check["conclusion"] == "failure"
+        assert check["output"]["title"] == "Jules declined to review; waiting for the curator"
+        assert "needs-owner" in gh.labels_of(5) and "stage2:queued" not in gh.labels_of(5)
+        assert "couldn't settle this one" in gh.bot_comment(5)
+        gh.add_labels(5, ["stage2:queued", "owner:scan"])
+        queue.dispatch(rt)
+        assert gh.dispatched[-1][1]["pr"] == "5" and gh.dispatched[-1][1]["counted"] == "false"
 
     def test_fifo_by_first_label_and_dispatch(self, rt, gh):
         gh.add_repo("trevorbilt-bot/q1", 21)

@@ -15,7 +15,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from . import approvals, blocklist, jules, lifecycle, messages, store, validate
-from .gate import STAGE1, STAGE2, WAITING, latest_check, stage2_marker
+from .gate import DECLINED, STAGE1, STAGE2, WAITING, latest_check, stage2_marker
 from .lifecycle import LISTED, PULLED
 from .sync import pin
 
@@ -277,25 +277,28 @@ def _pr_declined(rt, inputs: Inputs, outcome: dict, pr: dict, bot_state: dict, s
     `owner:scan` or not, so it can't loop forever), then the curator decides."""
     number = inputs.pr
     max_scans = int(rt.policy["stage2"]["per_pr_max_scans"])
-    declines = int(bot_state.get("declines") or 0) + 1
+    # The count and time live in the bot comment, so pushes can't reset them: the dispatcher holds a PR at the
+    # cap (as it does at the scan cap) and waits an hour after each decline before sending it back to Jules.
+    declined = {"declines": int(bot_state.get("declines") or 0) + 1, "declined_at": store.iso(store.utcnow())}
+    declines = declined["declines"]
     clear_scanning = {"scanning": None} if mine else {}
     head = pr["head"]["sha"]
     if (pr.get("state") != "open" or not mine
             or (latest_check(rt, head, STAGE1) or {}).get("external_id") != inputs.external_id):
         # Closed, a newer scan was dispatched, or the PR now links another commit and is queued again.
-        messages.upsert(rt, number, scans=scans, declines=declines, **clear_scanning)
+        messages.upsert(rt, number, scans=scans, **declined, **clear_scanning)
         return []
     if declines < max_scans:
         swap(("stage2:scanning",), ("stage2:queued",))
-        messages.upsert(rt, number, scans=scans, declines=declines, **clear_scanning)
+        messages.upsert(rt, number, scans=scans, **declined, **clear_scanning)
         rt.summary(f"#{number}: Jules declined to review; back in the queue ({declines} decline(s)).")
         return []
-    rt.gh.create_check(head, STAGE2, conclusion="failure", title="Jules declined to review; waiting for the curator",
+    rt.gh.create_check(head, STAGE2, conclusion="failure", title=DECLINED,
                        summary=decline_summary(outcome) + "\n\n" + stage2_marker(kind="result", result="declined"),
                        external_id=inputs.external_id)
     swap(("stage2:scanning", "stage2:queued"), ("needs-owner",))
     messages.upsert(rt, number, messages.render("owner-review", rt.root, name=_entry_name(rt, inputs)),
-                    scans=scans, declines=declines, **clear_scanning)
+                    scans=scans, **declined, **clear_scanning)
     return []
 
 
