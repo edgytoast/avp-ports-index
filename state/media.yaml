@@ -144,8 +144,8 @@ shar-visionos:
   source: readme
 twilight-princess-vr:
   choice: null
-  collected_at: '2026-10-09T17:03:18Z'
-  commit: b7d2f56c5721447f27148d535c40ac68953fc480
+  collected_at: '2026-10-11T06:45:00Z'
+  commit: 90d0f67370ebbf986c5c3671117fe4d79de45887
   icon:
     kind: layered
     layers:
@@ -154,21 +154,21 @@ twilight-princess-vr:
       height: 1024
       layer: back
       sha256: 6af87336e2ee53c66bbcc0d11877937a9ca7bdfc2082aae78a1db8695bb9ec06
-      url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/b7d2f56c5721447f27148d535c40ac68953fc480/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
+      url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/90d0f67370ebbf986c5c3671117fe4d79de45887/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
       width: 1024
     - bytes: 124181
       format: png
       height: 1024
       layer: middle
       sha256: 77e2032cd45d5033eb37ba9b440e6f3dad82d82ccbd080ed64d9a9b44901d71c
-      url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/b7d2f56c5721447f27148d535c40ac68953fc480/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
+      url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/90d0f67370ebbf986c5c3671117fe4d79de45887/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
       width: 1024
     - bytes: 116263
       format: png
       height: 1024
       layer: front
       sha256: d6fdee278d3a65966659b93def5179629edab6a19bc0c4f5ff2a02cdb61f2fc3
-      url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/b7d2f56c5721447f27148d535c40ac68953fc480/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
+      url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/90d0f67370ebbf986c5c3671117fe4d79de45887/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
       width: 1024
   screenshots:
   - alt: Link at Ordon Ranch, in a window floating in a living room
@@ -176,25 +176,25 @@ twilight-princess-vr:
     format: jpeg
     height: 900
     sha256: c9d3f91f26037437afa5e31bf194467c626ba5b03e300baaa57b0b7a1b38ac46
-    url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/b7d2f56c5721447f27148d535c40ac68953fc480/docs/images/window-view.jpg
+    url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/90d0f67370ebbf986c5c3671117fe4d79de45887/docs/images/window-view.jpg
     width: 1600
   - alt: 'Ordon Ranch in first person: the ranch house, goats and a rancher, with the HUD floating ahead'
     bytes: 269050
     format: jpeg
     height: 900
     sha256: 256761e065afb0cf24d1649924783648761e5f94a3726dadf9a069d8588c115d
-    url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/b7d2f56c5721447f27148d535c40ac68953fc480/docs/images/full-immersion.jpg
+    url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/90d0f67370ebbf986c5c3671117fe4d79de45887/docs/images/full-immersion.jpg
     width: 1600
   - alt: 'The same window seen from the side: Link and the ranch house have real depth behind the glass'
     bytes: 184753
     format: jpeg
     height: 1025
     sha256: 89646502795cadf67303561fe5dcc32ab46e5209574c2c12977a4a50106c0030
-    url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/b7d2f56c5721447f27148d535c40ac68953fc480/docs/images/window-angle.jpg
+    url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/90d0f67370ebbf986c5c3671117fe4d79de45887/docs/images/window-angle.jpg
     width: 1600
   skipped:
   - reason: not this repo's file or a GitHub attachment
     src: https://img.shields.io/badge/AVP_Ports_Index-listed-0A84FF
   - reason: smaller than 480x270
-    src: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/b7d2f56c5721447f27148d535c40ac68953fc480/docs/images/trevorbilt.png
+    src: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/90d0f67370ebbf986c5c3671117fe4d79de45887/docs/images/trevorbilt.png
   source: readme

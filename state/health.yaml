@@ -10,7 +10,7 @@ animal-crossing-vr:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: null
+  last_checked: '2026-10-11T06:44:39Z'
   last_commit_date: '2026-10-10T05:22:45Z'
   license:
     kind: custom
@@ -37,7 +37,7 @@ half-life-vr:
   flagged_commit: null
   github_verified: true
   health: ok
-  last_checked: '2026-10-10T06:43:51Z'
+  last_checked: '2026-10-11T06:44:39Z'
   last_commit_date: '2026-10-09T11:06:59Z'
   license:
     kind: open-source
@@ -65,7 +65,7 @@ shar-visionos:
   flagged_commit: null
   github_verified: true
   health: ok
-  last_checked: '2026-10-10T06:43:51Z'
+  last_checked: '2026-10-11T06:44:39Z'
   last_commit_date: '2026-10-08T20:53:28Z'
   license:
     kind: open-source
@@ -83,7 +83,7 @@ shar-visionos:
   warnings: []
 twilight-princess-vr:
   archived: false
-  commits_since_scan: 0
+  commits_since_scan: 8
   consecutive_failures: 0
   curator_own: true
   decay_reset_at: '2026-10-04T17:42:38Z'
@@ -93,8 +93,8 @@ twilight-princess-vr:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-10-10T06:43:51Z'
-  last_commit_date: '2026-10-10T02:52:52Z'
+  last_checked: '2026-10-11T06:44:39Z'
+  last_commit_date: '2026-10-10T09:20:02Z'
   license:
     kind: open-source
     spdx: CC0-1.0
@@ -106,7 +106,7 @@ twilight-princess-vr:
   scan_confidence: 100
   scan_declines: 0
   scan_kind: automated
-  scan_state: current
+  scan_state: behind
   scanned_at: '2026-10-10T20:31:59Z'
   scanned_commit: 90d0f67370ebbf986c5c3671117fe4d79de45887
   warnings: []
