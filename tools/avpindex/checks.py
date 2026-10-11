@@ -21,7 +21,14 @@ import jsonschema
 import requests
 import urllib3
 
-from .validate import SOURCE_REF_RE, YamlError, load_untrusted_yaml, parse_repo_url
+from .validate import (
+    SOURCE_REF_RE,
+    InvalidInput,
+    YamlError,
+    install_guide,
+    load_untrusted_yaml,
+    parse_repo_url,
+)
 
 PASS, FAIL, ROUTE = "pass", "fail", "route"
 API = "https://api.github.com"
@@ -321,10 +328,15 @@ class Result:
     detail: str = ""
     waivable: bool = True
     waived: bool = False
+    fix: str = ""            # how to fix it, when it depends on the entry (FIXES has the rest)
 
     @property
     def effective(self) -> str:
         return PASS if self.waived else self.outcome
+
+    @property
+    def how_to_fix(self) -> str:
+        return self.fix or FIXES.get(self.id, "")
 
 
 @dataclass
@@ -594,21 +606,121 @@ def s1_05(ctx: Ctx) -> Result | None:
     return Result("S1-05", PASS)
 
 
+def entry_install_guide(entry: dict | None, policy: dict) -> tuple[str, str]:
+    """(path, anchor) of the entry's install guide: `install_guide` if set, else the policy's install_file.
+    Raises InvalidInput for a value that isn't a Markdown path in the repo (decision 65)."""
+    return install_guide((entry or {}).get("install_guide"), policy.get("install_file", "AVP-INSTALL.md"))
+
+
+def entry_install_guide_or_default(entry: dict | None, policy: dict) -> tuple[str, str]:
+    """entry_install_guide, falling back to the default file for a value S1-03 would have refused."""
+    try:
+        return entry_install_guide(entry, policy)
+    except InvalidInput:
+        return policy.get("install_file", "AVP-INSTALL.md"), ""
+
+
 def s1_07(ctx: Ctx) -> Result | None:
-    """S1-07 · Install guide. `AVP-INSTALL.md` is at the root of the linked repo (exact name),
-    at most 256 KB, and not empty."""
+    """S1-07 · Install guide. The linked repo has its install guide at the linked commit, at most 256 KB and
+    not empty: `AVP-INSTALL.md` at the root (exact name), or the Markdown file the entry's `install_guide`
+    names (its README, say). If `install_guide` has an `#anchor` that no heading in the file slugs to, that's
+    a warning, never a failure."""
     if ctx.repo is None:
         return None
-    install = ctx.idx.policy.get("install_file", "AVP-INSTALL.md")
-    item = ctx.gh.contents(ctx.owner, ctx.name, install, ctx.head)
-    if item is None or item.get("type") != "file" or item.get("name") != install:
-        return Result("S1-07", FAIL, f"{install} isn't at the repo root")
+    default = ctx.idx.policy.get("install_file", "AVP-INSTALL.md")
+    try:
+        path, anchor = entry_install_guide(ctx.entry, ctx.idx.policy)
+    except InvalidInput:
+        return Result("S1-07", FAIL, "install_guide isn't a path to a Markdown file in the repo",
+                      fix="Set install_guide to your guide's path in the repo, such as README.md or docs/install.md "
+                          "(letters, digits, _ . - and / only), or leave it out and add AVP-INSTALL.md.")
+    fix = "" if path == default else (
+        f"Make sure `{path}` is in your repo at the linked commit (exact path and case), isn't empty and is under "
+        "256 KB, or point install_guide at the file that has your install steps.")
+    where = "at the repo root" if "/" not in path else "in the repo"
+    item = ctx.gh.contents(ctx.owner, ctx.name, path, ctx.head)
+    if item is None or item.get("type") != "file" or item.get("name") != path.rsplit("/", 1)[-1]:
+        return Result("S1-07", FAIL, f"{path} isn't {where}", fix=fix)
     if int(item.get("size", 0)) > 256 * 1024:
-        return Result("S1-07", FAIL, f"{install} is larger than 256 KB")
+        return Result("S1-07", FAIL, f"{path} is larger than 256 KB", fix=fix)
     body = decode_content(item)
     if not body.strip():
-        return Result("S1-07", FAIL, f"{install} is empty")
+        return Result("S1-07", FAIL, f"{path} is empty", fix=fix)
+    if anchor and anchor not in markdown_anchors(body.decode("utf-8", "replace")):
+        ctx.report.warnings.append(("S1-07", f"{path} has no heading for #{anchor} (renamed?); the link opens "
+                                             "at the top of the file"))
     return Result("S1-07", PASS)
+
+
+def s1_07b(ctx: Ctx) -> Result | None:
+    """S1-07b · Install guide outside AVP-INSTALL.md. A README always exists, so S1-07 alone proves little for
+    a guide elsewhere: an entry PR that sets `install_guide` to another file, or changes it, goes to the
+    curator, who confirms it tells a Vision Pro player what they need, how to supply their own game files,
+    and how to build and install. Entries using AVP-INSTALL.md are unaffected; the curator's own PRs pass."""
+    if ctx.s.mode not in ("gate", "preflight") or ctx.entry is None:
+        return None
+    try:
+        guide = entry_install_guide(ctx.entry, ctx.idx.policy)
+    except InvalidInput:
+        return None  # S1-03 and S1-07 say what's wrong
+    if guide == (ctx.idx.policy.get("install_file", "AVP-INSTALL.md"), ""):
+        return Result("S1-07b", PASS)
+    if ctx.s.mode == "gate" and _by_curator(ctx):
+        return Result("S1-07b", PASS, "opened by the curator")
+    if (ctx.s.mode == "gate" and ctx.s.change == "edit" and not ctx.repo_changed
+            and entry_install_guide_or_default(ctx.s.old_entry, ctx.idx.policy) == guide):
+        return Result("S1-07b", PASS, "the same install guide the listing already has")
+    shown = guide[0] + (f"#{guide[1]}" if guide[1] else "")
+    return Result("S1-07b", ROUTE, f"the install guide is {shown}, not AVP-INSTALL.md")
+
+
+# GitHub's heading anchors (github-slugger): lowercase, drop everything but letters, digits, "_", "-" and
+# spaces, spaces become "-", and repeats get -1, -2. Explicit <a name|id> anchors count too. Lenient on
+# purpose: it only decides whether to warn.
+_FENCE = re.compile(r"^ {0,3}(?:`{3,}|~{3,})")
+_ATX = re.compile(r"^ {0,3}#{1,6}(?:[ \t]+(.*?))?(?:[ \t]+#+)?[ \t]*$")
+_SETEXT = re.compile(r"^ {0,3}(?:=+|-+)[ \t]*$")
+_HTML_ANCHOR = re.compile(r"""<a\b[^>]*?\b(?:name|id)\s*=\s*["']([^"']+)["']""", re.I)
+
+
+def _heading_text(raw: str) -> str:
+    text = re.sub(r"!\[([^\]]*)\]\([^)]*\)", r"\1", raw)      # images: their alt text
+    text = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", text)      # links: their text
+    text = re.sub(r"<[^>]+>", "", text).replace("`", "")      # inline HTML, code spans
+    return re.sub(r"(?<!\w)[*_]+|[*_]+(?!\w)", "", text).strip()  # emphasis markers
+
+
+def _slug(text: str) -> str:
+    return re.sub(r"[^\w\- ]", "", text.lower()).replace(" ", "-")
+
+
+def markdown_anchors(markdown: str) -> set[str]:
+    """Every anchor GitHub would give the file's headings, plus explicit HTML anchors."""
+    anchors = {m.lower() for m in _HTML_ANCHOR.findall(markdown)}
+    occurrences: dict[str, int] = {}
+    in_fence, previous = False, ""
+    for line in markdown.splitlines():
+        if _FENCE.match(line):
+            in_fence, previous = not in_fence, ""
+            continue
+        if in_fence:
+            continue
+        heading = None
+        atx = _ATX.match(line)
+        if atx:
+            heading = atx.group(1) or ""
+        elif _SETEXT.match(line) and previous.strip() and not _ATX.match(previous):
+            heading = previous
+        if heading is not None:
+            anchors.add(_slug(heading.strip()))  # the raw text too, in case markup was literal
+            base = result = _slug(_heading_text(heading))
+            while result in occurrences:
+                occurrences[base] += 1
+                result = f"{base}-{occurrences[base]}"
+            occurrences[result] = 0
+            anchors.add(result)
+        previous = line
+    return anchors
 
 
 def s1_08(ctx: Ctx) -> Result | None:
@@ -862,11 +974,11 @@ def s1_18(ctx: Ctx) -> Result | None:
     return Result("S1-18", PASS)
 
 
-ORDER = ["S1-01", "S1-02", "S1-03", "S1-04", "S1-05", "S1-06", "S1-07", "S1-08", "S1-09",
+ORDER = ["S1-01", "S1-02", "S1-03", "S1-04", "S1-05", "S1-06", "S1-07", "S1-07b", "S1-08", "S1-09",
          "S1-10", "S1-11a", "S1-11b", "S1-11c", "S1-11d", "S1-15", "S1-16", "S1-17", "S1-18"]
 
 # Execution order differs from display order: S1-04 and S1-05 use the resolved repo.
-RUN = [s1_01, s1_02, s1_03, s1_06, s1_04, s1_05, s1_07, s1_08, s1_09, s1_10,
+RUN = [s1_01, s1_02, s1_03, s1_06, s1_04, s1_05, s1_07, s1_07b, s1_08, s1_09, s1_10,
        s1_11a, s1_11b, s1_11c, s1_11d, s1_15, s1_16, s1_17, s1_18]
 
 ALL_CHECKS = sorted(RUN, key=lambda f: ORDER.index(f.__doc__.split(" ")[0]))

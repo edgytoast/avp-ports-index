@@ -736,7 +736,8 @@ FULL_ENTRY = {  # every field the entry schema defines; a credit with and one wi
     "developer": {"github": "trevorbilt-bot", "name": "Bot", "url": "https://example.com/bot"},
     "status": "working", "status_notes": "Runs on the headset.", "visionos_min": "26.0",
     "input": ["game-controller", "hand-tracking"], "experiences": ["2d", "6dof-immersive"],
-    "install": ["build", "sideload"], "description": "A port with every field. Bring your own game.",
+    "install": ["build", "sideload"], "install_guide": "README.md#install",
+    "description": "A port with every field. Bring your own game.",
     "tags": ["test"], "upstream": ["https://example.com/engine"],
     "credits": [{"name": "Upstream", "role": "Engine", "url": "https://example.com/engine"},
                 {"name": "Maker", "role": "Original game"}],
@@ -760,6 +761,10 @@ def test_every_entry_field_renders_present_and_absent(rt, gh):
         list_entry(rt, entry_id, repo, write=False)
     out = generate.generate(rt.root, rt.repo)  # also validates the feed against its schema
     assert "- Maker: Original game" in out["ports/full.md"]
+    full = next(e for e in json.loads(out["feed/v1/index.json"])["entries"] if e["id"] == "full")
+    assert full["install_guide"] == "README.md#install"
+    assert full["install_doc_url"] == f"https://github.com/trevorbilt-bot/full/blob/{SHA(12)}/README.md#install"
+    assert f"| Install guide | [README.md\\#install at {SHA(12)[:12]}]({full['install_doc_url']}) |" in out["ports/full.md"]
     assert "- [Upstream](https://example.com/engine): Engine" in out["ports/full.md"]
     assert "ports/min.md" in out
     state = store.State.load(rt.root)
@@ -785,7 +790,7 @@ def test_play_modes_and_prebuilt_apps(rt, gh):
     assert "| Prebuilt app | The developer publishes an app you can sideload; see their repo." in out["ports/good.md"]
     assert "· prebuilt app (not safety-checked)" in out["README.md"] and "prebuilt app available (not safety-checked)" in out["llms.txt"]
     feed = json.loads(out["feed/v1/index.json"])
-    assert feed["schema_version"] == "1.4.0" and feed["entries"][0]["install"] == ["build", "sideload"]
+    assert feed["schema_version"] == "1.5.0" and feed["entries"][0]["install"] == ["build", "sideload"]
 
 
 class TestRecheck:

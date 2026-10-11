@@ -286,7 +286,7 @@ def dispatch(rt) -> list[str]:
         messages.upsert(rt, number, scanning=f"{repo_id}@{linked}")
         inputs = {"mode": "pr", "pr": str(number), "head_sha": head, "linked_repo": _repo_name(entry),
                   "linked_commit": linked, "entry_id": entry_id, "repo_id": str(repo_id), "base_commit": "",
-                  "counted": "false" if owner_scan else "true"}
+                  "counted": "false" if owner_scan else "true", "install_guide": _guide(entry, policy)}
         if rt.gh.dispatch(SCAN_WORKFLOW, inputs):
             free -= 1
             log.append(f"#{number}: dispatched scan of {linked[:12]}")
@@ -327,7 +327,8 @@ def dispatch(rt) -> list[str]:
             repo, head = pre
             inputs = {"mode": "rescan", "pr": "", "head_sha": "", "linked_repo": repo["full_name"],
                       "linked_commit": head, "entry_id": entry_id, "repo_id": str(repo["id"]),
-                      "base_commit": health["scanned_commit"], "counted": "false"}
+                      "base_commit": health["scanned_commit"], "counted": "false",
+                      "install_guide": _guide(entry, policy)}
             if rt.gh.dispatch(SCAN_WORKFLOW, inputs):
                 free -= 1
                 rescans_left -= 1
@@ -342,6 +343,11 @@ def dispatch(rt) -> list[str]:
         messages.upsert(rt, item["number"], messages.render(
             "queued", rt.root, name=name, n=position, eta=eta_text(position, policy["stage2"]["hourly_cap"])))
     return log
+
+
+def _guide(entry: dict, policy: dict) -> str:
+    """The install guide the safety-check prompt names: the entry's (the PR's own, in PR mode), no anchor."""
+    return checks.entry_install_guide_or_default(entry, policy)[0]
 
 
 def _declined_recently(bot_state: dict, now: dt.datetime) -> bool:

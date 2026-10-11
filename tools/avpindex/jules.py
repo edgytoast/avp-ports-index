@@ -27,7 +27,7 @@ import jinja2
 import jsonschema
 import requests
 
-from . import store
+from . import store, validate
 
 API = "https://jules.googleapis.com/v1alpha"
 DONE_STATES = {"COMPLETED", "FAILED"}
@@ -45,6 +45,7 @@ NO_VERDICT = "no verdict.json was found"
 LIVE, CANDIDATE = "live", "candidate"
 PROMPTS = {LIVE: ".github/jules", CANDIDATE: ".github/jules/candidate"}
 SESSION_TITLES = {LIVE: "AVP index safety check", CANDIDATE: "AVP index safety check"}
+DEFAULT_GUIDE = "AVP-INSTALL.md"  # the install guide the prompt names when the entry doesn't set install_guide
 
 
 class Deferred(Exception):
@@ -142,12 +143,15 @@ def new_review_id() -> str:
 
 
 def render_prompt(repo_url: str, sha: str, threshold: int, review_id: str, root: Path | None = None,
-                  prompt: str = LIVE) -> str:
+                  prompt: str = LIVE, install_guide: str = DEFAULT_GUIDE) -> str:
+    """The prompt for one session. `install_guide` is the entry's guide path (decision 65): contributor text,
+    so it's checked against the strict path charset here too, whatever the caller did."""
     root = root or store.ROOT
     template = (root / PROMPTS[prompt] / "security-review.md").read_text(encoding="utf-8")
     schema = json.dumps(verdict_schema(root, prompt), indent=2)
+    guide = validate.install_guide_path(install_guide, DEFAULT_GUIDE)
     return jinja2.Environment(undefined=jinja2.StrictUndefined).from_string(template).render(
-        repo_url=repo_url, sha=sha, threshold=threshold, review_id=review_id, schema=schema)
+        repo_url=repo_url, sha=sha, threshold=threshold, review_id=review_id, schema=schema, install_guide=guide)
 
 
 def _patch_files(patch: str) -> dict[str, str]:
@@ -426,7 +430,8 @@ def decide(verdict: dict, threshold: int) -> str:
 # --- one review -------------------------------------------------------------------------
 
 def review(client: Jules, repo_url: str, sha: str, policy: dict, *, root: Path | None = None, prompt: str = LIVE,
-           sleep=time.sleep, clock=time.monotonic, make_id=new_review_id) -> Outcome:
+           install_guide: str = DEFAULT_GUIDE, sleep=time.sleep, clock=time.monotonic,
+           make_id=new_review_id) -> Outcome:
     threshold = int(policy["stage2"]["confidence_threshold"])
     timeout = int(policy["stage2"]["jules_timeout_minutes"]) * 60
     schema = verdict_schema(root)  # always the live schema, whichever prompt was shown
@@ -435,7 +440,8 @@ def review(client: Jules, repo_url: str, sha: str, policy: dict, *, root: Path |
     review_id = make_id()
     started = clock()
     try:
-        session = client.create_session(render_prompt(repo_url, sha, threshold, review_id, root, prompt), title)
+        session = client.create_session(render_prompt(repo_url, sha, threshold, review_id, root, prompt,
+                                                      install_guide), title)
     except Deferred as exc:
         return Outcome("deferred", reason=str(exc)[:200])
     except (JulesError, requests.RequestException) as exc:

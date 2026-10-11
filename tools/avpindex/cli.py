@@ -79,6 +79,7 @@ def cmd_dispatch(_args) -> int:
 
 
 def _scan_target() -> tuple[str, str]:
+    """The repo and commit to review. The other inputs are validated too, though only the report job uses them."""
     repo = validate.repo_name(os.environ.get("INPUT_LINKED_REPO"))
     sha = validate.sha(os.environ.get("INPUT_LINKED_COMMIT"))
     validate.choice(os.environ.get("INPUT_MODE"), ("pr", "rescan"), "mode")
@@ -96,7 +97,10 @@ def cmd_scan(args) -> int:
     if not key:
         print("JULES_API_KEY is not set", file=sys.stderr)
         return 1
-    outcome = jules.review(jules.Jules(key), f"https://github.com/{repo}", sha, store.load_policy())
+    policy = store.load_policy()
+    # The entry's install guide (decision 65), named among the build-time files Jules reads first.
+    guide = validate.install_guide_path(os.environ.get("INPUT_INSTALL_GUIDE"), policy["install_file"])
+    outcome = jules.review(jules.Jules(key), f"https://github.com/{repo}", sha, policy, install_guide=guide)
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     (out / "outcome.json").write_text(json.dumps(outcome.to_json(), indent=2), encoding="utf-8")
@@ -209,13 +213,16 @@ def cmd_calibrate(args) -> int:
     sha = validate.sha(os.environ.get("INPUT_LINKED_COMMIT"))
     label = validate.label(os.environ.get("INPUT_LABEL"))
     prompt = validate.choice(args.prompt, tuple(jules.PROMPTS), "prompt")
+    policy = store.load_policy()
+    guide = validate.install_guide_path(args.install_guide, policy["install_file"])
     key = os.environ.get("JULES_API_KEY")
     if not key:
         print("JULES_API_KEY is not set", file=sys.stderr)
         return 1
-    policy = store.load_policy()
-    outcome = jules.review(jules.Jules(key), f"https://github.com/{repo}", sha, policy, prompt=prompt)
-    data = {**outcome.to_json(), "calibration": {"label": label, "prompt": prompt, "repo": repo, "commit": sha}}
+    outcome = jules.review(jules.Jules(key), f"https://github.com/{repo}", sha, policy, prompt=prompt,
+                           install_guide=guide)
+    data = {**outcome.to_json(), "calibration": {"label": label, "prompt": prompt, "repo": repo, "commit": sha,
+                                                 "install_guide": guide}}
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     (out / "outcome.json").write_text(json.dumps(data, indent=2), encoding="utf-8")
@@ -344,6 +351,8 @@ def main(argv: list[str] | None = None) -> int:
     plan.set_defaults(func=cmd_report_plan)
     calibrate = sub.add_parser("calibrate")
     calibrate.add_argument("--prompt", choices=("live", "candidate"), default="live")
+    calibrate.add_argument("--install-guide", default="AVP-INSTALL.md",
+                           help="the repo's install guide, as an entry's install_guide names it (no #anchor)")
     calibrate.add_argument("--out", default="out")
     calibrate.set_defaults(func=cmd_calibrate)
     review = sub.add_parser("review")

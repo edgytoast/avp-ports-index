@@ -200,7 +200,8 @@ def test_calibrate_writes_the_outcome_and_nothing_else(root, calibrate_env):
     data = json.loads((out / "out/outcome.json").read_text())
     assert data["result"] == "pass" and data["verdict"]["safe_confidence"] == 92
     assert data["calibration"] == {"label": "tpvr-candidate-1", "prompt": "candidate",
-                                   "repo": "edgytoast/twilight-princess-vr", "commit": SHA(42)}
+                                   "repo": "edgytoast/twilight-princess-vr", "commit": SHA(42),
+                                   "install_guide": "AVP-INSTALL.md"}
     assert clients[0].prompt.startswith("# AVP Ports Index safety check")
     summary = (out / "summary.md").read_text()
     assert summary.startswith(f"### Calibration `tpvr-candidate-1`: edgytoast/twilight-princess-vr@{SHA(42)[:12]} "
@@ -270,7 +271,7 @@ def test_calibrate_workflow_is_isolated():
     assert flow["run-name"] == "stage2 calibrate ${{ inputs.label }}"
     assert list(flow[True]) == ["workflow_dispatch"]  # YAML 1.1 reads the key `on` as True
     inputs = flow[True]["workflow_dispatch"]["inputs"]
-    assert set(inputs) == {"linked_repo", "linked_commit", "prompt", "label"}
+    assert set(inputs) == {"linked_repo", "linked_commit", "prompt", "label", "install_guide"}
     assert inputs["prompt"]["options"] == ["candidate", "live"]
     assert flow["permissions"] == {} and list(flow["jobs"]) == ["calibrate"]
     job = flow["jobs"]["calibrate"]
@@ -288,7 +289,7 @@ def test_calibrate_workflow_is_isolated():
         assert "${{" not in step.get("run", ""), step  # inputs reach the shell only through env
     run = [s["run"] for s in job["steps"] if "calibrate" in s.get("run", "")]
     assert run == [('"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli calibrate --prompt "$INPUT_PROMPT" '
-                    '--out "$RUNNER_TEMP/out"')]
+                    '--install-guide "$INPUT_INSTALL_GUIDE" --out "$RUNNER_TEMP/out"')]
 
 
 def no_workflow_commands(output: str) -> None:

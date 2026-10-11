@@ -19,6 +19,12 @@ REPO_URL_RE = re.compile(r"^https://github\.com/([A-Za-z0-9-]+)/([A-Za-z0-9._-]+
 LOGIN_RE = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?(\[bot\])?$")
 SOURCE_REF_RE = re.compile(r"^(?!.*\.\.)[A-Za-z0-9_][A-Za-z0-9._/-]{0,99}$")  # same as the schema's
 LABEL_RE = ENTRY_ID_RE  # calibration run labels: the same safe slug as entry ids
+# An entry's install_guide (decision 65): a Markdown file in the repo (or the root README), optionally with a
+# heading anchor. Letters, digits, "_", "." and "-" only, so the path can't carry spaces, markup or prose into
+# the safety-check prompt, which names it. Same as the entry schema's pattern.
+INSTALL_GUIDE_RE = re.compile(r"^(?![./])(?!.*(?:^|/)\.\.?(?:/|$))"
+                              r"((?:[A-Za-z0-9_.-]+/)*[A-Za-z0-9_.-]+\.[mM][dD]|README)(?:#([a-z0-9_-]{1,100}))?$")
+INSTALL_GUIDE_MAX = 200
 
 MAX_ENTRY_BYTES = 16 * 1024
 
@@ -36,6 +42,27 @@ def entry_id(value: object) -> str:
     if not isinstance(value, str) or len(value) > 64 or not ENTRY_ID_RE.match(value):
         raise InvalidInput("invalid entry id")
     return value
+
+
+def install_guide(value: object, default: str = "AVP-INSTALL.md") -> tuple[str, str]:
+    """(path, anchor) of an entry's install guide; the policy's default file when the entry names none."""
+    if value is None:
+        return default, ""
+    if not isinstance(value, str) or len(value) > INSTALL_GUIDE_MAX or "//" in value:
+        raise InvalidInput("invalid install_guide")
+    match = INSTALL_GUIDE_RE.fullmatch(value)  # fullmatch: "$" alone would allow a trailing newline
+    if not match:
+        raise InvalidInput("invalid install_guide")
+    return match.group(1), match.group(2) or ""
+
+
+def install_guide_path(value: object, default: str = "AVP-INSTALL.md") -> str:
+    """A guide path with no anchor, as the scan and calibration jobs pass it to the prompt; the default when
+    empty. Only the strict install_guide charset gets through, so it can't carry prose into the prompt."""
+    path, anchor = install_guide(value if value not in (None, "") else None, default)
+    if anchor:
+        raise InvalidInput("invalid install guide path")
+    return path
 
 
 def label(value: object) -> str:

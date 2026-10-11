@@ -77,7 +77,8 @@
         "repo_url": {"type": "string"},
         "source_ref": {"type": ["string", "null"], "description": "The branch the index follows, when it isn't the repo's default branch (added in 1.1.0)."},
         "source_url": {"type": "string"},
-        "install_doc_url": {"type": "string"},
+        "install_doc_url": {"type": "string", "description": "The install guide at the scanned commit, with its #anchor when it names one."},
+        "install_guide": {"type": "string", "pattern": "^[A-Za-z0-9_./-]+(#[a-z0-9_-]+)?$", "description": "The install guide's path in the repo, with #anchor when it names a section: AVP-INSTALL.md unless the entry sets install_guide, such as README.md#install (added in 1.5.0)."},
         "developer": {
           "type": "object",
           "additionalProperties": false,

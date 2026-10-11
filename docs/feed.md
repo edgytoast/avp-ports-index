@@ -8,7 +8,7 @@ Its schema is [`schema/feed-v1.schema.json`](../schema/feed-v1.schema.json). The
 
 ## Contents
 
-- `entries`: every listed port, with pinned links (`source_url`, `install_doc_url`) to the scanned commit, the trust tier, health, scan state and license as stated. `source_ref` names the branch the index follows when it isn't the repo's default branch.
+- `entries`: every listed port, with pinned links (`source_url`, `install_doc_url`) to the scanned commit, the trust tier, health, scan state and license as stated. `source_ref` names the branch the index follows when it isn't the repo's default branch. `install_guide` is the install guide's path in the repo (`AVP-INSTALL.md`, or the README or docs file the entry names, with `#anchor` for one section), and `install_doc_url` links it, anchor included.
 - `unavailable`: ports that were listed and came off the index after their checks kept failing. Kept as a record that the work existed, with no links.
 - `tombstones`: ids that were pulled, taken down or withdrawn, with the date. No reasons are given.
 
@@ -22,6 +22,7 @@ Missing optional fields are `null`, or empty lists, except `install`, which is `
 - 1.2.0 added `entries[].experiences` (how the port plays) and `entries[].install` (`build` from source and/or `sideload`, a prebuilt app the index didn't review).
 - 1.3.0 added the `3d-tabletop` value to `entries[].experiences`.
 - 1.4.0 added `entries[].media`: screenshots and the app icon.
+- 1.5.0 added `entries[].install_guide`: an entry can point at an install guide in its README or docs instead of `AVP-INSTALL.md`. `install_doc_url` follows it, so apps that link that URL need no change.
 
 ## Media
 

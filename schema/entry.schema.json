@@ -129,6 +129,12 @@
       "uniqueItems": true,
       "items": {"enum": ["2d", "3d-immersive", "3d-shared-space", "3d-tabletop", "6dof-immersive", "6dof-progressive"]}
     },
+    "install_guide": {
+      "description": "Where your install guide is, if it isn't AVP-INSTALL.md at the root: a Markdown file in your repo, such as README.md, docs/install.md or README.md#install for one section (a root README with no extension works too). Use AVP-INSTALL.md normally; point this at your README or docs only if that already tells a Vision Pro player what they need, how to supply their own game files, and how to build and install. Letters, digits, _ . - and / only.",
+      "type": "string",
+      "pattern": "^(?![\\s\\S]*\\n)(?![./])(?!.*(^|/)\\.\\.?(/|$))(?!.*//)((?:[A-Za-z0-9_.-]+/)*[A-Za-z0-9_.-]+\\.[mM][dD]|README)(#[a-z0-9_-]{1,100})?$",
+      "maxLength": 200
+    },
     "install": {
       "description": "How players can install it. build: from source with Xcode. sideload: a prebuilt app you publish, for example through SideStore. Leave the field out for build-only ports.",
       "type": "array",

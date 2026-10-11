@@ -8,6 +8,7 @@ These mirror the automated checks (the [full list of checks](skills/avp-index-su
 
 - **One PR, one file.** Your PR adds or changes exactly one file, `entries/<id>.yaml`, and nothing else.
 - **An install guide in your repo.** Put `AVP-INSTALL.md` at the root of your repo (exact name, not empty, under 256 KB). Tell players how to supply their own game files, how to build, and how to install on Apple Vision Pro. There's no required format; the [skill's template](skills/avp-index-submit/assets/AVP-INSTALL.template.md) is a starting point. Players start from a checkout of the exact commit that was scanned, so keep your build steps usable from an existing checkout.
+  - **Already have one in your README or docs?** If your README or a docs page already tells a Vision Pro player what they need, how to supply their own game files, and how to build and install, you can point at it instead: set `install_guide` in your entry, such as `install_guide: README.md#install` (a Markdown file in your repo, with an optional `#anchor` for the section). The curator reads that guide once before the first listing, and again whenever `install_guide` changes. If the section's heading is renamed later, the link just opens at the top of the file and the curator is told; nothing is delisted for it.
 - **Your own public repo.** The repo is public and you own it, or it belongs to an org you're a public member of. Anyone else's submission goes to the curator first, which is fine, just slower.
 - **A license, if you have one.** No license, or a custom one, is fine. It's shown as stated. If a custom license seems to forbid personal use, the curator takes a look first.
 - **No game data.** No disc images, game data, archives or Git LFS files in the repo or its releases.
@@ -38,7 +39,7 @@ If you also publish a prebuilt app, add `install: [build, sideload]`, or `instal
 2. If everything passes, your PR joins the queue for the automated safety check, first come, first served. Expect minutes to hours.
 3. Clean PRs merge on their own, and your port appears in the README, on its own page, in the JSON feed and in `llms.txt`.
 
-The checks rerun whenever you push to the PR branch. If you fix something in your port's repo instead (adding `AVP-INSTALL.md`, say), the index re-checks within a few hours of a new commit there, and at least daily otherwise; close and reopen the PR to rerun them right away.
+The checks rerun whenever you push to the PR branch. If you fix something in your port's repo instead (adding your install guide, say), the index re-checks within a few hours of a new commit there, and at least daily otherwise; close and reopen the PR to rerun them right away.
 
 ## A badge for your README
 
@@ -101,4 +102,4 @@ If you think a decision on your PR was wrong, [open an appeal](../../issues/new?
 
 ## The agent skill
 
-[skills/avp-index-submit](skills/avp-index-submit/SKILL.md) is a skill for coding agents. Give it to your agent and it will add `AVP-INSTALL.md` to your repo if it's missing, write your entry file, run the same checks locally with `scripts/preflight.py`, and open the PR.
+[skills/avp-index-submit](skills/avp-index-submit/SKILL.md) is a skill for coding agents. Give it to your agent and it will add `AVP-INSTALL.md` to your repo if you have no install guide yet (or point your entry at the one your README already has), write your entry file, run the same checks locally with `scripts/preflight.py`, and open the PR.

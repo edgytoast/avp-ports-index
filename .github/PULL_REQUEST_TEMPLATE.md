@@ -1,7 +1,7 @@
 <!-- Thanks for submitting a port! Tick each box once it's true. CONTRIBUTING.md explains every item. -->
 
 - [ ] This PR adds or changes exactly one file, `entries/<id>.yaml`, and nothing else.
-- [ ] `AVP-INSTALL.md` is at the root of my repo and explains how to supply your own game files, build and install. Its build steps work from an existing checkout.
+- [ ] My repo has an install guide that explains how to supply your own game files, build and install: `AVP-INSTALL.md` at the root, or the README or docs file my entry's `install_guide` names. Its build steps work from an existing checkout.
 - [ ] My repo is public, and I own it (or I'm a public member of the org that owns it).
 - [ ] The repo and its releases contain no game data, disc images, archives or Git LFS files. Any prebuilt app in my releases still needs players to supply their own game files, and my entry sets `install: [build, sideload]` (the curator looks at it first).
 - [ ] I ran `skills/avp-index-submit/scripts/preflight.py` on my entry, or I'm fine with the checks running here.
