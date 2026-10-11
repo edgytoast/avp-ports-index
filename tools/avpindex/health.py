@@ -59,7 +59,7 @@ class Outreach:
     def open(self, entry_id: str, entry: dict, repo: dict | None, report, state: store.State,
              removal: str) -> str | None:
         rt = self.rt
-        items = [{"problem": f"{r.id}: {r.detail or 'failed'}", "fix": FIXES.get(r.id, "")}
+        items = [{"problem": f"{r.id}: {r.detail or 'failed'}", "fix": r.how_to_fix}
                  for r in report.results if r.effective == "fail"]
         name = entry.get("name", entry_id)
         body = messages.render("outreach", rt.root, name=name, items=items, date=removal, owner_login=rt.owner_login)
@@ -131,6 +131,13 @@ def run(rt) -> None:
                     lines = [f"`{entry_id}`: routes {', '.join(routes) or 'none'}; warnings {', '.join(warnings) or 'none'}."]
                     lines += [f"- {cid}: {validate.md_inline(text, 300)}" for cid, text in report.warnings]
                     rt.health_comment("\n".join(lines))
+            if "S1-07b" in routes and "S1-07b" not in (health.get("routes") or []):
+                detail = next((r.detail for r in report.results if r.id == "S1-07b"), "")
+                rt.upsert_triage(entry_id, f"`{entry_id}`: {validate.md_inline(detail, 300)}. Rescans wait, so the "
+                                           f"listing stays at {str(health.get('scanned_commit') or '')[:12]}. Read the "
+                                           "guide at the repo's latest commit; if it still tells a player what they "
+                                           "need, that they must supply their own game files and keys, and how to "
+                                           "build and install, run the kill switch `approve` for this entry.")
             health["routes"], health["warnings"] = routes, warnings
             failures = report.failures
             if failures:

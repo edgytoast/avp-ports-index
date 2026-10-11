@@ -161,14 +161,15 @@ def _quota_failure(interaction: dict) -> bool:
 # --- one review -----------------------------------------------------------------------------------
 
 def review(client: Antigravity, repo_url: str, sha: str, policy: dict, *, root: Path | None = None,
-           prompt: str = LIVE, sleep=time.sleep, clock=time.monotonic, make_id=safety_check.new_review_id) -> Outcome:
+           prompt: str = LIVE, install_guide: str = safety_check.DEFAULT_GUIDE, sleep=time.sleep, clock=time.monotonic, make_id=safety_check.new_review_id) -> Outcome:
     threshold = int(policy["stage2"]["confidence_threshold"])
     timeout = int(policy["stage2"]["timeout_minutes"]) * 60
     schema = safety_check.verdict_schema(root)  # always the live schema, whichever prompt was shown
     review_id = make_id()
     started = clock()
     try:
-        interaction = client.create(safety_check.render_prompt(repo_url, sha, threshold, review_id, root, prompt))
+        interaction = client.create(safety_check.render_prompt(repo_url, sha, threshold, review_id, root, prompt,
+                                                                 install_guide))
     except Deferred as exc:
         return Outcome("deferred", reason=str(exc)[:200])
     except (AgentError, requests.RequestException) as exc:

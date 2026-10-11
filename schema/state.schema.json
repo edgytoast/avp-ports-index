@@ -125,7 +125,7 @@
       }
     },
     "approvals": {
-      "description": "state/approvals.yaml: per entry, the files the curator approved by SHA-256, for the repo they were approved in (approvals.py).",
+      "description": "state/approvals.yaml: per entry, the files the curator approved by SHA-256 and the install guide they read, for the repo they were approved in (approvals.py).",
       "type": "object",
       "propertyNames": {"$ref": "#/$defs/entry_id"},
       "additionalProperties": {
@@ -140,7 +140,15 @@
                                                               "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
                                                               "bytes": {"type": "integer", "minimum": 0},
                                                               "commit": {"$ref": "#/$defs/sha"},
-                                                              "approved_at": {"$ref": "#/$defs/iso"}}}}
+                                                              "approved_at": {"$ref": "#/$defs/iso"}}}},
+          "install_guide": {"description": "The install guide outside AVP-INSTALL.md that the curator read (decision 68): S1-07b passes while the guide at the linked commit has this SHA-256 (the #anchor's section, or the whole file).",
+                            "type": "object", "additionalProperties": false,
+                            "required": ["path", "anchor", "sha256", "commit", "approved_at"],
+                            "properties": {"path": {"type": "string", "minLength": 1},
+                                           "anchor": {"type": "string", "pattern": "^[a-z0-9_-]{0,100}$"},
+                                           "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+                                           "commit": {"$ref": "#/$defs/sha"},
+                                           "approved_at": {"$ref": "#/$defs/iso"}}}
         }
       }
     }

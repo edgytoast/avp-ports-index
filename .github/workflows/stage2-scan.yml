@@ -34,6 +34,9 @@ on:
       counted:
         type: string
         default: "true"
+      install_guide:
+        type: string
+        default: AVP-INSTALL.md
 
 permissions: {}
 
@@ -54,6 +57,7 @@ jobs:
       INPUT_LINKED_REPO: ${{ inputs.linked_repo }}
       INPUT_LINKED_COMMIT: ${{ inputs.linked_commit }}
       INPUT_ENTRY_ID: ${{ inputs.entry_id }}
+      INPUT_INSTALL_GUIDE: ${{ inputs.install_guide }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

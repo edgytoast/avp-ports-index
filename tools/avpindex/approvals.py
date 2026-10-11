@@ -74,8 +74,26 @@ def record(state: store.State, entry_id: str, repo: dict, sha: str, paths: list 
             files.append({"path": path, "sha256": digest, "bytes": size, "commit": sha,
                           "approved_at": store.iso(store.utcnow())})
     if files:
-        state.approvals[entry_id] = {"repo_id": repo["id"], "files": files}
+        guide = current.get("install_guide") if current.get("repo_id") == repo["id"] else None
+        state.approvals[entry_id] = {"repo_id": repo["id"], "files": files,
+                                     **({"install_guide": guide} if guide else {})}
     return recorded, notes
+
+
+def record_guide(state: store.State, entry_id: str, repo: dict, sha: str, path: str, anchor: str,
+                 digest: str) -> None:
+    """Keep the install guide the curator read (decision 68): S1-07b passes while the guide has these bytes."""
+    current = state.approvals.get(entry_id) or {}
+    files = list(current.get("files") or []) if current.get("repo_id") == repo["id"] else []
+    state.approvals[entry_id] = {"repo_id": repo["id"], "files": files, "install_guide": {
+        "path": path, "anchor": anchor, "sha256": digest, "commit": sha, "approved_at": store.iso(store.utcnow())}}
+
+
+def forget_guide(state: store.State, entry_id: str) -> None:
+    """The entry went back to AVP-INSTALL.md: a later move to another guide is read again."""
+    current = state.approvals.get(entry_id)
+    if current and current.pop("install_guide", None) is not None and not current.get("files"):
+        del state.approvals[entry_id]
 
 
 def clearance(state: store.State, entry_id: str | None, repo_id: int, repo_name: str, sha: str,

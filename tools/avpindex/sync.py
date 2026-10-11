@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import datetime as dt
 
-from . import approvals, blocklist, lifecycle, messages, store, validate
+from . import approvals, blocklist, checks, lifecycle, messages, store, validate
 from .checks import controls, linked_head
 from .classify import ENTRY_FILE
 from .gate import STAGE1, STAGE2, latest_check, parse_external_id, read_marker
@@ -173,11 +173,30 @@ def replay_entry(rt, state: store.State, pr: dict, entry_id: str, raw: bytes, by
     else:
         current["owner_approved"] = bool(current.get("owner_approved") or curator or own)
     repo_facts(rt, entry_id, entry, repo, state)
+    record_guide(rt, state, entry_id, entry, repo)
     if previous != LISTED:
         base_url, _ = rt.urls()
         text = messages.render("merged", rt.root, name=entry.get("name", entry_id),
                                url=f"{base_url}/ports/{entry_id}.md")
         rt.once(f"merged:{pr['number']}", lambda: messages.upsert(rt, pr["number"], text))
+
+
+def record_guide(rt, state: store.State, entry_id: str, entry: dict, repo: dict) -> None:
+    """A merged entry whose install guide isn't AVP-INSTALL.md: S1-07b routed its PR to the curator unless the
+    guide had the bytes they already read, so merging it means the curator read the guide at the pin. Keep its
+    SHA-256 so a later change to it holds the pin until the curator reads it again (decision 68)."""
+    path, anchor = checks.entry_install_guide_or_default(entry, rt.policy)
+    if (path, anchor) == (rt.policy.get("install_file", "AVP-INSTALL.md"), ""):
+        approvals.forget_guide(state, entry_id)
+        return
+    owner, name = repo["owner"]["login"], repo["name"]
+    sha = state.health_record(entry_id).get("scanned_commit")
+    digest = checks.guide_digest(rt.gh, owner, name, sha, path, anchor)
+    if digest:
+        approvals.record_guide(state, entry_id, repo, sha, path, anchor, digest)
+    else:
+        rt.upsert_triage(entry_id, f"`{entry_id}` was merged, but its install guide `{path}` couldn't be read at "
+                                   f"{str(sha)[:12]}, so it wasn't recorded. Rescans wait until you `approve` it.")
 
 
 def withdraw(rt, state: store.State, entry_id: str) -> None:

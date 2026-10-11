@@ -150,7 +150,8 @@ def entry_bytes_at(rt, path: str, ref: str) -> bytes | None:
 def index_view(rt, state: store.State, entries: dict) -> IndexView:
     return IndexView(policy=rt.policy, schema=rt.entry_schema(), index_repo=rt.repo, entries=entries,
                      lifecycle=state.lifecycle, blocked=blocklist.hashes(state),
-                     flagged=blocklist.flag_hashes(state), salt=rt.salt, owner_id=rt.owner_id)
+                     flagged=blocklist.flag_hashes(state), salt=rt.salt, owner_id=rt.owner_id,
+                     approvals=state.approvals)
 
 
 def stage1_report(rt, pr: dict, cls, labels: set[str], state: store.State | None = None,
@@ -324,7 +325,9 @@ def _clear(rt, number: int, labels: set[str], names: tuple[str, ...]) -> None:
 
 def _render_stage1(rt, number: int, name: str, report: Report) -> None:
     if report.overall == FAIL:
-        text = messages.render("stage1-fail", rt.root, name=name, rows=messages.fail_rows(report.results))
+        guide = checks.entry_install_guide_or_default(report.entry, rt.policy)[0]  # validated charset
+        text = messages.render("stage1-fail", rt.root, name=name, rows=messages.fail_rows(report.results),
+                               guide=guide)
     else:
         text = messages.render("route", rt.root, name=name, reasons=messages.route_reasons(report.routes),
                                apps=apps_table(report.apps))

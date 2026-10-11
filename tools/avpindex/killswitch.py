@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 import re
 
-from . import approvals, blocklist, lifecycle, store, validate
+from . import approvals, blocklist, checks, lifecycle, store, validate
 from .lifecycle import DECAY, LISTED, PULLED, TAKEN_DOWN, WITHDRAWN
 from .sync import pin, repo_facts, sync_all
 from .writer import git, git_bytes
@@ -200,6 +200,10 @@ def approve(rt, state: store.State, entry_id: str, outcome: dict) -> None:
     flagged_commit = health.get("flagged_commit")
     has_flag = bool(repo_id) and blocklist.is_flagged(state, rt.salt, repo_id)
     if not flagged_commit and not has_flag:
+        if approve_guide(rt, state, entry_id, outcome):
+            if "approved as of" in outcome.get("note", ""):
+                rt.close_triage(entry_id, outcome["note"].split(" done. ", 1)[-1])
+            return
         outcome["note"] = f"The kill switch did nothing: `{entry_id}` has no flagged commit or flag record."
         return
     files: list[str] = []
@@ -222,8 +226,38 @@ def approve(rt, state: store.State, entry_id: str, outcome: dict) -> None:
                 ", ".join(f"`{validate.md_inline(p, 200)}`" for p in files) + "."
     if notes:
         text += " " + "; ".join(notes) + "."
+    guide: dict = {}
+    if approve_guide(rt, state, entry_id, guide) and "approved as of" in guide.get("note", ""):
+        text += " " + guide["note"].split(" done. ", 1)[-1]
     outcome["note"] = f"Kill switch: approve `{entry_id}` done. {text}"
     rt.close_triage(entry_id, text)
+
+
+def approve_guide(rt, state: store.State, entry_id: str, outcome: dict) -> bool:
+    """`approve` on a listed entry whose install guide outside AVP-INSTALL.md changed since the curator read it
+    (S1-07b, decision 68): record the guide at the linked commit as read, so the next rescan can move the pin.
+    It says nothing about the code, so `owner_approved`, flags and the pin stay as they are. False if there was
+    nothing to approve."""
+    entry = _entry(rt, entry_id)
+    path, anchor = checks.entry_install_guide_or_default(entry, rt.policy)
+    if not entry or (path, anchor) == (rt.policy.get("install_file", "AVP-INSTALL.md"), ""):
+        return False
+    record = state.lifecycle[entry_id]
+    repo = rt.gh.repo_by_id(record["repo_id"]) if record.get("repo_id") else None
+    head = checks.linked_head(rt.gh, repo, entry) if repo else None
+    digest = checks.guide_digest(rt.gh, repo["owner"]["login"], repo["name"], head, path, anchor) if head else None
+    if not digest:
+        outcome["note"] = f"Kill switch: approve `{entry_id}` couldn't read its install guide `{path}`; nothing changed."
+        return True
+    read = checks.reviewed_guide(state.approvals, entry_id, repo["id"])
+    if read and read.get("sha256") == digest and (read.get("path"), read.get("anchor") or "") == (path, anchor):
+        return False
+    approvals.record_guide(state, entry_id, repo, head, path, anchor, digest)
+    shown = path + (f"#{anchor}" if anchor else "")
+    text = (f"Install guide `{shown}` approved as of {head[:12]}. The next rescan can move the pin; a later change "
+            "to the guide holds it again.")
+    outcome["note"] = f"Kill switch: approve `{entry_id}` done. {text}"
+    return True
 
 
 def rescan(rt, state: store.State, entry_id: str, outcome: dict) -> None:
