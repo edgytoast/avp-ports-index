@@ -1,0 +1,45 @@
+schema_version: 1
+id: half-life-alyx
+name: Glovebox
+game:
+  title: "Half-Life: Alyx"
+  original_platform: pc
+  original_release_year: 2020
+repo: https://github.com/glovebox-vr/glovebox
+developer:
+  github: glovebox-vr
+status: working
+status_notes: "Runs on Apple Vision Pro itself, tested on M5 and M2 per the README. Known issues: close objects can look doubled when you move your head (45 fps, each frame shown twice), a few busy scenes run below full speed, and left-handed or one-controller play doesn't work."
+visionos_min: "26.0"
+input: [game-controller]
+experiences: [6dof-immersive]
+description: >-
+  Half-Life: Alyx on Apple Vision Pro itself, with no PC or streaming: Klepton converts the game's
+  ARM64 Linux build into signed visionOS code on your Mac, with MoltenVK, Compositor Services and
+  PS VR2 Sense controllers. A Mac app builds and installs it. Bring your own Steam copy.
+tags: [half-life, half-life-alyx, vr, 6dof, first-person, source-2, klepton, steam]
+credits:
+  - name: Glovebox contributors
+    role: Glovebox, the visionOS port
+  - name: shinyquagsire23
+    role: Klepton, the runtime Glovebox builds on
+    url: https://github.com/shinyquagsire23/Klepton
+  - name: Khronos Group
+    role: MoltenVK, Vulkan on Metal
+    url: https://github.com/KhronosGroup/MoltenVK
+  - name: Valve
+    role: Fossilize, ahead-of-time pipeline building
+    url: https://github.com/ValveSoftware/Fossilize
+  - name: SDL
+    role: SDL 3 and sdl2-compat
+    url: https://github.com/libsdl-org/SDL
+  - name: LuaJIT
+    role: The game's Lua scripting, with the JIT off
+    url: https://github.com/LuaJIT/LuaJIT
+  - name: Debian
+    role: arm64 runtime libraries, downloaded at install time
+    url: https://www.debian.org
+  - name: Valve
+    role: Original game
+upstream:
+  - https://github.com/shinyquagsire23/Klepton
