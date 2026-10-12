@@ -45,8 +45,10 @@ def repo_facts(rt, entry_id: str, entry: dict, repo: dict, state: store.State) -
     dev_user = rt.gh.user(dev_login) if dev_login else None
     health["github_verified"] = bool(dev_user) and controls(rt.gh, repo, dev_user["id"], dev_user["login"])
     owner_controls = controls(rt.gh, repo, rt.owner_id, rt.owner_login)
-    health["curator_own"] = bool(owner_controls or (
-        record.get("submitted_by_id") == rt.owner_id and dev_login.lower() == rt.owner_login.lower()))
+    curator_dev = dev_login.lower() == rt.owner_login.lower()
+    # A copy the curator hosts of someone else's port (developer.github names its authors) isn't the curator's own.
+    health["curator_own"] = bool((owner_controls and (curator_dev or not dev_login)) or (
+        record.get("submitted_by_id") == rt.owner_id and curator_dev))
     health["archived"] = bool(repo.get("archived"))
     head = linked_head(rt.gh, repo, entry)
     if head:
