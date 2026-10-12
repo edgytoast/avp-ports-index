@@ -10,7 +10,7 @@ animal-crossing-vr:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-10-12T04:08:19Z'
+  last_checked: '2026-10-12T07:05:37Z'
   last_commit_date: '2026-10-10T05:22:45Z'
   license:
     kind: custom
@@ -38,7 +38,7 @@ half-life-alyx:
   flagged_files: []
   github_verified: false
   health: ok
-  last_checked: '2026-10-12T04:08:19Z'
+  last_checked: '2026-10-12T07:05:37Z'
   last_commit_date: '2026-10-12T03:03:52Z'
   license:
     kind: custom
@@ -66,7 +66,7 @@ half-life-vr:
   flagged_commit: null
   github_verified: true
   health: ok
-  last_checked: '2026-10-12T04:08:19Z'
+  last_checked: '2026-10-12T07:05:37Z'
   last_commit_date: '2026-10-09T11:06:59Z'
   license:
     kind: open-source
@@ -94,7 +94,7 @@ shar-visionos:
   flagged_commit: null
   github_verified: true
   health: ok
-  last_checked: '2026-10-12T04:08:19Z'
+  last_checked: '2026-10-12T07:05:37Z'
   last_commit_date: '2026-10-08T20:53:28Z'
   license:
     kind: open-source
@@ -122,7 +122,7 @@ twilight-princess-vr:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-10-12T04:08:19Z'
+  last_checked: '2026-10-12T07:05:37Z'
   last_commit_date: '2026-10-10T09:20:02Z'
   license:
     kind: open-source
