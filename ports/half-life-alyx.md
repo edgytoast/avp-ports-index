@@ -13,7 +13,7 @@ Then follow the [install guide](https://github.com/edgytoast/glovebox/blob/77766
 
 | | |
 | --- | --- |
-| Trust | Working · Curator's own port |
+| Trust | Working |
 | Status | Working: Runs on the headset itself; the curator installed it from scratch with this copy's guide \(Steam save, controllers, frame rate fine\). Known issues: close objects can look doubled as you move \(45 fps shown twice\), busy scenes can slow down, no left-handed or one-controller play. |
 | Plays as | 6DoF immersive |
 | Health | OK |
