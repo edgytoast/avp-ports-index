@@ -855,7 +855,7 @@ The displayed tier, from highest to lowest:
 1. **Verified by trevorbilt:** a record with `verified: true` whose `repo_id` still equals the entry's lifecycle `repo_id`. Shown as "✔ Verified by trevorbilt on <date>", with "repo updated since" once `scanned_commit` advances past `verified_commit`. If the entry is edited to point at another repo, the badge (and the feed's `owner_verified.verified`) drops until the owner verifies the new repo.
 2. **Self-reported** `status`, in its order: `developer-verified` > `working` > `partially-working` > `not-working`.
 
-**Curator's own port:** the owner (by `OWNER_ID`) owns the linked repo or is a public member of its owning org, **or** the entry's `submitted_by_id` is `OWNER_ID` and its `developer.github` is `OWNER_LOGIN`. `developer.github` alone never earns the tag, since contributors write it themselves.
+**Curator's own port:** the owner (by `OWNER_ID`) owns the linked repo or is a public member of its owning org and the entry's `developer.github` is `OWNER_LOGIN` or absent, **or** the entry's `submitted_by_id` is `OWNER_ID` and its `developer.github` is `OWNER_LOGIN`. A repo the owner controls whose `developer.github` names someone else is a copy the curator hosts of their port (decision 65) and isn't tagged. `developer.github` alone never earns the tag, since contributors write it themselves.
 
 - Tagged "Curator's own port" everywhere and `curator_own: true` in the feed, so readers know who built it.
 - Eligible for tier 1 like any other port: the curator built and tested it.

@@ -13,7 +13,7 @@ Every listed port shows one trust tier, plus its health badge and scan label alo
 
 ## Curator's own port
 
-A port is tagged "Curator's own port" when the curator owns its repo (or is a public member of the org that owns it), or when the curator submitted it and credits himself as the developer. The `developer.github` field alone never earns the tag, because contributors write it themselves. Curator's own ports can be verified like any other.
+A port is tagged "Curator's own port" when the curator owns its repo (or is a public member of the org that owns it) and the entry names no other developer, or when the curator submitted it and is credited as the developer. A copy the curator hosts of someone else's port, to add the install guide its authors didn't, names them as the developer and isn't tagged. The `developer.github` field alone never earns the tag, because contributors write it themselves. Curator's own ports can be verified like any other.
 
 ## Health and scan labels
 

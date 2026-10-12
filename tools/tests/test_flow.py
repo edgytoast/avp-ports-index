@@ -308,9 +308,14 @@ class TestSync:
         gh.add_repo("trevorbilt-bot/own", 42)
         merge_commit(rt, gh, 3, "edgytoast", "entries/own.yaml", entry_yaml("own", "trevorbilt-bot/own", dev="edgytoast"),
                      s1=f"42@{SHA(42)}", s2=("success", stage2_marker(kind="scan", confidence=90), f"42@{SHA(42)}"))
+        gh.add_repo("edgytoast/copy", 43)
+        merge_commit(rt, gh, 4, "edgytoast", "entries/copy.yaml", entry_yaml("copy", "edgytoast/copy", dev="stranger"),
+                     s1=f"43@{SHA(43)}", s2=("success", stage2_marker(kind="scan", confidence=90), f"43@{SHA(43)}"))
         state = store.State.load(rt.root)
         sync.sync_all(rt, state)
         assert (state.health["theirs"]["curator_own"], state.lifecycle["theirs"]["owner_approved"]) == (False, False)
+        assert state.health["copy"]["curator_own"] is False  # the curator hosts it; its authors are named
+        assert state.health["copy"]["github_verified"] is False
         assert (state.health["mine"]["curator_own"], state.lifecycle["mine"]["owner_approved"]) == (True, True)
         assert (state.health["own"]["curator_own"], state.lifecycle["own"]["owner_approved"]) == (True, False)
         assert state.health["theirs"]["github_verified"] is False
