@@ -32,11 +32,11 @@ Twilight Princess in first person on Apple Vision Pro: JoeyAW's TPVR mod on Dusk
 
 ## Screenshots
 
-From the port's README at 90d0f67370eb.
+From the port's README at c55bc6c8e795.
 
-<img src="https://raw.githubusercontent.com/edgytoast/tpvr-visionos/90d0f67370ebbf986c5c3671117fe4d79de45887/docs/images/window-view.jpg" alt="Link at Ordon Ranch, in a window floating in a living room" width="400">
-<img src="https://raw.githubusercontent.com/edgytoast/tpvr-visionos/90d0f67370ebbf986c5c3671117fe4d79de45887/docs/images/full-immersion.jpg" alt="Ordon Ranch in first person: the ranch house, goats and a rancher, with the HUD floating ahead" width="400">
-<img src="https://raw.githubusercontent.com/edgytoast/tpvr-visionos/90d0f67370ebbf986c5c3671117fe4d79de45887/docs/images/window-angle.jpg" alt="The same window seen from the side: Link and the ranch house have real depth behind the glass" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/tpvr-visionos/c55bc6c8e79557641d4893df7e7ff264931d05d9/docs/images/window-view.jpg" alt="Link at Ordon Ranch, in a window floating in a living room" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/tpvr-visionos/c55bc6c8e79557641d4893df7e7ff264931d05d9/docs/images/full-immersion.jpg" alt="Ordon Ranch in first person: the ranch house, goats and a rancher, with the HUD floating ahead" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/tpvr-visionos/c55bc6c8e79557641d4893df7e7ff264931d05d9/docs/images/window-angle.jpg" alt="The same window seen from the side: Link and the ranch house have real depth behind the glass" width="400">
 
 ## Credits
 

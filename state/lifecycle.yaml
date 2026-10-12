@@ -8,6 +8,16 @@ animal-crossing-vr:
   status: listed
   submitted_by: edgytoast
   submitted_by_id: 146565462
+half-life-alyx:
+  by: merge
+  changed_at: '2026-10-12T03:39:01Z'
+  listed_at: '2026-10-12T03:39:01Z'
+  owner_approved: true
+  repo: https://github.com/edgytoast/glovebox
+  repo_id: 1413803432
+  status: listed
+  submitted_by: edgytoast
+  submitted_by_id: 146565462
 half-life-vr:
   by: kill-switch
   changed_at: '2026-10-09T17:02:19Z'

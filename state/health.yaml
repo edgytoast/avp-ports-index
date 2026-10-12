@@ -26,6 +26,35 @@ animal-crossing-vr:
   scanned_at: '2026-10-10T15:55:59Z'
   scanned_commit: b5b463f8e29a51a5718db30ecb5d38ee175f0a40
   warnings: []
+half-life-alyx:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: true
+  decay_reset_at: '2026-10-12T03:39:01Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: false
+  health: ok
+  last_checked: null
+  last_commit_date: '2026-10-12T03:03:52Z'
+  license:
+    kind: custom
+    spdx: null
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes: []
+  scan_confidence: 100
+  scan_declines: 0
+  scan_kind: automated
+  scan_state: current
+  scanned_at: '2026-10-12T03:39:01Z'
+  scanned_commit: 77766c24038ba874f67af23239fc0693bdcd7f83
+  warnings: []
 half-life-vr:
   archived: false
   commits_since_scan: 0
