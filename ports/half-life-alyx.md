@@ -17,7 +17,7 @@ Then follow the [install guide](https://github.com/edgytoast/glovebox/blob/77766
 | Status | Working: Runs on the headset itself; the curator installed it from scratch with this copy's guide \(Steam save, controllers, frame rate fine\). Known issues: close objects can look doubled as you move \(45 fps shown twice\), busy scenes can slow down, no left-handed or one-controller play. |
 | Plays as | 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-10-12 · 0 commits since |
+| Scan | Scanned 2026-10-12 · commits since unknown |
 | Source (scanned) | [edgytoast/glovebox at 77766c24038b](https://github.com/edgytoast/glovebox/tree/77766c24038ba874f67af23239fc0693bdcd7f83) |
 | Install guide | [AVP-INSTALL.md at 77766c24038b](https://github.com/edgytoast/glovebox/blob/77766c24038ba874f67af23239fc0693bdcd7f83/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
