@@ -6,10 +6,10 @@ Port by [@glovebox-vr](https://github.com/glovebox-vr)
 Start with this command, which gets exactly the code that was scanned:
 
 ```
-git clone https://github.com/edgytoast/glovebox && cd glovebox && git checkout 77766c24038ba874f67af23239fc0693bdcd7f83 && git submodule update --init --recursive
+git clone https://github.com/edgytoast/glovebox && cd glovebox && git checkout eac2d06b13ab62f227ba2ee5850513ef9db5f7d5 && git submodule update --init --recursive
 ```
 
-Then follow the [install guide](https://github.com/edgytoast/glovebox/blob/77766c24038ba874f67af23239fc0693bdcd7f83/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+Then follow the [install guide](https://github.com/edgytoast/glovebox/blob/eac2d06b13ab62f227ba2ee5850513ef9db5f7d5/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
 
 | | |
 | --- | --- |
@@ -17,9 +17,9 @@ Then follow the [install guide](https://github.com/edgytoast/glovebox/blob/77766
 | Status | Working: Runs on the headset itself; the curator installed it from scratch with this copy's guide \(Steam save, controllers, frame rate fine\). Known issues: close objects can look doubled as you move \(45 fps shown twice\), busy scenes can slow down, no left-handed or one-controller play. |
 | Plays as | 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-10-12 · commits since unknown |
-| Source (scanned) | [edgytoast/glovebox at 77766c24038b](https://github.com/edgytoast/glovebox/tree/77766c24038ba874f67af23239fc0693bdcd7f83) |
-| Install guide | [AVP-INSTALL.md at 77766c24038b](https://github.com/edgytoast/glovebox/blob/77766c24038ba874f67af23239fc0693bdcd7f83/AVP-INSTALL.md) |
+| Scan | Scanned 2026-10-13 · 2 commits since |
+| Source (scanned) | [edgytoast/glovebox at eac2d06b13ab](https://github.com/edgytoast/glovebox/tree/eac2d06b13ab62f227ba2ee5850513ef9db5f7d5) |
+| Install guide | [AVP-INSTALL.md at eac2d06b13ab](https://github.com/edgytoast/glovebox/blob/eac2d06b13ab62f227ba2ee5850513ef9db5f7d5/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [edgytoast/glovebox](https://github.com/edgytoast/glovebox) |
 | License | Custom license |

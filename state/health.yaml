@@ -28,7 +28,7 @@ animal-crossing-vr:
   warnings: []
 half-life-alyx:
   archived: false
-  commits_since_scan: null
+  commits_since_scan: 2
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-10-12T03:39:01Z'
@@ -48,12 +48,12 @@ half-life-alyx:
   rescan_after: null
   rescan_hold: false
   routes: []
-  scan_confidence: 100
+  scan_confidence: 95
   scan_declines: 0
   scan_kind: automated
-  scan_state: unknown
-  scanned_at: '2026-10-12T03:39:01Z'
-  scanned_commit: 77766c24038ba874f67af23239fc0693bdcd7f83
+  scan_state: behind
+  scanned_at: '2026-10-13T07:15:45Z'
+  scanned_commit: eac2d06b13ab62f227ba2ee5850513ef9db5f7d5
   warnings: []
 half-life-vr:
   archived: false
