@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.4.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-13T07:15:46Z",
+  "generated_at": "2026-10-13T07:38:00Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -22,8 +22,8 @@
       },
       "repo_url": "https://github.com/edgytoast/glovebox",
       "source_ref": null,
-      "source_url": "https://github.com/edgytoast/glovebox/tree/eac2d06b13ab62f227ba2ee5850513ef9db5f7d5",
-      "install_doc_url": "https://github.com/edgytoast/glovebox/blob/eac2d06b13ab62f227ba2ee5850513ef9db5f7d5/AVP-INSTALL.md",
+      "source_url": "https://github.com/edgytoast/glovebox/tree/77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09",
+      "install_doc_url": "https://github.com/edgytoast/glovebox/blob/77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09/AVP-INSTALL.md",
       "developer": {
         "name": null,
         "github": "glovebox-vr",
@@ -94,11 +94,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "eac2d06b13ab62f227ba2ee5850513ef9db5f7d5",
-      "scanned_at": "2026-10-13T07:15:45Z",
+      "scanned_commit": "77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09",
+      "scanned_at": "2026-10-13T07:38:00Z",
       "scan_kind": "automated",
-      "commits_since_scan": 2,
-      "scan_state": "behind",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-10-12T03:30:57Z",
       "license": {
