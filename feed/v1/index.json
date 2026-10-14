@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.4.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-14T06:44:27Z",
+  "generated_at": "2026-10-14T07:08:09Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -163,8 +163,8 @@
       },
       "repo_url": "https://github.com/illixion/halflife-visionos",
       "source_ref": null,
-      "source_url": "https://github.com/illixion/halflife-visionos/tree/195fe2e8ca4a11f2a4ccc1c11b9a3a0cb9059616",
-      "install_doc_url": "https://github.com/illixion/halflife-visionos/blob/195fe2e8ca4a11f2a4ccc1c11b9a3a0cb9059616/AVP-INSTALL.md",
+      "source_url": "https://github.com/illixion/halflife-visionos/tree/334889bbea4f884b1624343b23cf98fa73ca8b30",
+      "install_doc_url": "https://github.com/illixion/halflife-visionos/blob/334889bbea4f884b1624343b23cf98fa73ca8b30/AVP-INSTALL.md",
       "developer": {
         "name": "Ixion",
         "github": "illixion",
@@ -215,11 +215,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "195fe2e8ca4a11f2a4ccc1c11b9a3a0cb9059616",
-      "scanned_at": "2026-10-09T18:59:21Z",
-      "scan_kind": "curator-reviewed",
-      "commits_since_scan": 1,
-      "scan_state": "behind",
+      "scanned_commit": "334889bbea4f884b1624343b23cf98fa73ca8b30",
+      "scanned_at": "2026-10-14T07:08:09Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-10-10T10:27:31Z",
       "license": {

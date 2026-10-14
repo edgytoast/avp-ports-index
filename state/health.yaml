@@ -57,13 +57,14 @@ half-life-alyx:
   warnings: []
 half-life-vr:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-10-09T17:02:19Z'
   failing_since: null
   failures: []
   flagged_commit: null
+  flagged_files: []
   github_verified: true
   health: ok
   last_checked: '2026-10-14T06:43:28Z'
@@ -77,11 +78,12 @@ half-life-vr:
   rescan_hold: false
   routes:
   - S1-11d
-  scan_confidence: null
-  scan_kind: curator-reviewed
-  scan_state: behind
-  scanned_at: '2026-10-09T18:59:21Z'
-  scanned_commit: 195fe2e8ca4a11f2a4ccc1c11b9a3a0cb9059616
+  scan_confidence: 79
+  scan_declines: 0
+  scan_kind: automated
+  scan_state: current
+  scanned_at: '2026-10-14T07:08:09Z'
+  scanned_commit: 334889bbea4f884b1624343b23cf98fa73ca8b30
   warnings: []
 shar-visionos:
   archived: false
