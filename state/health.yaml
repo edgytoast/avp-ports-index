@@ -10,7 +10,7 @@ animal-crossing-vr:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-10-13T06:51:11Z'
+  last_checked: '2026-10-14T06:43:28Z'
   last_commit_date: '2026-10-10T05:22:45Z'
   license:
     kind: custom
@@ -38,8 +38,8 @@ half-life-alyx:
   flagged_files: []
   github_verified: false
   health: ok
-  last_checked: '2026-10-13T06:51:11Z'
-  last_commit_date: '2026-10-12T03:30:57Z'
+  last_checked: '2026-10-14T06:43:28Z'
+  last_commit_date: '2026-10-13T06:52:59Z'
   license:
     kind: custom
     spdx: null
@@ -57,7 +57,7 @@ half-life-alyx:
   warnings: []
 half-life-vr:
   archived: false
-  commits_since_scan: 0
+  commits_since_scan: 1
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-10-09T17:02:19Z'
@@ -66,8 +66,8 @@ half-life-vr:
   flagged_commit: null
   github_verified: true
   health: ok
-  last_checked: '2026-10-13T06:51:11Z'
-  last_commit_date: '2026-10-09T11:06:59Z'
+  last_checked: '2026-10-14T06:43:28Z'
+  last_commit_date: '2026-10-10T10:27:31Z'
   license:
     kind: open-source
     spdx: GPL-3.0
@@ -79,7 +79,7 @@ half-life-vr:
   - S1-11d
   scan_confidence: null
   scan_kind: curator-reviewed
-  scan_state: current
+  scan_state: behind
   scanned_at: '2026-10-09T18:59:21Z'
   scanned_commit: 195fe2e8ca4a11f2a4ccc1c11b9a3a0cb9059616
   warnings: []
@@ -94,7 +94,7 @@ shar-visionos:
   flagged_commit: null
   github_verified: true
   health: ok
-  last_checked: '2026-10-13T06:51:11Z'
+  last_checked: '2026-10-14T06:43:28Z'
   last_commit_date: '2026-10-08T20:53:28Z'
   license:
     kind: open-source
@@ -122,7 +122,7 @@ twilight-princess-vr:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-10-13T06:51:11Z'
+  last_checked: '2026-10-14T06:43:28Z'
   last_commit_date: '2026-10-10T09:20:02Z'
   license:
     kind: open-source

@@ -23,7 +23,7 @@ Then follow the [install guide](https://github.com/edgytoast/glovebox/blob/77ea8
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [edgytoast/glovebox](https://github.com/edgytoast/glovebox) |
 | License | Custom license |
-| Last commit | 2026-10-12 |
+| Last commit | 2026-10-13 |
 | visionOS | 26.0 or later |
 | Input | game controller |
 | Tags | half-life, half-life-alyx, vr, 6dof, first-person, source-2, klepton, steam |
@@ -32,9 +32,9 @@ Half-Life: Alyx on Apple Vision Pro itself, with no PC or streaming: Klepton con
 
 ## Screenshots
 
-From the port's README at 77766c24038b.
+From the port's README at 77ea8e653705.
 
-<img src="https://raw.githubusercontent.com/edgytoast/glovebox/77766c24038ba874f67af23239fc0693bdcd7f83/installer/App/Glovebox/Assets.xcassets/AppIcon.appiconset/icon_512x512.png" alt="Glovebox" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/glovebox/77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09/installer/App/Glovebox/Assets.xcassets/AppIcon.appiconset/icon_512x512.png" alt="Glovebox" width="400">
 
 ## Credits
 

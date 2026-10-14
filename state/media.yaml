@@ -54,15 +54,15 @@ animal-crossing-vr:
   source: readme
 half-life-alyx:
   choice: null
-  collected_at: '2026-10-12T03:39:05Z'
-  commit: 77766c24038ba874f67af23239fc0693bdcd7f83
+  collected_at: '2026-10-14T06:44:27Z'
+  commit: 77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09
   icon:
     bytes: 106358
     format: png
     height: 512
     kind: flat
     sha256: c44b7392ab9140c493c6854037311bec5252d8aacbb9bd36a16fd741eb32c128
-    url: https://raw.githubusercontent.com/edgytoast/glovebox/77766c24038ba874f67af23239fc0693bdcd7f83/installer/App/Glovebox/Assets.xcassets/AppIcon.appiconset/icon_256x256%402x.png
+    url: https://raw.githubusercontent.com/edgytoast/glovebox/77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09/installer/App/Glovebox/Assets.xcassets/AppIcon.appiconset/icon_256x256%402x.png
     width: 512
   screenshots:
   - alt: Glovebox
@@ -70,7 +70,7 @@ half-life-alyx:
     format: png
     height: 512
     sha256: c44b7392ab9140c493c6854037311bec5252d8aacbb9bd36a16fd741eb32c128
-    url: https://raw.githubusercontent.com/edgytoast/glovebox/77766c24038ba874f67af23239fc0693bdcd7f83/installer/App/Glovebox/Assets.xcassets/AppIcon.appiconset/icon_512x512.png
+    url: https://raw.githubusercontent.com/edgytoast/glovebox/77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09/installer/App/Glovebox/Assets.xcassets/AppIcon.appiconset/icon_512x512.png
     width: 512
   skipped: []
   source: readme
