@@ -1,0 +1,29 @@
+schema_version: 1
+id: vkquake
+name: vkQuake
+game:
+  title: "Quake"
+  original_platform: pc
+  original_release_year: 1996
+repo: https://github.com/rebelancap/vkQuake-ios
+developer:
+  github: rebelancap
+status: working
+status_notes: "VR mode needs visionOS 26 or later; the 2D window and 3D mode run on visionOS 2 or later."
+visionos_min: "2.0"
+input: [game-controller]
+experiences: [2d, 3d-immersive, 6dof-immersive]
+install: [build, sideload]
+description: >-
+  Quake on Apple Vision Pro through vkQuake, running natively through Metal: a resizable 2D window, a
+  stereoscopic 3D screen in your room, or head-tracked VR at life scale with a gun in each hand (PS
+  VR2 Sense) or a gamepad. Mission packs, mods and multiplayer work. Bring your own Quake game files.
+tags: [quake, fps, pc, source-port, vr, stereo-3d, mods, multiplayer]
+credits:
+  - name: vkQuake
+    role: The engine, by Axel Gneiting and contributors
+    url: https://github.com/Novum/vkQuake
+  - name: id Software
+    role: Original game
+upstream:
+  - https://github.com/Novum/vkQuake
