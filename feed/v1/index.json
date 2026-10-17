@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.4.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-16T06:57:46Z",
+  "generated_at": "2026-10-17T06:39:27Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -112,7 +112,7 @@
       "description": "Twilight Princess in first person on Apple Vision Pro: JoeyAW's TPVR mod on Dusklight, built natively for visionOS. Full or progressive immersion with PS VR2 Sense controllers or bare hands, or the GameCube game in a window beside your apps, with real depth. Bring your own disc.",
       "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/twilight-princess-vr.md",
       "media": {
-        "commit": "c55bc6c8e79557641d4893df7e7ff264931d05d9",
+        "commit": "1d86592b56dcef01587fc1d4f36c6e32fffba36d",
         "source": "readme",
         "icon": {
           "kind": "layered",
@@ -123,7 +123,7 @@
               "height": 1024,
               "layer": "back",
               "sha256": "6af87336e2ee53c66bbcc0d11877937a9ca7bdfc2082aae78a1db8695bb9ec06",
-              "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/c55bc6c8e79557641d4893df7e7ff264931d05d9/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/1d86592b56dcef01587fc1d4f36c6e32fffba36d/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
               "width": 1024
             },
             {
@@ -132,7 +132,7 @@
               "height": 1024,
               "layer": "middle",
               "sha256": "77e2032cd45d5033eb37ba9b440e6f3dad82d82ccbd080ed64d9a9b44901d71c",
-              "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/c55bc6c8e79557641d4893df7e7ff264931d05d9/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/1d86592b56dcef01587fc1d4f36c6e32fffba36d/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
               "width": 1024
             },
             {
@@ -141,7 +141,7 @@
               "height": 1024,
               "layer": "front",
               "sha256": "d6fdee278d3a65966659b93def5179629edab6a19bc0c4f5ff2a02cdb61f2fc3",
-              "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/c55bc6c8e79557641d4893df7e7ff264931d05d9/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/1d86592b56dcef01587fc1d4f36c6e32fffba36d/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
               "width": 1024
             }
           ]
@@ -153,7 +153,7 @@
             "format": "jpeg",
             "height": 900,
             "sha256": "c9d3f91f26037437afa5e31bf194467c626ba5b03e300baaa57b0b7a1b38ac46",
-            "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/c55bc6c8e79557641d4893df7e7ff264931d05d9/docs/images/window-view.jpg",
+            "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/1d86592b56dcef01587fc1d4f36c6e32fffba36d/docs/images/window-view.jpg",
             "width": 1600
           },
           {
@@ -162,7 +162,7 @@
             "format": "jpeg",
             "height": 900,
             "sha256": "256761e065afb0cf24d1649924783648761e5f94a3726dadf9a069d8588c115d",
-            "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/c55bc6c8e79557641d4893df7e7ff264931d05d9/docs/images/full-immersion.jpg",
+            "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/1d86592b56dcef01587fc1d4f36c6e32fffba36d/docs/images/full-immersion.jpg",
             "width": 1600
           },
           {
@@ -171,7 +171,7 @@
             "format": "jpeg",
             "height": 1025,
             "sha256": "89646502795cadf67303561fe5dcc32ab46e5209574c2c12977a4a50106c0030",
-            "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/c55bc6c8e79557641d4893df7e7ff264931d05d9/docs/images/window-angle.jpg",
+            "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/1d86592b56dcef01587fc1d4f36c6e32fffba36d/docs/images/window-angle.jpg",
             "width": 1600
           }
         ]
