@@ -17,7 +17,7 @@ install: [build, sideload]
 description: >-
   Half-Life: Alyx on Apple Vision Pro itself, with no PC or streaming: Klepton converts the game's
   ARM64 Linux build into signed visionOS code on your Mac. Install it with the Glovebox Mac app or
-  build it from source, with your own Steam copy. Listed from a copy that adds only the install guide.
+  build it from source, with your own Steam copy. Listed from a copy with an install guide and build fixes.
 tags: [half-life, half-life-alyx, vr, 6dof, first-person, source-2, klepton, steam]
 credits:
   - name: Glovebox contributors
