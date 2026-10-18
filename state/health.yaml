@@ -131,7 +131,7 @@ twilight-princess-vr:
     spdx: CC0-1.0
   outreach_issue_url: null
   outreach_opened_at: null
-  rescan_after: null
+  rescan_after: '2026-10-19T07:02:09Z'
   rescan_hold: false
   routes: []
   scan_confidence: 100
