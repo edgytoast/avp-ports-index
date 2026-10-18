@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.4.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-17T06:39:27Z",
+  "generated_at": "2026-10-18T06:39:57Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -78,10 +78,10 @@
       "scanned_commit": "1d86592b56dcef01587fc1d4f36c6e32fffba36d",
       "scanned_at": "2026-10-16T06:57:46Z",
       "scan_kind": "automated",
-      "commits_since_scan": 0,
-      "scan_state": "current",
+      "commits_since_scan": 2,
+      "scan_state": "behind",
       "archived": false,
-      "last_commit_date": "2026-10-15T21:51:19Z",
+      "last_commit_date": "2026-10-17T20:57:34Z",
       "license": {
         "kind": "open-source",
         "spdx": "CC0-1.0"
