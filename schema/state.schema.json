@@ -51,6 +51,8 @@
           "rescan_after": {"$ref": "#/$defs/iso_or_null"},
           "scan_declines": {"description": "Rescans in a row that Jules declined to review; reset by a pass, a flag, a pin move, restore, approve or rescan (report.py, killswitch.py).",
                             "type": "integer", "minimum": 0},
+          "scan_refused": {"description": "Jules refused to review a rescan since the last verdict, so a later pass leaves the triage note open (decision 66); reset by a flag, a pin move, restore or approve (report.py, sync.py, killswitch.py).",
+                           "type": "boolean"},
           "decay_reset_at": {"$ref": "#/$defs/iso_or_null"},
           "warnings": {"$ref": "#/$defs/check_ids"}
         }

@@ -213,6 +213,7 @@ def default_health() -> dict:
         "rescan_hold": False,
         "rescan_after": None,
         "scan_declines": 0,
+        "scan_refused": False,
         "decay_reset_at": None,
         "warnings": [],
     }

@@ -34,7 +34,7 @@ DONE_STATES = {"COMPLETED", "FAILED"}
 STOPPED_STATES = {"AWAITING_USER_FEEDBACK", "AWAITING_PLAN_APPROVAL", "PAUSED"}
 NUDGE = "Please continue without questions and write verdict.json as instructed."
 POLL_SECONDS = 30
-REPLY_SECONDS = 600     # how long a follow-up message may go unanswered
+REPLY_SECONDS = 1500    # how long a follow-up message may go unanswered (decision 66: Jules can be slow to answer)
 EXCERPT_CHARS = 400     # how much of a refusal is kept as the reason
 NO_VERDICT = "no verdict.json was found"
 

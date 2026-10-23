@@ -464,7 +464,7 @@ class TestDeclines:
         client = FakeJules(["COMPLETED"], said(REFUSAL))
         out = review(client)
         assert out.result == "declined" and out.reason == REFUSAL and client.messages == [jules.restate_message(RID)]
-        assert 10 <= out.minutes < 12
+        assert jules.REPLY_SECONDS / 60 <= out.minutes < jules.REPLY_SECONDS / 60 + 2
 
     def test_other_silence_stays_error(self):
         bash = [{"artifacts": [{"bashOutput": {"command": "ls /tmp/target", "output": "README.md"}}]}]
