@@ -1,0 +1,37 @@
+schema_version: 1
+id: sm64coopdx
+name: Super Mario 64 Co-op Deluxe
+game:
+  title: "Super Mario 64"
+  original_platform: n64
+  original_release_year: 1996
+repo: https://github.com/rebelancap/sm64coopdx-ios
+developer:
+  github: rebelancap
+status: working
+visionos_min: "2.0"
+input: [game-controller]
+experiences: [2d, 3d-immersive, 6dof-immersive]
+install: [build, sideload]
+description: >-
+  Super Mario 64 Co-op Deluxe on Apple Vision Pro, rendering natively on Metal with online co-op: a 2D
+  window, a stereoscopic 3D screen in your room, or VR as a diorama on your floor, in third person or
+  in first person at life size. Bring your own Super Mario 64 (US) ROM.
+tags: [mario, super-mario-64, n64, platformer, co-op, multiplayer, vr, stereo-3d]
+credits:
+  - name: Coop Deluxe Team
+    role: sm64coopdx, the port this is built on
+    url: https://github.com/coop-deluxe/sm64coopdx
+  - name: djoslin0
+    role: sm64ex-coop, which sm64coopdx continues
+    url: https://github.com/djoslin0/sm64ex-coop
+  - name: LeoManrique
+    role: iOS groundwork (sm64coopdx-ios), forked by this port
+    url: https://github.com/LeoManrique/sm64coopdx-ios
+  - name: RaYRoD
+    role: Quest VR port of sm64coopdx that shaped the VR mode
+  - name: Nintendo
+    role: Original game
+upstream:
+  - https://github.com/coop-deluxe/sm64coopdx
+  - https://github.com/LeoManrique/sm64coopdx-ios
