@@ -374,11 +374,15 @@ def rescan(rt, inputs: Inputs, outcome: dict, threshold: int) -> None:
             declined_before = int(health.get("scan_declines") or 0)
             pin(rt, state, inputs.entry_id, inputs.linked_commit, "automated", confidence, repo,
                 entries.get(inputs.entry_id))
-            state.health_record(inputs.entry_id)["scan_declines"] = 0
-            if declined_before:
-                rt.note_triage(inputs.entry_id, f"Jules reviewed `{inputs.linked_commit}` on a later try and it "
-                                                f"passed (confidence {confidence}), so the pin moved there. The "
-                                                "notes above need nothing more.")
+            health = state.health_record(inputs.entry_id)
+            health["scan_declines"] = 0
+            if not health.get("flagged_commit"):
+                # A pass at the pin settles an earlier "couldn't finish" or "declined" note: close it (decision 66).
+                # A note about a flag stays open; a flag holds rescans anyway.
+                again = " on a later try" if declined_before else ""
+                rt.close_triage(inputs.entry_id, f"Jules reviewed `{inputs.linked_commit}`{again} and it passed "
+                                                 f"(confidence {confidence}), so the entry is listed at that "
+                                                 "commit. Nothing more is needed here.")
         elif result == "flag":
             apply_rescan_flag(rt, state, inputs, outcome, threshold)
         elif result == "declined":
