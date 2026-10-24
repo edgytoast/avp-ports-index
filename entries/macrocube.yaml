@@ -1,0 +1,23 @@
+schema_version: 1
+id: macrocube
+name: MacroCube
+game:
+  title: "ClassiCube"
+  original_platform: pc
+repo: https://github.com/v1sea/MacroCube
+developer:
+  github: v1sea
+status: partially-working
+status_notes: "The README lists open issues: the wrist menu isn't functional yet, and in multiplayer, placing blocks can get you kicked from a server."
+experiences: [6dof-immersive]
+description: >-
+  ClassiCube, the Minecraft Classic compatible client, on visionOS with Metal and Compositor
+  Services. Worlds open in a mixed immersive space at a reduced scale, with your head as the camera
+  and hand-tracked block placement. Downloads Minecraft Classic's free assets on first launch.
+tags: [sandbox, voxel, building, classicube, mixed-reality, hand-tracking]
+credits:
+  - name: ClassiCube
+    role: Original game, and the client this fork is built on
+    url: https://github.com/ClassiCube/ClassiCube
+upstream:
+  - https://github.com/ClassiCube/ClassiCube
