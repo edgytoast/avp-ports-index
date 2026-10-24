@@ -1,0 +1,35 @@
+schema_version: 1
+id: dusklight-apple-vision
+name: "Dusklight Apple Vision (21:9)"
+game:
+  title: "The Legend of Zelda: Twilight Princess"
+  original_platform: gamecube
+  original_release_year: 2006
+repo: https://github.com/stacklikemind/dusklight
+developer:
+  github: stacklikemind
+status: working
+status_notes: "The README says it builds and runs on visionOS, verified on the visionOS 26.5 Simulator and on Apple Vision Pro hardware, in a window with a 21:9 presentation."
+visionos_min: "2.0"
+experiences: [2d]
+description: >-
+  Twilight Princess on Apple Vision Pro as a native visionOS app: a Dusklight fork that builds the
+  reverse-engineered reimplementation for visionOS and plays it in a window beside your other apps,
+  with the picture held at 21:9. Bring your own GameCube disc.
+tags: [zelda, twilight-princess, gamecube, adventure, decompilation, ultrawide]
+credits:
+  - name: Twilit Realm
+    role: Dusklight, the Twilight Princess reimplementation this fork is built on
+    url: https://github.com/TwilitRealm/dusklight
+  - name: zeldaret
+    role: Twilight Princess decompilation
+    url: https://github.com/zeldaret/tp
+  - name: Aurora
+    role: GameCube and Wii runtime and graphics layer
+    url: https://github.com/encounter/aurora
+  - name: Nintendo
+    role: Original game
+upstream:
+  - https://github.com/TwilitRealm/dusklight
+  - https://github.com/zeldaret/tp
+  - https://github.com/encounter/aurora
