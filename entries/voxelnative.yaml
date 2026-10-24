@@ -1,0 +1,34 @@
+schema_version: 1
+id: voxelnative
+name: VoxelNative
+game:
+  title: "Luanti"
+  original_platform: pc
+  original_release_year: 2010
+repo: https://github.com/bettse/voxelnative
+developer:
+  github: bettse
+status: working
+status_notes: "Joining a server and playing works in the headset, with VoxeLibre as the daily driver. The README calls it a work in progress, rough in places."
+visionos_min: "26.0"
+input: [game-controller]
+experiences: [6dof-immersive]
+description: >-
+  A native Swift and Metal Luanti (Minetest) client for Apple Vision Pro. It speaks the Luanti
+  protocol to any server and renders the world per eye in full immersion; walk, dig, place and
+  craft with PS VR2 Sense controllers or a Bluetooth keyboard. Built and tested against VoxeLibre.
+tags: [luanti, minetest, voxelibre, voxel, sandbox, vr, 6dof]
+credits:
+  - name: Luanti
+    role: The engine whose network protocol this client reimplements
+    url: https://github.com/luanti-org/luanti
+  - name: VoxeLibre
+    role: The game it's built and tested against
+    url: https://github.com/VoxeLibre/VoxeLibre
+  - name: BigInt
+    role: Third-party code (MIT)
+    url: https://github.com/attaswift/BigInt
+  - name: Luanti contributors
+    role: Original game
+upstream:
+  - https://github.com/luanti-org/luanti
