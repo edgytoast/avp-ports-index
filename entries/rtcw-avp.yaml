@@ -1,0 +1,40 @@
+schema_version: 1
+id: rtcw-avp
+name: RTCW for Apple Vision Pro
+game:
+  title: "Return to Castle Wolfenstein"
+  original_platform: pc
+  original_release_year: 2001
+repo: https://github.com/florind-ens/RTCW-AVP
+developer:
+  github: florind-ens
+status: working
+status_notes: "Single player, in VR or in a flat window."
+visionos_min: "26.0"
+input: [game-controller]
+experiences: [2d, 6dof-immersive]
+description: >-
+  Return to Castle Wolfenstein's single player on Apple Vision Pro, on the iortcw engine: VR in a
+  fully immersive space with stereo, head tracking, a virtual menu screen and DualSense controls,
+  or a flat window. A build kit with a one-command setup. Bring your own GOG or Steam pk3 files.
+tags: [fps, shooter, first-person, vr, 6dof, iortcw, id-tech-3, source-port]
+credits:
+  - name: iortcw
+    role: The engine
+    url: https://github.com/iortcw/iortcw
+  - name: RTCWQuest
+    role: VR design reference (head/body split, stereo, world scale)
+    url: https://github.com/DrBeef/RTCWQuest
+  - name: halflife-visionos
+    role: The ANGLE-for-visionOS build approach
+    url: https://github.com/illixion/halflife-visionos
+  - name: ANGLE
+    role: OpenGL ES on Metal
+    url: https://chromium.googlesource.com/angle/angle
+  - name: XcodeGen
+    role: Xcode project generation
+    url: https://github.com/yonaskolb/XcodeGen
+  - name: Gray Matter Interactive / id Software
+    role: Original game
+upstream:
+  - https://github.com/iortcw/iortcw
