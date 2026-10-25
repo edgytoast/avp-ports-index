@@ -42,7 +42,7 @@ jobs:
           "$RUNNER_TEMP/venv/bin/pip" install --quiet --require-hashes --no-deps -r tools/requirements.txt
       - name: Mint the gate token
         id: app
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
           private-key: ${{ secrets.APP_KEY }}
@@ -59,7 +59,7 @@ jobs:
       - name: Mint the merge token
         id: merge-token
         if: steps.gate.outputs.merge_prs != ''
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
           private-key: ${{ secrets.APP_KEY }}
@@ -106,7 +106,7 @@ jobs:
           "$RUNNER_TEMP/venv/bin/pip" install --quiet --require-hashes --no-deps -r tools/requirements.txt
       - name: Mint the token
         id: app
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
           client-id: ${{ vars.APP_CLIENT_ID }}
           private-key: ${{ secrets.APP_KEY }}
