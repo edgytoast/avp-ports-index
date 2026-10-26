@@ -1,0 +1,32 @@
+schema_version: 1
+id: ghostship
+name: Ghostship
+game:
+  title: "SM64"
+  original_platform: n64
+  original_release_year: 1996
+repo: https://github.com/rebelancap/Ghostship-ios
+developer:
+  github: rebelancap
+status: working
+visionos_min: "2.0"
+input: [game-controller]
+experiences: [2d, 3d-immersive]
+install: [build, sideload]
+description: >-
+  Harbour Masters' Ghostship N64 port on Apple Vision Pro, rendering natively on Metal: a resizable
+  2D window, or a stereoscopic 3D screen floating in your room. Enhancements menu, game controllers,
+  .o2r texture packs and in-app ROM extraction. Bring your own ROM.
+tags: [platformer, n64, source-port, harbour-masters, stereo-3d, texture-packs]
+credits:
+  - name: Harbour Masters
+    role: Ghostship, the port this is built on
+    url: https://github.com/HarbourMasters/Ghostship
+  - name: Harbour Masters
+    role: libultraship, the platform layer
+    url: https://github.com/HarbourMasters/libultraship
+  - name: Nintendo
+    role: Original game
+upstream:
+  - https://github.com/HarbourMasters/Ghostship
+  - https://github.com/HarbourMasters/libultraship
