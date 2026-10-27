@@ -1,0 +1,27 @@
+schema_version: 1
+id: ragnarok-offline
+name: Ragnarok Offline
+game:
+  title: "Ragnarok Online"
+  original_platform: pc
+  original_release_year: 2002
+repo: https://github.com/arkadeleon/ragnarok-offline
+developer:
+  github: arkadeleon
+status: partially-working
+status_notes: "The README lists Apple Vision Pro, device and Simulator, as a run destination. The game client is labelled beta in the app, and docs/ROBROWSER_PARITY.md lists the client features still missing."
+visionos_min: "2.0"
+experiences: [6dof-immersive]
+description: >-
+  A Ragnarok Online client and an embedded rAthena server in one Swift app for Mac, iPhone, iPad
+  and Apple Vision Pro. On Vision Pro the beta game client renders maps in a full immersive space
+  with Compositor Services. Bring your own client files (data.grf).
+tags: [mmorpg, rpg, ragnarok-online, rathena, swift]
+credits:
+  - name: rAthena
+    role: Server emulator, embedded through the swift-rathena fork
+    url: https://github.com/rathena/rathena
+  - name: Gravity
+    role: Original game
+upstream:
+  - https://github.com/rathena/rathena
