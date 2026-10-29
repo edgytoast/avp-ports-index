@@ -1,0 +1,32 @@
+schema_version: 1
+id: wind-waker-vr
+name: Wind Waker VR
+game:
+  title: "The Legend of Zelda: The Wind Waker"
+  original_platform: gamecube
+  original_release_year: 2002
+repo: https://github.com/edgytoast/windwaker-visionos
+developer:
+  github: edgytoast
+  name: Trevorbilt
+  url: https://trevorbilt.com
+status: working
+status_notes: "Plays in a window beside your apps, in 3D or in 2D like the original, with a gamepad; played on Apple Vision Pro. Full and Progressive VR are in the app behind an experimental switch, untested on a headset."
+visionos_min: "26.0"
+input: [game-controller]
+experiences: [2d, 3d-shared-space]
+description: "The Wind Waker in a window beside your apps on Apple Vision Pro, with the Great Sea rebuilt in real 3D behind the glass every frame, so you can lean in and look around Outset. Or switch it to 2D, like the GameCube. A native visionOS port of SwitchWaker. Bring your own disc."
+tags: [zelda, wind-waker, gamecube, decompilation, shared-space, window, aurora]
+credits:
+  - {name: Trevorbilt, role: "visionOS port", url: "https://trevorbilt.com"}
+  - {name: centollOS, role: "SwitchWaker, the native port this builds on (Pulpparty, depende3000)", url: "https://github.com/centollOS/SwitchWaker"}
+  - {name: zeldaret, role: "The Wind Waker decompilation", url: "https://github.com/zeldaret/tww"}
+  - {name: snrubrm, role: "Completed the decompilation's missing functions", url: "https://github.com/snrubrm/tww"}
+  - {name: encounter, role: "Aurora, the GameCube graphics, input and disc layer", url: "https://github.com/encounter/aurora"}
+  - {name: JoeyAW, role: "TPVR, whose stereo view and VR hooks this port follows", url: "https://github.com/JoeyAW/TPVR"}
+  - {name: Twilit Realm, role: "Dusklight, the model for SwitchWaker's SDK layer", url: "https://twilitrealm.dev/"}
+  - {name: iChris4, role: "WiiCompiled Vision, source of the visionOS OpenXR provider", url: "https://github.com/iChris4/Wiicompiled_VR"}
+upstream:
+  - https://github.com/centollOS/SwitchWaker
+  - https://github.com/zeldaret/tww
+  - https://github.com/encounter/aurora
