@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.4.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-29T21:32:38Z",
+  "generated_at": "2026-10-29T22:31:03Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -12,6 +12,174 @@
   },
   "license": "CC0-1.0",
   "entries": [
+    {
+      "id": "wind-waker-vr",
+      "name": "Wind Waker VR",
+      "game": {
+        "title": "The Legend of Zelda: The Wind Waker",
+        "original_platform": "gamecube",
+        "original_release_year": 2002
+      },
+      "repo_url": "https://github.com/edgytoast/windwaker-visionos",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/windwaker-visionos/tree/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c",
+      "install_doc_url": "https://github.com/edgytoast/windwaker-visionos/blob/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/AVP-INSTALL.md",
+      "developer": {
+        "name": "Trevorbilt",
+        "github": "edgytoast",
+        "url": "https://trevorbilt.com",
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "Trevorbilt",
+          "role": "visionOS port",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "centollOS",
+          "role": "SwitchWaker, the native port this builds on (Pulpparty, depende3000)",
+          "url": "https://github.com/centollOS/SwitchWaker"
+        },
+        {
+          "name": "zeldaret",
+          "role": "The Wind Waker decompilation",
+          "url": "https://github.com/zeldaret/tww"
+        },
+        {
+          "name": "snrubrm",
+          "role": "Completed the decompilation's missing functions",
+          "url": "https://github.com/snrubrm/tww"
+        },
+        {
+          "name": "encounter",
+          "role": "Aurora, the GameCube graphics, input and disc layer",
+          "url": "https://github.com/encounter/aurora"
+        },
+        {
+          "name": "JoeyAW",
+          "role": "TPVR, whose stereo view and VR hooks this port follows",
+          "url": "https://github.com/JoeyAW/TPVR"
+        },
+        {
+          "name": "Twilit Realm",
+          "role": "Dusklight, the model for SwitchWaker's SDK layer",
+          "url": "https://twilitrealm.dev/"
+        },
+        {
+          "name": "iChris4",
+          "role": "WiiCompiled Vision, source of the visionOS OpenXR provider",
+          "url": "https://github.com/iChris4/Wiicompiled_VR"
+        }
+      ],
+      "upstream": [
+        "https://github.com/centollOS/SwitchWaker",
+        "https://github.com/zeldaret/tww",
+        "https://github.com/encounter/aurora"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "Plays in a window beside your apps, in 3D or in 2D like the original, with a gamepad; played on Apple Vision Pro. Full and Progressive VR are in the app behind an experimental switch, untested on a headset.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": true,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c",
+      "scanned_at": "2026-10-29T22:30:59Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-10-29T22:08:53Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "MIT"
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d",
+        "3d-shared-space"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "zelda",
+        "wind-waker",
+        "gamecube",
+        "decompilation",
+        "shared-space",
+        "window",
+        "aurora"
+      ],
+      "description": "The Wind Waker in a window beside your apps on Apple Vision Pro, with the Great Sea rebuilt in real 3D behind the glass every frame, so you can lean in and look around Outset. Or switch it to 2D, like the GameCube. A native visionOS port of SwitchWaker. Bring your own disc.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/wind-waker-vr.md",
+      "media": {
+        "commit": "a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 40431,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "307bb6afe1e04d949ea493aff4c85f647eaad3c8cb780ad3b525ea3c9807d744",
+              "url": "https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 172114,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "ed6f26d218d12716598d0aff696ec46dbd3d52877abfc16e37f0fdabd970e89e",
+              "url": "https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 122170,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "26b7e7568edc896ad85c053666dbf63f596a5c08d361f671de1c952cb68b7b3a",
+              "url": "https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "Link on Outset Island's pier, in a window floating in a living room",
+            "bytes": 195331,
+            "format": "jpeg",
+            "height": 922,
+            "sha256": "50d81fc83ad74804f7bf112280f22b02ca25f473dd5cb20b6806723aab0c5d4a",
+            "url": "https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/docs/images/window-3d.jpg",
+            "width": 1640
+          },
+          {
+            "alt": "Link on Windfall Island's dock, in a window seen from off to one side: he and the cliffs stand out of the sea behind the glass",
+            "bytes": 123448,
+            "format": "jpeg",
+            "height": 697,
+            "sha256": "d7f61553f75c02f23c47ff69f246220445fc4363ae77774c9bafc907a85ed5cc",
+            "url": "https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/docs/images/window-angle.jpg",
+            "width": 1240
+          }
+        ]
+      }
+    },
     {
       "id": "twilight-princess-vr",
       "name": "Twilight Princess VR",

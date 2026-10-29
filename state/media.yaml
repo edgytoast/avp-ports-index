@@ -351,3 +351,50 @@ twilight-princess-vr:
   - reason: smaller than 480x270
     src: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/docs/images/trevorbilt.png
   source: readme
+wind-waker-vr:
+  choice: null
+  collected_at: '2026-10-29T22:31:03Z'
+  commit: a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c
+  icon:
+    kind: layered
+    layers:
+    - bytes: 40431
+      format: png
+      height: 1024
+      layer: back
+      sha256: 307bb6afe1e04d949ea493aff4c85f647eaad3c8cb780ad3b525ea3c9807d744
+      url: https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
+      width: 1024
+    - bytes: 172114
+      format: png
+      height: 1024
+      layer: middle
+      sha256: ed6f26d218d12716598d0aff696ec46dbd3d52877abfc16e37f0fdabd970e89e
+      url: https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
+      width: 1024
+    - bytes: 122170
+      format: png
+      height: 1024
+      layer: front
+      sha256: 26b7e7568edc896ad85c053666dbf63f596a5c08d361f671de1c952cb68b7b3a
+      url: https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
+      width: 1024
+  screenshots:
+  - alt: Link on Outset Island's pier, in a window floating in a living room
+    bytes: 195331
+    format: jpeg
+    height: 922
+    sha256: 50d81fc83ad74804f7bf112280f22b02ca25f473dd5cb20b6806723aab0c5d4a
+    url: https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/docs/images/window-3d.jpg
+    width: 1640
+  - alt: 'Link on Windfall Island''s dock, in a window seen from off to one side: he and the cliffs stand out of the sea behind the glass'
+    bytes: 123448
+    format: jpeg
+    height: 697
+    sha256: d7f61553f75c02f23c47ff69f246220445fc4363ae77774c9bafc907a85ed5cc
+    url: https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/docs/images/window-angle.jpg
+    width: 1240
+  skipped:
+  - reason: not this repo's file or a GitHub attachment
+    src: https://trevorbilt.com/assets/logo-BdrEikAq.png
+  source: readme
