@@ -1,3 +1,48 @@
+117-vision:
+  choice: null
+  collected_at: '2026-10-29T07:06:21Z'
+  commit: b25332ef95bb2df1735e3d8640167a1e62b8252a
+  icon:
+    kind: layered
+    layers:
+    - bytes: 1139365
+      format: png
+      height: 1024
+      layer: back
+      sha256: 1f62a7f9210cdfc751d4700f63f9124e9f554796e92aefd1e20fee2261ea99d8
+      url: https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/native/EngineVision/Resources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/117-plasma-background.png
+      width: 1024
+    - bytes: 4144
+      format: png
+      height: 1024
+      layer: front
+      sha256: f12ddfea20dcca2fa350d75d5ed2ae76a4fffbcdfd2b8f2357558b90072dab9f
+      url: https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/native/EngineVision/Resources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/117-plasma-foreground.png
+      width: 1024
+  screenshots:
+  - alt: Halo gameplay on Vision Pro with a visible hand and PSVR2 Sense controller aiming the assault rifle
+    bytes: 722664
+    format: png
+    height: 720
+    sha256: 0667a42b8c750001c83a0d0d738f14097de6495440ef83be5fc3c6e87fef06d9
+    url: https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/docs/assets/117-sense-rifle-combat.png
+    width: 1280
+  - alt: A visible PSVR2 Sense controller beneath the sniper scope during gameplay
+    bytes: 351795
+    format: png
+    height: 720
+    sha256: 3f226f1c2d551b6176bfecc5bc6ad182c2ca85f5a4688449d687a6c74e4dd114
+    url: https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/docs/assets/117-sense-sniper-scope.png
+    width: 1280
+  - alt: A visible hand and PSVR2 Sense controller during a grenade throwing gesture
+    bytes: 498958
+    format: png
+    height: 720
+    sha256: 412cfb28c1a0a09130dc87fce0203315f06b1465313e0e23daadd9bda1804ce8
+    url: https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/docs/assets/117-sense-grenade-throw.png
+    width: 1280
+  skipped: []
+  source: readme
 animal-crossing-vr:
   choice: null
   collected_at: '2026-10-10T15:56:05Z'

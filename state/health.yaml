@@ -1,3 +1,33 @@
+117-vision:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: false
+  decay_reset_at: '2026-10-29T07:06:17Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: true
+  health: ok
+  last_checked: null
+  last_commit_date: '2026-10-29T04:44:31Z'
+  license:
+    kind: open-source
+    spdx: MIT
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes: []
+  scan_confidence: 100
+  scan_declines: 0
+  scan_kind: automated
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-10-29T07:06:17Z'
+  scanned_commit: b25332ef95bb2df1735e3d8640167a1e62b8252a
+  warnings: []
 animal-crossing-vr:
   archived: false
   commits_since_scan: 0

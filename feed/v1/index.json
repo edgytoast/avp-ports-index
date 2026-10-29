@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.4.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-29T06:48:22Z",
+  "generated_at": "2026-10-29T07:06:21Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -990,6 +990,129 @@
             "sha256": "95ed31e3215c1af7f28359dc2d893799fa9294a1ba3942747bedba98d1d8e68e",
             "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/1b207d63f3b972e3e514de538e6b88a8ac7dbfdc/docs/media/dark-eco-vision-pro.gif",
             "width": 640
+          }
+        ]
+      }
+    },
+    {
+      "id": "117-vision",
+      "name": "117",
+      "game": {
+        "title": "Halo: Combat Evolved",
+        "original_platform": null,
+        "original_release_year": null
+      },
+      "repo_url": "https://github.com/zschwendi/117-vision",
+      "source_ref": null,
+      "source_url": "https://github.com/zschwendi/117-vision/tree/b25332ef95bb2df1735e3d8640167a1e62b8252a",
+      "install_doc_url": "https://github.com/zschwendi/117-vision/blob/b25332ef95bb2df1735e3d8640167a1e62b8252a/AVP-INSTALL.md",
+      "developer": {
+        "name": "Zach Schwendiman",
+        "github": "zschwendi",
+        "url": null,
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "Master Chef",
+          "role": "Executable translation, native runtime, Metal renderer and visionOS port",
+          "url": "https://github.com/mitchaiet/master-chef"
+        }
+      ],
+      "upstream": [
+        "https://github.com/mitchaiet/master-chef"
+      ],
+      "self_reported_status": "partially-working",
+      "status_notes": "Windowed play is stable per the developer. Immersive mode has remaining bugs; tracked input targets on-foot campaign play. Vehicles and turrets use conventional controls.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "partially-working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "b25332ef95bb2df1735e3d8640167a1e62b8252a",
+      "scanned_at": "2026-10-29T07:06:17Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-10-29T04:44:31Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "MIT"
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d",
+        "6dof-immersive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [],
+      "description": "Native Halo: Combat Evolved port based on Master Chef, with windowed and immersive Vision Pro play, PSVR2 Sense tracked aiming and optional iCloud save sync.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/117-vision.md",
+      "media": {
+        "commit": "b25332ef95bb2df1735e3d8640167a1e62b8252a",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 1139365,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "1f62a7f9210cdfc751d4700f63f9124e9f554796e92aefd1e20fee2261ea99d8",
+              "url": "https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/native/EngineVision/Resources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/117-plasma-background.png",
+              "width": 1024
+            },
+            {
+              "bytes": 4144,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "f12ddfea20dcca2fa350d75d5ed2ae76a4fffbcdfd2b8f2357558b90072dab9f",
+              "url": "https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/native/EngineVision/Resources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/117-plasma-foreground.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "Halo gameplay on Vision Pro with a visible hand and PSVR2 Sense controller aiming the assault rifle",
+            "bytes": 722664,
+            "format": "png",
+            "height": 720,
+            "sha256": "0667a42b8c750001c83a0d0d738f14097de6495440ef83be5fc3c6e87fef06d9",
+            "url": "https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/docs/assets/117-sense-rifle-combat.png",
+            "width": 1280
+          },
+          {
+            "alt": "A visible PSVR2 Sense controller beneath the sniper scope during gameplay",
+            "bytes": 351795,
+            "format": "png",
+            "height": 720,
+            "sha256": "3f226f1c2d551b6176bfecc5bc6ad182c2ca85f5a4688449d687a6c74e4dd114",
+            "url": "https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/docs/assets/117-sense-sniper-scope.png",
+            "width": 1280
+          },
+          {
+            "alt": "A visible hand and PSVR2 Sense controller during a grenade throwing gesture",
+            "bytes": 498958,
+            "format": "png",
+            "height": 720,
+            "sha256": "412cfb28c1a0a09130dc87fce0203315f06b1465313e0e23daadd9bda1804ce8",
+            "url": "https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/docs/assets/117-sense-grenade-throw.png",
+            "width": 1280
           }
         ]
       }
