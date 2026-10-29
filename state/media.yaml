@@ -52,6 +52,30 @@ animal-crossing-vr:
   - reason: smaller than 480x270
     src: https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/docs/images/trevorbilt.png
   source: readme
+avp-craft:
+  choice: null
+  collected_at: '2026-10-29T05:20:27Z'
+  commit: 81a863314917f99662735c48a4f03b65788de9b3
+  icon:
+    kind: layered
+    layers:
+    - bytes: 1122893
+      format: png
+      height: 1024
+      layer: back
+      sha256: b11a70223839639427d586b1305e31dafe14a8173fa87706fa3993ecdf20ea50
+      url: https://raw.githubusercontent.com/zschwendi/avp-craft/81a863314917f99662735c48a4f03b65788de9b3/visionos/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
+      width: 1024
+    - bytes: 4144
+      format: png
+      height: 1024
+      layer: middle
+      sha256: 265149d454822c2c808720c61f5a4317c0bfda56fc96598ea7b19b6ea52c5dd1
+      url: https://raw.githubusercontent.com/zschwendi/avp-craft/81a863314917f99662735c48a4f03b65788de9b3/visionos/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
+      width: 1024
+  screenshots: []
+  skipped: []
+  source: readme
 half-life-alyx:
   choice: null
   collected_at: '2026-10-14T06:44:27Z'

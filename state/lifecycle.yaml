@@ -8,6 +8,16 @@ animal-crossing-vr:
   status: listed
   submitted_by: edgytoast
   submitted_by_id: 146565462
+avp-craft:
+  by: merge
+  changed_at: '2026-10-29T05:20:24Z'
+  listed_at: '2026-10-29T05:20:24Z'
+  owner_approved: false
+  repo: https://github.com/zschwendi/avp-craft
+  repo_id: 1416290859
+  status: listed
+  submitted_by: zschwendi
+  submitted_by_id: 139005358
 half-life-alyx:
   by: merge
   changed_at: '2026-10-12T03:39:01Z'

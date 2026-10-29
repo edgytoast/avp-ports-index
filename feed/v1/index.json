@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.4.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-29T05:06:32Z",
+  "generated_at": "2026-10-29T05:20:28Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -777,6 +777,113 @@
             "width": 1600
           }
         ]
+      }
+    },
+    {
+      "id": "avp-craft",
+      "name": "AVPcraft",
+      "game": {
+        "title": "Minecraft: Java Edition",
+        "original_platform": null,
+        "original_release_year": null
+      },
+      "repo_url": "https://github.com/zschwendi/avp-craft",
+      "source_ref": null,
+      "source_url": "https://github.com/zschwendi/avp-craft/tree/81a863314917f99662735c48a4f03b65788de9b3",
+      "install_doc_url": "https://github.com/zschwendi/avp-craft/blob/81a863314917f99662735c48a4f03b65788de9b3/AVP-INSTALL.md",
+      "developer": {
+        "name": "Zach Schwendiman",
+        "github": "zschwendi",
+        "url": null,
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "vivecraft-visionos",
+          "role": "Vision Pro port foundation",
+          "url": "https://github.com/rebelancap/vivecraft-visionos"
+        },
+        {
+          "name": "Vivecraft",
+          "role": "Minecraft VR integration",
+          "url": "https://github.com/Vivecraft/VivecraftMod"
+        },
+        {
+          "name": "Klepton",
+          "role": "Ahead-of-time Java runtime",
+          "url": "https://github.com/shinyquagsire23/Klepton"
+        }
+      ],
+      "upstream": [
+        "https://github.com/rebelancap/vivecraft-visionos",
+        "https://github.com/Vivecraft/VivecraftMod",
+        "https://github.com/shinyquagsire23/Klepton"
+      ],
+      "self_reported_status": "partially-working",
+      "status_notes": "Windowed play needs further testing; immersive mode has remaining bugs. The complete build has not yet been repeated from a clean public checkout. See the install guide for known limits.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "partially-working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "81a863314917f99662735c48a4f03b65788de9b3",
+      "scanned_at": "2026-10-29T05:20:23Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-10-29T04:44:24Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "MIT"
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d",
+        "6dof-immersive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [],
+      "description": "Minecraft: Java Edition 26.2 compiled ahead of time for Vision Pro, with an AVPcraft launcher, windowed play, Vivecraft immersion and PSVR2 Sense input.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/avp-craft.md",
+      "media": {
+        "commit": "81a863314917f99662735c48a4f03b65788de9b3",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 1122893,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "b11a70223839639427d586b1305e31dafe14a8173fa87706fa3993ecdf20ea50",
+              "url": "https://raw.githubusercontent.com/zschwendi/avp-craft/81a863314917f99662735c48a4f03b65788de9b3/visionos/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 4144,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "265149d454822c2c808720c61f5a4317c0bfda56fc96598ea7b19b6ea52c5dd1",
+              "url": "https://raw.githubusercontent.com/zschwendi/avp-craft/81a863314917f99662735c48a4f03b65788de9b3/visionos/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": []
       }
     },
     {
