@@ -1,0 +1,21 @@
+schema_version: 1
+id: 117-vision
+name: "117"
+game:
+  title: "Halo: Combat Evolved"
+repo: https://github.com/zschwendi/117-vision
+developer:
+  github: zschwendi
+  name: Zach Schwendiman
+status: partially-working
+status_notes: "Windowed play is stable per the developer. Immersive mode has remaining bugs; tracked input targets on-foot campaign play. Vehicles and turrets use conventional controls."
+visionos_min: "26.0"
+input: [game-controller]
+experiences: ["2d", "6dof-immersive"]
+description: "Native Halo: Combat Evolved port based on Master Chef, with windowed and immersive Vision Pro play, PSVR2 Sense tracked aiming and optional iCloud save sync."
+credits:
+  - name: "Master Chef"
+    role: "Executable translation, native runtime, Metal renderer and visionOS port"
+    url: https://github.com/mitchaiet/master-chef
+upstream:
+  - https://github.com/mitchaiet/master-chef
