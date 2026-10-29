@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.4.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-29T07:06:21Z",
+  "generated_at": "2026-10-29T21:32:38Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -291,7 +291,7 @@
         "klepton",
         "steam"
       ],
-      "description": "Half-Life: Alyx on Apple Vision Pro itself, with no PC or streaming: Klepton converts the game's ARM64 Linux build into signed visionOS code on your Mac. Install it with the Glovebox Mac app or build it from source, with your own Steam copy. Listed from a copy that adds only the install guide.",
+      "description": "Half-Life: Alyx on Apple Vision Pro itself, with no PC or streaming: Klepton converts the game's ARM64 Linux build into signed visionOS code on your Mac. Install it with the Glovebox Mac app or build it from source, with your own Steam copy. Listed from a copy with an install guide and build fixes.",
       "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/half-life-alyx.md",
       "media": {
         "commit": "77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09",
@@ -789,8 +789,8 @@
       },
       "repo_url": "https://github.com/zschwendi/SantosVision",
       "source_ref": null,
-      "source_url": "https://github.com/zschwendi/SantosVision/tree/20fb8e39e18788a71469a2a63c2889ae12f3a0d8",
-      "install_doc_url": "https://github.com/zschwendi/SantosVision/blob/20fb8e39e18788a71469a2a63c2889ae12f3a0d8/AVP-INSTALL.md",
+      "source_url": "https://github.com/zschwendi/SantosVision/tree/2a09ecb2b643299297e269ed8cf997eaca449062",
+      "install_doc_url": "https://github.com/zschwendi/SantosVision/blob/2a09ecb2b643299297e269ed8cf997eaca449062/AVP-INSTALL.md",
       "developer": {
         "name": "Zach Schwendiman",
         "github": "zschwendi",
@@ -820,11 +820,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "20fb8e39e18788a71469a2a63c2889ae12f3a0d8",
-      "scanned_at": "2026-10-29T05:06:28Z",
+      "scanned_commit": "2a09ecb2b643299297e269ed8cf997eaca449062",
+      "scanned_at": "2026-10-29T07:23:16Z",
       "scan_kind": "automated",
-      "commits_since_scan": 3,
-      "scan_state": "behind",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-10-29T05:36:16Z",
       "license": {
@@ -846,7 +846,7 @@
       "description": "Native Apple-platform GTA V port built on Muguet, with local ahead-of-time compiled game code, a game window and experimental head-tracked third-person immersion.",
       "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/santosvision.md",
       "media": {
-        "commit": "20fb8e39e18788a71469a2a63c2889ae12f3a0d8",
+        "commit": "2a09ecb2b643299297e269ed8cf997eaca449062",
         "source": "readme",
         "icon": {
           "kind": "layered",
@@ -857,7 +857,7 @@
               "height": 1024,
               "layer": "back",
               "sha256": "cde5a2a4bd62439c9ae894c6de6685ff703c3140cc038dc0a567f0eda0caa51a",
-              "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/20fb8e39e18788a71469a2a63c2889ae12f3a0d8/visionos/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/santos-five-palms.png",
+              "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/2a09ecb2b643299297e269ed8cf997eaca449062/visionos/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/santos-five-palms.png",
               "width": 1024
             },
             {
@@ -866,7 +866,7 @@
               "height": 1024,
               "layer": "front",
               "sha256": "f12ddfea20dcca2fa350d75d5ed2ae76a4fffbcdfd2b8f2357558b90072dab9f",
-              "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/20fb8e39e18788a71469a2a63c2889ae12f3a0d8/visionos/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/transparent.png",
+              "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/2a09ecb2b643299297e269ed8cf997eaca449062/visionos/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/transparent.png",
               "width": 1024
             }
           ]
@@ -878,7 +878,7 @@
             "format": "png",
             "height": 1254,
             "sha256": "a956c9a70dfd1a57c864341d1cb179f56f39e49af16059adc906c27411c160ee",
-            "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/20fb8e39e18788a71469a2a63c2889ae12f3a0d8/assets/branding/spatial-v-front-glass-master-v28.png",
+            "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/2a09ecb2b643299297e269ed8cf997eaca449062/assets/branding/spatial-v-front-glass-master-v28.png",
             "width": 1254
           }
         ]

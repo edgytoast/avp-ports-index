@@ -28,7 +28,7 @@ Then follow the [install guide](https://github.com/edgytoast/glovebox/blob/77ea8
 | Input | game controller |
 | Tags | half-life, half-life-alyx, vr, 6dof, first-person, source-2, klepton, steam |
 
-Half-Life: Alyx on Apple Vision Pro itself, with no PC or streaming: Klepton converts the game's ARM64 Linux build into signed visionOS code on your Mac. Install it with the Glovebox Mac app or build it from source, with your own Steam copy. Listed from a copy that adds only the install guide.
+Half-Life: Alyx on Apple Vision Pro itself, with no PC or streaming: Klepton converts the game's ARM64 Linux build into signed visionOS code on your Mac. Install it with the Glovebox Mac app or build it from source, with your own Steam copy. Listed from a copy with an install guide and build fixes.
 
 ## Screenshots
 
