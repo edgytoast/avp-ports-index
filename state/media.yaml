@@ -1,3 +1,48 @@
+117-vision:
+  choice: null
+  collected_at: '2026-10-29T07:06:21Z'
+  commit: b25332ef95bb2df1735e3d8640167a1e62b8252a
+  icon:
+    kind: layered
+    layers:
+    - bytes: 1139365
+      format: png
+      height: 1024
+      layer: back
+      sha256: 1f62a7f9210cdfc751d4700f63f9124e9f554796e92aefd1e20fee2261ea99d8
+      url: https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/native/EngineVision/Resources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/117-plasma-background.png
+      width: 1024
+    - bytes: 4144
+      format: png
+      height: 1024
+      layer: front
+      sha256: f12ddfea20dcca2fa350d75d5ed2ae76a4fffbcdfd2b8f2357558b90072dab9f
+      url: https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/native/EngineVision/Resources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/117-plasma-foreground.png
+      width: 1024
+  screenshots:
+  - alt: Halo gameplay on Vision Pro with a visible hand and PSVR2 Sense controller aiming the assault rifle
+    bytes: 722664
+    format: png
+    height: 720
+    sha256: 0667a42b8c750001c83a0d0d738f14097de6495440ef83be5fc3c6e87fef06d9
+    url: https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/docs/assets/117-sense-rifle-combat.png
+    width: 1280
+  - alt: A visible PSVR2 Sense controller beneath the sniper scope during gameplay
+    bytes: 351795
+    format: png
+    height: 720
+    sha256: 3f226f1c2d551b6176bfecc5bc6ad182c2ca85f5a4688449d687a6c74e4dd114
+    url: https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/docs/assets/117-sense-sniper-scope.png
+    width: 1280
+  - alt: A visible hand and PSVR2 Sense controller during a grenade throwing gesture
+    bytes: 498958
+    format: png
+    height: 720
+    sha256: 412cfb28c1a0a09130dc87fce0203315f06b1465313e0e23daadd9bda1804ce8
+    url: https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/docs/assets/117-sense-grenade-throw.png
+    width: 1280
+  skipped: []
+  source: readme
 animal-crossing-vr:
   choice: null
   collected_at: '2026-10-10T15:56:05Z'
@@ -52,6 +97,61 @@ animal-crossing-vr:
   - reason: smaller than 480x270
     src: https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/docs/images/trevorbilt.png
   source: readme
+avp-craft:
+  choice: null
+  collected_at: '2026-10-29T05:20:27Z'
+  commit: 81a863314917f99662735c48a4f03b65788de9b3
+  icon:
+    kind: layered
+    layers:
+    - bytes: 1122893
+      format: png
+      height: 1024
+      layer: back
+      sha256: b11a70223839639427d586b1305e31dafe14a8173fa87706fa3993ecdf20ea50
+      url: https://raw.githubusercontent.com/zschwendi/avp-craft/81a863314917f99662735c48a4f03b65788de9b3/visionos/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
+      width: 1024
+    - bytes: 4144
+      format: png
+      height: 1024
+      layer: middle
+      sha256: 265149d454822c2c808720c61f5a4317c0bfda56fc96598ea7b19b6ea52c5dd1
+      url: https://raw.githubusercontent.com/zschwendi/avp-craft/81a863314917f99662735c48a4f03b65788de9b3/visionos/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
+      width: 1024
+  screenshots: []
+  skipped: []
+  source: readme
+dark-eco:
+  choice: null
+  collected_at: '2026-10-29T06:48:22Z'
+  commit: 1b207d63f3b972e3e514de538e6b88a8ac7dbfdc
+  icon:
+    kind: layered
+    layers:
+    - bytes: 1486282
+      format: png
+      height: 1024
+      layer: back
+      sha256: cc602a0aefc0506d3010c4b3dd73592caa1f2da96f9e440c9294fc568d6da192
+      url: https://raw.githubusercontent.com/zschwendi/dark-eco/1b207d63f3b972e3e514de538e6b88a8ac7dbfdc/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-1024.png
+      width: 1024
+    - bytes: 448
+      format: png
+      height: 1024
+      layer: front
+      sha256: 1f737c51df0aa9ef372f6b4343f91b797b6ddae5058b858f4f30f34e73b81224
+      url: https://raw.githubusercontent.com/zschwendi/dark-eco/1b207d63f3b972e3e514de538e6b88a8ac7dbfdc/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-front-transparent-1024.png
+      width: 1024
+  screenshots:
+  - alt: Jak 1 immersive gameplay recorded by Zach on Apple Vision Pro
+    bytes: 3382412
+    format: gif
+    height: 360
+    sha256: 95ed31e3215c1af7f28359dc2d893799fa9294a1ba3942747bedba98d1d8e68e
+    url: https://raw.githubusercontent.com/zschwendi/dark-eco/1b207d63f3b972e3e514de538e6b88a8ac7dbfdc/docs/media/dark-eco-vision-pro.gif
+    width: 640
+  skipped: []
+  source: readme
 half-life-alyx:
   choice: null
   collected_at: '2026-10-14T06:44:27Z'
@@ -103,6 +203,37 @@ half-life-vr:
     sha256: 7f6bc0a96597f1e73a417fa9a8ce93ae191a295c7653e683b6eb6bda0397aa69
     url: https://raw.githubusercontent.com/illixion/halflife-visionos/334889bbea4f884b1624343b23cf98fa73ca8b30/images/ingame.jpg
     width: 1920
+  skipped: []
+  source: readme
+santosvision:
+  choice: null
+  collected_at: '2026-10-29T21:32:38Z'
+  commit: 2a09ecb2b643299297e269ed8cf997eaca449062
+  icon:
+    kind: layered
+    layers:
+    - bytes: 1151878
+      format: png
+      height: 1024
+      layer: back
+      sha256: cde5a2a4bd62439c9ae894c6de6685ff703c3140cc038dc0a567f0eda0caa51a
+      url: https://raw.githubusercontent.com/zschwendi/SantosVision/2a09ecb2b643299297e269ed8cf997eaca449062/visionos/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/santos-five-palms.png
+      width: 1024
+    - bytes: 4144
+      format: png
+      height: 1024
+      layer: front
+      sha256: f12ddfea20dcca2fa350d75d5ed2ae76a4fffbcdfd2b8f2357558b90072dab9f
+      url: https://raw.githubusercontent.com/zschwendi/SantosVision/2a09ecb2b643299297e269ed8cf997eaca449062/visionos/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/transparent.png
+      width: 1024
+  screenshots:
+  - alt: V — green Vision Pro front glass reflecting a Los Santos sunset
+    bytes: 1682283
+    format: png
+    height: 1254
+    sha256: a956c9a70dfd1a57c864341d1cb179f56f39e49af16059adc906c27411c160ee
+    url: https://raw.githubusercontent.com/zschwendi/SantosVision/2a09ecb2b643299297e269ed8cf997eaca449062/assets/branding/spatial-v-front-glass-master-v28.png
+    width: 1254
   skipped: []
   source: readme
 shar-visionos:
@@ -166,8 +297,8 @@ shar-visionos:
   source: readme
 twilight-princess-vr:
   choice: null
-  collected_at: '2026-10-17T06:39:27Z'
-  commit: 1d86592b56dcef01587fc1d4f36c6e32fffba36d
+  collected_at: '2026-10-20T06:43:24Z'
+  commit: d26c64a224414e8af7e6c450486b41a6209617e8
   icon:
     kind: layered
     layers:
@@ -176,21 +307,21 @@ twilight-princess-vr:
       height: 1024
       layer: back
       sha256: 6af87336e2ee53c66bbcc0d11877937a9ca7bdfc2082aae78a1db8695bb9ec06
-      url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/1d86592b56dcef01587fc1d4f36c6e32fffba36d/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
+      url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
       width: 1024
     - bytes: 124181
       format: png
       height: 1024
       layer: middle
       sha256: 77e2032cd45d5033eb37ba9b440e6f3dad82d82ccbd080ed64d9a9b44901d71c
-      url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/1d86592b56dcef01587fc1d4f36c6e32fffba36d/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
+      url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
       width: 1024
     - bytes: 116263
       format: png
       height: 1024
       layer: front
       sha256: d6fdee278d3a65966659b93def5179629edab6a19bc0c4f5ff2a02cdb61f2fc3
-      url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/1d86592b56dcef01587fc1d4f36c6e32fffba36d/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
+      url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
       width: 1024
   screenshots:
   - alt: Link at Ordon Ranch, in a window floating in a living room
@@ -198,25 +329,25 @@ twilight-princess-vr:
     format: jpeg
     height: 900
     sha256: c9d3f91f26037437afa5e31bf194467c626ba5b03e300baaa57b0b7a1b38ac46
-    url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/1d86592b56dcef01587fc1d4f36c6e32fffba36d/docs/images/window-view.jpg
+    url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/docs/images/window-view.jpg
     width: 1600
   - alt: 'Ordon Ranch in first person: the ranch house, goats and a rancher, with the HUD floating ahead'
     bytes: 269050
     format: jpeg
     height: 900
     sha256: 256761e065afb0cf24d1649924783648761e5f94a3726dadf9a069d8588c115d
-    url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/1d86592b56dcef01587fc1d4f36c6e32fffba36d/docs/images/full-immersion.jpg
+    url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/docs/images/full-immersion.jpg
     width: 1600
   - alt: 'The same window seen from the side: Link and the ranch house have real depth behind the glass'
     bytes: 184753
     format: jpeg
     height: 1025
     sha256: 89646502795cadf67303561fe5dcc32ab46e5209574c2c12977a4a50106c0030
-    url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/1d86592b56dcef01587fc1d4f36c6e32fffba36d/docs/images/window-angle.jpg
+    url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/docs/images/window-angle.jpg
     width: 1600
   skipped:
   - reason: not this repo's file or a GitHub attachment
     src: https://img.shields.io/badge/AVP_Ports_Index-listed-0A84FF
   - reason: smaller than 480x270
-    src: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/1d86592b56dcef01587fc1d4f36c6e32fffba36d/docs/images/trevorbilt.png
+    src: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/docs/images/trevorbilt.png
   source: readme

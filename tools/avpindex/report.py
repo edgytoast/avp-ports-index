@@ -165,6 +165,7 @@ def decline_body(inputs: Inputs, outcome: dict, declines: int, retry_at: dt.date
         quoted = "Jules's last message (untrusted text):"
     else:
         headline, quoted = f"**Jules declined to review** {where}.", "Jules's reply (untrusted text):"
+        headline += " This note stays open even if a later try passes, so you can look at the refusal."
     tries = f"{declines} {'try' if declines == 1 else 'tries'} in a row without a verdict"
     if declines < DECLINE_QUICK_TRIES:
         plan = (f"This happens now and then. The rescan will try again after {when} ({tries}). The entry stays "
@@ -189,6 +190,7 @@ def apply_rescan_flag(rt, state: store.State, inputs: Inputs, outcome: dict, thr
     health["flagged_files"] = approvals.flagged_files(outcome.get("verdict")) or []
     health["rescan_hold"] = True
     health["scan_declines"] = 0  # Jules did review this commit
+    health["scan_refused"] = False
     blocklist.add_flag(state, rt.salt, inputs.repo_id)
     record = state.lifecycle[entry_id]
     if not record.get("owner_approved") and record.get("status") == LISTED:
@@ -372,13 +374,23 @@ def rescan(rt, inputs: Inputs, outcome: dict, threshold: int) -> None:
             entries, _ = store.load_entries(rt.root)
             confidence = outcome["verdict"]["safe_confidence"]
             declined_before = int(health.get("scan_declines") or 0)
+            refused_before = bool(health.get("scan_refused"))
             pin(rt, state, inputs.entry_id, inputs.linked_commit, "automated", confidence, repo,
                 entries.get(inputs.entry_id))
-            state.health_record(inputs.entry_id)["scan_declines"] = 0
-            if declined_before:
-                rt.note_triage(inputs.entry_id, f"Jules reviewed `{inputs.linked_commit}` on a later try and it "
-                                                f"passed (confidence {confidence}), so the pin moved there. The "
-                                                "notes above need nothing more.")
+            health = state.health_record(inputs.entry_id)
+            health["scan_declines"] = 0
+            health["scan_refused"] = False
+            again = " on a later try" if declined_before else ""
+            passed = (f"Jules reviewed `{inputs.linked_commit}`{again} and it passed (confidence {confidence}), so "
+                      "the entry is listed at that commit.")
+            if refused_before:
+                # Jules refused on an earlier try: that's worth the curator's look, so the note stays open (decision 66).
+                rt.note_triage(inputs.entry_id, passed + " This note stays open because Jules refused to review an "
+                                                         "earlier try; close it when you've had a look.")
+            elif not health.get("flagged_commit"):
+                # A pass at the pin settles an earlier "couldn't finish" or "no work" note: close it (decision 66).
+                # A note about a flag stays open; a flag holds rescans anyway.
+                rt.close_triage(inputs.entry_id, passed + " Nothing more is needed here.")
         elif result == "flag":
             apply_rescan_flag(rt, state, inputs, outcome, threshold)
         elif result == "declined":
@@ -387,6 +399,8 @@ def rescan(rt, inputs: Inputs, outcome: dict, threshold: int) -> None:
             retry_at = store.utcnow() + (DECLINE_RETRY if declines < DECLINE_QUICK_TRIES else ERROR_RETRY)
             health["scan_declines"] = declines
             health["rescan_after"] = store.iso(retry_at)
+            if not no_work(outcome):
+                health["scan_refused"] = True
             rt.upsert_triage(inputs.entry_id, decline_body(inputs, outcome, declines, retry_at))
         else:
             state.health_record(inputs.entry_id)["rescan_after"] = store.iso(store.utcnow() + ERROR_RETRY)

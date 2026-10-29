@@ -1,0 +1,26 @@
+schema_version: 1
+id: dark-eco
+name: "Dark Eco"
+game:
+  title: "Jak and Daxter"
+repo: https://github.com/zschwendi/dark-eco
+source_ref: v2.0
+developer:
+  github: zschwendi
+  name: Zach Schwendiman
+status: partially-working
+status_notes: "Windowed Jak and Daxter is stable per the developer. This public v2.0 source exposes 2D Comfort mode. The separate experimental immersive build has remaining bugs and is not included in this entry."
+visionos_min: "26.5"
+input: [game-controller]
+experiences: ["2d"]
+description: "Native Apple OpenGOAL port with a Dark Eco launcher, on-device import of user-supplied Jak and Daxter data, Metal graphics and controller support. This entry covers the public windowed Vision Pro build."
+credits:
+  - name: "OpenGOAL"
+    role: "GOAL language tools, reconstructed game code and runtime"
+    url: https://github.com/open-goal/jak-project
+  - name: "jak-pad"
+    role: "Pinned Apple-platform OpenGOAL engine fork"
+    url: https://github.com/zschwendi/jak-pad
+upstream:
+  - https://github.com/open-goal/jak-project
+  - https://github.com/zschwendi/jak-pad

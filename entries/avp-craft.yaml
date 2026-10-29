@@ -1,0 +1,29 @@
+schema_version: 1
+id: avp-craft
+name: "AVPcraft"
+game:
+  title: "Minecraft: Java Edition"
+repo: https://github.com/zschwendi/avp-craft
+developer:
+  github: zschwendi
+  name: Zach Schwendiman
+status: partially-working
+status_notes: "Windowed play needs further testing; immersive mode has remaining bugs. The complete build has not yet been repeated from a clean public checkout. See the install guide for known limits."
+visionos_min: "26.0"
+input: [game-controller]
+experiences: ["2d", "6dof-immersive"]
+description: "Minecraft: Java Edition 26.2 compiled ahead of time for Vision Pro, with an AVPcraft launcher, windowed play, Vivecraft immersion and PSVR2 Sense input."
+credits:
+  - name: "vivecraft-visionos"
+    role: "Vision Pro port foundation"
+    url: https://github.com/rebelancap/vivecraft-visionos
+  - name: "Vivecraft"
+    role: "Minecraft VR integration"
+    url: https://github.com/Vivecraft/VivecraftMod
+  - name: "Klepton"
+    role: "Ahead-of-time Java runtime"
+    url: https://github.com/shinyquagsire23/Klepton
+upstream:
+  - https://github.com/rebelancap/vivecraft-visionos
+  - https://github.com/Vivecraft/VivecraftMod
+  - https://github.com/shinyquagsire23/Klepton
