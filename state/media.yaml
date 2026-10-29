@@ -351,6 +351,44 @@ twilight-princess-vr:
   - reason: smaller than 480x270
     src: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/docs/images/trevorbilt.png
   source: readme
+visr:
+  choice: null
+  collected_at: '2026-10-29T23:00:55Z'
+  commit: 154e4f87d458c40a0305fcf0daa987d73b9ffe3d
+  icon:
+    kind: layered
+    layers:
+    - bytes: 98171
+      format: png
+      height: 1024
+      layer: back
+      sha256: 9a95825678bc37725d6d77294438ed562eccb64912c01728cd5c487c9d85dfdf
+      url: https://raw.githubusercontent.com/steverice/visr/154e4f87d458c40a0305fcf0daa987d73b9ffe3d/port/ios/Assets-visionOS.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
+      width: 1024
+    - bytes: 238331
+      format: png
+      height: 1024
+      layer: middle
+      sha256: a7cd7f34692a242185698fad7fdec4c095b59e085e0fb99efda14d5f70f2e239
+      url: https://raw.githubusercontent.com/steverice/visr/154e4f87d458c40a0305fcf0daa987d73b9ffe3d/port/ios/Assets-visionOS.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
+      width: 1024
+    - bytes: 113250
+      format: png
+      height: 1024
+      layer: front
+      sha256: 88aaa8ae1647c92c38daccc0f6781c11e704f08f7003fd4246aecb7e24d2fb5c
+      url: https://raw.githubusercontent.com/steverice/visr/154e4f87d458c40a0305fcf0daa987d73b9ffe3d/port/ios/Assets-visionOS.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
+      width: 1024
+  screenshots:
+  - alt: 'VISR: the app icon, a helmet with a gold visor, beside the VISR wordmark on a dark teal grid'
+    bytes: 282932
+    format: png
+    height: 720
+    sha256: 8a30729f383a29d06455b44cfca512a1e23eb2c30d22b4be5c3b269b3669779f
+    url: https://raw.githubusercontent.com/steverice/visr/154e4f87d458c40a0305fcf0daa987d73b9ffe3d/docs/images/readme-banner.png
+    width: 2320
+  skipped: []
+  source: readme
 wind-waker-vr:
   choice: null
   collected_at: '2026-10-29T22:31:03Z'

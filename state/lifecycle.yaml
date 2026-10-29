@@ -88,6 +88,16 @@ twilight-princess-vr:
   status: listed
   submitted_by: edgytoast
   submitted_by_id: 146565462
+visr:
+  by: merge
+  changed_at: '2026-10-29T23:00:52Z'
+  listed_at: '2026-10-29T23:00:52Z'
+  owner_approved: false
+  repo: https://github.com/steverice/visr
+  repo_id: 1408152155
+  status: listed
+  submitted_by: steverice
+  submitted_by_id: 1423851
 wind-waker-vr:
   by: merge
   changed_at: '2026-10-29T22:30:59Z'

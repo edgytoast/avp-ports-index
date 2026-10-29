@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.4.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-29T22:31:03Z",
+  "generated_at": "2026-10-29T23:00:55Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -12,6 +12,146 @@
   },
   "license": "CC0-1.0",
   "entries": [
+    {
+      "id": "visr",
+      "name": "VISR",
+      "game": {
+        "title": "Halo: Combat Evolved",
+        "original_platform": "xbox",
+        "original_release_year": 2001
+      },
+      "repo_url": "https://github.com/steverice/visr",
+      "source_ref": null,
+      "source_url": "https://github.com/steverice/visr/tree/154e4f87d458c40a0305fcf0daa987d73b9ffe3d",
+      "install_doc_url": "https://github.com/steverice/visr/blob/154e4f87d458c40a0305fcf0daa987d73b9ffe3d/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "steverice",
+        "url": null,
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "punpckhdq",
+          "role": "Decompilation",
+          "url": "https://github.com/punpckhdq/halo"
+        },
+        {
+          "name": "bnunu",
+          "role": "Decompilation fork",
+          "url": "https://github.com/bnunu/halo-1"
+        },
+        {
+          "name": "OpenCE",
+          "role": "Native desktop ports",
+          "url": "https://github.com/OpenCommunityEdition/OpenCE"
+        },
+        {
+          "name": "NicholasDominici",
+          "role": "Original iOS port",
+          "url": "https://github.com/NicholasDominici/halo-ce-ios"
+        }
+      ],
+      "upstream": [
+        "https://github.com/punpckhdq/halo",
+        "https://github.com/bnunu/halo-1",
+        "https://github.com/OpenCommunityEdition/OpenCE",
+        "https://github.com/NicholasDominici/halo-ce-ios"
+      ],
+      "self_reported_status": "developer-verified",
+      "status_notes": null,
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "developer-verified",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "154e4f87d458c40a0305fcf0daa987d73b9ffe3d",
+      "scanned_at": "2026-10-29T23:00:52Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-10-29T21:40:22Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "Apache-2.0"
+      },
+      "visionos_min": "2.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d",
+        "3d-immersive",
+        "6dof-immersive"
+      ],
+      "install": [
+        "build",
+        "sideload"
+      ],
+      "tags": [
+        "fps",
+        "sci-fi",
+        "metal",
+        "vr",
+        "multiplayer"
+      ],
+      "description": "Native Metal port of Halo: Combat Evolved for Apple Vision Pro and other Apple devices. Head-tracked stereo, foveated rendering, a 3D theater screen and PlayStation VR2 Sense controller aiming. Bring your own disc image of the original Xbox release.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/visr.md",
+      "media": {
+        "commit": "154e4f87d458c40a0305fcf0daa987d73b9ffe3d",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 98171,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "9a95825678bc37725d6d77294438ed562eccb64912c01728cd5c487c9d85dfdf",
+              "url": "https://raw.githubusercontent.com/steverice/visr/154e4f87d458c40a0305fcf0daa987d73b9ffe3d/port/ios/Assets-visionOS.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 238331,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "a7cd7f34692a242185698fad7fdec4c095b59e085e0fb99efda14d5f70f2e239",
+              "url": "https://raw.githubusercontent.com/steverice/visr/154e4f87d458c40a0305fcf0daa987d73b9ffe3d/port/ios/Assets-visionOS.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 113250,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "88aaa8ae1647c92c38daccc0f6781c11e704f08f7003fd4246aecb7e24d2fb5c",
+              "url": "https://raw.githubusercontent.com/steverice/visr/154e4f87d458c40a0305fcf0daa987d73b9ffe3d/port/ios/Assets-visionOS.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "VISR: the app icon, a helmet with a gold visor, beside the VISR wordmark on a dark teal grid",
+            "bytes": 282932,
+            "format": "png",
+            "height": 720,
+            "sha256": "8a30729f383a29d06455b44cfca512a1e23eb2c30d22b4be5c3b269b3669779f",
+            "url": "https://raw.githubusercontent.com/steverice/visr/154e4f87d458c40a0305fcf0daa987d73b9ffe3d/docs/images/readme-banner.png",
+            "width": 2320
+          }
+        ]
+      }
+    },
     {
       "id": "wind-waker-vr",
       "name": "Wind Waker VR",
