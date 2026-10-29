@@ -76,6 +76,37 @@ avp-craft:
   screenshots: []
   skipped: []
   source: readme
+dark-eco:
+  choice: null
+  collected_at: '2026-10-29T06:48:22Z'
+  commit: 1b207d63f3b972e3e514de538e6b88a8ac7dbfdc
+  icon:
+    kind: layered
+    layers:
+    - bytes: 1486282
+      format: png
+      height: 1024
+      layer: back
+      sha256: cc602a0aefc0506d3010c4b3dd73592caa1f2da96f9e440c9294fc568d6da192
+      url: https://raw.githubusercontent.com/zschwendi/dark-eco/1b207d63f3b972e3e514de538e6b88a8ac7dbfdc/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-1024.png
+      width: 1024
+    - bytes: 448
+      format: png
+      height: 1024
+      layer: front
+      sha256: 1f737c51df0aa9ef372f6b4343f91b797b6ddae5058b858f4f30f34e73b81224
+      url: https://raw.githubusercontent.com/zschwendi/dark-eco/1b207d63f3b972e3e514de538e6b88a8ac7dbfdc/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-front-transparent-1024.png
+      width: 1024
+  screenshots:
+  - alt: Jak 1 immersive gameplay recorded by Zach on Apple Vision Pro
+    bytes: 3382412
+    format: gif
+    height: 360
+    sha256: 95ed31e3215c1af7f28359dc2d893799fa9294a1ba3942747bedba98d1d8e68e
+    url: https://raw.githubusercontent.com/zschwendi/dark-eco/1b207d63f3b972e3e514de538e6b88a8ac7dbfdc/docs/media/dark-eco-vision-pro.gif
+    width: 640
+  skipped: []
+  source: readme
 half-life-alyx:
   choice: null
   collected_at: '2026-10-14T06:44:27Z'
