@@ -177,7 +177,7 @@ half-life-vr:
   warnings: []
 santosvision:
   archived: false
-  commits_since_scan: 3
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-10-29T05:06:28Z'
@@ -197,13 +197,13 @@ santosvision:
   rescan_after: null
   rescan_hold: false
   routes: []
-  scan_confidence: 85
+  scan_confidence: 95
   scan_declines: 0
   scan_kind: automated
   scan_refused: false
-  scan_state: behind
-  scanned_at: '2026-10-29T05:06:28Z'
-  scanned_commit: 20fb8e39e18788a71469a2a63c2889ae12f3a0d8
+  scan_state: current
+  scanned_at: '2026-10-29T07:23:16Z'
+  scanned_commit: 2a09ecb2b643299297e269ed8cf997eaca449062
   warnings: []
 shar-visionos:
   archived: false
