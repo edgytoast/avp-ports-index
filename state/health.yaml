@@ -10,7 +10,7 @@ animal-crossing-vr:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-10-28T06:33:20Z'
+  last_checked: '2026-10-29T06:33:26Z'
   last_commit_date: '2026-10-10T05:22:45Z'
   license:
     kind: custom
@@ -38,7 +38,7 @@ avp-craft:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: null
+  last_checked: '2026-10-29T06:33:26Z'
   last_commit_date: '2026-10-29T04:44:24Z'
   license:
     kind: open-source
@@ -68,7 +68,7 @@ half-life-alyx:
   flagged_files: []
   github_verified: false
   health: ok
-  last_checked: '2026-10-28T06:33:20Z'
+  last_checked: '2026-10-29T06:33:26Z'
   last_commit_date: '2026-10-13T06:52:59Z'
   license:
     kind: custom
@@ -97,7 +97,7 @@ half-life-vr:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-10-28T06:33:20Z'
+  last_checked: '2026-10-29T06:33:26Z'
   last_commit_date: '2026-10-10T10:27:31Z'
   license:
     kind: open-source
@@ -117,7 +117,7 @@ half-life-vr:
   warnings: []
 santosvision:
   archived: false
-  commits_since_scan: 0
+  commits_since_scan: 3
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-10-29T05:06:28Z'
@@ -127,8 +127,8 @@ santosvision:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: null
-  last_commit_date: '2026-10-29T04:44:22Z'
+  last_checked: '2026-10-29T06:33:26Z'
+  last_commit_date: '2026-10-29T05:36:16Z'
   license:
     kind: open-source
     spdx: GPL-3.0
@@ -141,7 +141,7 @@ santosvision:
   scan_declines: 0
   scan_kind: automated
   scan_refused: false
-  scan_state: current
+  scan_state: behind
   scanned_at: '2026-10-29T05:06:28Z'
   scanned_commit: 20fb8e39e18788a71469a2a63c2889ae12f3a0d8
   warnings: []
@@ -156,7 +156,7 @@ shar-visionos:
   flagged_commit: null
   github_verified: true
   health: ok
-  last_checked: '2026-10-28T06:33:20Z'
+  last_checked: '2026-10-29T06:33:26Z'
   last_commit_date: '2026-10-08T20:53:28Z'
   license:
     kind: open-source
@@ -184,7 +184,7 @@ twilight-princess-vr:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-10-28T06:33:20Z'
+  last_checked: '2026-10-29T06:33:26Z'
   last_commit_date: '2026-10-17T20:57:34Z'
   license:
     kind: open-source

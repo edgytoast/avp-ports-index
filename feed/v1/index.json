@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.4.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-29T05:20:28Z",
+  "generated_at": "2026-10-29T06:34:03Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -780,6 +780,111 @@
       }
     },
     {
+      "id": "santosvision",
+      "name": "V",
+      "game": {
+        "title": "Grand Theft Auto V",
+        "original_platform": null,
+        "original_release_year": null
+      },
+      "repo_url": "https://github.com/zschwendi/SantosVision",
+      "source_ref": null,
+      "source_url": "https://github.com/zschwendi/SantosVision/tree/20fb8e39e18788a71469a2a63c2889ae12f3a0d8",
+      "install_doc_url": "https://github.com/zschwendi/SantosVision/blob/20fb8e39e18788a71469a2a63c2889ae12f3a0d8/AVP-INSTALL.md",
+      "developer": {
+        "name": "Zach Schwendiman",
+        "github": "zschwendi",
+        "url": null,
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "Muguet",
+          "role": "Native WASM runtime foundation",
+          "url": "https://github.com/c22dev/muguet"
+        }
+      ],
+      "upstream": [
+        "https://github.com/c22dev/muguet"
+      ],
+      "self_reported_status": "partially-working",
+      "status_notes": "Windowed play is stable per the developer. Experimental third-person immersion has remaining image-quality, depth-edge, flicker and performance bugs.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "partially-working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "20fb8e39e18788a71469a2a63c2889ae12f3a0d8",
+      "scanned_at": "2026-10-29T05:06:28Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 3,
+      "scan_state": "behind",
+      "archived": false,
+      "last_commit_date": "2026-10-29T05:36:16Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "GPL-3.0"
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d",
+        "6dof-immersive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [],
+      "description": "Native Apple-platform GTA V port built on Muguet, with local ahead-of-time compiled game code, a game window and experimental head-tracked third-person immersion.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/santosvision.md",
+      "media": {
+        "commit": "20fb8e39e18788a71469a2a63c2889ae12f3a0d8",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 1151878,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "cde5a2a4bd62439c9ae894c6de6685ff703c3140cc038dc0a567f0eda0caa51a",
+              "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/20fb8e39e18788a71469a2a63c2889ae12f3a0d8/visionos/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/santos-five-palms.png",
+              "width": 1024
+            },
+            {
+              "bytes": 4144,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "f12ddfea20dcca2fa350d75d5ed2ae76a4fffbcdfd2b8f2357558b90072dab9f",
+              "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/20fb8e39e18788a71469a2a63c2889ae12f3a0d8/visionos/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/transparent.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "V — green Vision Pro front glass reflecting a Los Santos sunset",
+            "bytes": 1682283,
+            "format": "png",
+            "height": 1254,
+            "sha256": "a956c9a70dfd1a57c864341d1cb179f56f39e49af16059adc906c27411c160ee",
+            "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/20fb8e39e18788a71469a2a63c2889ae12f3a0d8/assets/branding/spatial-v-front-glass-master-v28.png",
+            "width": 1254
+          }
+        ]
+      }
+    },
+    {
       "id": "avp-craft",
       "name": "AVPcraft",
       "game": {
@@ -884,111 +989,6 @@
           ]
         },
         "screenshots": []
-      }
-    },
-    {
-      "id": "santosvision",
-      "name": "V",
-      "game": {
-        "title": "Grand Theft Auto V",
-        "original_platform": null,
-        "original_release_year": null
-      },
-      "repo_url": "https://github.com/zschwendi/SantosVision",
-      "source_ref": null,
-      "source_url": "https://github.com/zschwendi/SantosVision/tree/20fb8e39e18788a71469a2a63c2889ae12f3a0d8",
-      "install_doc_url": "https://github.com/zschwendi/SantosVision/blob/20fb8e39e18788a71469a2a63c2889ae12f3a0d8/AVP-INSTALL.md",
-      "developer": {
-        "name": "Zach Schwendiman",
-        "github": "zschwendi",
-        "url": null,
-        "github_verified": true
-      },
-      "credits": [
-        {
-          "name": "Muguet",
-          "role": "Native WASM runtime foundation",
-          "url": "https://github.com/c22dev/muguet"
-        }
-      ],
-      "upstream": [
-        "https://github.com/c22dev/muguet"
-      ],
-      "self_reported_status": "partially-working",
-      "status_notes": "Windowed play is stable per the developer. Experimental third-person immersion has remaining image-quality, depth-edge, flicker and performance bugs.",
-      "owner_verified": {
-        "verified": false,
-        "verified_on": null,
-        "verified_commit": null
-      },
-      "trust_tier": "partially-working",
-      "curator_own": false,
-      "health": {
-        "status": "ok",
-        "failing_since": null
-      },
-      "scanned_commit": "20fb8e39e18788a71469a2a63c2889ae12f3a0d8",
-      "scanned_at": "2026-10-29T05:06:28Z",
-      "scan_kind": "automated",
-      "commits_since_scan": 0,
-      "scan_state": "current",
-      "archived": false,
-      "last_commit_date": "2026-10-29T04:44:22Z",
-      "license": {
-        "kind": "open-source",
-        "spdx": "GPL-3.0"
-      },
-      "visionos_min": "26.0",
-      "input": [
-        "game-controller"
-      ],
-      "experiences": [
-        "2d",
-        "6dof-immersive"
-      ],
-      "install": [
-        "build"
-      ],
-      "tags": [],
-      "description": "Native Apple-platform GTA V port built on Muguet, with local ahead-of-time compiled game code, a game window and experimental head-tracked third-person immersion.",
-      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/santosvision.md",
-      "media": {
-        "commit": "20fb8e39e18788a71469a2a63c2889ae12f3a0d8",
-        "source": "readme",
-        "icon": {
-          "kind": "layered",
-          "layers": [
-            {
-              "bytes": 1151878,
-              "format": "png",
-              "height": 1024,
-              "layer": "back",
-              "sha256": "cde5a2a4bd62439c9ae894c6de6685ff703c3140cc038dc0a567f0eda0caa51a",
-              "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/20fb8e39e18788a71469a2a63c2889ae12f3a0d8/visionos/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/santos-five-palms.png",
-              "width": 1024
-            },
-            {
-              "bytes": 4144,
-              "format": "png",
-              "height": 1024,
-              "layer": "front",
-              "sha256": "f12ddfea20dcca2fa350d75d5ed2ae76a4fffbcdfd2b8f2357558b90072dab9f",
-              "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/20fb8e39e18788a71469a2a63c2889ae12f3a0d8/visionos/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/transparent.png",
-              "width": 1024
-            }
-          ]
-        },
-        "screenshots": [
-          {
-            "alt": "V — green Vision Pro front glass reflecting a Los Santos sunset",
-            "bytes": 1682283,
-            "format": "png",
-            "height": 1254,
-            "sha256": "a956c9a70dfd1a57c864341d1cb179f56f39e49af16059adc906c27411c160ee",
-            "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/20fb8e39e18788a71469a2a63c2889ae12f3a0d8/assets/branding/spatial-v-front-glass-master-v28.png",
-            "width": 1254
-          }
-        ]
       }
     }
   ],
