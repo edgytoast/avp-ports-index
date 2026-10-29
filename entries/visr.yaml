@@ -1,0 +1,35 @@
+schema_version: 1
+id: visr
+name: "VISR"
+game:
+  title: "Halo: Combat Evolved"
+  original_platform: xbox
+  original_release_year: 2001
+repo: https://github.com/steverice/visr
+developer:
+  github: steverice
+status: developer-verified
+visionos_min: "2.0"
+input: [game-controller]
+experiences: [6dof-immersive, 3d-immersive, 2d]
+install: [build, sideload]
+description: "Native Metal port of Halo: Combat Evolved for Apple Vision Pro and other Apple devices. Head-tracked stereo, foveated rendering, a 3D theater screen and PlayStation VR2 Sense controller aiming. Bring your own disc image of the original Xbox release."
+tags: [fps, sci-fi, metal, vr, multiplayer]
+credits:
+  - name: "punpckhdq"
+    role: "Decompilation"
+    url: https://github.com/punpckhdq/halo
+  - name: "bnunu"
+    role: "Decompilation fork"
+    url: https://github.com/bnunu/halo-1
+  - name: "OpenCE"
+    role: "Native desktop ports"
+    url: https://github.com/OpenCommunityEdition/OpenCE
+  - name: "NicholasDominici"
+    role: "Original iOS port"
+    url: https://github.com/NicholasDominici/halo-ce-ios
+upstream:
+  - https://github.com/punpckhdq/halo
+  - https://github.com/bnunu/halo-1
+  - https://github.com/OpenCommunityEdition/OpenCE
+  - https://github.com/NicholasDominici/halo-ce-ios
