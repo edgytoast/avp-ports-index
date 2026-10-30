@@ -22,6 +22,7 @@ Missing optional fields are `null`, or empty lists, except `install`, which is `
 - 1.2.0 added `entries[].experiences` (how the port plays) and `entries[].install` (`build` from source and/or `sideload`, a prebuilt app the index didn't review).
 - 1.3.0 added the `3d-tabletop` value to `entries[].experiences`.
 - 1.4.0 added `entries[].media`: screenshots and the app icon.
+- 1.5.0 added the `3d-shared-space-stereo` value to `entries[].experiences`.
 
 ## Media
 

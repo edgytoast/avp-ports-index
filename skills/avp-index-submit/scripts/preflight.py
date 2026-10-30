@@ -178,19 +178,24 @@ SCHEMA = {'$schema': 'https://json-schema.org/draft/2020-12/schema',
                                                'with your other apps put away, seen from the '
                                                "game's camera. 3d-shared-space: the game's 3D "
                                                'world with real depth, in a window beside other '
-                                               "apps. 3d-tabletop: the game's world as a miniature "
-                                               'in your room, in real 3D you can walk around, with '
-                                               'your other apps put away. 6dof-immersive: inside '
-                                               'the game world, all around you, with your head as '
-                                               'the camera (first person or a chase view). '
-                                               '6dof-progressive: the same, through a portal the '
-                                               'Digital Crown widens and narrows.',
+                                               'apps; lean and you see around things. '
+                                               '3d-shared-space-stereo: a stereo 3D picture seen '
+                                               "from the game's camera, in a window beside other "
+                                               "apps; it has depth, but leaning doesn't show you "
+                                               "around things. 3d-tabletop: the game's world as a "
+                                               'miniature in your room, in real 3D you can walk '
+                                               'around, with your other apps put away. '
+                                               '6dof-immersive: inside the game world, all around '
+                                               'you, with your head as the camera (first person or '
+                                               'a chase view). 6dof-progressive: the same, through '
+                                               'a portal the Digital Crown widens and narrows.',
                                 'type': 'array',
                                 'minItems': 1,
                                 'uniqueItems': True,
                                 'items': {'enum': ['2d',
                                                    '3d-immersive',
                                                    '3d-shared-space',
+                                                   '3d-shared-space-stereo',
                                                    '3d-tabletop',
                                                    '6dof-immersive',
                                                    '6dof-progressive']}},
