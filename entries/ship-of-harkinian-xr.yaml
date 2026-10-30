@@ -1,0 +1,35 @@
+schema_version: 1
+id: ship-of-harkinian-xr
+name: "Ship of Harkinian (Mobile and XR)"
+game:
+  title: "The Legend of Zelda: Ocarina of Time"
+  original_platform: n64
+  original_release_year: 1998
+repo: https://github.com/buddingmonkey/Shipwright
+developer:
+  github: buddingmonkey
+status: working
+status_notes: "Plays on Apple Vision Pro in a volume in the Shared Space. A paired gamepad is needed to play; look and pinch drive the menu."
+visionos_min: "2.0"
+input: [game-controller]
+experiences: [3d-shared-space]
+description: >-
+  Ocarina of Time on Apple Vision Pro through a mobile and XR fork of Harbour Masters' Ship of
+  Harkinian, rendering on Metal. The game plays in a volume in the Shared Space, drawn per eye,
+  with your head position giving the world depth behind the window. Bring your own ROM.
+tags: [zelda, ocarina-of-time, n64, harbour-masters, source-port, stereo-3d, shared-space]
+credits:
+  - name: Harbour Masters
+    role: Ship of Harkinian (Shipwright), the port this fork builds on
+    url: https://github.com/HarbourMasters/Shipwright
+  - name: libultraship
+    role: The platform layer
+    url: https://github.com/Kenix3/libultraship
+  - name: ZeldaRET
+    role: Ocarina of Time decompilation
+    url: https://github.com/zeldaret/oot
+  - name: Nintendo
+    role: Original game
+upstream:
+  - https://github.com/HarbourMasters/Shipwright
+  - https://github.com/Kenix3/libultraship
