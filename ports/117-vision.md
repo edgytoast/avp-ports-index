@@ -30,11 +30,11 @@ Native Halo: Combat Evolved port based on Master Chef, with windowed and immersi
 
 ## Screenshots
 
-From the port's README at b25332ef95bb.
+From the port's README at ab3dad0f33c6.
 
-<img src="https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/docs/assets/117-sense-rifle-combat.png" alt="Halo gameplay on Vision Pro with a visible hand and PSVR2 Sense controller aiming the assault rifle" width="400">
-<img src="https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/docs/assets/117-sense-sniper-scope.png" alt="A visible PSVR2 Sense controller beneath the sniper scope during gameplay" width="400">
-<img src="https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/docs/assets/117-sense-grenade-throw.png" alt="A visible hand and PSVR2 Sense controller during a grenade throwing gesture" width="400">
+<img src="https://raw.githubusercontent.com/zschwendi/117-vision/ab3dad0f33c6175f391ed5ed27556a8706832b62/docs/assets/117-sense-rifle-combat.png" alt="Halo gameplay on Vision Pro with a visible hand and PSVR2 Sense controller aiming the assault rifle" width="400">
+<img src="https://raw.githubusercontent.com/zschwendi/117-vision/ab3dad0f33c6175f391ed5ed27556a8706832b62/docs/assets/117-sense-sniper-scope.png" alt="A visible PSVR2 Sense controller beneath the sniper scope during gameplay" width="400">
+<img src="https://raw.githubusercontent.com/zschwendi/117-vision/ab3dad0f33c6175f391ed5ed27556a8706832b62/docs/assets/117-sense-grenade-throw.png" alt="A visible hand and PSVR2 Sense controller during a grenade throwing gesture" width="400">
 
 ## Credits
 

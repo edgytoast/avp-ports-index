@@ -1,8 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
-  "schema_version": "1.4.0",
+  "schema_version": "1.5.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-30T08:35:54Z",
+  "generated_at": "2026-10-30T15:29:05Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -415,7 +415,7 @@
       "description": "Half-Life in full immersion on Apple Vision Pro: the Xash3D-FWGS engine with its ref_gl renderer on Metal through ANGLE, presented with Compositor Services, with hand-tracked weapons and locomotion. Bring your own Half-Life from Steam (the pre-25th-anniversary build).",
       "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/half-life-vr.md",
       "media": {
-        "commit": "334889bbea4f884b1624343b23cf98fa73ca8b30",
+        "commit": "6ead127a3248fce9252fb0cf3b1cc83f389bf3d4",
         "source": "readme",
         "icon": {
           "kind": "layered",
@@ -426,7 +426,7 @@
               "height": 1024,
               "layer": "back",
               "sha256": "9b3b1d9bafcb61017537acb5a797ccab2df0e5cba03b9c090ba30e6ad4254a77",
-              "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/334889bbea4f884b1624343b23cf98fa73ca8b30/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png",
+              "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/6ead127a3248fce9252fb0cf3b1cc83f389bf3d4/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png",
               "width": 1024
             },
             {
@@ -435,7 +435,7 @@
               "height": 1024,
               "layer": "middle",
               "sha256": "89431a2ade4de6fbcbb22180a364579895536b6db7e6cd6d2b024f8d772ceb81",
-              "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/334889bbea4f884b1624343b23cf98fa73ca8b30/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/middle.png",
+              "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/6ead127a3248fce9252fb0cf3b1cc83f389bf3d4/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/middle.png",
               "width": 1024
             }
           ]
@@ -447,7 +447,7 @@
             "format": "jpeg",
             "height": 1080,
             "sha256": "7f6bc0a96597f1e73a417fa9a8ce93ae191a295c7653e683b6eb6bda0397aa69",
-            "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/334889bbea4f884b1624343b23cf98fa73ca8b30/images/ingame.jpg",
+            "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/6ead127a3248fce9252fb0cf3b1cc83f389bf3d4/images/ingame.jpg",
             "width": 1920
           }
         ]
@@ -1159,7 +1159,7 @@
       "description": "Native Apple OpenGOAL port with a Dark Eco launcher, on-device import of user-supplied Jak and Daxter data, Metal graphics and controller support. This entry covers the public windowed Vision Pro build.",
       "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/dark-eco.md",
       "media": {
-        "commit": "1b207d63f3b972e3e514de538e6b88a8ac7dbfdc",
+        "commit": "c89b91c8c9fe1b95dc4e35e5a3ec4acb965dcf08",
         "source": "readme",
         "icon": {
           "kind": "layered",
@@ -1170,7 +1170,7 @@
               "height": 1024,
               "layer": "back",
               "sha256": "cc602a0aefc0506d3010c4b3dd73592caa1f2da96f9e440c9294fc568d6da192",
-              "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/1b207d63f3b972e3e514de538e6b88a8ac7dbfdc/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-1024.png",
+              "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/c89b91c8c9fe1b95dc4e35e5a3ec4acb965dcf08/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-1024.png",
               "width": 1024
             },
             {
@@ -1179,7 +1179,7 @@
               "height": 1024,
               "layer": "front",
               "sha256": "1f737c51df0aa9ef372f6b4343f91b797b6ddae5058b858f4f30f34e73b81224",
-              "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/1b207d63f3b972e3e514de538e6b88a8ac7dbfdc/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-front-transparent-1024.png",
+              "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/c89b91c8c9fe1b95dc4e35e5a3ec4acb965dcf08/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-front-transparent-1024.png",
               "width": 1024
             }
           ]
@@ -1191,7 +1191,7 @@
             "format": "gif",
             "height": 360,
             "sha256": "95ed31e3215c1af7f28359dc2d893799fa9294a1ba3942747bedba98d1d8e68e",
-            "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/1b207d63f3b972e3e514de538e6b88a8ac7dbfdc/docs/media/dark-eco-vision-pro.gif",
+            "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/c89b91c8c9fe1b95dc4e35e5a3ec4acb965dcf08/docs/media/dark-eco-vision-pro.gif",
             "width": 640
           }
         ]
@@ -1264,7 +1264,7 @@
       "description": "Native Apple-platform GTA V port built on Muguet, with local ahead-of-time compiled game code, a game window and experimental head-tracked third-person immersion.",
       "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/santosvision.md",
       "media": {
-        "commit": "2a09ecb2b643299297e269ed8cf997eaca449062",
+        "commit": "71b376cfb8f066d1d6df9f4a53495974ecdab2dd",
         "source": "readme",
         "icon": {
           "kind": "layered",
@@ -1275,7 +1275,7 @@
               "height": 1024,
               "layer": "back",
               "sha256": "cde5a2a4bd62439c9ae894c6de6685ff703c3140cc038dc0a567f0eda0caa51a",
-              "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/2a09ecb2b643299297e269ed8cf997eaca449062/visionos/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/santos-five-palms.png",
+              "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/71b376cfb8f066d1d6df9f4a53495974ecdab2dd/visionos/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/santos-five-palms.png",
               "width": 1024
             },
             {
@@ -1284,7 +1284,7 @@
               "height": 1024,
               "layer": "front",
               "sha256": "f12ddfea20dcca2fa350d75d5ed2ae76a4fffbcdfd2b8f2357558b90072dab9f",
-              "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/2a09ecb2b643299297e269ed8cf997eaca449062/visionos/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/transparent.png",
+              "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/71b376cfb8f066d1d6df9f4a53495974ecdab2dd/visionos/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/transparent.png",
               "width": 1024
             }
           ]
@@ -1296,7 +1296,7 @@
             "format": "png",
             "height": 1254,
             "sha256": "a956c9a70dfd1a57c864341d1cb179f56f39e49af16059adc906c27411c160ee",
-            "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/2a09ecb2b643299297e269ed8cf997eaca449062/assets/branding/spatial-v-front-glass-master-v28.png",
+            "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/71b376cfb8f066d1d6df9f4a53495974ecdab2dd/assets/branding/spatial-v-front-glass-master-v28.png",
             "width": 1254
           }
         ]
@@ -1369,7 +1369,7 @@
       "description": "Native Halo: Combat Evolved port based on Master Chef, with windowed and immersive Vision Pro play, PSVR2 Sense tracked aiming and optional iCloud save sync.",
       "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/117-vision.md",
       "media": {
-        "commit": "b25332ef95bb2df1735e3d8640167a1e62b8252a",
+        "commit": "ab3dad0f33c6175f391ed5ed27556a8706832b62",
         "source": "readme",
         "icon": {
           "kind": "layered",
@@ -1380,7 +1380,7 @@
               "height": 1024,
               "layer": "back",
               "sha256": "1f62a7f9210cdfc751d4700f63f9124e9f554796e92aefd1e20fee2261ea99d8",
-              "url": "https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/native/EngineVision/Resources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/117-plasma-background.png",
+              "url": "https://raw.githubusercontent.com/zschwendi/117-vision/ab3dad0f33c6175f391ed5ed27556a8706832b62/native/EngineVision/Resources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/117-plasma-background.png",
               "width": 1024
             },
             {
@@ -1389,7 +1389,7 @@
               "height": 1024,
               "layer": "front",
               "sha256": "f12ddfea20dcca2fa350d75d5ed2ae76a4fffbcdfd2b8f2357558b90072dab9f",
-              "url": "https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/native/EngineVision/Resources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/117-plasma-foreground.png",
+              "url": "https://raw.githubusercontent.com/zschwendi/117-vision/ab3dad0f33c6175f391ed5ed27556a8706832b62/native/EngineVision/Resources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/117-plasma-foreground.png",
               "width": 1024
             }
           ]
@@ -1401,7 +1401,7 @@
             "format": "png",
             "height": 720,
             "sha256": "0667a42b8c750001c83a0d0d738f14097de6495440ef83be5fc3c6e87fef06d9",
-            "url": "https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/docs/assets/117-sense-rifle-combat.png",
+            "url": "https://raw.githubusercontent.com/zschwendi/117-vision/ab3dad0f33c6175f391ed5ed27556a8706832b62/docs/assets/117-sense-rifle-combat.png",
             "width": 1280
           },
           {
@@ -1410,7 +1410,7 @@
             "format": "png",
             "height": 720,
             "sha256": "3f226f1c2d551b6176bfecc5bc6ad182c2ca85f5a4688449d687a6c74e4dd114",
-            "url": "https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/docs/assets/117-sense-sniper-scope.png",
+            "url": "https://raw.githubusercontent.com/zschwendi/117-vision/ab3dad0f33c6175f391ed5ed27556a8706832b62/docs/assets/117-sense-sniper-scope.png",
             "width": 1280
           },
           {
@@ -1419,7 +1419,7 @@
             "format": "png",
             "height": 720,
             "sha256": "412cfb28c1a0a09130dc87fce0203315f06b1465313e0e23daadd9bda1804ce8",
-            "url": "https://raw.githubusercontent.com/zschwendi/117-vision/b25332ef95bb2df1735e3d8640167a1e62b8252a/docs/assets/117-sense-grenade-throw.png",
+            "url": "https://raw.githubusercontent.com/zschwendi/117-vision/ab3dad0f33c6175f391ed5ed27556a8706832b62/docs/assets/117-sense-grenade-throw.png",
             "width": 1280
           }
         ]
@@ -1504,7 +1504,7 @@
       "description": "Minecraft: Java Edition 26.2 compiled ahead of time for Vision Pro, with an AVPcraft launcher, windowed play, Vivecraft immersion and PSVR2 Sense input.",
       "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/avp-craft.md",
       "media": {
-        "commit": "81a863314917f99662735c48a4f03b65788de9b3",
+        "commit": "d961fa046ec0492bcf97fb7f4ab6356bc8dc5bfc",
         "source": "readme",
         "icon": {
           "kind": "layered",
@@ -1515,7 +1515,7 @@
               "height": 1024,
               "layer": "back",
               "sha256": "b11a70223839639427d586b1305e31dafe14a8173fa87706fa3993ecdf20ea50",
-              "url": "https://raw.githubusercontent.com/zschwendi/avp-craft/81a863314917f99662735c48a4f03b65788de9b3/visionos/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "url": "https://raw.githubusercontent.com/zschwendi/avp-craft/d961fa046ec0492bcf97fb7f4ab6356bc8dc5bfc/visionos/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
               "width": 1024
             },
             {
@@ -1524,7 +1524,7 @@
               "height": 1024,
               "layer": "middle",
               "sha256": "265149d454822c2c808720c61f5a4317c0bfda56fc96598ea7b19b6ea52c5dd1",
-              "url": "https://raw.githubusercontent.com/zschwendi/avp-craft/81a863314917f99662735c48a4f03b65788de9b3/visionos/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "url": "https://raw.githubusercontent.com/zschwendi/avp-craft/d961fa046ec0492bcf97fb7f4ab6356bc8dc5bfc/visionos/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
               "width": 1024
             }
           ]
