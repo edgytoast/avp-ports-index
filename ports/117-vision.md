@@ -6,10 +6,10 @@ Port by Zach Schwendiman ([@zschwendi](https://github.com/zschwendi))
 Start with this command, which gets exactly the code that was scanned:
 
 ```
-git clone https://github.com/zschwendi/117-vision && cd 117-vision && git checkout b25332ef95bb2df1735e3d8640167a1e62b8252a && git submodule update --init --recursive
+git clone https://github.com/zschwendi/117-vision && cd 117-vision && git checkout ab3dad0f33c6175f391ed5ed27556a8706832b62 && git submodule update --init --recursive
 ```
 
-Then follow the [install guide](https://github.com/zschwendi/117-vision/blob/b25332ef95bb2df1735e3d8640167a1e62b8252a/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+Then follow the [install guide](https://github.com/zschwendi/117-vision/blob/ab3dad0f33c6175f391ed5ed27556a8706832b62/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
 
 | | |
 | --- | --- |
@@ -17,9 +17,9 @@ Then follow the [install guide](https://github.com/zschwendi/117-vision/blob/b25
 | Status | Partially working: Windowed play is stable per the developer. Immersive mode has remaining bugs; tracked input targets on-foot campaign play. Vehicles and turrets use conventional controls. |
 | Plays as | 2D, 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-10-29 · 8 commits since |
-| Source (scanned) | [zschwendi/117-vision at b25332ef95bb](https://github.com/zschwendi/117-vision/tree/b25332ef95bb2df1735e3d8640167a1e62b8252a) |
-| Install guide | [AVP-INSTALL.md at b25332ef95bb](https://github.com/zschwendi/117-vision/blob/b25332ef95bb2df1735e3d8640167a1e62b8252a/AVP-INSTALL.md) |
+| Scan | Scanned 2026-10-30 · 0 commits since |
+| Source (scanned) | [zschwendi/117-vision at ab3dad0f33c6](https://github.com/zschwendi/117-vision/tree/ab3dad0f33c6175f391ed5ed27556a8706832b62) |
+| Install guide | [AVP-INSTALL.md at ab3dad0f33c6](https://github.com/zschwendi/117-vision/blob/ab3dad0f33c6175f391ed5ed27556a8706832b62/AVP-INSTALL.md) |
 | Repo | [zschwendi/117-vision](https://github.com/zschwendi/117-vision) |
 | License | MIT |
 | Last commit | 2026-10-30 |

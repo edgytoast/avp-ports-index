@@ -1,6 +1,6 @@
 117-vision:
   archived: false
-  commits_since_scan: 8
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-10-29T07:06:17Z'
@@ -25,9 +25,9 @@
   scan_declines: 0
   scan_kind: automated
   scan_refused: false
-  scan_state: behind
-  scanned_at: '2026-10-29T07:06:17Z'
-  scanned_commit: b25332ef95bb2df1735e3d8640167a1e62b8252a
+  scan_state: current
+  scanned_at: '2026-10-30T08:19:26Z'
+  scanned_commit: ab3dad0f33c6175f391ed5ed27556a8706832b62
   warnings: []
 animal-crossing-vr:
   archived: false
