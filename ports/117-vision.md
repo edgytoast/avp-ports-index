@@ -17,12 +17,12 @@ Then follow the [install guide](https://github.com/zschwendi/117-vision/blob/b25
 | Status | Partially working: Windowed play is stable per the developer. Immersive mode has remaining bugs; tracked input targets on-foot campaign play. Vehicles and turrets use conventional controls. |
 | Plays as | 2D, 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-10-29 · 0 commits since |
+| Scan | Scanned 2026-10-29 · 8 commits since |
 | Source (scanned) | [zschwendi/117-vision at b25332ef95bb](https://github.com/zschwendi/117-vision/tree/b25332ef95bb2df1735e3d8640167a1e62b8252a) |
 | Install guide | [AVP-INSTALL.md at b25332ef95bb](https://github.com/zschwendi/117-vision/blob/b25332ef95bb2df1735e3d8640167a1e62b8252a/AVP-INSTALL.md) |
 | Repo | [zschwendi/117-vision](https://github.com/zschwendi/117-vision) |
 | License | MIT |
-| Last commit | 2026-10-29 |
+| Last commit | 2026-10-30 |
 | visionOS | 26.0 or later |
 | Input | game controller |
 

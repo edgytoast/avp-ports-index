@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/zschwendi/dark-eco/blob/1b207
 | Status | Partially working: Windowed Jak and Daxter is stable per the developer. This public v2.0 source exposes 2D Comfort mode. The separate experimental immersive build has remaining bugs and is not included in this entry. |
 | Plays as | 2D |
 | Health | OK |
-| Scan | Scanned 2026-10-29 · 0 commits since |
+| Scan | Scanned 2026-10-29 · 56 commits since |
 | Source (scanned) | [zschwendi/dark-eco at 1b207d63f3b9](https://github.com/zschwendi/dark-eco/tree/1b207d63f3b972e3e514de538e6b88a8ac7dbfdc) |
 | Install guide | [AVP-INSTALL.md at 1b207d63f3b9](https://github.com/zschwendi/dark-eco/blob/1b207d63f3b972e3e514de538e6b88a8ac7dbfdc/AVP-INSTALL.md) |
 | Repo | [zschwendi/dark-eco](https://github.com/zschwendi/dark-eco) |
 | Branch | `v2.0` |
 | License | No license stated |
-| Last commit | 2026-10-29 |
+| Last commit | 2026-10-30 |
 | visionOS | 26.5 or later |
 | Input | game controller |
 

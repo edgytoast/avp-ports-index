@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/steverice/visr/blob/154e4f87d
 | Status | Developer-verified |
 | Plays as | 2D, 3D immersive, 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-10-29 · 0 commits since |
+| Scan | Scanned 2026-10-29 · 55 commits since |
 | Source (scanned) | [steverice/visr at 154e4f87d458](https://github.com/steverice/visr/tree/154e4f87d458c40a0305fcf0daa987d73b9ffe3d) |
 | Install guide | [AVP-INSTALL.md at 154e4f87d458](https://github.com/steverice/visr/blob/154e4f87d458c40a0305fcf0daa987d73b9ffe3d/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [steverice/visr](https://github.com/steverice/visr) |
 | License | Apache-2.0 |
-| Last commit | 2026-10-29 |
+| Last commit | 2026-10-30 |
 | visionOS | 2.0 or later |
 | Input | game controller |
 | Tags | fps, sci-fi, metal, vr, multiplayer |

@@ -17,12 +17,12 @@ Then follow the [install guide](https://github.com/zschwendi/avp-craft/blob/81a8
 | Status | Partially working: Windowed play needs further testing; immersive mode has remaining bugs. The complete build has not yet been repeated from a clean public checkout. See the install guide for known limits. |
 | Plays as | 2D, 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-10-29 · 0 commits since |
+| Scan | Scanned 2026-10-29 · 6 commits since |
 | Source (scanned) | [zschwendi/avp-craft at 81a863314917](https://github.com/zschwendi/avp-craft/tree/81a863314917f99662735c48a4f03b65788de9b3) |
 | Install guide | [AVP-INSTALL.md at 81a863314917](https://github.com/zschwendi/avp-craft/blob/81a863314917f99662735c48a4f03b65788de9b3/AVP-INSTALL.md) |
 | Repo | [zschwendi/avp-craft](https://github.com/zschwendi/avp-craft) |
 | License | MIT |
-| Last commit | 2026-10-29 |
+| Last commit | 2026-10-30 |
 | visionOS | 26.0 or later |
 | Input | game controller |
 
