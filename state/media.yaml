@@ -152,6 +152,37 @@ dark-eco:
     width: 640
   skipped: []
   source: readme
+galaxyvision:
+  choice: null
+  collected_at: '2026-10-30T16:05:45Z'
+  commit: 7ade570d09f703603de170a33fce1ab16b81cab9
+  icon:
+    kind: layered
+    layers:
+    - bytes: 62786
+      format: png
+      height: 1024
+      layer: back
+      sha256: 19561d2b983f1159a6d0296544d686f7db22c55d097e365445d5fc02f1bf4bf0
+      url: https://raw.githubusercontent.com/palex0481/GalaxyVision-AVP/7ade570d09f703603de170a33fce1ab16b81cab9/visionos/Resources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
+      width: 1024
+    - bytes: 280038
+      format: png
+      height: 1024
+      layer: middle
+      sha256: 4bd0eea93725dfcfdf54de9eeca1329b1e48f6be534ae7e6f0d235f2561d2bea
+      url: https://raw.githubusercontent.com/palex0481/GalaxyVision-AVP/7ade570d09f703603de170a33fce1ab16b81cab9/visionos/Resources/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
+      width: 1024
+    - bytes: 60214
+      format: png
+      height: 1024
+      layer: front
+      sha256: 58eafb71d55ab8f9249754a38e27ae9bb04bf7c19e92554a6339261240feae67
+      url: https://raw.githubusercontent.com/palex0481/GalaxyVision-AVP/7ade570d09f703603de170a33fce1ab16b81cab9/visionos/Resources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
+      width: 1024
+  screenshots: []
+  skipped: []
+  source: readme
 half-life-alyx:
   choice: null
   collected_at: '2026-10-14T06:44:27Z'

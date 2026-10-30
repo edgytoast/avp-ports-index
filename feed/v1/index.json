@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.5.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-30T15:29:05Z",
+  "generated_at": "2026-10-30T16:05:45Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -451,6 +451,132 @@
             "width": 1920
           }
         ]
+      }
+    },
+    {
+      "id": "galaxyvision",
+      "name": "GalaxyVision",
+      "game": {
+        "title": "Super Mario Galaxy",
+        "original_platform": null,
+        "original_release_year": null
+      },
+      "repo_url": "https://github.com/palex0481/GalaxyVision-AVP",
+      "source_ref": null,
+      "source_url": "https://github.com/palex0481/GalaxyVision-AVP/tree/7ade570d09f703603de170a33fce1ab16b81cab9",
+      "install_doc_url": "https://github.com/palex0481/GalaxyVision-AVP/blob/7ade570d09f703603de170a33fce1ab16b81cab9/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "palex0481",
+        "url": null,
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "GalaxyPad",
+          "role": "Native Super Mario Galaxy for Apple devices, the base of this port",
+          "url": "https://github.com/chrissotraidis/galaxypad"
+        },
+        {
+          "name": "MacioGalaxy",
+          "role": "Native port of the Petari decompilation behind the engine",
+          "url": "https://github.com/classicrob/MacioGalaxy"
+        },
+        {
+          "name": "Petari",
+          "role": "Super Mario Galaxy decompilation",
+          "url": "https://github.com/SMGCommunity/Petari"
+        },
+        {
+          "name": "ModernGekko",
+          "role": "Runtime integration and game-port tooling",
+          "url": "https://github.com/ExpansionPak/ModernGekko"
+        }
+      ],
+      "upstream": [
+        "https://github.com/chrissotraidis/galaxypad"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "Plays in a flat window, or a stereoscopic 3D window (beta) drawn once per eye, per the developer. USA disc (RMGE01 rev 0) only. A hobby project that isn't in active development.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "7ade570d09f703603de170a33fce1ab16b81cab9",
+      "scanned_at": "2026-10-30T16:05:41Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-10-26T06:55:06Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "GPL-3.0"
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d",
+        "3d-shared-space-stereo"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "mario",
+        "platformer",
+        "wii",
+        "decompilation",
+        "recompilation",
+        "stereoscopic"
+      ],
+      "description": "Super Mario Galaxy running natively on Apple Vision Pro: a visionOS app for GalaxyPad, with a flat window or a beta stereoscopic 3D window, a launcher, antialiasing and a side-by-side 3D video recorder. Bring your own disc.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/galaxyvision.md",
+      "media": {
+        "commit": "7ade570d09f703603de170a33fce1ab16b81cab9",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 62786,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "19561d2b983f1159a6d0296544d686f7db22c55d097e365445d5fc02f1bf4bf0",
+              "url": "https://raw.githubusercontent.com/palex0481/GalaxyVision-AVP/7ade570d09f703603de170a33fce1ab16b81cab9/visionos/Resources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 280038,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "4bd0eea93725dfcfdf54de9eeca1329b1e48f6be534ae7e6f0d235f2561d2bea",
+              "url": "https://raw.githubusercontent.com/palex0481/GalaxyVision-AVP/7ade570d09f703603de170a33fce1ab16b81cab9/visionos/Resources/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 60214,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "58eafb71d55ab8f9249754a38e27ae9bb04bf7c19e92554a6339261240feae67",
+              "url": "https://raw.githubusercontent.com/palex0481/GalaxyVision-AVP/7ade570d09f703603de170a33fce1ab16b81cab9/visionos/Resources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": []
       }
     },
     {

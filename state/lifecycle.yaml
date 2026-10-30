@@ -38,6 +38,16 @@ dark-eco:
   status: listed
   submitted_by: zschwendi
   submitted_by_id: 139005358
+galaxyvision:
+  by: merge
+  changed_at: '2026-10-30T16:05:41Z'
+  listed_at: '2026-10-30T16:05:41Z'
+  owner_approved: false
+  repo: https://github.com/palex0481/GalaxyVision-AVP
+  repo_id: 1431772342
+  status: listed
+  submitted_by: edgytoast
+  submitted_by_id: 146565462
 half-life-alyx:
   by: merge
   changed_at: '2026-10-29T21:32:35Z'
