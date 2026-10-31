@@ -1,0 +1,33 @@
+schema_version: 1
+id: luigis-mansion-vr
+name: Luigi's Mansion VR
+game:
+  title: "Luigi's Mansion"
+  original_platform: gamecube
+  original_release_year: 2001
+repo: https://github.com/edgytoast/luigismansion-visionos
+developer:
+  github: edgytoast
+  name: Trevorbilt
+  url: https://trevorbilt.com
+status: working
+status_notes: "Plays with a gamepad (the only input supported) as a world-locked diorama in your room (Full) and as a model on your table beside other apps, both played on Apple Vision Pro. USA disc (GLME01) only."
+visionos_min: "26.0"
+input: [game-controller]
+experiences: [3d-tabletop, 3d-shared-space]
+description: "Luigi's Mansion as a haunted diorama on Apple Vision Pro: the mansion stands in your room as a miniature you can walk around, or sits on your table beside your other apps. A native visionOS port of u/sonarix's Luigi's Mansion VR mod and rob646464's recompilation. Bring your own disc."
+tags: [luigis-mansion, vr, diorama, tabletop, gamecube, recompilation]
+credits:
+  - {name: Trevorbilt, role: "visionOS port", url: "https://trevorbilt.com"}
+  - {name: u/sonarix, role: "Luigi's Mansion VR, the VR mod this port is built on", url: "https://www.reddit.com/user/sonarix"}
+  - {name: u/sonarix, role: "Luigi's Mansion VR build 150's source, released and handed on", url: "https://www.reddit.com/r/virtualreality/comments/1xg3kvj/"}
+  - {name: rob646464, role: "Luigi's Mansion Recompiled, the native recompilation", url: "https://github.com/rob646464/luigis-mansion-recompiled"}
+  - {name: SomeJakeGuy, role: "lm-decomp, the decompilation that drives the recompiler", url: "https://github.com/SomeJakeGuy/lm-decomp"}
+  - {name: encounter, role: "Aurora, the GameCube graphics and system layer", url: "https://github.com/encounter/aurora"}
+  - {name: Twilit Realm, role: "Dusklight, source of the JSystem code", url: "https://github.com/TwilitRealm/dusklight"}
+  - {name: iChris4, role: "WiiCompiled Vision, source of the visionOS OpenXR provider", url: "https://github.com/iChris4/Wiicompiled_VR"}
+upstream:
+  - https://github.com/rob646464/luigis-mansion-recompiled
+  - https://www.reddit.com/r/virtualreality/comments/1xg3kvj/
+  - https://github.com/SomeJakeGuy/lm-decomp
+  - https://github.com/encounter/aurora
