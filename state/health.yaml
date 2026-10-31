@@ -208,6 +208,36 @@ half-life-vr:
   scanned_at: '2026-10-30T07:01:08Z'
   scanned_commit: 6ead127a3248fce9252fb0cf3b1cc83f389bf3d4
   warnings: []
+luigis-mansion-vr:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: true
+  decay_reset_at: '2026-10-31T01:08:02Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: true
+  health: ok
+  last_checked: null
+  last_commit_date: '2026-10-31T00:21:24Z'
+  license:
+    kind: none
+    spdx: null
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes: []
+  scan_confidence: 95
+  scan_declines: 0
+  scan_kind: automated
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-10-31T01:08:01Z'
+  scanned_commit: f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde
+  warnings: []
 santosvision:
   archived: false
   commits_since_scan: 0

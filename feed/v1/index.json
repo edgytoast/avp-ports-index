@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.5.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-30T16:05:45Z",
+  "generated_at": "2026-10-31T01:08:05Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -150,6 +150,155 @@
             "width": 2320
           }
         ]
+      }
+    },
+    {
+      "id": "luigis-mansion-vr",
+      "name": "Luigi's Mansion VR",
+      "game": {
+        "title": "Luigi's Mansion",
+        "original_platform": "gamecube",
+        "original_release_year": 2001
+      },
+      "repo_url": "https://github.com/edgytoast/luigismansion-visionos",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/luigismansion-visionos/tree/f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde",
+      "install_doc_url": "https://github.com/edgytoast/luigismansion-visionos/blob/f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde/AVP-INSTALL.md",
+      "developer": {
+        "name": "Trevorbilt",
+        "github": "edgytoast",
+        "url": "https://trevorbilt.com",
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "Trevorbilt",
+          "role": "visionOS port",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "u/sonarix",
+          "role": "Luigi's Mansion VR, the VR mod this port is built on",
+          "url": "https://www.reddit.com/user/sonarix"
+        },
+        {
+          "name": "u/sonarix",
+          "role": "Luigi's Mansion VR build 150's source, released and handed on",
+          "url": "https://www.reddit.com/r/virtualreality/comments/1xg3kvj/"
+        },
+        {
+          "name": "rob646464",
+          "role": "Luigi's Mansion Recompiled, the native recompilation",
+          "url": "https://github.com/rob646464/luigis-mansion-recompiled"
+        },
+        {
+          "name": "SomeJakeGuy",
+          "role": "lm-decomp, the decompilation that drives the recompiler",
+          "url": "https://github.com/SomeJakeGuy/lm-decomp"
+        },
+        {
+          "name": "encounter",
+          "role": "Aurora, the GameCube graphics and system layer",
+          "url": "https://github.com/encounter/aurora"
+        },
+        {
+          "name": "Twilit Realm",
+          "role": "Dusklight, source of the JSystem code",
+          "url": "https://github.com/TwilitRealm/dusklight"
+        },
+        {
+          "name": "iChris4",
+          "role": "WiiCompiled Vision, source of the visionOS OpenXR provider",
+          "url": "https://github.com/iChris4/Wiicompiled_VR"
+        }
+      ],
+      "upstream": [
+        "https://github.com/rob646464/luigis-mansion-recompiled",
+        "https://www.reddit.com/r/virtualreality/comments/1xg3kvj/",
+        "https://github.com/SomeJakeGuy/lm-decomp",
+        "https://github.com/encounter/aurora"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "Plays with a gamepad (the only input supported) as a world-locked diorama in your room (Full) and as a model on your table beside other apps, both played on Apple Vision Pro. USA disc (GLME01) only.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": true,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde",
+      "scanned_at": "2026-10-31T01:08:01Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-10-31T00:21:24Z",
+      "license": {
+        "kind": "none",
+        "spdx": null
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "3d-shared-space",
+        "3d-tabletop"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "luigis-mansion",
+        "vr",
+        "diorama",
+        "tabletop",
+        "gamecube",
+        "recompilation"
+      ],
+      "description": "Luigi's Mansion as a haunted diorama on Apple Vision Pro: the mansion stands in your room as a miniature you can walk around, or sits on your table beside your other apps. A native visionOS port of u/sonarix's Luigi's Mansion VR mod and rob646464's recompilation. Bring your own disc.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/luigis-mansion-vr.md",
+      "media": {
+        "commit": "f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 90052,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "a1846baf98573c7d7db578b786db3eabc5e45cd996d9ab07ac377b4af9d923dd",
+              "url": "https://raw.githubusercontent.com/edgytoast/luigismansion-visionos/f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 53743,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "baa72eafc3cd3f4dc41799fdd8f1e9af8c1e5f024ea9bc36815db56100a1b73f",
+              "url": "https://raw.githubusercontent.com/edgytoast/luigismansion-visionos/f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 185977,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "3808bd1aa8214f2b7679b6afcad54c337448df477a984fff59bdab67acb04044",
+              "url": "https://raw.githubusercontent.com/edgytoast/luigismansion-visionos/f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": []
       }
     },
     {
