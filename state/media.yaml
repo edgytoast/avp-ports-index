@@ -123,8 +123,8 @@ avp-craft:
   source: readme
 dark-eco:
   choice: null
-  collected_at: '2026-10-30T15:29:02Z'
-  commit: c89b91c8c9fe1b95dc4e35e5a3ec4acb965dcf08
+  collected_at: '2026-11-01T06:28:25Z'
+  commit: 23eab2a7d0995341ed06c46d85d17e82a7f3aa31
   icon:
     kind: layered
     layers:
@@ -133,14 +133,14 @@ dark-eco:
       height: 1024
       layer: back
       sha256: cc602a0aefc0506d3010c4b3dd73592caa1f2da96f9e440c9294fc568d6da192
-      url: https://raw.githubusercontent.com/zschwendi/dark-eco/c89b91c8c9fe1b95dc4e35e5a3ec4acb965dcf08/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-1024.png
+      url: https://raw.githubusercontent.com/zschwendi/dark-eco/23eab2a7d0995341ed06c46d85d17e82a7f3aa31/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-1024.png
       width: 1024
     - bytes: 448
       format: png
       height: 1024
       layer: front
       sha256: 1f737c51df0aa9ef372f6b4343f91b797b6ddae5058b858f4f30f34e73b81224
-      url: https://raw.githubusercontent.com/zschwendi/dark-eco/c89b91c8c9fe1b95dc4e35e5a3ec4acb965dcf08/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-front-transparent-1024.png
+      url: https://raw.githubusercontent.com/zschwendi/dark-eco/23eab2a7d0995341ed06c46d85d17e82a7f3aa31/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-front-transparent-1024.png
       width: 1024
   screenshots:
   - alt: Jak 1 immersive gameplay recorded by Zach on Apple Vision Pro
@@ -148,7 +148,7 @@ dark-eco:
     format: gif
     height: 360
     sha256: 95ed31e3215c1af7f28359dc2d893799fa9294a1ba3942747bedba98d1d8e68e
-    url: https://raw.githubusercontent.com/zschwendi/dark-eco/c89b91c8c9fe1b95dc4e35e5a3ec4acb965dcf08/docs/media/dark-eco-vision-pro.gif
+    url: https://raw.githubusercontent.com/zschwendi/dark-eco/23eab2a7d0995341ed06c46d85d17e82a7f3aa31/docs/media/dark-eco-vision-pro.gif
     width: 640
   skipped: []
   source: readme

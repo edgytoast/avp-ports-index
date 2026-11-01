@@ -17,12 +17,12 @@ Then follow the [install guide](https://github.com/zschwendi/SantosVision/blob/7
 | Status | Partially working: Windowed play is stable per the developer. Experimental third-person immersion has remaining image-quality, depth-edge, flicker and performance bugs. |
 | Plays as | 2D, 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-10-30 · 0 commits since |
+| Scan | Scanned 2026-10-30 · 4 commits since |
 | Source (scanned) | [zschwendi/SantosVision at 71b376cfb8f0](https://github.com/zschwendi/SantosVision/tree/71b376cfb8f066d1d6df9f4a53495974ecdab2dd) |
 | Install guide | [AVP-INSTALL.md at 71b376cfb8f0](https://github.com/zschwendi/SantosVision/blob/71b376cfb8f066d1d6df9f4a53495974ecdab2dd/AVP-INSTALL.md) |
 | Repo | [zschwendi/SantosVision](https://github.com/zschwendi/SantosVision) |
 | License | GPL-3.0 |
-| Last commit | 2026-10-30 |
+| Last commit | 2026-10-31 |
 | visionOS | 26.0 or later |
 | Input | game controller |
 

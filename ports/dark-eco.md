@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/zschwendi/dark-eco/blob/23eab
 | Status | Partially working: Windowed Jak and Daxter is stable per the developer. This public v2.0 source exposes 2D Comfort mode. The separate experimental immersive build has remaining bugs and is not included in this entry. |
 | Plays as | 2D |
 | Health | OK |
-| Scan | Scanned 2026-10-31 · 0 commits since |
+| Scan | Scanned 2026-10-31 · 23 commits since |
 | Source (scanned) | [zschwendi/dark-eco at 23eab2a7d099](https://github.com/zschwendi/dark-eco/tree/23eab2a7d0995341ed06c46d85d17e82a7f3aa31) |
 | Install guide | [AVP-INSTALL.md at 23eab2a7d099](https://github.com/zschwendi/dark-eco/blob/23eab2a7d0995341ed06c46d85d17e82a7f3aa31/AVP-INSTALL.md) |
 | Repo | [zschwendi/dark-eco](https://github.com/zschwendi/dark-eco) |
 | Branch | `v2.0` |
 | License | No license stated |
-| Last commit | 2026-10-30 |
+| Last commit | 2026-10-31 |
 | visionOS | 26.5 or later |
 | Input | game controller |
 
@@ -31,9 +31,9 @@ Native Apple OpenGOAL port with a Dark Eco launcher, on-device import of user-su
 
 ## Screenshots
 
-From the port's README at c89b91c8c9fe.
+From the port's README at 23eab2a7d099.
 
-<img src="https://raw.githubusercontent.com/zschwendi/dark-eco/c89b91c8c9fe1b95dc4e35e5a3ec4acb965dcf08/docs/media/dark-eco-vision-pro.gif" alt="Jak 1 immersive gameplay recorded by Zach on Apple Vision Pro" width="400">
+<img src="https://raw.githubusercontent.com/zschwendi/dark-eco/23eab2a7d0995341ed06c46d85d17e82a7f3aa31/docs/media/dark-eco-vision-pro.gif" alt="Jak 1 immersive gameplay recorded by Zach on Apple Vision Pro" width="400">
 
 ## Credits
 
