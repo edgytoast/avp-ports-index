@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.5.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-01T06:46:25Z",
+  "generated_at": "2026-11-01T07:03:32Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -1372,8 +1372,8 @@
       },
       "repo_url": "https://github.com/zschwendi/dark-eco",
       "source_ref": "v2.0",
-      "source_url": "https://github.com/zschwendi/dark-eco/tree/23eab2a7d0995341ed06c46d85d17e82a7f3aa31",
-      "install_doc_url": "https://github.com/zschwendi/dark-eco/blob/23eab2a7d0995341ed06c46d85d17e82a7f3aa31/AVP-INSTALL.md",
+      "source_url": "https://github.com/zschwendi/dark-eco/tree/7321c91e1c69084f6f19afe8793b172157f74aa8",
+      "install_doc_url": "https://github.com/zschwendi/dark-eco/blob/7321c91e1c69084f6f19afe8793b172157f74aa8/AVP-INSTALL.md",
       "developer": {
         "name": "Zach Schwendiman",
         "github": "zschwendi",
@@ -1409,11 +1409,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "23eab2a7d0995341ed06c46d85d17e82a7f3aa31",
-      "scanned_at": "2026-10-31T06:51:48Z",
+      "scanned_commit": "7321c91e1c69084f6f19afe8793b172157f74aa8",
+      "scanned_at": "2026-11-01T07:03:31Z",
       "scan_kind": "automated",
-      "commits_since_scan": 23,
-      "scan_state": "behind",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-10-31T23:11:23Z",
       "license": {
