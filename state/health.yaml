@@ -241,7 +241,7 @@ luigis-mansion-vr:
   - S1-10
 santosvision:
   archived: false
-  commits_since_scan: 4
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-10-29T05:06:28Z'
@@ -266,9 +266,9 @@ santosvision:
   scan_declines: 0
   scan_kind: automated
   scan_refused: false
-  scan_state: behind
-  scanned_at: '2026-10-30T08:35:53Z'
-  scanned_commit: 71b376cfb8f066d1d6df9f4a53495974ecdab2dd
+  scan_state: current
+  scanned_at: '2026-11-01T06:46:24Z'
+  scanned_commit: addaaf11e238999094cffb339b5f0d545de22484
   warnings: []
 shar-visionos:
   archived: false

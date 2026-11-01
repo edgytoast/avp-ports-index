@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.5.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-01T06:28:25Z",
+  "generated_at": "2026-11-01T06:46:25Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -1482,8 +1482,8 @@
       },
       "repo_url": "https://github.com/zschwendi/SantosVision",
       "source_ref": null,
-      "source_url": "https://github.com/zschwendi/SantosVision/tree/71b376cfb8f066d1d6df9f4a53495974ecdab2dd",
-      "install_doc_url": "https://github.com/zschwendi/SantosVision/blob/71b376cfb8f066d1d6df9f4a53495974ecdab2dd/AVP-INSTALL.md",
+      "source_url": "https://github.com/zschwendi/SantosVision/tree/addaaf11e238999094cffb339b5f0d545de22484",
+      "install_doc_url": "https://github.com/zschwendi/SantosVision/blob/addaaf11e238999094cffb339b5f0d545de22484/AVP-INSTALL.md",
       "developer": {
         "name": "Zach Schwendiman",
         "github": "zschwendi",
@@ -1513,11 +1513,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "71b376cfb8f066d1d6df9f4a53495974ecdab2dd",
-      "scanned_at": "2026-10-30T08:35:53Z",
+      "scanned_commit": "addaaf11e238999094cffb339b5f0d545de22484",
+      "scanned_at": "2026-11-01T06:46:24Z",
       "scan_kind": "automated",
-      "commits_since_scan": 4,
-      "scan_state": "behind",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-10-31T08:24:17Z",
       "license": {
