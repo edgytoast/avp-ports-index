@@ -89,7 +89,7 @@ avp-craft:
   warnings: []
 dark-eco:
   archived: false
-  commits_since_scan: 23
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-10-29T06:48:19Z'
@@ -110,13 +110,13 @@ dark-eco:
   rescan_hold: false
   routes:
   - S1-11d
-  scan_confidence: 95
+  scan_confidence: 100
   scan_declines: 0
   scan_kind: automated
   scan_refused: false
-  scan_state: behind
-  scanned_at: '2026-11-01T07:03:31Z'
-  scanned_commit: 7321c91e1c69084f6f19afe8793b172157f74aa8
+  scan_state: current
+  scanned_at: '2026-11-02T07:32:53Z'
+  scanned_commit: 6e28cce750406037c4a325ce7fc18c377b575e97
   warnings: []
 galaxyvision:
   archived: false
