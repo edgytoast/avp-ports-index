@@ -17,12 +17,12 @@ Then follow the [install guide](https://github.com/zschwendi/SantosVision/blob/a
 | Status | Partially working: Windowed play is stable per the developer. Experimental third-person immersion has remaining image-quality, depth-edge, flicker and performance bugs. |
 | Plays as | 2D, 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-01 · 0 commits since |
+| Scan | Scanned 2026-11-01 · 1 commit since |
 | Source (scanned) | [zschwendi/SantosVision at addaaf11e238](https://github.com/zschwendi/SantosVision/tree/addaaf11e238999094cffb339b5f0d545de22484) |
 | Install guide | [AVP-INSTALL.md at addaaf11e238](https://github.com/zschwendi/SantosVision/blob/addaaf11e238999094cffb339b5f0d545de22484/AVP-INSTALL.md) |
 | Repo | [zschwendi/SantosVision](https://github.com/zschwendi/SantosVision) |
 | License | GPL-3.0 |
-| Last commit | 2026-10-31 |
+| Last commit | 2026-11-01 |
 | visionOS | 26.0 or later |
 | Input | game controller |
 
@@ -30,9 +30,9 @@ Native Apple-platform GTA V port built on Muguet, with local ahead-of-time compi
 
 ## Screenshots
 
-From the port's README at 71b376cfb8f0.
+From the port's README at addaaf11e238.
 
-<img src="https://raw.githubusercontent.com/zschwendi/SantosVision/71b376cfb8f066d1d6df9f4a53495974ecdab2dd/assets/branding/spatial-v-front-glass-master-v28.png" alt="V — green Vision Pro front glass reflecting a Los Santos sunset" width="400">
+<img src="https://raw.githubusercontent.com/zschwendi/SantosVision/addaaf11e238999094cffb339b5f0d545de22484/assets/branding/spatial-v-front-glass-master-v28.png" alt="V — green Vision Pro front glass reflecting a Los Santos sunset" width="400">
 
 ## Credits
 
