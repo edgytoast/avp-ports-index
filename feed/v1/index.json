@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.5.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-02T06:38:28Z",
+  "generated_at": "2026-11-02T07:02:37Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -1587,8 +1587,8 @@
       },
       "repo_url": "https://github.com/zschwendi/avp-craft",
       "source_ref": null,
-      "source_url": "https://github.com/zschwendi/avp-craft/tree/d961fa046ec0492bcf97fb7f4ab6356bc8dc5bfc",
-      "install_doc_url": "https://github.com/zschwendi/avp-craft/blob/d961fa046ec0492bcf97fb7f4ab6356bc8dc5bfc/AVP-INSTALL.md",
+      "source_url": "https://github.com/zschwendi/avp-craft/tree/f2e37d355aa472b360bf88f355c8214f40ab5434",
+      "install_doc_url": "https://github.com/zschwendi/avp-craft/blob/f2e37d355aa472b360bf88f355c8214f40ab5434/AVP-INSTALL.md",
       "developer": {
         "name": "Zach Schwendiman",
         "github": "zschwendi",
@@ -1630,11 +1630,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "d961fa046ec0492bcf97fb7f4ab6356bc8dc5bfc",
-      "scanned_at": "2026-10-30T07:17:03Z",
+      "scanned_commit": "f2e37d355aa472b360bf88f355c8214f40ab5434",
+      "scanned_at": "2026-11-02T07:02:36Z",
       "scan_kind": "automated",
-      "commits_since_scan": 1,
-      "scan_state": "behind",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-11-01T09:22:39Z",
       "license": {

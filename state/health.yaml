@@ -59,7 +59,7 @@ animal-crossing-vr:
   warnings: []
 avp-craft:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-10-29T05:20:24Z'
@@ -79,13 +79,13 @@ avp-craft:
   rescan_after: null
   rescan_hold: false
   routes: []
-  scan_confidence: 100
+  scan_confidence: 95
   scan_declines: 0
   scan_kind: automated
   scan_refused: false
-  scan_state: behind
-  scanned_at: '2026-10-30T07:17:03Z'
-  scanned_commit: d961fa046ec0492bcf97fb7f4ab6356bc8dc5bfc
+  scan_state: current
+  scanned_at: '2026-11-02T07:02:36Z'
+  scanned_commit: f2e37d355aa472b360bf88f355c8214f40ab5434
   warnings: []
 dark-eco:
   archived: false
