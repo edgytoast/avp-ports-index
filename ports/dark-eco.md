@@ -31,9 +31,9 @@ Native Apple OpenGOAL port with a Dark Eco launcher, on-device import of user-su
 
 ## Screenshots
 
-From the port's README at 7321c91e1c69.
+From the port's README at 6e28cce75040.
 
-<img src="https://raw.githubusercontent.com/zschwendi/dark-eco/7321c91e1c69084f6f19afe8793b172157f74aa8/docs/media/dark-eco-vision-pro.gif" alt="Jak 1 immersive gameplay recorded by Zach on Apple Vision Pro" width="400">
+<img src="https://raw.githubusercontent.com/zschwendi/dark-eco/6e28cce750406037c4a325ce7fc18c377b575e97/docs/media/dark-eco-vision-pro.gif" alt="Jak 1 immersive gameplay recorded by Zach on Apple Vision Pro" width="400">
 
 ## Credits
 

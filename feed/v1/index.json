@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.5.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-02T07:32:54Z",
+  "generated_at": "2026-11-02T22:41:35Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -150,6 +150,136 @@
             "width": 2320
           }
         ]
+      }
+    },
+    {
+      "id": "revc-visionos",
+      "name": "reVC for visionOS",
+      "game": {
+        "title": "Grand Theft Auto: Vice City",
+        "original_platform": "ps2",
+        "original_release_year": 2002
+      },
+      "repo_url": "https://github.com/LowRiderXR/revc-visionos-app",
+      "source_ref": null,
+      "source_url": "https://github.com/LowRiderXR/revc-visionos-app/tree/c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c",
+      "install_doc_url": "https://github.com/LowRiderXR/revc-visionos-app/blob/c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "LowRiderXR",
+        "url": null,
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "re3 project",
+          "role": "reVC, the reverse-engineered engine",
+          "url": null
+        },
+        {
+          "name": "librw",
+          "role": "RenderWare reimplementation",
+          "url": "https://github.com/aap/librw"
+        },
+        {
+          "name": "ANGLE",
+          "role": "OpenGL ES to Metal",
+          "url": "https://chromium.googlesource.com/angle/angle"
+        },
+        {
+          "name": "Klepton",
+          "role": "Reference for Compositor Services and ANGLE",
+          "url": "https://github.com/shinyquagsire23/Klepton"
+        },
+        {
+          "name": "OpenAL Soft",
+          "role": "Audio",
+          "url": "https://github.com/kcat/openal-soft"
+        }
+      ],
+      "upstream": [
+        "https://github.com/LowRiderXR/revc-visionos",
+        "https://github.com/LowRiderXR/librw-visionos",
+        "https://github.com/LowRiderXR/visionos-angle-kit"
+      ],
+      "self_reported_status": "developer-verified",
+      "status_notes": "Own code (launcher, renderer) is MIT; the reVC engine itself has no license and is published as-is. Requires the player's own classic PC copy of Vice City (not the Definitive Edition). Tested on Apple Vision Pro M2 and M5.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "developer-verified",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c",
+      "scanned_at": "2026-11-02T22:41:25Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-10-31T14:17:15Z",
+      "license": {
+        "kind": "custom",
+        "spdx": null
+      },
+      "visionos_min": "27.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "6dof-immersive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "gta",
+        "vice-city",
+        "vr",
+        "decompilation"
+      ],
+      "description": "Native Vision Pro port of reVC, the reverse-engineered GTA Vice City engine: stereo rendering in a full immersive space, head tracking, foveated rendering, game-controller input, and a launcher for settings, save games and the game data. Bring your own classic PC copy.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/revc-visionos.md",
+      "media": {
+        "commit": "c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 736567,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "287f3eb1d47b5cf90db0c473ecd3cca1ea01123ababb7e814f457b48bbd73619",
+              "url": "https://raw.githubusercontent.com/LowRiderXR/revc-visionos-app/c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c/AvpViceCity/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 146493,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "648bcacc2460fee90debe2aab47e23f83853a44e775af9ce450e6f719886b247",
+              "url": "https://raw.githubusercontent.com/LowRiderXR/revc-visionos-app/c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c/AvpViceCity/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 75860,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "c94912d2d5fa53dbd1303b16c26f9b4d0e47eba4506c2c9b46e58f1679c561a9",
+              "url": "https://raw.githubusercontent.com/LowRiderXR/revc-visionos-app/c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c/AvpViceCity/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": []
       }
     },
     {
@@ -1434,7 +1564,7 @@
       "description": "Native Apple OpenGOAL port with a Dark Eco launcher, on-device import of user-supplied Jak and Daxter data, Metal graphics and controller support. This entry covers the public windowed Vision Pro build.",
       "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/dark-eco.md",
       "media": {
-        "commit": "7321c91e1c69084f6f19afe8793b172157f74aa8",
+        "commit": "6e28cce750406037c4a325ce7fc18c377b575e97",
         "source": "readme",
         "icon": {
           "kind": "layered",
@@ -1445,7 +1575,7 @@
               "height": 1024,
               "layer": "back",
               "sha256": "cc602a0aefc0506d3010c4b3dd73592caa1f2da96f9e440c9294fc568d6da192",
-              "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/7321c91e1c69084f6f19afe8793b172157f74aa8/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-1024.png",
+              "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/6e28cce750406037c4a325ce7fc18c377b575e97/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-1024.png",
               "width": 1024
             },
             {
@@ -1454,7 +1584,7 @@
               "height": 1024,
               "layer": "front",
               "sha256": "1f737c51df0aa9ef372f6b4343f91b797b6ddae5058b858f4f30f34e73b81224",
-              "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/7321c91e1c69084f6f19afe8793b172157f74aa8/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-front-transparent-1024.png",
+              "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/6e28cce750406037c4a325ce7fc18c377b575e97/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-front-transparent-1024.png",
               "width": 1024
             }
           ]
@@ -1466,7 +1596,7 @@
             "format": "gif",
             "height": 360,
             "sha256": "95ed31e3215c1af7f28359dc2d893799fa9294a1ba3942747bedba98d1d8e68e",
-            "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/7321c91e1c69084f6f19afe8793b172157f74aa8/docs/media/dark-eco-vision-pro.gif",
+            "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/6e28cce750406037c4a325ce7fc18c377b575e97/docs/media/dark-eco-vision-pro.gif",
             "width": 640
           }
         ]
@@ -1539,7 +1669,7 @@
       "description": "Native Apple-platform GTA V port built on Muguet, with local ahead-of-time compiled game code, a game window and experimental head-tracked third-person immersion.",
       "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/santosvision.md",
       "media": {
-        "commit": "addaaf11e238999094cffb339b5f0d545de22484",
+        "commit": "941b9b27bc99a42f32d8a08db7ffb7b7ec728fe5",
         "source": "readme",
         "icon": {
           "kind": "layered",
@@ -1550,7 +1680,7 @@
               "height": 1024,
               "layer": "back",
               "sha256": "cde5a2a4bd62439c9ae894c6de6685ff703c3140cc038dc0a567f0eda0caa51a",
-              "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/addaaf11e238999094cffb339b5f0d545de22484/visionos/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/santos-five-palms.png",
+              "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/941b9b27bc99a42f32d8a08db7ffb7b7ec728fe5/visionos/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/santos-five-palms.png",
               "width": 1024
             },
             {
@@ -1559,7 +1689,7 @@
               "height": 1024,
               "layer": "front",
               "sha256": "f12ddfea20dcca2fa350d75d5ed2ae76a4fffbcdfd2b8f2357558b90072dab9f",
-              "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/addaaf11e238999094cffb339b5f0d545de22484/visionos/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/transparent.png",
+              "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/941b9b27bc99a42f32d8a08db7ffb7b7ec728fe5/visionos/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/transparent.png",
               "width": 1024
             }
           ]
@@ -1571,7 +1701,7 @@
             "format": "png",
             "height": 1254,
             "sha256": "a956c9a70dfd1a57c864341d1cb179f56f39e49af16059adc906c27411c160ee",
-            "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/addaaf11e238999094cffb339b5f0d545de22484/assets/branding/spatial-v-front-glass-master-v28.png",
+            "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/941b9b27bc99a42f32d8a08db7ffb7b7ec728fe5/assets/branding/spatial-v-front-glass-master-v28.png",
             "width": 1254
           }
         ]
@@ -1656,7 +1786,7 @@
       "description": "Minecraft: Java Edition 26.2 compiled ahead of time for Vision Pro, with an AVPcraft launcher, windowed play, Vivecraft immersion and PSVR2 Sense input.",
       "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/avp-craft.md",
       "media": {
-        "commit": "d961fa046ec0492bcf97fb7f4ab6356bc8dc5bfc",
+        "commit": "f2e37d355aa472b360bf88f355c8214f40ab5434",
         "source": "readme",
         "icon": {
           "kind": "layered",
@@ -1667,7 +1797,7 @@
               "height": 1024,
               "layer": "back",
               "sha256": "b11a70223839639427d586b1305e31dafe14a8173fa87706fa3993ecdf20ea50",
-              "url": "https://raw.githubusercontent.com/zschwendi/avp-craft/d961fa046ec0492bcf97fb7f4ab6356bc8dc5bfc/visionos/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "url": "https://raw.githubusercontent.com/zschwendi/avp-craft/f2e37d355aa472b360bf88f355c8214f40ab5434/visionos/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
               "width": 1024
             },
             {
@@ -1676,7 +1806,7 @@
               "height": 1024,
               "layer": "middle",
               "sha256": "265149d454822c2c808720c61f5a4317c0bfda56fc96598ea7b19b6ea52c5dd1",
-              "url": "https://raw.githubusercontent.com/zschwendi/avp-craft/d961fa046ec0492bcf97fb7f4ab6356bc8dc5bfc/visionos/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "url": "https://raw.githubusercontent.com/zschwendi/avp-craft/f2e37d355aa472b360bf88f355c8214f40ab5434/visionos/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
               "width": 1024
             }
           ]

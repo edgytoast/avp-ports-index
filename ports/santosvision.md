@@ -30,9 +30,9 @@ Native Apple-platform GTA V port built on Muguet, with local ahead-of-time compi
 
 ## Screenshots
 
-From the port's README at addaaf11e238.
+From the port's README at 941b9b27bc99.
 
-<img src="https://raw.githubusercontent.com/zschwendi/SantosVision/addaaf11e238999094cffb339b5f0d545de22484/assets/branding/spatial-v-front-glass-master-v28.png" alt="V — green Vision Pro front glass reflecting a Los Santos sunset" width="400">
+<img src="https://raw.githubusercontent.com/zschwendi/SantosVision/941b9b27bc99a42f32d8a08db7ffb7b7ec728fe5/assets/branding/spatial-v-front-glass-master-v28.png" alt="V — green Vision Pro front glass reflecting a Los Santos sunset" width="400">
 
 ## Credits
 
