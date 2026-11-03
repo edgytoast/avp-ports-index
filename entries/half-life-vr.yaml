@@ -14,6 +14,7 @@ status_notes: "Playable end to end on Apple Vision Pro, per the README. The hand
 visionos_min: "26.4"
 input: [hand-tracking, game-controller]
 experiences: [6dof-immersive]
+install: [build, sideload]
 description: >-
   Half-Life in full immersion on Apple Vision Pro: the Xash3D-FWGS engine with its ref_gl renderer
   on Metal through ANGLE, presented with Compositor Services, with hand-tracked weapons and
