@@ -9,6 +9,7 @@ repo: https://github.com/steverice/visr
 developer:
   github: steverice
 status: developer-verified
+status_notes: "Plays in a window on visionOS 2 or later. Enter VR (stereo around you, or the 3D theater screen) needs visionOS 26 or later, and PlayStation VR2 Sense aiming needs visionOS 27, per the install guide."
 visionos_min: "2.0"
 input: [game-controller]
 experiences: [6dof-immersive, 3d-immersive, 2d]
