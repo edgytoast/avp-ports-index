@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.5.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-02T22:41:35Z",
+  "generated_at": "2026-11-03T06:30:56Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -74,10 +74,10 @@
       "scanned_commit": "154e4f87d458c40a0305fcf0daa987d73b9ffe3d",
       "scanned_at": "2026-10-29T23:00:52Z",
       "scan_kind": "automated",
-      "commits_since_scan": 190,
+      "commits_since_scan": 210,
       "scan_state": "behind",
       "archived": false,
-      "last_commit_date": "2026-11-02T05:39:27Z",
+      "last_commit_date": "2026-11-03T05:29:53Z",
       "license": {
         "kind": "open-source",
         "spdx": "Apache-2.0"
@@ -364,10 +364,10 @@
       "scanned_commit": "f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde",
       "scanned_at": "2026-10-31T01:08:01Z",
       "scan_kind": "automated",
-      "commits_since_scan": 0,
-      "scan_state": "current",
+      "commits_since_scan": 1,
+      "scan_state": "behind",
       "archived": false,
-      "last_commit_date": "2026-10-31T00:21:24Z",
+      "last_commit_date": "2026-11-02T21:37:42Z",
       "license": {
         "kind": "none",
         "spdx": null

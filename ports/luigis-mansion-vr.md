@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/edgytoast/luigismansion-visio
 | Status | Working: Plays with a gamepad \(the only input supported\) as a world-locked diorama in your room \(Full\) and as a model on your table beside other apps, both played on Apple Vision Pro. USA disc \(GLME01\) only. |
 | Plays as | 3D shared space, 3D tabletop |
 | Health | OK |
-| Scan | Scanned 2026-10-31 · 0 commits since |
+| Scan | Scanned 2026-10-31 · 1 commit since |
 | Source (scanned) | [edgytoast/luigismansion-visionos at f61bb7bb9f6f](https://github.com/edgytoast/luigismansion-visionos/tree/f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde) |
 | Install guide | [AVP-INSTALL.md at f61bb7bb9f6f](https://github.com/edgytoast/luigismansion-visionos/blob/f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde/AVP-INSTALL.md) |
 | Repo | [edgytoast/luigismansion-visionos](https://github.com/edgytoast/luigismansion-visionos) |
 | Developer site | <https://trevorbilt.com> |
 | License | No license stated |
-| Last commit | 2026-10-31 |
+| Last commit | 2026-11-02 |
 | visionOS | 26.0 or later |
 | Input | game controller |
 | Tags | luigis-mansion, vr, diorama, tabletop, gamecube, recompilation |
