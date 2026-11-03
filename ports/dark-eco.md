@@ -20,6 +20,7 @@ Then follow the [install guide](https://github.com/zschwendi/dark-eco/blob/6e28c
 | Scan | Scanned 2026-11-02 · 0 commits since |
 | Source (scanned) | [zschwendi/dark-eco at 6e28cce75040](https://github.com/zschwendi/dark-eco/tree/6e28cce750406037c4a325ce7fc18c377b575e97) |
 | Install guide | [AVP-INSTALL.md at 6e28cce75040](https://github.com/zschwendi/dark-eco/blob/6e28cce750406037c4a325ce7fc18c377b575e97/AVP-INSTALL.md) |
+| Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [zschwendi/dark-eco](https://github.com/zschwendi/dark-eco) |
 | Branch | `v2.0` |
 | License | No license stated |

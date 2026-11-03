@@ -20,6 +20,7 @@ Then follow the [install guide](https://github.com/zschwendi/SantosVision/blob/9
 | Scan | Scanned 2026-11-02 · 0 commits since |
 | Source (scanned) | [zschwendi/SantosVision at 941b9b27bc99](https://github.com/zschwendi/SantosVision/tree/941b9b27bc99a42f32d8a08db7ffb7b7ec728fe5) |
 | Install guide | [AVP-INSTALL.md at 941b9b27bc99](https://github.com/zschwendi/SantosVision/blob/941b9b27bc99a42f32d8a08db7ffb7b7ec728fe5/AVP-INSTALL.md) |
+| Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [zschwendi/SantosVision](https://github.com/zschwendi/SantosVision) |
 | License | GPL-3.0 |
 | Last commit | 2026-11-01 |

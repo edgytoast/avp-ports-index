@@ -238,8 +238,8 @@ half-life-vr:
   source: readme
 luigis-mansion-vr:
   choice: null
-  collected_at: '2026-10-31T01:08:05Z'
-  commit: f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde
+  collected_at: '2026-11-03T15:35:30Z'
+  commit: c238bbc386b1a4433d31d9f016234492016c415a
   icon:
     kind: layered
     layers:
@@ -248,26 +248,28 @@ luigis-mansion-vr:
       height: 1024
       layer: back
       sha256: a1846baf98573c7d7db578b786db3eabc5e45cd996d9ab07ac377b4af9d923dd
-      url: https://raw.githubusercontent.com/edgytoast/luigismansion-visionos/f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
+      url: https://raw.githubusercontent.com/edgytoast/luigismansion-visionos/c238bbc386b1a4433d31d9f016234492016c415a/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
       width: 1024
     - bytes: 53743
       format: png
       height: 1024
       layer: middle
       sha256: baa72eafc3cd3f4dc41799fdd8f1e9af8c1e5f024ea9bc36815db56100a1b73f
-      url: https://raw.githubusercontent.com/edgytoast/luigismansion-visionos/f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
+      url: https://raw.githubusercontent.com/edgytoast/luigismansion-visionos/c238bbc386b1a4433d31d9f016234492016c415a/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
       width: 1024
     - bytes: 185977
       format: png
       height: 1024
       layer: front
       sha256: 3808bd1aa8214f2b7679b6afcad54c337448df477a984fff59bdab67acb04044
-      url: https://raw.githubusercontent.com/edgytoast/luigismansion-visionos/f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
+      url: https://raw.githubusercontent.com/edgytoast/luigismansion-visionos/c238bbc386b1a4433d31d9f016234492016c415a/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
       width: 1024
   screenshots: []
   skipped:
   - reason: not this repo's file or a GitHub attachment
     src: https://trevorbilt.com/assets/logo-BdrEikAq.png
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/AVP_Ports_Index-listed-0A84FF
   source: readme
 revc-visionos:
   choice: ab060d8c909256ae

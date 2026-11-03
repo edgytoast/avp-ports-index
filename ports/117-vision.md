@@ -20,6 +20,7 @@ Then follow the [install guide](https://github.com/zschwendi/117-vision/blob/ab3
 | Scan | Scanned 2026-10-30 · 0 commits since |
 | Source (scanned) | [zschwendi/117-vision at ab3dad0f33c6](https://github.com/zschwendi/117-vision/tree/ab3dad0f33c6175f391ed5ed27556a8706832b62) |
 | Install guide | [AVP-INSTALL.md at ab3dad0f33c6](https://github.com/zschwendi/117-vision/blob/ab3dad0f33c6175f391ed5ed27556a8706832b62/AVP-INSTALL.md) |
+| Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [zschwendi/117-vision](https://github.com/zschwendi/117-vision) |
 | License | MIT |
 | Last commit | 2026-10-30 |

@@ -1,6 +1,6 @@
 117-vision:
   by: merge
-  changed_at: '2026-10-29T07:06:17Z'
+  changed_at: '2026-11-03T15:35:16Z'
   listed_at: '2026-10-29T07:06:17Z'
   owner_approved: false
   repo: https://github.com/zschwendi/117-vision
@@ -30,7 +30,7 @@ avp-craft:
   submitted_by_id: 139005358
 dark-eco:
   by: merge
-  changed_at: '2026-10-29T06:48:19Z'
+  changed_at: '2026-11-03T15:35:20Z'
   listed_at: '2026-10-29T06:48:19Z'
   owner_approved: false
   repo: https://github.com/zschwendi/dark-eco
@@ -59,8 +59,8 @@ half-life-alyx:
   submitted_by: edgytoast
   submitted_by_id: 146565462
 half-life-vr:
-  by: kill-switch
-  changed_at: '2026-10-09T17:02:19Z'
+  by: merge
+  changed_at: '2026-11-03T15:35:23Z'
   listed_at: '2026-10-06T19:07:04Z'
   owner_approved: true
   repo: https://github.com/illixion/halflife-visionos
@@ -90,7 +90,7 @@ revc-visionos:
   submitted_by_id: 193211371
 santosvision:
   by: merge
-  changed_at: '2026-10-29T05:06:28Z'
+  changed_at: '2026-11-03T15:35:26Z'
   listed_at: '2026-10-29T05:06:28Z'
   owner_approved: false
   repo: https://github.com/zschwendi/SantosVision
