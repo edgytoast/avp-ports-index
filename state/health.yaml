@@ -210,7 +210,7 @@ half-life-vr:
   warnings: []
 luigis-mansion-vr:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: true
   decay_reset_at: '2026-10-31T01:08:02Z'
@@ -230,13 +230,13 @@ luigis-mansion-vr:
   rescan_after: null
   rescan_hold: false
   routes: []
-  scan_confidence: 95
+  scan_confidence: 100
   scan_declines: 0
   scan_kind: automated
   scan_refused: false
-  scan_state: behind
-  scanned_at: '2026-10-31T01:08:01Z'
-  scanned_commit: f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde
+  scan_state: current
+  scanned_at: '2026-11-03T06:43:22Z'
+  scanned_commit: c238bbc386b1a4433d31d9f016234492016c415a
   warnings:
   - S1-10
 revc-visionos:

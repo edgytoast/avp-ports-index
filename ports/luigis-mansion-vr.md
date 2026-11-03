@@ -6,10 +6,10 @@ Port by Trevorbilt ([@edgytoast](https://github.com/edgytoast))
 Start with this command, which gets exactly the code that was scanned:
 
 ```
-git clone https://github.com/edgytoast/luigismansion-visionos && cd luigismansion-visionos && git checkout f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde && git submodule update --init --recursive
+git clone https://github.com/edgytoast/luigismansion-visionos && cd luigismansion-visionos && git checkout c238bbc386b1a4433d31d9f016234492016c415a && git submodule update --init --recursive
 ```
 
-Then follow the [install guide](https://github.com/edgytoast/luigismansion-visionos/blob/f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+Then follow the [install guide](https://github.com/edgytoast/luigismansion-visionos/blob/c238bbc386b1a4433d31d9f016234492016c415a/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
 
 | | |
 | --- | --- |
@@ -17,9 +17,9 @@ Then follow the [install guide](https://github.com/edgytoast/luigismansion-visio
 | Status | Working: Plays with a gamepad \(the only input supported\) as a world-locked diorama in your room \(Full\) and as a model on your table beside other apps, both played on Apple Vision Pro. USA disc \(GLME01\) only. |
 | Plays as | 3D shared space, 3D tabletop |
 | Health | OK |
-| Scan | Scanned 2026-10-31 · 1 commit since |
-| Source (scanned) | [edgytoast/luigismansion-visionos at f61bb7bb9f6f](https://github.com/edgytoast/luigismansion-visionos/tree/f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde) |
-| Install guide | [AVP-INSTALL.md at f61bb7bb9f6f](https://github.com/edgytoast/luigismansion-visionos/blob/f61bb7bb9f6f5b1fd5a6198b5c1486c045e5afde/AVP-INSTALL.md) |
+| Scan | Scanned 2026-11-03 · 0 commits since |
+| Source (scanned) | [edgytoast/luigismansion-visionos at c238bbc386b1](https://github.com/edgytoast/luigismansion-visionos/tree/c238bbc386b1a4433d31d9f016234492016c415a) |
+| Install guide | [AVP-INSTALL.md at c238bbc386b1](https://github.com/edgytoast/luigismansion-visionos/blob/c238bbc386b1a4433d31d9f016234492016c415a/AVP-INSTALL.md) |
 | Repo | [edgytoast/luigismansion-visionos](https://github.com/edgytoast/luigismansion-visionos) |
 | Developer site | <https://trevorbilt.com> |
 | License | No license stated |
