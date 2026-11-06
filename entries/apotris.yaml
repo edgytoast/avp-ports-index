@@ -1,0 +1,25 @@
+schema_version: 1
+id: apotris
+name: Apotris
+game:
+  title: "Apotris"
+  original_platform: other
+repo: https://github.com/rebelancap/apotris-ios
+developer:
+  github: rebelancap
+status: working
+visionos_min: "2.0"
+input: [game-controller, keyboard-mouse]
+experiences: [2d]
+install: [build, sideload]
+description: >-
+  Apotris, akouzoukos' free and open block-stacking game, built natively for Apple Vision Pro: a
+  resizable window with left- and right-hand pinch controls, a control ornament, controller and
+  keyboard support, and online Multi Battle. An original free game: there's nothing to supply.
+tags: [puzzle, block-stacking, free-game, multiplayer, open-source]
+credits:
+  - name: akouzoukos
+    role: Apotris, the game and its engine
+    url: https://apotris.com
+upstream:
+  - https://apotris.com
