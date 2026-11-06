@@ -1,0 +1,41 @@
+schema_version: 1
+id: goldeneye-xbla
+name: GoldenEye 007
+game:
+  title: "GoldenEye 007"
+  original_platform: other
+repo: https://github.com/rebelancap/GoldenEye-Recomp-ios
+developer:
+  github: rebelancap
+status: working
+visionos_min: "26.0"
+input: [game-controller]
+experiences: [2d]
+install: [build, sideload]
+description: >-
+  GoldenEye 007 on Apple Vision Pro: Rare's unreleased 2007 Xbox 360 remaster, statically
+  recompiled through GoldenEye-Recomp and the ReXGlue SDK, on Metal via MoltenVK. A 2D window, with
+  an instant flip between remastered and original N64 graphics. Bring your own copy of the game
+  files.
+tags: [goldeneye, fps, first-person, xbox-360, xbla, static-recompilation, rexglue, remaster]
+credits:
+  - name: SunJaycy
+    role: GoldenEye-Recomp, the PC recompilation this port is built on
+    url: https://github.com/SunJaycy/GoldenEye-Recomp
+  - name: ReXGlue SDK
+    role: PowerPC to C++ recompiler and Xbox 360 runtime
+    url: https://github.com/rexglue/rexglue-sdk
+  - name: Xenia
+    role: GPU, kernel/XAM and XMA audio work that ReXGlue's runtime derives from
+    url: https://xenia.jp
+  - name: BeanTools Community Edition
+    role: Door, portal, near-clip and audio fixes, and 3D-positioned sound
+  - name: MoltenVK
+    role: Vulkan on Metal
+    url: https://github.com/KhronosGroup/MoltenVK
+  - name: Rare / Nintendo / MGM / Danjaq
+    role: Original game
+upstream:
+  - https://github.com/SunJaycy/GoldenEye-Recomp
+  - https://github.com/rexglue/rexglue-sdk
+  - https://github.com/SunJaycy/GoldenEye-Recomp-rexglue
