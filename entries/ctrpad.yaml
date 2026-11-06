@@ -1,0 +1,41 @@
+schema_version: 1
+id: ctrpad
+name: CTRPad for Vision Pro
+game:
+  title: "Crash Team Racing"
+  original_platform: ps1
+  original_release_year: 1999
+repo: https://github.com/eurobob/ctrpad
+developer:
+  github: eurobob
+status: partially-working
+status_notes: "The README calls the Apple Vision Pro target a development preview: portal and cockpit stereo are implemented, and physical-headset acceptance is still required."
+input: [game-controller]
+experiences: [2d, 3d-immersive, 6dof-immersive]
+description: >-
+  Crash Team Racing compiled natively from the CTR-ModSDK decompilation, through CTR Native and
+  CTRPad, with a visionOS preview: a 4:3 window, a stereo Portal into the game in your room, or
+  Cockpit VR from the driver's seat in full immersion. Bring your own NTSC-U disc image.
+tags: [racing, kart, ps1, crash, decompilation, stereo-3d, vr]
+credits:
+  - name: chrissotraidis
+    role: CTRPad, the Apple-platform port this visionOS work is built on
+    url: https://github.com/chrissotraidis/ctrpad
+  - name: CTR Native
+    role: Native PC port and platform architecture
+    url: https://github.com/CTR-tools/ctr-native
+  - name: CTR-ModSDK
+    role: Crash Team Racing decompilation
+    url: https://github.com/CTR-tools/CTR-ModSDK
+  - name: PsyCross
+    role: Portions of the native platform layer and PsyQ facade
+    url: https://github.com/OpenDriver2/PsyCross
+  - name: SDL3
+    role: Multimedia and controller layer
+    url: https://github.com/libsdl-org/SDL
+  - name: Naughty Dog / Sony Computer Entertainment
+    role: Original game
+upstream:
+  - https://github.com/chrissotraidis/ctrpad
+  - https://github.com/CTR-tools/ctr-native
+  - https://github.com/CTR-tools/CTR-ModSDK
