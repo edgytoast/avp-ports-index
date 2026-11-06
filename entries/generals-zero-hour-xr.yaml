@@ -1,0 +1,49 @@
+schema_version: 1
+id: generals-zero-hour-xr
+name: "Generals: Zero Hour XR"
+game:
+  title: "Command & Conquer: Generals – Zero Hour"
+  original_platform: pc
+  original_release_year: 2003
+repo: https://github.com/drquandary/Generals-Zero-Hour-XR
+developer:
+  github: drquandary
+status: partially-working
+status_notes: "Early but playable on Apple Vision Pro: the first campaign mission plays with look and pinch, the engine at about 15–28 fps. Skirmish setup, save/load and multiplayer aren't in yet."
+visionos_min: "26.0"
+input: [hand-tracking]
+experiences: [3d-tabletop, 6dof-immersive]
+description: >-
+  Command & Conquer: Generals – Zero Hour as a stereo miniature battlefield in your room, with
+  passthrough around it, commanded by look and pinch; Ground View walks it at human scale. The
+  original engine runs natively, on Metal through ANGLE. Bring your own Generals and Zero Hour.
+tags: [rts, strategy, tabletop, mixed-reality, command-and-conquer, angle, source-port]
+credits:
+  - name: Cesarus85
+    role: The Meta Quest tabletop edition this port builds on
+    url: https://github.com/Cesarus85/Generals-Zero-Hour-XR
+  - name: tarek369
+    role: Android port
+    url: https://github.com/tarek369/GeneralsZH-Android
+  - name: GeneralsX
+    role: macOS and Linux native port
+    url: https://github.com/fbraz3/GeneralsX
+  - name: Fighter19
+    role: Community engine work
+    url: https://github.com/Fighter19/CnC_Generals_Zero_Hour
+  - name: TheSuperHackers
+    role: Community engine work
+    url: https://github.com/TheSuperHackers/GeneralsGameCode
+  - name: ANGLE
+    role: OpenGL ES 3 on Metal
+    url: https://chromium.googlesource.com/angle/angle
+  - name: Electronic Arts
+    role: Engine source release (GPL v3 with additional terms)
+    url: https://github.com/electronicarts/CnC_Generals_Zero_Hour
+  - name: Electronic Arts
+    role: Original game
+upstream:
+  - https://github.com/Cesarus85/Generals-Zero-Hour-XR
+  - https://github.com/tarek369/GeneralsZH-Android
+  - https://github.com/fbraz3/GeneralsX
+  - https://github.com/TheSuperHackers/GeneralsGameCode
