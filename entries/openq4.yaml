@@ -1,0 +1,41 @@
+schema_version: 1
+id: openq4
+name: openQ4
+game:
+  title: "Quake 4"
+  original_platform: pc
+  original_release_year: 2005
+repo: https://github.com/rebelancap/openQ4-ios
+developer:
+  github: rebelancap
+status: working
+visionos_min: "2.5"
+input: [game-controller]
+experiences: [2d, 3d-immersive]
+install: [build, sideload]
+description: >-
+  Quake 4 on Apple Vision Pro through openQ4, its Vulkan renderer running on Metal via MoltenVK: a
+  resizable 2D window, or a stereoscopic 3D screen in your room. The story campaign, the offline
+  Arena Campaign against bots, and openQ4 multiplayer. Bring your own Quake 4 data.
+tags: [quake, fps, first-person, pc, source-port, stereo-3d, multiplayer]
+credits:
+  - name: themuffinator
+    role: openQ4, the engine and Vulkan renderer this port runs
+    url: https://github.com/themuffinator/openQ4
+  - name: themuffinator
+    role: openQ4-game, the reconstructed Quake 4 game code
+    url: https://github.com/themuffinator/openQ4-game
+  - name: id Software and Raven Software
+    role: Quake 4, the Doom 3 GPL source and the Quake 4 SDK
+  - name: MoltenVK
+    role: Vulkan on Metal
+    url: https://github.com/KhronosGroup/MoltenVK
+  - name: SDL
+    role: Platform library (SDL3)
+    url: https://www.libsdl.org
+  - name: OpenAL Soft
+    role: Audio library
+    url: https://openal-soft.org
+upstream:
+  - https://github.com/themuffinator/openQ4
+  - https://github.com/themuffinator/openQ4-game
