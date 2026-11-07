@@ -1,0 +1,42 @@
+schema_version: 1
+id: perfect-dark
+name: Perfect Dark
+game:
+  title: "Perfect Dark"
+  original_platform: n64
+  original_release_year: 2000
+repo: https://github.com/rebelancap/perfect-dark-ios
+developer:
+  github: rebelancap
+status: working
+visionos_min: "26.0"
+input: [game-controller]
+experiences: [2d, 3d-immersive]
+install: [build, sideload]
+description: >-
+  Perfect Dark on Apple Vision Pro: the decompilation through the PC port and Dab's Mod, on Metal. A
+  resizable 2D window or a stereoscopic 3D screen in your room, with optional Xbox 360 (XBLA) art
+  and GoldenEye 007 (GE Plus) from your own copies. Bring your own ROM.
+tags: [fps, first-person, n64, decompilation, stereo-3d, dabs-mod, xbla]
+credits:
+  - name: DabDavis
+    role: Dab's Mod, the fork this port is built on
+    url: https://github.com/DabDavis/perfect-dark-dabs-mod
+  - name: Perfect Dark PC port
+    role: Platform layer, Fast3D renderer and CLI
+    url: https://github.com/perfect-dark-pc-port/perfect_dark
+  - name: n64decomp
+    role: Perfect Dark decompilation
+    url: https://github.com/n64decomp/perfect_dark
+  - name: ANGLE
+    role: OpenGL ES on Metal
+    url: https://chromium.googlesource.com/angle/angle
+  - name: SDL2
+    role: Windowing, input and audio
+    url: https://libsdl.org
+  - name: Rare / Microsoft
+    role: Original game
+upstream:
+  - https://github.com/DabDavis/perfect-dark-dabs-mod
+  - https://github.com/perfect-dark-pc-port/perfect_dark
+  - https://github.com/n64decomp/perfect_dark
