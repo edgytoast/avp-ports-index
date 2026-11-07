@@ -1,0 +1,33 @@
+schema_version: 1
+id: q2repro
+name: Quake II (q2repro)
+game:
+  title: "Quake II"
+  original_platform: pc
+  original_release_year: 1997
+repo: https://github.com/rebelancap/q2repro-ios
+developer:
+  github: rebelancap
+status: working
+visionos_min: "26.0"
+input: [game-controller]
+experiences: [2d, 3d-immersive, 6dof-immersive]
+install: [build, sideload]
+description: >-
+  Quake II on Apple Vision Pro through q2repro, rendering on Metal via ANGLE: the campaign, mission
+  packs and 2023 re-release content in a resizable 2D window, on a stereoscopic 3D screen in your room,
+  or in room-scale VR with hand aiming. Bring your own Quake II game files.
+tags: [quake, quake-2, fps, pc, source-port, vr, stereo-3d, multiplayer]
+credits:
+  - name: Paril
+    role: q2repro, the Q2PRO fork with re-release support this is built on
+    url: https://github.com/Paril/q2repro
+  - name: skuller
+    role: Q2PRO, the engine q2repro builds on
+  - name: AQ2 community
+    role: Action Quake II (aq2-tng), built into the app
+    url: https://github.com/actionquake/aq2-tng
+  - name: id Software
+    role: Original game
+upstream:
+  - https://github.com/Paril/q2repro
