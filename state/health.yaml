@@ -196,7 +196,7 @@ half-life-vr:
     spdx: GPL-3.0
   outreach_issue_url: null
   outreach_opened_at: null
-  rescan_after: null
+  rescan_after: '2026-11-10T07:18:30Z'
   rescan_hold: false
   routes:
   - S1-11d
