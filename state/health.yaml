@@ -10,7 +10,7 @@
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-11-08T06:27:00Z'
+  last_checked: '2026-11-09T06:37:50Z'
   last_commit_date: '2026-10-30T05:17:18Z'
   license:
     kind: open-source
@@ -41,7 +41,7 @@ animal-crossing-vr:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-11-08T06:27:00Z'
+  last_checked: '2026-11-09T06:37:50Z'
   last_commit_date: '2026-10-10T05:22:45Z'
   license:
     kind: custom
@@ -69,7 +69,7 @@ avp-craft:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-11-08T06:27:00Z'
+  last_checked: '2026-11-09T06:37:50Z'
   last_commit_date: '2026-11-01T09:22:39Z'
   license:
     kind: open-source
@@ -99,7 +99,7 @@ dark-eco:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-11-08T06:27:00Z'
+  last_checked: '2026-11-09T06:37:50Z'
   last_commit_date: '2026-11-02T03:07:20Z'
   license:
     kind: none
@@ -130,7 +130,7 @@ galaxyvision:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-11-08T06:27:00Z'
+  last_checked: '2026-11-09T06:37:50Z'
   last_commit_date: '2026-10-26T06:55:06Z'
   license:
     kind: open-source
@@ -160,7 +160,7 @@ half-life-alyx:
   flagged_files: []
   github_verified: false
   health: ok
-  last_checked: '2026-11-08T06:27:00Z'
+  last_checked: '2026-11-09T06:37:50Z'
   last_commit_date: '2026-10-13T06:52:59Z'
   license:
     kind: custom
@@ -179,7 +179,7 @@ half-life-alyx:
   warnings: []
 half-life-vr:
   archived: false
-  commits_since_scan: 0
+  commits_since_scan: 1
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-10-09T17:02:19Z'
@@ -189,8 +189,8 @@ half-life-vr:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-11-08T06:27:00Z'
-  last_commit_date: '2026-10-28T11:04:12Z'
+  last_checked: '2026-11-09T06:37:50Z'
+  last_commit_date: '2026-11-02T14:51:47Z'
   license:
     kind: open-source
     spdx: GPL-3.0
@@ -204,7 +204,7 @@ half-life-vr:
   scan_declines: 0
   scan_kind: automated
   scan_refused: false
-  scan_state: current
+  scan_state: behind
   scanned_at: '2026-10-30T07:01:08Z'
   scanned_commit: 6ead127a3248fce9252fb0cf3b1cc83f389bf3d4
   warnings: []
@@ -220,7 +220,7 @@ luigis-mansion-vr:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-11-08T06:27:00Z'
+  last_checked: '2026-11-09T06:37:50Z'
   last_commit_date: '2026-11-02T21:37:42Z'
   license:
     kind: none
@@ -251,7 +251,7 @@ revc-visionos:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-11-08T06:27:00Z'
+  last_checked: '2026-11-09T06:37:50Z'
   last_commit_date: '2026-10-31T14:17:15Z'
   license:
     kind: custom
@@ -282,7 +282,7 @@ santosvision:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-11-08T06:27:00Z'
+  last_checked: '2026-11-09T06:37:50Z'
   last_commit_date: '2026-11-01T10:23:24Z'
   license:
     kind: open-source
@@ -312,7 +312,7 @@ shar-visionos:
   flagged_commit: null
   github_verified: true
   health: ok
-  last_checked: '2026-11-08T06:27:00Z'
+  last_checked: '2026-11-09T06:37:50Z'
   last_commit_date: '2026-10-08T20:53:28Z'
   license:
     kind: open-source
@@ -340,7 +340,7 @@ twilight-princess-vr:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-11-08T06:27:00Z'
+  last_checked: '2026-11-09T06:37:50Z'
   last_commit_date: '2026-10-17T20:57:34Z'
   license:
     kind: open-source
@@ -404,7 +404,7 @@ wind-waker-vr:
   flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-11-08T06:27:00Z'
+  last_checked: '2026-11-09T06:37:50Z'
   last_commit_date: '2026-10-29T22:08:53Z'
   license:
     kind: open-source
