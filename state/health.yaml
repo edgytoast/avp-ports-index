@@ -185,8 +185,10 @@ half-life-vr:
   decay_reset_at: '2026-10-09T17:02:19Z'
   failing_since: null
   failures: []
-  flagged_commit: null
-  flagged_files: []
+  flagged_commit: d7555089b164ac6004cc02111ef2b122321dc11f
+  flagged_files:
+  - LambdaVision/Packages/GameLibrary/Sources/GameLibraryServer/Web/vendor/libarchive/libarchive.wasm
+  - scripts/prebuilts.sh
   github_verified: true
   health: ok
   last_checked: '2026-11-10T06:28:37Z'
@@ -197,7 +199,7 @@ half-life-vr:
   outreach_issue_url: null
   outreach_opened_at: null
   rescan_after: '2026-11-10T07:18:30Z'
-  rescan_hold: false
+  rescan_hold: true
   routes:
   - S1-11d
   scan_confidence: 100
