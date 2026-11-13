@@ -5,12 +5,12 @@ from __future__ import annotations
 import os
 import re
 
-from . import blocklist, lifecycle, store, validate
+from . import approvals, blocklist, lifecycle, store, validate
 from .lifecycle import DECAY, LISTED, PULLED, TAKEN_DOWN, WITHDRAWN
 from .sync import pin, repo_facts, sync_all
 from .writer import git, git_bytes
 
-ACTIONS = ("pull", "restore", "takedown", "approve")
+ACTIONS = ("pull", "restore", "takedown", "approve", "rescan")
 FORM_FIELD = re.compile(r"^###\s*Entry id\s*$\n+(.+?)\s*$", re.M | re.I)
 
 ACKS = {
@@ -71,6 +71,8 @@ def run(rt) -> str:
             approve(rt, state, entry_id, outcome)
         elif action == "takedown":
             takedown(rt, state, entry_id, outcome)
+        elif action == "rescan":
+            rescan(rt, state, entry_id, outcome)
         state.save()
 
     rt.commit(mutate, f"kill-switch: {action} {entry_id}")
@@ -154,6 +156,8 @@ def restore(rt, state: store.State, entry_id: str, outcome: dict) -> None:
     if status == LISTED:
         health["rescan_hold"] = False
         health["rescan_after"] = None  # the owner asked for rescans to resume
+        health["scan_declines"] = 0
+        health["scan_refused"] = False
         state.lifecycle[entry_id]["owner_approved"] = True
     elif status in (PULLED, TAKEN_DOWN):
         if status == TAKEN_DOWN and not _restore_file(rt, entry_id):
@@ -169,6 +173,8 @@ def restore(rt, state: store.State, entry_id: str, outcome: dict) -> None:
         lifecycle.transition(state, entry_id, LISTED, "kill-switch", **fields)
         health["rescan_hold"] = False
         health["rescan_after"] = None
+        health["scan_declines"] = 0
+        health["scan_refused"] = False
         if repo and entry:
             repo_facts(rt, entry_id, entry, repo, state)
     else:
@@ -196,13 +202,47 @@ def approve(rt, state: store.State, entry_id: str, outcome: dict) -> None:
     if not flagged_commit and not has_flag:
         outcome["note"] = f"The kill switch did nothing: `{entry_id}` has no flagged commit or flag record."
         return
+    files: list[str] = []
+    notes: list[str] = []
     if flagged_commit:
         repo = rt.gh.repo_by_id(repo_id) if repo_id else None
+        flagged = list(health.get("flagged_files") or [])
         pin(rt, state, entry_id, flagged_commit, "curator-reviewed", None, repo, _entry(rt, entry_id))
+        if repo:
+            # The flagged files' exact bytes are now approved: they won't flag again unless they change.
+            files, notes = approvals.record(state, entry_id, repo, flagged_commit, flagged, rt.http)
     if repo_id:
         blocklist.remove_flag(state, rt.salt, repo_id)
     record["owner_approved"] = True
-    rt.close_triage(entry_id, "Approved by the curator.")
+    health["scan_declines"] = 0
+    health["scan_refused"] = False
+    text = "Approved by the curator."
+    if files:
+        text += " These files are approved by SHA-256 and won't be flagged again unless they change: " + \
+                ", ".join(f"`{validate.md_inline(p, 200)}`" for p in files) + "."
+    if notes:
+        text += " " + "; ".join(notes) + "."
+    outcome["note"] = f"Kill switch: approve `{entry_id}` done. {text}"
+    rt.close_triage(entry_id, text)
+
+
+def rescan(rt, state: store.State, entry_id: str, outcome: dict) -> None:
+    """Try the automated rescan again now, after an error or declines. It only clears the wait
+    (`rescan_after`, `scan_declines`): it says nothing about the repo, so unlike `restore` it never sets
+    `owner_approved`, and it leaves the pin, flags, blocklist and lifecycle alone. A hold after a flag
+    stays: that needs the curator's `approve` or `restore`."""
+    status = state.status(entry_id)
+    if status != LISTED:
+        outcome["note"] = f"The kill switch did nothing: `{entry_id}` is {status}; rescan works on listed entries."
+        return
+    health = state.health_record(entry_id)
+    if health.get("rescan_hold"):
+        outcome["note"] = (f"The kill switch did nothing: `{entry_id}` is held after a flag. Review the flagged "
+                           "commit, then use `approve` or `restore`.")
+        return
+    health["rescan_after"] = None
+    health["scan_declines"] = 0
+    rt.note_triage(entry_id, "The curator asked for the rescan to be tried again; the next dispatcher run will.")
 
 
 def takedown(rt, state: store.State, entry_id: str, outcome: dict) -> None:

@@ -19,7 +19,10 @@ REQUIRED = (POLICY_CHECK, STAGE1, STAGE2)
 WATCHED_LABELS = ("owner:scan", "blocklist", "kill-switch")
 PIPELINE_LABELS = ("stage1:pass", "stage1:fail", "stage1:route", "needs-author", "needs-owner")
 WAITING = "Waiting for the curator"
+DECLINED = "Gemini declined to review; waiting for the curator"
+NO_VERDICT_TITLE = "No verdict from Gemini; waiting for the curator"  # a `declined` result on the no-work signal
 MARKER_RE = re.compile(r"<!-- avp:stage2 (\{.*?\}) -->")
+STAGE1_MARKER_RE = re.compile(r"<!-- avp:stage1 (\{.*?\}) -->")
 
 
 # --- check runs ------------------------------------------------------------------------
@@ -28,11 +31,14 @@ def stage2_marker(**data) -> str:
     return f"<!-- avp:stage2 {json.dumps(data, sort_keys=True)} -->"
 
 
-def read_marker(check: dict | None) -> dict:
+def read_marker(check: dict | None, pattern: re.Pattern = MARKER_RE) -> dict:
+    """The marker the App appended to a check summary: always the last one, since untrusted text (Jules's
+    summary and findings, fenced) comes before it. validate.fence also breaks up any "<!--" in that text."""
     summary = ((check or {}).get("output") or {}).get("summary") or ""
-    match = MARKER_RE.search(summary)
-    if not match:
+    matches = list(pattern.finditer(summary))
+    if not matches:
         return {}
+    match = matches[-1]
     try:
         return json.loads(match.group(1))
     except ValueError:
@@ -56,10 +62,32 @@ def stage1_title(outcome: str) -> str:
     return {PASS: "Passed", FAIL: "Changes needed", ROUTE: WAITING}[outcome]
 
 
+def apps_table(apps: list[dict]) -> str:
+    """The release assets S1-11d routed, for the curator: sizes, and what's inside zip-format files."""
+    if not apps:
+        return ""
+    lines = ["**Release assets** (sizes from GitHub; file lists read from zip-format files; nothing was "
+             "downloaded whole or run):", "", "| Asset | Size | Files | Worth a look |", "| --- | --- | --- | --- |"]
+    for app in apps:
+        if "more" in app:
+            lines.append(f"| …and {app['more']} more | | | |")
+            continue
+        if not app.get("listable", True):
+            ext = app["name"].rsplit(".", 1)[-1] if "." in app["name"] else "?"
+            files, review = f"not listed (.{validate.md_inline(ext, 12)})", "n/a"
+        else:
+            files = "couldn't be listed" if app.get("files") is None else str(app["files"])
+            review = ", ".join(validate.md_inline(n, 120) for n in app.get("review") or []) or "none"
+        lines.append(f"| {validate.md_inline(app['name'], 120)} | {app['size'] / 1e6:,.1f} MB | {files} | {review} |")
+    return "\n".join(lines)
+
+
 def post_stage1(rt, head: str, report: Report, *, note: str = "") -> None:
     outcome = report.overall
+    marker = f"<!-- avp:stage1 {json.dumps({'failures': report.failures, 'routes': report.routes}, sort_keys=True)} -->"
+    parts = [note, results_table(report), apps_table(report.apps), marker]
     rt.gh.create_check(head, STAGE1, conclusion="success" if outcome == PASS else "failure",
-                       title=stage1_title(outcome), summary=(note + "\n\n" if note else "") + results_table(report),
+                       title=stage1_title(outcome), summary="\n\n".join(p for p in parts if p),
                        external_id=report.external_id)
 
 
@@ -122,7 +150,7 @@ def entry_bytes_at(rt, path: str, ref: str) -> bytes | None:
 def index_view(rt, state: store.State, entries: dict) -> IndexView:
     return IndexView(policy=rt.policy, schema=rt.entry_schema(), index_repo=rt.repo, entries=entries,
                      lifecycle=state.lifecycle, blocked=blocklist.hashes(state),
-                     flagged=blocklist.flag_hashes(state), salt=rt.salt)
+                     flagged=blocklist.flag_hashes(state), salt=rt.salt, owner_id=rt.owner_id)
 
 
 def stage1_report(rt, pr: dict, cls, labels: set[str], state: store.State | None = None,
@@ -234,7 +262,7 @@ def entry_pr(rt, pr: dict, cls, labels: set[str]) -> list[int]:
         # §8.2 step 2: keep the flag on the new head; no new scan until the owner acts.
         scanned = bot_state.get("flagged")
         rt.gh.create_check(head, STAGE2, conclusion="failure", title=WAITING,
-                           summary="The automated security review asked for a closer look. The curator "
+                           summary="The automated safety check asked for a closer look. The curator "
                                    "decides; new pushes don't start another review.\n\n"
                                    + stage2_marker(kind="result", result="flag"),
                            external_id=scanned)
@@ -256,8 +284,8 @@ def entry_pr(rt, pr: dict, cls, labels: set[str]) -> list[int]:
     record_health = state.health.get(cls.stem) or {}
     repo_changed = bool(report.repo and (state.lifecycle.get(cls.stem) or {}).get("repo_id") not in (None, report.repo["id"]))
     if "stage2:scanning" in labels and bot_state.get("scanning") == ext:
-        rt.gh.create_check(head, STAGE2, status="in_progress", title="Security review in progress",
-                           summary="The automated security review of this commit is running.", external_id=ext)
+        rt.gh.create_check(head, STAGE2, status="in_progress", title="Safety check in progress",
+                           summary="The automated safety check of this commit is running.", external_id=ext)
         return []
     if cls.kind != ENTRY_ADD and not repo_changed and report.head == record_health.get("scanned_commit"):
         _clear(rt, number, labels, ("stage2:queued",))
@@ -276,12 +304,12 @@ def entry_pr(rt, pr: dict, cls, labels: set[str]) -> list[int]:
         return [number]
     if pr.get("draft"):
         rt.gh.create_check(head, STAGE2, status="in_progress", title="Waiting until the PR is marked ready",
-                           summary="Draft PRs run Stage 1 but aren't queued for the security review.")
+                           summary="Draft PRs run Stage 1 but aren't queued for the safety check.")
         return []
     if "stage2:queued" not in labels:
         rt.gh.add_labels(number, ["stage2:queued"])
     _clear(rt, number, labels, ("stage2:pass",))
-    rt.gh.create_check(head, STAGE2, status="in_progress", title="Queued for the security review",
+    rt.gh.create_check(head, STAGE2, status="in_progress", title="Queued for the safety check",
                        summary="Queued, first come, first served.", external_id=ext)
     position, eta = queue_position(rt, number)
     messages.upsert(rt, number, messages.render("queued", rt.root, name=name, n=position, eta=eta))
@@ -298,7 +326,8 @@ def _render_stage1(rt, number: int, name: str, report: Report) -> None:
     if report.overall == FAIL:
         text = messages.render("stage1-fail", rt.root, name=name, rows=messages.fail_rows(report.results))
     else:
-        text = messages.render("route", rt.root, name=name, reasons=messages.route_reasons(report.routes))
+        text = messages.render("route", rt.root, name=name, reasons=messages.route_reasons(report.routes),
+                               apps=apps_table(report.apps))
     messages.upsert(rt, number, text)
 
 
