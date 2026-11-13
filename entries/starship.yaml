@@ -5,7 +5,7 @@ game:
   title: "Star Fox 64"
   original_platform: n64
   original_release_year: 1997
-repo: https://github.com/rebelancap/Starship-ios
+repo: https://github.com/edgytoast/Starship-ios
 developer:
   github: rebelancap
 status: working
@@ -15,10 +15,17 @@ experiences: [2d, 3d-immersive]
 install: [build, sideload]
 description: >-
   Star Fox 64 on Apple Vision Pro through Harbour Masters' Starship, rendering natively on Metal: a
-  resizable 2D window, or a stereoscopic 3D screen floating in your room. The full campaign with the
-  enhancements menu, game controllers and in-app ROM extraction. Bring your own ROM.
+  resizable 2D window, or a stereoscopic 3D screen in your room. Full campaign, enhancements menu,
+  controllers and in-app ROM extraction. Bring your own ROM. Listed from a copy with an install
+  guide.
 tags: [star-fox, rail-shooter, n64, source-port, harbour-masters, stereo-3d]
 credits:
+  - name: rebelancap
+    role: The iOS and visionOS port
+    url: https://github.com/rebelancap/Starship-ios
+  - name: Trevorbilt
+    role: Install guide and AVP Ports Index listing
+    url: https://trevorbilt.com
   - name: Harbour Masters
     role: Starship, the port this is built on
     url: https://github.com/HarbourMasters/Starship
@@ -28,5 +35,6 @@ credits:
   - name: Nintendo
     role: Original game
 upstream:
+  - https://github.com/rebelancap/Starship-ios
   - https://github.com/HarbourMasters/Starship
   - https://github.com/HarbourMasters/libultraship
