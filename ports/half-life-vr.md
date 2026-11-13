@@ -32,9 +32,9 @@ Half-Life in full immersion on Apple Vision Pro: the Xash3D-FWGS engine with its
 
 ## Screenshots
 
-From the port's README at 6ead127a3248.
+From the port's README at d7555089b164.
 
-<img src="https://raw.githubusercontent.com/illixion/halflife-visionos/6ead127a3248fce9252fb0cf3b1cc83f389bf3d4/images/ingame.jpg" alt="In-game screenshot" width="400">
+<img src="https://raw.githubusercontent.com/illixion/halflife-visionos/d7555089b164ac6004cc02111ef2b122321dc11f/images/ingame.jpg" alt="In-game screenshot" width="400">
 
 ## Credits
 

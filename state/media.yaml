@@ -207,8 +207,8 @@ half-life-alyx:
   source: readme
 half-life-vr:
   choice: null
-  collected_at: '2026-10-30T15:29:03Z'
-  commit: 6ead127a3248fce9252fb0cf3b1cc83f389bf3d4
+  collected_at: '2026-11-13T21:04:43Z'
+  commit: d7555089b164ac6004cc02111ef2b122321dc11f
   icon:
     kind: layered
     layers:
@@ -217,14 +217,14 @@ half-life-vr:
       height: 1024
       layer: back
       sha256: 9b3b1d9bafcb61017537acb5a797ccab2df0e5cba03b9c090ba30e6ad4254a77
-      url: https://raw.githubusercontent.com/illixion/halflife-visionos/6ead127a3248fce9252fb0cf3b1cc83f389bf3d4/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png
+      url: https://raw.githubusercontent.com/illixion/halflife-visionos/d7555089b164ac6004cc02111ef2b122321dc11f/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png
       width: 1024
     - bytes: 14776
       format: png
       height: 1024
       layer: middle
       sha256: 89431a2ade4de6fbcbb22180a364579895536b6db7e6cd6d2b024f8d772ceb81
-      url: https://raw.githubusercontent.com/illixion/halflife-visionos/6ead127a3248fce9252fb0cf3b1cc83f389bf3d4/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/middle.png
+      url: https://raw.githubusercontent.com/illixion/halflife-visionos/d7555089b164ac6004cc02111ef2b122321dc11f/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/middle.png
       width: 1024
   screenshots:
   - alt: In-game screenshot
@@ -232,7 +232,7 @@ half-life-vr:
     format: jpeg
     height: 1080
     sha256: 7f6bc0a96597f1e73a417fa9a8ce93ae191a295c7653e683b6eb6bda0397aa69
-    url: https://raw.githubusercontent.com/illixion/halflife-visionos/6ead127a3248fce9252fb0cf3b1cc83f389bf3d4/images/ingame.jpg
+    url: https://raw.githubusercontent.com/illixion/halflife-visionos/d7555089b164ac6004cc02111ef2b122321dc11f/images/ingame.jpg
     width: 1920
   skipped: []
   source: readme
@@ -447,6 +447,44 @@ twilight-princess-vr:
     src: https://img.shields.io/badge/AVP_Ports_Index-listed-0A84FF
   - reason: smaller than 480x270
     src: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/docs/images/trevorbilt.png
+  source: readme
+visr:
+  choice: null
+  collected_at: '2026-11-13T21:04:45Z'
+  commit: 8e10b7533603935883adf095a1e66020ad83ab03
+  icon:
+    kind: layered
+    layers:
+    - bytes: 98171
+      format: png
+      height: 1024
+      layer: back
+      sha256: 9a95825678bc37725d6d77294438ed562eccb64912c01728cd5c487c9d85dfdf
+      url: https://raw.githubusercontent.com/steverice/visr/8e10b7533603935883adf095a1e66020ad83ab03/port/ios/Assets-visionOS.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
+      width: 1024
+    - bytes: 238331
+      format: png
+      height: 1024
+      layer: middle
+      sha256: a7cd7f34692a242185698fad7fdec4c095b59e085e0fb99efda14d5f70f2e239
+      url: https://raw.githubusercontent.com/steverice/visr/8e10b7533603935883adf095a1e66020ad83ab03/port/ios/Assets-visionOS.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
+      width: 1024
+    - bytes: 113250
+      format: png
+      height: 1024
+      layer: front
+      sha256: 88aaa8ae1647c92c38daccc0f6781c11e704f08f7003fd4246aecb7e24d2fb5c
+      url: https://raw.githubusercontent.com/steverice/visr/8e10b7533603935883adf095a1e66020ad83ab03/port/ios/Assets-visionOS.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
+      width: 1024
+  screenshots:
+  - alt: 'VISR: the app icon, a helmet with a gold visor, beside the VISR wordmark on a dark teal grid'
+    bytes: 282932
+    format: png
+    height: 720
+    sha256: 8a30729f383a29d06455b44cfca512a1e23eb2c30d22b4be5c3b269b3669779f
+    url: https://raw.githubusercontent.com/steverice/visr/8e10b7533603935883adf095a1e66020ad83ab03/docs/images/readme-banner.png
+    width: 2320
+  skipped: []
   source: readme
 wind-waker-vr:
   choice: null

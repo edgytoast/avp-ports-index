@@ -30,6 +30,12 @@ Then follow the [install guide](https://github.com/steverice/visr/blob/8e10b7533
 
 Native Metal port of Halo: Combat Evolved for Apple Vision Pro and other Apple devices. Head-tracked stereo, foveated rendering, a 3D theater screen and PlayStation VR2 Sense controller aiming. Bring your own disc image of the original Xbox release.
 
+## Screenshots
+
+From the port's README at 8e10b7533603.
+
+<img src="https://raw.githubusercontent.com/steverice/visr/8e10b7533603935883adf095a1e66020ad83ab03/docs/images/readme-banner.png" alt="VISR: the app icon, a helmet with a gold visor, beside the VISR wordmark on a dark teal grid" width="400">
+
 ## Credits
 
 - [punpckhdq](https://github.com/punpckhdq/halo): Decompilation
