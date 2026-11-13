@@ -161,6 +161,10 @@ class FakeGitHub(GitHub):
     def get(self, path, params=None, *, allow404=True):
         if path == "/user":
             return dict(self.users["edgytoast"])
+        if path.startswith("/repos/") and path.endswith("/readme"):  # media.py; README.md at the ref
+            owner, name = path.split("/")[2:4]
+            found = self.contents(owner, name, "README.md", (params or {}).get("ref"))
+            return {**found, "path": "README.md"} if found else None
         raise AssertionError(f"unexpected GET {path}")
 
     def is_public_member(self, org, login):
@@ -310,6 +314,7 @@ class FakeGitHub(GitHub):
         self.checks.setdefault(head_sha, []).append({
             "id": next(self.ids), "name": name, "status": status, "conclusion": conclusion,
             "external_id": external_id, "app": {"id": APP_ID}, "started_at": f"{next(self.ids):012d}",
+            "completed_at": store.iso(store.utcnow()) if status == "completed" else None,
             "output": {"title": title, "summary": summary}})
 
     def check_runs(self, sha, app_id, name=None):
