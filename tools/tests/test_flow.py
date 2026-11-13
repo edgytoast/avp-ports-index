@@ -6,6 +6,7 @@ from __future__ import annotations
 import datetime as dt
 import json
 
+import jsonschema
 import pytest
 import yaml
 from conftest import APP_ID, BOT_ID, OWNER_ID, SALT, SHA, STRANGER_ID, FakeHTTP, entry_yaml, git, list_entry, write_entry
@@ -307,9 +308,14 @@ class TestSync:
         gh.add_repo("trevorbilt-bot/own", 42)
         merge_commit(rt, gh, 3, "edgytoast", "entries/own.yaml", entry_yaml("own", "trevorbilt-bot/own", dev="edgytoast"),
                      s1=f"42@{SHA(42)}", s2=("success", stage2_marker(kind="scan", confidence=90), f"42@{SHA(42)}"))
+        gh.add_repo("edgytoast/copy", 43)
+        merge_commit(rt, gh, 4, "edgytoast", "entries/copy.yaml", entry_yaml("copy", "edgytoast/copy", dev="stranger"),
+                     s1=f"43@{SHA(43)}", s2=("success", stage2_marker(kind="scan", confidence=90), f"43@{SHA(43)}"))
         state = store.State.load(rt.root)
         sync.sync_all(rt, state)
         assert (state.health["theirs"]["curator_own"], state.lifecycle["theirs"]["owner_approved"]) == (False, False)
+        assert state.health["copy"]["curator_own"] is False  # the curator hosts it; its authors are named
+        assert state.health["copy"]["github_verified"] is False
         assert (state.health["mine"]["curator_own"], state.lifecycle["mine"]["owner_approved"]) == (True, True)
         assert (state.health["own"]["curator_own"], state.lifecycle["own"]["owner_approved"]) == (True, False)
         assert state.health["theirs"]["github_verified"] is False
@@ -467,6 +473,41 @@ class TestHealth:
         assert (rt.root / store.HEALTH).read_text() == before and not gh.external_issues
 
 
+class TestDeclinedPushes:
+    def test_pushes_dont_buy_a_declined_pr_new_reviews(self, rt, gh, event, monkeypatch):
+        """U22, the independent review's probe: a PR that keeps getting declined, pushed again and again, gets at
+        most per_pr_max_scans Jules sessions, an hour apart, and then waits for the curator however often it's
+        pushed: the gate requeues it on every push, and the dispatcher holds it at the decline limit."""
+        from avpindex import report
+        gh.add_repo("trevorbilt-bot/good", 11)
+        gh.open_pr(1, "trevorbilt-bot", "entries/good.yaml", "added", entry_yaml("good", "trevorbilt-bot/good"))
+        event(pr_event(gh, 1))
+        gate.run(rt)
+        declined = {"result": "declined", "reason": "I can't help with that.", "session_url": "u"}
+        now = dt.datetime(2026, 10, 3, 12, tzinfo=dt.timezone.utc)
+        for push in range(8):
+            monkeypatch.setenv("AVP_NOW", store.iso(now + dt.timedelta(hours=2 * push)))
+            gh.runs = []  # an empty ledger: only the PR's own limits can stop it
+            before = len(gh.dispatched)
+            queue.dispatch(rt)
+            if len(gh.dispatched) > before:  # Jules ran, and declined again
+                head = gh.prs[1]["head"]["sha"]
+                report.run(rt, report.Inputs(mode="pr", pr=1, head_sha=head, linked_repo="trevorbilt-bot/good",
+                                             linked_commit=SHA(11), entry_id="good", repo_id=11, base_commit=None,
+                                             counted=True), declined)
+            new_head = SHA(9_100_000 + push)  # the contributor pushes
+            gh.prs[1]["head"]["sha"] = new_head
+            gh.files[(gh.repo_full.lower(), "entries/good.yaml", new_head)] = entry_yaml("good", "trevorbilt-bot/good")
+            event(pr_event(gh, 1, "synchronize"))
+            gate.run(rt)
+            assert "stage2:queued" in gh.labels_of(1)  # the gate requeues it every time
+        queue.dispatch(rt)
+        state = messages.read_state({"body": gh.bot_comment(1)})
+        assert len(gh.dispatched) == 3 and (state["scans"], state["declines"]) == (0, 3)
+        assert "needs-owner" in gh.labels_of(1) and "stage2:queued" not in gh.labels_of(1)
+        assert gh.latest(gh.prs[1]["head"]["sha"], STAGE2)["output"]["title"] == gate.DECLINED
+
+
 class TestKillSwitch:
     def ks(self, rt, event, entry_id, action, block="false"):
         event({}, "workflow_dispatch", INPUT_ENTRY_ID=entry_id, INPUT_ACTION=action, INPUT_BLOCKLIST=block)
@@ -527,6 +568,76 @@ class TestKillSwitch:
         assert state.health["good"]["scanned_commit"] == SHA(6) and state.health["good"]["flagged_commit"] is None
         assert state.health["good"]["scan_kind"] == "curator-reviewed" and not blocklist.is_flagged(state, SALT, 11)
         assert "no flagged commit" in self.ks(rt, event, "good", "approve")
+
+    def test_restore_and_approve_reset_declines(self, rt, gh, event):
+        """U22: the owner's restore or approve resets the decline count (restore also retries at once)."""
+        repo = gh.add_repo("trevorbilt-bot/good", 11)
+        list_entry(rt, "good", repo, scanned=SHA(5))
+        git(rt.root, "add", "-A")
+        git(rt.root, "commit", "-qm", "listed")
+
+        def declined(count: int, **extra) -> None:
+            state = store.State.load(rt.root)
+            state.health["good"].update(scan_declines=count, rescan_after="2026-10-04T12:00:00Z", **extra)
+            blocklist.add_flag(state, SALT, 11)  # so approve has something to approve
+            state.save()
+
+        declined(3)
+        self.ks(rt, event, "good", "restore")
+        health = store.State.load(rt.root).health["good"]
+        assert health["scan_declines"] == 0 and health["rescan_after"] is None
+        declined(2)
+        self.ks(rt, event, "good", "approve")  # a flag record only: the pin stays
+        health = store.State.load(rt.root).health["good"]
+        assert health["scan_declines"] == 0 and health["scanned_commit"] == SHA(5)
+        declined(4, flagged_commit=SHA(6))
+        self.ks(rt, event, "good", "approve")  # the pin moves to the flagged commit
+        health = store.State.load(rt.root).health["good"]
+        assert health["scan_declines"] == 0 and health["scanned_commit"] == SHA(6)
+        self.ks(rt, event, "good", "pull")
+        declined(5)
+        self.ks(rt, event, "good", "restore")  # a pulled entry comes back with the count reset
+        state = store.State.load(rt.root)
+        assert state.lifecycle["good"]["status"] == "listed" and state.health["good"]["scan_declines"] == 0
+
+    def test_rescan_only_clears_the_wait(self, rt, gh, event):
+        """U22: `rescan` retries a declined or failed rescan at once and changes nothing else: unlike `restore`
+        it never sets owner_approved (so a later flag still pulls the entry), and a hold after a flag stays."""
+        repo = gh.add_repo("trevorbilt-bot/good", 11)
+        list_entry(rt, "good", repo, scanned=SHA(5))
+        state = store.State.load(rt.root)
+        state.health["good"].update(scan_declines=3, rescan_after="2026-10-04T12:00:00Z")
+        blocklist.add_flag(state, SALT, 11)
+        state.save()
+        rt.upsert_triage("good", "**Gemini declined to review** ...")
+        before = store.State.load(rt.root)
+        assert self.ks(rt, event, "good", "rescan") == "Kill switch: rescan `good` done."
+        after = store.State.load(rt.root)
+        assert after.health["good"]["scan_declines"] == 0 and after.health["good"]["rescan_after"] is None
+        assert after.lifecycle["good"] == before.lifecycle["good"]  # owner_approved stays false
+        assert after.lifecycle["good"]["owner_approved"] is False
+        for key in ("scanned_commit", "scan_kind", "flagged_commit", "rescan_hold"):
+            assert after.health["good"][key] == before.health["good"][key]
+        assert blocklist.is_flagged(after, SALT, 11) and after.blocklist == before.blocklist
+        triage = [i for i in gh.issue_store.values() if i["title"] == "Triage: good"][0]
+        assert triage["state"] == "open"
+        assert "tried again" in gh.comment_store[triage["number"]][-1]["body"]
+        # Held after a flag: rescan does nothing and says what to use instead.
+        after.health["good"].update(rescan_hold=True, flagged_commit=SHA(6), rescan_after="2026-10-04T12:00:00Z")
+        after.save()
+        note = self.ks(rt, event, "good", "rescan")
+        assert "held after a flag" in note and "`approve` or `restore`" in note
+        held = store.State.load(rt.root).health["good"]
+        assert held["rescan_hold"] and held["rescan_after"] == "2026-10-04T12:00:00Z"
+        # Not listed: nothing.
+        self.ks(rt, event, "good", "pull")
+        assert "rescan works on listed entries" in self.ks(rt, event, "good", "rescan")
+
+    def test_rescan_is_a_dispatch_action(self):
+        from conftest import REPO_ROOT
+        assert "rescan" in killswitch.ACTIONS
+        flow = yaml.safe_load((REPO_ROOT / ".github/workflows/kill-switch.yml").read_text())
+        assert flow[True]["workflow_dispatch"]["inputs"]["action"]["options"] == list(killswitch.ACTIONS)
 
 
 def test_blocklist_label_scope(rt, gh, event, monkeypatch):
@@ -593,23 +704,93 @@ def test_source_ref_facts_and_surfaces(rt, gh):
     assert feed["entries"][0]["source_ref"] == "vision-pro"
 
 
+def _schema_paths(node, defs, path="", required=True):
+    """(path, required) for every property in the entry schema, list items marked []. A path is required
+    when it and all of its parents are."""
+    if "$ref" in node:
+        node = defs[node["$ref"].rsplit("/", 1)[-1]]
+    if node.get("type") == "array" and "items" in node:
+        return _schema_paths(node["items"], defs, path + "[]", required)
+    out = []
+    for alternative in node.get("oneOf") or []:  # e.g. media: false, or an object of picks
+        out.extend(_schema_paths(alternative, defs, path, False))
+    for key, sub in (node.get("properties") or {}).items():
+        sub_path = f"{path}.{key}" if path else key
+        sub_required = required and key in node.get("required", [])
+        out.append((sub_path, sub_required))
+        out.extend(_schema_paths(sub, defs, sub_path, sub_required))
+    return out
+
+
+def _data_paths(data, path=""):
+    if isinstance(data, list):
+        return set().union(*(_data_paths(item, path + "[]") for item in data))
+    if not isinstance(data, dict):
+        return set()
+    out = set()
+    for key, value in data.items():
+        sub_path = f"{path}.{key}" if path else key
+        out |= {sub_path} | _data_paths(value, sub_path)
+    return out
+
+
+FULL_ENTRY = {  # every field the entry schema defines; a credit with and one without a url
+    "schema_version": 1, "id": "full", "name": "Full port",
+    "game": {"title": "Full game", "original_platform": "pc", "original_release_year": 1998},
+    "repo": "https://github.com/trevorbilt-bot/full", "source_ref": "visionos",
+    "developer": {"github": "trevorbilt-bot", "name": "Bot", "url": "https://example.com/bot"},
+    "status": "working", "status_notes": "Runs on the headset.", "visionos_min": "26.0",
+    "input": ["game-controller", "hand-tracking"], "experiences": ["2d", "6dof-immersive"],
+    "install": ["build", "sideload"], "description": "A port with every field. Bring your own game.",
+    "tags": ["test"], "upstream": ["https://example.com/engine"],
+    "credits": [{"name": "Upstream", "role": "Engine", "url": "https://example.com/engine"},
+                {"name": "Maker", "role": "Original game"}],
+    "media": {"screenshots": ["docs/shot.png"], "icon": "App/Assets.xcassets/AppIcon.solidimagestack"},
+}
+
+
+def test_every_entry_field_renders_present_and_absent(rt, gh):
+    """Every surface renders an entry with only the required fields and one with every field. The schema
+    drives both, so a field added later fails here until the templates read it safely."""
+    schema = store.load_json("schema/entry.schema.json")
+    paths = _schema_paths(schema, schema.get("$defs", {}))
+    assert _data_paths(FULL_ENTRY) == {p for p, _ in paths}, "FULL_ENTRY must use every schema field"
+    minimal = json.loads(entry_yaml("min", "trevorbilt-bot/min"))
+    assert _data_paths(minimal) == {p for p, required in paths if required}
+    for data in (minimal, FULL_ENTRY):
+        jsonschema.Draft202012Validator(schema).validate(data)
+    for entry_id, data, repo_id in (("min", minimal, 11), ("full", FULL_ENTRY, 12)):
+        repo = gh.add_repo(f"trevorbilt-bot/{entry_id}", repo_id)
+        (rt.root / "entries" / f"{entry_id}.yaml").write_text(json.dumps(data))
+        list_entry(rt, entry_id, repo, write=False)
+    out = generate.generate(rt.root, rt.repo)  # also validates the feed against its schema
+    assert "- Maker: Original game" in out["ports/full.md"]
+    assert "- [Upstream](https://example.com/engine): Engine" in out["ports/full.md"]
+    assert "ports/min.md" in out
+    state = store.State.load(rt.root)
+    for entry_id in ("min", "full"):
+        state.lifecycle[entry_id]["status"] = "delisted-decay"
+    state.save()
+    assert "Maker (Original game)" in generate.generate(rt.root, rt.repo)["README.md"]
+
+
 def test_play_modes_and_prebuilt_apps(rt, gh):
     repo = gh.add_repo("trevorbilt-bot/good", 11)
     list_entry(rt, "good", repo)
-    write_entry(rt.root, "good", "trevorbilt-bot/good", experiences=["6dof-immersive", "3d-shared-space"])
+    write_entry(rt.root, "good", "trevorbilt-bot/good", experiences=["6dof-immersive", "3d-tabletop", "3d-shared-space-stereo", "3d-shared-space"])
     out = generate.generate(rt.root, rt.repo)
-    assert "| Plays as | 3D shared space, 6DoF immersive |" in out["ports/good.md"]  # canonical order
-    assert "| Prebuilt app |" not in out["ports/good.md"] and "prebuilt app (not security-reviewed)" not in out["README.md"]
-    assert "plays as 3D shared space, 6DoF immersive" in out["llms.txt"]
+    assert "| Plays as | 3D shared space, 3D shared space (stereo), 3D tabletop, 6DoF immersive |" in out["ports/good.md"]  # canonical order
+    assert "| Prebuilt app |" not in out["ports/good.md"] and "prebuilt app (not safety-checked)" not in out["README.md"]
+    assert "plays as 3D shared space, 3D shared space (stereo), 3D tabletop, 6DoF immersive" in out["llms.txt"]
     assert "/ports/good.md): good game; port by" in out["llms.txt"]  # the game right after the project link
     entry = json.loads(out["feed/v1/index.json"])["entries"][0]
-    assert entry["experiences"] == ["3d-shared-space", "6dof-immersive"] and entry["install"] == ["build"]
+    assert entry["experiences"] == ["3d-shared-space", "3d-shared-space-stereo", "3d-tabletop", "6dof-immersive"] and entry["install"] == ["build"]
     write_entry(rt.root, "good", "trevorbilt-bot/good", experiences=["2d"], install=["build", "sideload"])
     out = generate.generate(rt.root, rt.repo)
     assert "| Prebuilt app | The developer publishes an app you can sideload; see their repo." in out["ports/good.md"]
-    assert "· prebuilt app (not security-reviewed)" in out["README.md"] and "prebuilt app available (not security-reviewed)" in out["llms.txt"]
+    assert "· prebuilt app (not safety-checked)" in out["README.md"] and "prebuilt app available (not safety-checked)" in out["llms.txt"]
     feed = json.loads(out["feed/v1/index.json"])
-    assert feed["schema_version"] == "1.2.0" and feed["entries"][0]["install"] == ["build", "sideload"]
+    assert feed["schema_version"] == "1.5.0" and feed["entries"][0]["install"] == ["build", "sideload"]
 
 
 class TestRecheck:
