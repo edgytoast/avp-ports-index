@@ -172,24 +172,30 @@ SCHEMA = {'$schema': 'https://json-schema.org/draft/2020-12/schema',
                                              'hand-tracking',
                                              'keyboard-mouse']}},
                 'experiences': {'description': 'How the port plays on Apple Vision Pro: list every '
-                                               'mode it has. 2d: a flat picture in a window beside '
-                                               'other apps. 3d-immersive: a stereo 3D screen in '
-                                               'front of you, with your other apps put away, seen '
-                                               "from the game's camera. 3d-shared-space: the "
-                                               "game's 3D world with real depth, in a window "
-                                               "beside other apps. 3d-tabletop: the game's world "
-                                               'as a miniature in your room, in real 3D you can '
-                                               'walk around, with your other apps put away. '
-                                               '6dof-immersive: inside the game at life scale, '
-                                               'with your head as the camera. 6dof-progressive: '
-                                               'the same, through a portal the Digital Crown '
-                                               'widens and narrows.',
+                                               'mode it has. 2d: a flat picture, in a window '
+                                               'beside other apps or on a virtual screen. '
+                                               '3d-immersive: a stereo 3D screen in front of you, '
+                                               'with your other apps put away, seen from the '
+                                               "game's camera. 3d-shared-space: the game's 3D "
+                                               'world with real depth, in a window beside other '
+                                               'apps; lean and you see around things. '
+                                               '3d-shared-space-stereo: a stereo 3D picture seen '
+                                               "from the game's camera, in a window beside other "
+                                               "apps; it has depth, but leaning doesn't show you "
+                                               "around things. 3d-tabletop: the game's world as a "
+                                               'miniature in your room, in real 3D you can walk '
+                                               'around, with your other apps put away. '
+                                               '6dof-immersive: inside the game world, all around '
+                                               'you, with your head as the camera (first person or '
+                                               'a chase view). 6dof-progressive: the same, through '
+                                               'a portal the Digital Crown widens and narrows.',
                                 'type': 'array',
                                 'minItems': 1,
                                 'uniqueItems': True,
                                 'items': {'enum': ['2d',
                                                    '3d-immersive',
                                                    '3d-shared-space',
+                                                   '3d-shared-space-stereo',
                                                    '3d-tabletop',
                                                    '6dof-immersive',
                                                    '6dof-progressive']}},
@@ -201,6 +207,23 @@ SCHEMA = {'$schema': 'https://json-schema.org/draft/2020-12/schema',
                             'minItems': 1,
                             'uniqueItems': True,
                             'items': {'enum': ['build', 'sideload']}},
+                'media': {'description': 'Pictures for apps and your port page. Leave it out and '
+                                         'the index takes up to three images from your README '
+                                         "(your repo's own files or GitHub attachments, 480x270 or "
+                                         'larger) and your app icon, at the scanned commit. false '
+                                         'turns pictures off. Or pick them: screenshots lists up '
+                                         'to three image files in your repo; icon is your '
+                                         "AppIcon's .solidimagestack folder or a square PNG.",
+                          'oneOf': [{'const': False},
+                                    {'type': 'object',
+                                     'additionalProperties': False,
+                                     'minProperties': 1,
+                                     'properties': {'screenshots': {'type': 'array',
+                                                                    'minItems': 1,
+                                                                    'maxItems': 3,
+                                                                    'uniqueItems': True,
+                                                                    'items': {'$ref': '#/$defs/repo_path'}},
+                                                    'icon': {'$ref': '#/$defs/repo_path'}}}]},
                 'description': {'description': 'One or two sentences about the port.',
                                 'type': 'string',
                                 'minLength': 1,
@@ -214,7 +237,10 @@ SCHEMA = {'$schema': 'https://json-schema.org/draft/2020-12/schema',
                                    'maxLength': 32}}},
  '$defs': {'https_url': {'type': 'string',
                          'pattern': '^https://[A-Za-z0-9.-]+(:[0-9]+)?(/[A-Za-z0-9._~!$&*+,;=:@%/?#-]*)?$',
-                         'maxLength': 2048}}}
+                         'maxLength': 2048},
+           'repo_path': {'type': 'string',
+                         'pattern': '^(?![./])(?!.*(^|/)\\.\\.?(/|$))[A-Za-z0-9 _.()+,@/-]+$',
+                         'maxLength': 300}}}
 
 # ---- validate.py ----
 """Validators for untrusted input (spec §8.0 rule 3) and escaping for untrusted text (rule 4).
@@ -236,6 +262,7 @@ REPO_NAME_RE = re.compile(r"^[A-Za-z0-9-]+/[A-Za-z0-9._-]+$")
 REPO_URL_RE = re.compile(r"^https://github\.com/([A-Za-z0-9-]+)/([A-Za-z0-9._-]+)$")
 LOGIN_RE = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?(\[bot\])?$")
 SOURCE_REF_RE = re.compile(r"^(?!.*\.\.)[A-Za-z0-9_][A-Za-z0-9._/-]{0,99}$")  # same as the schema's
+LABEL_RE = ENTRY_ID_RE  # calibration run labels: the same safe slug as entry ids
 
 MAX_ENTRY_BYTES = 16 * 1024
 
@@ -252,6 +279,13 @@ def entry_id(value: object) -> str:
     """An entry id: ^[a-z0-9]+(-[a-z0-9]+)*$, at most 64 characters."""
     if not isinstance(value, str) or len(value) > 64 or not ENTRY_ID_RE.match(value):
         raise InvalidInput("invalid entry id")
+    return value
+
+
+def label(value: object) -> str:
+    """A calibration run's label: lowercase letters, digits and single hyphens, at most 40 characters."""
+    if not isinstance(value, str) or len(value) > 40 or not LABEL_RE.match(value):
+        raise InvalidInput("invalid label")
     return value
 
 
@@ -380,11 +414,22 @@ def md_inline(value: object, limit: int = 300) -> str:
     return neutralize_mentions(text)
 
 
+def log_line(value: object, limit: int = 2000) -> str:
+    """Untrusted text made safe for a job's stdout or stderr: one line, so it can't start a line of its own,
+    and never starting with "::", so the runner can't read it as a workflow command (::add-mask::,
+    ::warning::, ::stop-commands:: and the like)."""
+    text = " ".join(("" if value is None else str(value)).split())[:limit]
+    return "\u200b" + text if text.startswith("::") else text
+
+
 def fence(value: object, lang: str = "text", limit: int = 20000) -> str:
-    """Wrap untrusted multi-line text in a code fence it can't break out of."""
+    """Wrap untrusted multi-line text in a code fence it can't break out of. An HTML comment opener inside it
+    is broken up with a zero-width space, so the text can never form one of the App's hidden markers
+    (`<!-- avp:stage2 ... -->` and the like) that later code reads back. (md_inline escapes `<` already.)"""
     text = "" if value is None else str(value)
     if len(text) > limit:
         text = text[:limit] + "\n[truncated]"
+    text = text.replace("<!--", "<!\u200b--")
     longest = max((len(m) for m in re.findall(r"`+", text)), default=0)
     ticks = "`" * max(3, longest + 1)
     return f"{ticks}{lang}\n{text}\n{ticks}"
