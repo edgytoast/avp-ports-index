@@ -271,6 +271,84 @@ luigis-mansion-vr:
   - reason: not this repo's file or a GitHub attachment
     src: https://img.shields.io/badge/AVP_Ports_Index-listed-0A84FF
   source: readme
+pokemon-gen1recomp:
+  choice: null
+  collected_at: '2026-11-13T22:49:59Z'
+  commit: bbe5f881c7b070233f724ba6927b82666e54568c
+  icon:
+    kind: layered
+    layers:
+    - bytes: 1054272
+      format: png
+      height: 1024
+      layer: back
+      sha256: 2ccab73fc0ccfb9443fdfc3f3c3f40020f78894156b19aeacfbff56e103a14ba
+      url: https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/mobile/visionos/resources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/background.png
+      width: 1024
+    - bytes: 461494
+      format: png
+      height: 1024
+      layer: middle
+      sha256: 69f7672296bf2457679d8a537b3f7879410aa9cec4f919c97ac7f540d14a0487
+      url: https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/mobile/visionos/resources/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/middle.png
+      width: 1024
+    - bytes: 340413
+      format: png
+      height: 1024
+      layer: front
+      sha256: 175f5c60fc790376143591d88a95193a1509ea09937b7d4d844e25678404ad78
+      url: https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/mobile/visionos/resources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/foreground.png
+      width: 1024
+  screenshots:
+  - alt: Add to SideStore
+    bytes: 747487
+    format: png
+    height: 512
+    sha256: 2e5ae0c072dba32013d223c64ca1300b26347b8976523ab8376ffd21da656a7d
+    url: https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/.github/resources/sidestore-badge.png
+    width: 1418
+  - alt: Add to Feather
+    bytes: 595455
+    format: png
+    height: 512
+    sha256: 1106f8fd4a4414a97baf9114e1d0014713f958cef34f98ec34f72a7b4c2ad387
+    url: https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/.github/resources/feather-badge.png
+    width: 1253
+  - alt: Add to AltStore
+    bytes: 640748
+    format: png
+    height: 512
+    sha256: 465d80df2afae0ccf7d500440c3fbfb0ccb398ea22c615880bc0a5a6fe04fb11
+    url: https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/.github/resources/altstore-badge.png
+    width: 1299
+  skipped:
+  - reason: not this repo's file or a GitHub attachment
+    src: https://raw.githubusercontent.com/bryanthaboi/gen1recomp/refs/heads/dev/assets/logo/logo.png
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/TikTok-000000?style=for-the-badge&logo=tiktok&logoColor=white
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/Bluesky-0285FF?style=for-the-badge&logo=bluesky&logoColor=white
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/AS%20SEEN%20ON-POLYGON-ea2e49?style=for-the-badge
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/AS%20SEEN%20ON-KOTAKU-ea2e49?style=for-the-badge
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/AS%20SEEN%20ON-DIGITAL%20FOUNDRY-ea2e49?style=for-the-badge
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/AS%20SEEN%20ON-ANDROID%20AUTHORITY-ea2e49?style=for-the-badge
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/AS%20SEEN%20ON-XDA%20DEVELOPERS-ea2e49?style=for-the-badge
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.youtube.com/vi/8IOgqbe4YvA/maxresdefault.jpg
+  - reason: not this repo's file or a GitHub attachment
+    src: https://raw.githubusercontent.com/bryanthaboi/gen1recomp/refs/heads/dev/assets/logo/bcg.png
+  source: readme
 revc-visionos:
   choice: ab060d8c909256ae
   collected_at: '2026-11-02T22:41:32Z'

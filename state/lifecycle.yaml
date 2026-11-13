@@ -78,6 +78,16 @@ luigis-mansion-vr:
   status: listed
   submitted_by: edgytoast
   submitted_by_id: 146565462
+pokemon-gen1recomp:
+  by: merge
+  changed_at: '2026-11-13T22:49:54Z'
+  listed_at: '2026-11-13T22:49:54Z'
+  owner_approved: true
+  repo: https://github.com/edgytoast/gen1recomp
+  repo_id: 1406543974
+  status: listed
+  submitted_by: edgytoast
+  submitted_by_id: 146565462
 revc-visionos:
   by: merge
   changed_at: '2026-11-02T22:41:26Z'

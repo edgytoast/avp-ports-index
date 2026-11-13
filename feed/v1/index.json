@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.5.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-13T21:10:48Z",
+  "generated_at": "2026-11-13T22:49:59Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -1489,6 +1489,171 @@
             "sha256": "9878be455e47250e07507e710fdbfba0e193ea6d05f4f4effaa045ced787f657",
             "url": "https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/docs/images/window-angle.jpg",
             "width": 1600
+          }
+        ]
+      }
+    },
+    {
+      "id": "pokemon-gen1recomp",
+      "name": "Gen1 Vision",
+      "game": {
+        "title": "Pokémon Red, Blue and Yellow",
+        "original_platform": "other",
+        "original_release_year": 1996
+      },
+      "repo_url": "https://github.com/edgytoast/gen1recomp",
+      "source_ref": "visionos-foveation",
+      "source_url": "https://github.com/edgytoast/gen1recomp/tree/bbe5f881c7b070233f724ba6927b82666e54568c",
+      "install_doc_url": "https://github.com/edgytoast/gen1recomp/blob/bbe5f881c7b070233f724ba6927b82666e54568c/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "myMartek",
+        "url": null,
+        "github_verified": false
+      },
+      "credits": [
+        {
+          "name": "myMartek",
+          "role": "Gen1 Vision, the visionOS port",
+          "url": "https://github.com/myMartek/gen1recomp"
+        },
+        {
+          "name": "Trevorbilt",
+          "role": "Install guide and AVP Ports Index listing",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "bryanthaboi",
+          "role": "Gen1Recomp, the LÖVE recreation this visionOS build is a fork of",
+          "url": "https://github.com/bryanthaboi/gen1recomp"
+        },
+        {
+          "name": "pret",
+          "role": "pokered disassembly, credited in the README",
+          "url": "https://github.com/pret/pokered"
+        },
+        {
+          "name": "LÖVE",
+          "role": "Game framework",
+          "url": "https://github.com/love2d/love"
+        },
+        {
+          "name": "Game Freak / Nintendo",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/myMartek/gen1recomp",
+        "https://github.com/bryanthaboi/gen1recomp",
+        "https://github.com/pret/pokered"
+      ],
+      "self_reported_status": "partially-working",
+      "status_notes": "The game shows on a world-locked panel in an immersive space and is played with a game controller. The visionOS README records Simulator verification.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "partially-working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "bbe5f881c7b070233f724ba6927b82666e54568c",
+      "scanned_at": "2026-11-13T22:49:54Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-13T22:42:26Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "MIT"
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "rpg",
+        "pokemon",
+        "game-boy",
+        "love2d",
+        "lua",
+        "recreation"
+      ],
+      "description": "Gen 1 Pokémon on Apple Vision Pro: a visionOS build of Gen1Recomp, the hand-written Lua and LÖVE recreation that decodes its data from your cartridge, on a panel in an immersive space. Bring your own US Red, Blue or Yellow ROM. Listed from a copy with an install guide.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/pokemon-gen1recomp.md",
+      "media": {
+        "commit": "bbe5f881c7b070233f724ba6927b82666e54568c",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 1054272,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "2ccab73fc0ccfb9443fdfc3f3c3f40020f78894156b19aeacfbff56e103a14ba",
+              "url": "https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/mobile/visionos/resources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/background.png",
+              "width": 1024
+            },
+            {
+              "bytes": 461494,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "69f7672296bf2457679d8a537b3f7879410aa9cec4f919c97ac7f540d14a0487",
+              "url": "https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/mobile/visionos/resources/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 340413,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "175f5c60fc790376143591d88a95193a1509ea09937b7d4d844e25678404ad78",
+              "url": "https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/mobile/visionos/resources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/foreground.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "Add to SideStore",
+            "bytes": 747487,
+            "format": "png",
+            "height": 512,
+            "sha256": "2e5ae0c072dba32013d223c64ca1300b26347b8976523ab8376ffd21da656a7d",
+            "url": "https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/.github/resources/sidestore-badge.png",
+            "width": 1418
+          },
+          {
+            "alt": "Add to Feather",
+            "bytes": 595455,
+            "format": "png",
+            "height": 512,
+            "sha256": "1106f8fd4a4414a97baf9114e1d0014713f958cef34f98ec34f72a7b4c2ad387",
+            "url": "https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/.github/resources/feather-badge.png",
+            "width": 1253
+          },
+          {
+            "alt": "Add to AltStore",
+            "bytes": 640748,
+            "format": "png",
+            "height": 512,
+            "sha256": "465d80df2afae0ccf7d500440c3fbfb0ccb398ea22c615880bc0a5a6fe04fb11",
+            "url": "https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/.github/resources/altstore-badge.png",
+            "width": 1299
           }
         ]
       }
