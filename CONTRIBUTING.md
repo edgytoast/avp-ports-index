@@ -11,7 +11,7 @@ These mirror the automated checks (the [full list of checks](skills/avp-index-su
 - **Your own public repo.** The repo is public and you own it, or it belongs to an org you're a public member of. Anyone else's submission goes to the curator first, which is fine, just slower.
 - **A license, if you have one.** No license, or a custom one, is fine. It's shown as stated. If a custom license seems to forbid personal use, the curator takes a look first.
 - **No game data.** No disc images, game data, archives or Git LFS files in the repo or its releases.
-- **Prebuilt apps are fine as long as players still supply their own game files.** If your releases include an app (an `.ipa`, say), set `install: [build, sideload]` so your port page says so; the curator looks at the app first and approves it only then. The security review covers your source code, not the app. An app that lets people play without supplying their own game files can't be listed.
+- **Prebuilt apps are fine as long as players still supply their own game files.** If your releases include a Vision Pro app (an `.ipa`, say), set `install: [build, sideload]` so your port page says so; the curator looks at the app first and approves it only then. The safety check covers your source code, not the app. An app that lets people play without supplying their own game files can't be listed.
 - **These rules cover what's on GitHub: your repo and its releases.** The index doesn't vet anything hosted elsewhere, such as files your app downloads from your own server.
 - **Agent files are welcome.** `CLAUDE.md`, `AGENTS.md`, skills and similar files are fine. They're reviewed like any other code.
 
@@ -19,12 +19,16 @@ These mirror the automated checks (the [full list of checks](skills/avp-index-su
 
 [entry-fields.md](skills/avp-index-submit/references/entry-fields.md) lists every allowed field. It's generated from the schema, so it's always current. Seven fields are required: `id`, `name`, `game.title`, `repo`, `developer.github`, `status` and `experiences`. Please credit the upstream decompilation and VR-port projects you built on in `credits`. If your port lives on a branch other than your repo's default branch, set the optional `source_ref` to that branch, and the index scans and follows it instead.
 
+Your port page and apps that read the index show up to three screenshots from your README and your app icon, at the commit the index scanned. Only your repo's own files and GitHub attachments are used, never images from other sites. To choose the pictures yourself, set `media` with `screenshots` (up to three image files in your repo) and `icon`; to turn them off, set `media: false`.
+
 `experiences` lists every way your port plays:
 
-- **2D:** a flat picture in a window beside your other apps.
+- **2D:** a flat picture, in a window beside your other apps or on a virtual screen.
 - **3D immersive:** a stereo 3D screen in front of you, with your other apps put away, seen from the game's camera.
 - **3D shared space:** the game's 3D world with real depth, in a window beside your other apps. Lean and you see around things.
-- **6DoF immersive:** inside the game at life scale, with your head as the camera.
+- **3D shared space (stereo):** a stereo 3D picture seen from the game's camera, in a window beside your other apps. It has depth, but leaning doesn't show you around things.
+- **3D tabletop:** the game's world as a miniature in your room, in real 3D you can walk around, with your other apps put away.
+- **6DoF immersive:** inside the game world, all around you, with your head as the camera (first person or a chase view).
 - **6DoF progressive:** the same, through a portal the Digital Crown widens and narrows.
 
 If you also publish a prebuilt app, add `install: [build, sideload]`, or `install: [sideload]` if the app is the only way to install it. Every listed port must still build from source, contain a sideload-able asset, or otherwise enable players to actually play the game in line with this repo's bring-your-own-game policy.
@@ -32,7 +36,7 @@ If you also publish a prebuilt app, add `install: [build, sideload]`, or `instal
 ## What happens after you open the PR
 
 1. The Stage 1 checks run right away. They're free and take a minute or two.
-2. If everything passes, your PR joins the queue for the automated security review, first come, first served. Expect minutes to hours.
+2. If everything passes, your PR joins the queue for the automated safety check, first come, first served. Expect minutes to hours.
 3. Clean PRs merge on their own, and your port appears in the README, on its own page, in the JSON feed and in `llms.txt`.
 
 The checks rerun whenever you push to the PR branch. If you fix something in your port's repo instead (adding `AVP-INSTALL.md`, say), the index re-checks within a few hours of a new commit there, and at least daily otherwise; close and reopen the PR to rerun them right away.
@@ -50,14 +54,14 @@ Once your port is listed, you're welcome to add this badge to your README. It li
 - A **fail** means something needs fixing. The bot's comment says what and how.
 - A **route** means a person needs to look, for example because the PR doesn't come from the repo's owner, or the repo has archives in it. There's nothing for you to do; the curator will take a look.
 
-Only the curator applies `owner:scan`, which sends a routed PR on to the security review.
+Only the curator applies `owner:scan`, which sends a routed PR on to the safety check.
 
 ## Labels
 
 | Label | Meaning |
 | --- | --- |
 | `stage1:pass`, `stage1:fail`, `stage1:route` | How the Stage 1 checks came out |
-| `stage2:queued` | Waiting for the automated security review |
+| `stage2:queued` | Waiting for the automated safety check |
 | `stage2:scanning` | The review is running |
 | `stage2:pass` | The review passed |
 | `stage2:flagged` | The review asked for a person to take a closer look; nothing has been decided |
@@ -71,7 +75,7 @@ Edit your file in a new PR. The index tracks only the current state; your own gi
 
 ## Pinned links
 
-Players are pointed at your last scanned commit: the install guide link, the source link and the clone command all use it. The pin moves forward automatically when newer commits on your default branch (or your `source_ref` branch) pass the security review, so you don't need to do anything when you push.
+Players are pointed at your last scanned commit: the install guide link, the source link and the clone command all use it. The pin moves forward automatically when newer commits on your default branch (or your `source_ref` branch) pass the safety check, so you don't need to do anything when you push.
 
 ## Health checks
 
