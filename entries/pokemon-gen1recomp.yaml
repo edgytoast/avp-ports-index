@@ -5,7 +5,7 @@ game:
   title: "Pokémon Red, Blue and Yellow"
   original_platform: other
   original_release_year: 1996
-repo: https://github.com/myMartek/gen1recomp
+repo: https://github.com/edgytoast/gen1recomp
 source_ref: visionos-foveation
 developer:
   github: myMartek
@@ -16,10 +16,16 @@ input: [game-controller]
 experiences: [2d]
 description: >-
   Gen 1 Pokémon on Apple Vision Pro: a visionOS build of Gen1Recomp, the hand-written Lua and
-  LÖVE recreation that decodes its data from your cartridge, with a native launcher and save
-  editor and the game on a panel in an immersive space. Bring your own US Red, Blue or Yellow ROM.
+  LÖVE recreation that decodes its data from your cartridge, on a panel in an immersive space.
+  Bring your own US Red, Blue or Yellow ROM. Listed from a copy with an install guide.
 tags: [rpg, pokemon, game-boy, love2d, lua, recreation]
 credits:
+  - name: myMartek
+    role: Gen1 Vision, the visionOS port
+    url: https://github.com/myMartek/gen1recomp
+  - name: Trevorbilt
+    role: Install guide and AVP Ports Index listing
+    url: https://trevorbilt.com
   - name: bryanthaboi
     role: Gen1Recomp, the LÖVE recreation this visionOS build is a fork of
     url: https://github.com/bryanthaboi/gen1recomp
@@ -32,5 +38,6 @@ credits:
   - name: Game Freak / Nintendo
     role: Original game
 upstream:
+  - https://github.com/myMartek/gen1recomp
   - https://github.com/bryanthaboi/gen1recomp
   - https://github.com/pret/pokered
