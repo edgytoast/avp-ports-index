@@ -5,7 +5,7 @@ game:
   title: "Luanti"
   original_platform: pc
   original_release_year: 2010
-repo: https://github.com/bettse/voxelnative
+repo: https://github.com/edgytoast/voxelnative
 developer:
   github: bettse
 status: working
@@ -15,10 +15,16 @@ input: [game-controller]
 experiences: [6dof-immersive]
 description: >-
   A native Swift and Metal Luanti (Minetest) client for Apple Vision Pro. It speaks the Luanti
-  protocol to any server and renders the world per eye in full immersion; walk, dig, place and
-  craft with PS VR2 Sense controllers or a Bluetooth keyboard. Built and tested against VoxeLibre.
+  protocol to any server and renders the world per eye in full immersion; walk, dig, place and craft
+  with PS VR2 Sense controllers or a Bluetooth keyboard. Listed from a copy with an install guide.
 tags: [luanti, minetest, voxelibre, voxel, sandbox, vr, 6dof]
 credits:
+  - name: bettse
+    role: VoxelNative, the Apple Vision Pro client
+    url: https://github.com/bettse/voxelnative
+  - name: Trevorbilt
+    role: Install guide and AVP Ports Index listing
+    url: https://trevorbilt.com
   - name: Luanti
     role: The engine whose network protocol this client reimplements
     url: https://github.com/luanti-org/luanti
@@ -31,4 +37,5 @@ credits:
   - name: Luanti contributors
     role: Original game
 upstream:
+  - https://github.com/bettse/voxelnative
   - https://github.com/luanti-org/luanti
