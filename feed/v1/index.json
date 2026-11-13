@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.5.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-13T19:53:05Z",
+  "generated_at": "2026-11-13T19:53:43Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -22,8 +22,8 @@
       },
       "repo_url": "https://github.com/steverice/visr",
       "source_ref": null,
-      "source_url": "https://github.com/steverice/visr/tree/154e4f87d458c40a0305fcf0daa987d73b9ffe3d",
-      "install_doc_url": "https://github.com/steverice/visr/blob/154e4f87d458c40a0305fcf0daa987d73b9ffe3d/AVP-INSTALL.md",
+      "source_url": "https://github.com/steverice/visr/tree/8e10b7533603935883adf095a1e66020ad83ab03",
+      "install_doc_url": "https://github.com/steverice/visr/blob/8e10b7533603935883adf095a1e66020ad83ab03/AVP-INSTALL.md",
       "developer": {
         "name": null,
         "github": "steverice",
@@ -71,9 +71,9 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "154e4f87d458c40a0305fcf0daa987d73b9ffe3d",
-      "scanned_at": "2026-10-29T23:00:52Z",
-      "scan_kind": "automated",
+      "scanned_commit": "8e10b7533603935883adf095a1e66020ad83ab03",
+      "scanned_at": "2026-11-13T19:53:41Z",
+      "scan_kind": "curator-reviewed",
       "commits_since_scan": null,
       "scan_state": "unknown",
       "archived": false,

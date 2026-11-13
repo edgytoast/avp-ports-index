@@ -6,10 +6,10 @@ Port by [@steverice](https://github.com/steverice)
 Start with this command, which gets exactly the code that was scanned:
 
 ```
-git clone https://github.com/steverice/visr && cd visr && git checkout 154e4f87d458c40a0305fcf0daa987d73b9ffe3d && git submodule update --init --recursive
+git clone https://github.com/steverice/visr && cd visr && git checkout 8e10b7533603935883adf095a1e66020ad83ab03 && git submodule update --init --recursive
 ```
 
-Then follow the [install guide](https://github.com/steverice/visr/blob/154e4f87d458c40a0305fcf0daa987d73b9ffe3d/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+Then follow the [install guide](https://github.com/steverice/visr/blob/8e10b7533603935883adf095a1e66020ad83ab03/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
 
 | | |
 | --- | --- |
@@ -17,9 +17,9 @@ Then follow the [install guide](https://github.com/steverice/visr/blob/154e4f87d
 | Status | Developer-verified |
 | Plays as | 2D, 3D immersive, 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-10-29 · commits since unknown |
-| Source (scanned) | [steverice/visr at 154e4f87d458](https://github.com/steverice/visr/tree/154e4f87d458c40a0305fcf0daa987d73b9ffe3d) |
-| Install guide | [AVP-INSTALL.md at 154e4f87d458](https://github.com/steverice/visr/blob/154e4f87d458c40a0305fcf0daa987d73b9ffe3d/AVP-INSTALL.md) |
+| Scan | Reviewed by the curator 2026-11-13 · commits since unknown |
+| Source (scanned) | [steverice/visr at 8e10b7533603](https://github.com/steverice/visr/tree/8e10b7533603935883adf095a1e66020ad83ab03) |
+| Install guide | [AVP-INSTALL.md at 8e10b7533603](https://github.com/steverice/visr/blob/8e10b7533603935883adf095a1e66020ad83ab03/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [steverice/visr](https://github.com/steverice/visr) |
 | License | Apache-2.0 |

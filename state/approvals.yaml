@@ -11,3 +11,21 @@ half-life-vr:
     path: scripts/prebuilts.sh
     sha256: ca28788418f71b19b6be2ddcb210eda3dcaf87b21a05041ef8b08f0b46858ce3
   repo_id: 1344976623
+visr:
+  files:
+  - approved_at: '2026-11-13T19:53:42Z'
+    bytes: 18403
+    commit: 8e10b7533603935883adf095a1e66020ad83ab03
+    path: source/bitmaps/libtiff/mkg3states
+    sha256: 0ab4f819e2c9f8b46be10d8121d504eb6e773639e23333e8b2b181ca88c0feb1
+  - approved_at: '2026-11-13T19:53:42Z'
+    bytes: 43636
+    commit: 8e10b7533603935883adf095a1e66020ad83ab03
+    path: tools/ios_build.py
+    sha256: 24e7acde143803586fd690607c70ff6a87b6db77daa214d5a92cb2e8b33c494b
+  - approved_at: '2026-11-13T19:53:42Z'
+    bytes: 24257
+    commit: 8e10b7533603935883adf095a1e66020ad83ab03
+    path: tools/windows_build.py
+    sha256: 16ffbfdebe44cffa797a584becd66b4f120f7f3733401b80f4ca7865c820eb74
+  repo_id: 1408152155

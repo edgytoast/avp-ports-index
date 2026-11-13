@@ -365,11 +365,8 @@ visr:
   decay_reset_at: '2026-11-13T19:53:01Z'
   failing_since: null
   failures: []
-  flagged_commit: 8e10b7533603935883adf095a1e66020ad83ab03
-  flagged_files:
-  - source/bitmaps/libtiff/mkg3states
-  - tools/ios_build.py
-  - tools/windows_build.py
+  flagged_commit: null
+  flagged_files: []
   github_verified: false
   health: ok
   last_checked: '2026-11-03T06:29:40Z'
@@ -384,13 +381,13 @@ visr:
   routes:
   - S1-11c
   - S1-11d
-  scan_confidence: 100
+  scan_confidence: null
   scan_declines: 0
-  scan_kind: automated
+  scan_kind: curator-reviewed
   scan_refused: false
   scan_state: unknown
-  scanned_at: '2026-10-29T23:00:52Z'
-  scanned_commit: 154e4f87d458c40a0305fcf0daa987d73b9ffe3d
+  scanned_at: '2026-11-13T19:53:41Z'
+  scanned_commit: 8e10b7533603935883adf095a1e66020ad83ab03
   warnings: []
 wind-waker-vr:
   archived: false
