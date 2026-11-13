@@ -1,7 +1,9 @@
 """The stage2-scan report job (spec §8.4, §6.3): apply a scan result in PR or rescan mode.
 
 It runs with if: always(), so a failed, cancelled or timed-out scan job still produces an
-`error` here and no PR is left at stage2:scanning.
+`error` here and no PR is left at stage2:scanning. A `declined` scan (Jules refused to review,
+decision 63) never passes: a rescan is retried soon, a PR goes back in the queue until its scans
+run out.
 """
 
 from __future__ import annotations
@@ -12,10 +14,24 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 
-from . import blocklist, jules, lifecycle, messages, store, validate
-from .gate import STAGE1, STAGE2, WAITING, latest_check, stage2_marker
+from . import approvals, blocklist, jules, lifecycle, messages, store, validate
+from .gate import (
+    DECLINED,
+    NO_VERDICT_TITLE,
+    STAGE1,
+    STAGE2,
+    WAITING,
+    latest_check,
+    stage2_marker,
+)
 from .lifecycle import LISTED, PULLED
 from .sync import pin
+
+NO_WORK = "no work"                      # jules.review's decline_signal for a session that showed no work
+NO_VERDICT_LEAD = "**Gemini finished without a verdict**"
+DECLINE_RETRY = dt.timedelta(hours=2)    # a declined rescan is tried again this soon,
+DECLINE_QUICK_TRIES = 3                  # until it has declined this many times in a row;
+ERROR_RETRY = dt.timedelta(hours=24)     # then it waits as long as after an error
 
 
 @dataclass
@@ -63,9 +79,18 @@ def load_outcome(path: Path, scan_result: str, policy: dict) -> dict:
         data = json.loads(path.read_text(encoding="utf-8"))
     except ValueError:
         return {"result": "error", "reason": "the scan artifact couldn't be read"}
+    if not isinstance(data, dict):
+        return {"result": "error", "reason": "the scan artifact couldn't be read"}
     result = data.get("result")
     if result == "deferred":
         return {"result": "deferred", "reason": data.get("reason", "")}
+    if result == "declined":
+        # Jules refused to review, or finished without a verdict and without showing any work (the "no work"
+        # signal, which can't tell the two apart). Whatever else the artifact holds, this is never a pass.
+        diagnostics = data.get("diagnostics") if isinstance(data.get("diagnostics"), dict) else {}
+        signal = NO_WORK if diagnostics.get("decline_signal") == NO_WORK else "wording"
+        return {"result": "declined", "reason": str(data.get("reason") or "")[:jules.EXCERPT_CHARS],
+                "session_url": data.get("session_url"), "minutes": data.get("minutes"), "signal": signal}
     verdict, problem = jules.check_verdict(json.dumps(data.get("verdict")) if data.get("verdict") else None,
                                            jules.verdict_schema())
     out = {"result": "error", "reason": data.get("reason") or problem, "session_url": data.get("session_url"),
@@ -76,7 +101,25 @@ def load_outcome(path: Path, scan_result: str, policy: dict) -> dict:
     return out
 
 
+def no_work(outcome: dict) -> bool:
+    """A `declined` result on the no-work signal: Jules finished without a verdict and without showing any
+    work. Calibration showed working sessions may show only their messages, so that may not be a refusal at
+    all, and it's never worded as one."""
+    return outcome.get("signal") == NO_WORK
+
+
+def decline_summary(outcome: dict) -> str:
+    if no_work(outcome):
+        lead = (f"{NO_VERDICT_LEAD} and without showing any work on the repository; it may have declined, or just "
+                "not printed its verdict. Its last message (untrusted text):")
+    else:
+        lead = "Gemini declined to review this repository, so there is no verdict. Its reply (untrusted text):"
+    return "\n".join([lead, "", validate.fence(outcome.get("reason") or "(no message)")])
+
+
 def verdict_summary(outcome: dict, threshold: int) -> str:
+    if outcome.get("result") == "declined":
+        return decline_summary(outcome)
     verdict = outcome.get("verdict")
     if not verdict:
         return f"No valid verdict: {validate.md_inline(outcome.get('reason') or 'unknown error', 300)}"
@@ -84,6 +127,11 @@ def verdict_summary(outcome: dict, threshold: int) -> str:
              f"**Steering attempt:** {'yes' if verdict['steering_attempt'] else 'no'}", "",
              "Summary from the automated review (untrusted text):", "", validate.fence(verdict.get("summary", "")), ""]
     findings = verdict.get("findings") or []
+    cleared = outcome.get("approved_files") or []
+    if cleared:
+        files = ", ".join(f"`{validate.md_inline(f['path'], 200)}` (SHA-256 `{f['sha256'][:12]}`)" for f in cleared)
+        lines += ["", f"**Passed on approved files:** every finding above info is on a file the curator approved "
+                      f"with these exact bytes: {files}.", ""]
     if findings:
         rows = []
         for f in findings[:50]:
@@ -100,9 +148,37 @@ def triage_body(inputs: Inputs, outcome: dict, threshold: int, what: str) -> str
     return "\n".join([
         f"**{what}** for `{inputs.entry_id}` ({inputs.linked_repo} at `{inputs.linked_commit}`).", "",
         verdict_summary(outcome, threshold), "",
-        f"Jules session (opens for the owner's account only): {session}" if session else "No Jules session link.",
+        f"Scan session (opens for the owner's account only): {session}" if session else "No scan session link.",
         "", "Kill switch actions: `restore` (relist or resume rescans at the current pin), "
             "`approve` (accept the flagged commit), `pull`, `takedown`.",
+    ])
+
+
+def decline_body(inputs: Inputs, outcome: dict, declines: int, retry_at: dt.datetime) -> str:
+    """The triage note for a declined rescan (spec §6.3)."""
+    session = outcome.get("session_url")
+    when = store.iso(retry_at)
+    where = f"the new commit of `{inputs.entry_id}` ({inputs.linked_repo} at `{inputs.linked_commit}`)"
+    if no_work(outcome):
+        headline = (f"{NO_VERDICT_LEAD} on {where}, and without showing any work on the repository; it may have "
+                    "declined, or just not printed its verdict.")
+        quoted = "Gemini's last message (untrusted text):"
+    else:
+        headline, quoted = f"**Gemini declined to review** {where}.", "Gemini's reply (untrusted text):"
+        headline += " This note stays open even if a later try passes, so you can look at the refusal."
+    tries = f"{declines} {'try' if declines == 1 else 'tries'} in a row without a verdict"
+    if declines < DECLINE_QUICK_TRIES:
+        plan = (f"This happens now and then. The rescan will try again after {when} ({tries}). The entry stays "
+                "listed at the commit already reviewed; nothing to do.")
+    else:
+        plan = (f"That's {tries}, so it now waits a day between tries: the next is after {when}. You may want to "
+                "look: open the session below, or review the commit yourself. The entry stays listed at the commit "
+                "already reviewed. Kill switch `rescan` resets the count and tries again at once; it changes nothing "
+                "else.")
+    return "\n".join([
+        headline, "", plan, "", quoted, "",
+        validate.fence(outcome.get("reason") or "(no message)"), "",
+        f"Scan session (opens for the owner's account only): {session}" if session else "No scan session link.",
     ])
 
 
@@ -111,7 +187,10 @@ def apply_rescan_flag(rt, state: store.State, inputs: Inputs, outcome: dict, thr
     entry_id = inputs.entry_id
     health = state.health_record(entry_id)
     health["flagged_commit"] = inputs.linked_commit
+    health["flagged_files"] = approvals.flagged_files(outcome.get("verdict")) or []
     health["rescan_hold"] = True
+    health["scan_declines"] = 0  # Jules did review this commit
+    health["scan_refused"] = False
     blocklist.add_flag(state, rt.salt, inputs.repo_id)
     record = state.lifecycle[entry_id]
     if not record.get("owner_approved") and record.get("status") == LISTED:
@@ -125,11 +204,26 @@ def apply_rescan_flag(rt, state: store.State, inputs: Inputs, outcome: dict, thr
 def run(rt, inputs: Inputs, outcome: dict) -> tuple[str, list[int]]:
     """Apply the result. Returns (result, PR numbers for the merge step)."""
     threshold = int(rt.policy["stage2"]["confidence_threshold"])
+    outcome = clear_approved(rt, inputs, outcome)
     result = outcome["result"]
     if inputs.mode == "rescan":
         rescan(rt, inputs, outcome, threshold)
         return result, []
     return result, pr_mode(rt, inputs, outcome, threshold)
+
+
+def clear_approved(rt, inputs: Inputs, outcome: dict) -> dict:
+    """A flag whose findings above info are all on files the curator approved, byte for byte, is a pass
+    (decision 62). A changed file, any other finding or any failure to check keeps the flag."""
+    if outcome.get("result") != "flag":
+        return outcome
+    state = store.State.load(rt.root)
+    cleared = approvals.clearance(state, inputs.entry_id, inputs.repo_id, inputs.linked_repo, inputs.linked_commit,
+                                  outcome.get("verdict"), rt.policy, rt.http)
+    if cleared is None:
+        return outcome
+    rt.summary(f"Flag cleared: {len(cleared)} curator-approved file(s) with unchanged SHA-256.")
+    return {**outcome, "result": "pass", "approved_files": cleared}
 
 
 def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
@@ -139,7 +233,7 @@ def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
     labels = {label["name"] for label in pr.get("labels") or []}
     bot_state = messages.read_state(messages.find_bot_comment(rt, number))
     mine = bot_state.get("scanning") in (None, inputs.external_id)
-    increment = 1 if inputs.counted and result in ("pass", "flag", "error") else 0
+    increment = 1 if inputs.counted and result in ("pass", "flag", "error") else 0  # a decline isn't their fault
     scans = int(bot_state.get("scans") or 0) + increment
     clear_scanning = {"scanning": None} if mine else {}
 
@@ -153,6 +247,8 @@ def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
         if pr.get("state") == "open" and mine:
             swap(("stage2:scanning",), ("stage2:queued",))
         return []
+    if result == "declined":
+        return _pr_declined(rt, inputs, outcome, pr, bot_state, scans, mine, swap)
     if result == "flag":
         _record_flag(rt, inputs, outcome, threshold)
     if pr.get("state") != "open":
@@ -171,8 +267,9 @@ def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
                 swap(("stage2:scanning",), ("stage2:queued",))
             messages.upsert(rt, number, scans=scans, passed=passed, **clear_scanning)
             return []
-        rt.gh.create_check(head, STAGE2, conclusion="success",
-                           title=f"Passed: confidence {confidence} (threshold {threshold})",
+        title = (f"Passed: confidence {confidence}, findings only on curator-approved files"
+                 if outcome.get("approved_files") else f"Passed: confidence {confidence} (threshold {threshold})")
+        rt.gh.create_check(head, STAGE2, conclusion="success", title=title,
                            summary=summary + "\n\n" + stage2_marker(kind="scan", confidence=confidence),
                            external_id=inputs.external_id)
         swap(("stage2:scanning", "stage2:queued"), ("stage2:pass",))
@@ -181,7 +278,8 @@ def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
 
     if result == "flag":
         rt.gh.create_check(head, STAGE2, conclusion="failure", title=WAITING,
-                           summary=summary + "\n\n" + stage2_marker(kind="result", result="flag"),
+                           summary=summary + "\n\n" + stage2_marker(
+                               kind="result", result="flag", files=approvals.flagged_files(outcome.get("verdict")) or []),
                            external_id=inputs.external_id)
         swap(("stage2:scanning", "stage2:queued", "stage2:pass"), ("stage2:flagged", "needs-owner"))
         name = _entry_name(rt, inputs)
@@ -195,12 +293,46 @@ def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
         # A newer scan was dispatched, or the PR now links another commit and is queued again.
         messages.upsert(rt, number, scans=scans, **clear_scanning)
         return []
-    rt.gh.create_check(head, STAGE2, conclusion="failure", title="Security review error; waiting for the curator",
+    rt.gh.create_check(head, STAGE2, conclusion="failure", title="Safety check error; waiting for the curator",
                        summary=summary + "\n\n" + stage2_marker(kind="result", result="error"),
                        external_id=inputs.external_id)
     swap(("stage2:scanning", "stage2:queued"), ("needs-owner",))
     messages.upsert(rt, number, messages.render("owner-review", rt.root, name=_entry_name(rt, inputs)),
                     scans=scans, **clear_scanning)
+    return []
+
+
+def _pr_declined(rt, inputs: Inputs, outcome: dict, pr: dict, bot_state: dict, scans: int, mine: bool,
+                 swap) -> list[int]:
+    """Jules declined to review. That isn't the contributor's doing, so it isn't charged to their scans; the
+    PR goes back in the queue while it has had fewer than `per_pr_max_scans` declines (counted on their own,
+    `owner:scan` or not, so it can't loop forever), then the curator decides."""
+    number = inputs.pr
+    max_scans = int(rt.policy["stage2"]["per_pr_max_scans"])
+    # The count and time live in the bot comment, so pushes can't reset them: the dispatcher holds a PR at the
+    # cap (as it does at the scan cap) and waits an hour after each decline before sending it back to Jules.
+    declined = {"declines": int(bot_state.get("declines") or 0) + 1, "declined_at": store.iso(store.utcnow()),
+                "decline_signal": NO_WORK if no_work(outcome) else "wording"}  # how the dispatcher words its limit
+    declines = declined["declines"]
+    clear_scanning = {"scanning": None} if mine else {}
+    head = pr["head"]["sha"]
+    if (pr.get("state") != "open" or not mine
+            or (latest_check(rt, head, STAGE1) or {}).get("external_id") != inputs.external_id):
+        # Closed, a newer scan was dispatched, or the PR now links another commit and is queued again.
+        messages.upsert(rt, number, scans=scans, **declined, **clear_scanning)
+        return []
+    if declines < max_scans:
+        swap(("stage2:scanning",), ("stage2:queued",))
+        messages.upsert(rt, number, scans=scans, **declined, **clear_scanning)
+        what = "finished without a verdict" if no_work(outcome) else "declined to review"
+        rt.summary(f"#{number}: Gemini {what}; back in the queue ({declines} in a row).")
+        return []
+    rt.gh.create_check(head, STAGE2, conclusion="failure", title=NO_VERDICT_TITLE if no_work(outcome) else DECLINED,
+                       summary=decline_summary(outcome) + "\n\n" + stage2_marker(kind="result", result="declined"),
+                       external_id=inputs.external_id)
+    swap(("stage2:scanning", "stage2:queued"), ("needs-owner",))
+    messages.upsert(rt, number, messages.render("owner-review", rt.root, name=_entry_name(rt, inputs)),
+                    scans=scans, **declined, **clear_scanning)
     return []
 
 
@@ -240,13 +372,38 @@ def rescan(rt, inputs: Inputs, outcome: dict, threshold: int) -> None:
         if result == "pass":
             repo = rt.gh.repo_by_id(inputs.repo_id)
             entries, _ = store.load_entries(rt.root)
-            pin(rt, state, inputs.entry_id, inputs.linked_commit, "automated",
-                outcome["verdict"]["safe_confidence"], repo, entries.get(inputs.entry_id))
+            confidence = outcome["verdict"]["safe_confidence"]
+            declined_before = int(health.get("scan_declines") or 0)
+            refused_before = bool(health.get("scan_refused"))
+            pin(rt, state, inputs.entry_id, inputs.linked_commit, "automated", confidence, repo,
+                entries.get(inputs.entry_id))
+            health = state.health_record(inputs.entry_id)
+            health["scan_declines"] = 0
+            health["scan_refused"] = False
+            again = " on a later try" if declined_before else ""
+            passed = (f"Gemini reviewed `{inputs.linked_commit}`{again} and it passed (confidence {confidence}), so "
+                      "the entry is listed at that commit.")
+            if refused_before:
+                # Jules refused on an earlier try: that's worth the curator's look, so the note stays open (decision 66).
+                rt.note_triage(inputs.entry_id, passed + " This note stays open because Gemini refused to review an "
+                                                         "earlier try; close it when you've had a look.")
+            elif not health.get("flagged_commit"):
+                # A pass at the pin settles an earlier "couldn't finish" or "no work" note: close it (decision 66).
+                # A note about a flag stays open; a flag holds rescans anyway.
+                rt.close_triage(inputs.entry_id, passed + " Nothing more is needed here.")
         elif result == "flag":
             apply_rescan_flag(rt, state, inputs, outcome, threshold)
+        elif result == "declined":
+            health = state.health_record(inputs.entry_id)
+            declines = int(health.get("scan_declines") or 0) + 1
+            retry_at = store.utcnow() + (DECLINE_RETRY if declines < DECLINE_QUICK_TRIES else ERROR_RETRY)
+            health["scan_declines"] = declines
+            health["rescan_after"] = store.iso(retry_at)
+            if not no_work(outcome):
+                health["scan_refused"] = True
+            rt.upsert_triage(inputs.entry_id, decline_body(inputs, outcome, declines, retry_at))
         else:
-            state.health_record(inputs.entry_id)["rescan_after"] = store.iso(
-                store.utcnow() + dt.timedelta(hours=24))
+            state.health_record(inputs.entry_id)["rescan_after"] = store.iso(store.utcnow() + ERROR_RETRY)
             rt.upsert_triage(inputs.entry_id, triage_body(inputs, outcome, threshold,
                                                           "The automated rescan couldn't finish"))
         state.save()

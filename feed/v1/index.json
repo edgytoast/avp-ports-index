@@ -1,8 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
-  "schema_version": "1.2.0",
+  "schema_version": "1.5.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-10-05T19:39:44Z",
+  "generated_at": "2026-11-13T22:54:29Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -13,17 +13,422 @@
   "license": "CC0-1.0",
   "entries": [
     {
-      "id": "shar-visionos",
-      "name": "SHAR VR",
+      "id": "visr",
+      "name": "VISR",
       "game": {
-        "title": "The Simpsons: Hit & Run",
-        "original_platform": "pc",
-        "original_release_year": 2003
+        "title": "Halo: Combat Evolved",
+        "original_platform": "xbox",
+        "original_release_year": 2001
       },
-      "repo_url": "https://github.com/edgytoast/shar-visionos",
+      "repo_url": "https://github.com/steverice/visr",
       "source_ref": null,
-      "source_url": "https://github.com/edgytoast/shar-visionos/tree/218b0cd2baa279d32fb6418ef19fb52c466e71e7",
-      "install_doc_url": "https://github.com/edgytoast/shar-visionos/blob/218b0cd2baa279d32fb6418ef19fb52c466e71e7/AVP-INSTALL.md",
+      "source_url": "https://github.com/steverice/visr/tree/9687cf8b540f36e8e81938148e86264ee44bc924",
+      "install_doc_url": "https://github.com/steverice/visr/blob/9687cf8b540f36e8e81938148e86264ee44bc924/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "steverice",
+        "url": null,
+        "github_verified": false
+      },
+      "credits": [
+        {
+          "name": "punpckhdq",
+          "role": "Decompilation",
+          "url": "https://github.com/punpckhdq/halo"
+        },
+        {
+          "name": "bnunu",
+          "role": "Decompilation fork",
+          "url": "https://github.com/bnunu/halo-1"
+        },
+        {
+          "name": "OpenCE",
+          "role": "Native desktop ports",
+          "url": "https://github.com/OpenCommunityEdition/OpenCE"
+        },
+        {
+          "name": "NicholasDominici",
+          "role": "Original iOS port",
+          "url": "https://github.com/NicholasDominici/halo-ce-ios"
+        }
+      ],
+      "upstream": [
+        "https://github.com/punpckhdq/halo",
+        "https://github.com/bnunu/halo-1",
+        "https://github.com/OpenCommunityEdition/OpenCE",
+        "https://github.com/NicholasDominici/halo-ce-ios"
+      ],
+      "self_reported_status": "developer-verified",
+      "status_notes": "Plays in a window on visionOS 2 or later. Enter VR (stereo around you, or the 3D theater screen) needs visionOS 26 or later, and PlayStation VR2 Sense aiming needs visionOS 27, per the install guide.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "developer-verified",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "9687cf8b540f36e8e81938148e86264ee44bc924",
+      "scanned_at": "2026-11-13T21:10:44Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-13T19:02:10Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "Apache-2.0"
+      },
+      "visionos_min": "2.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d",
+        "3d-immersive",
+        "6dof-immersive"
+      ],
+      "install": [
+        "build",
+        "sideload"
+      ],
+      "tags": [
+        "fps",
+        "sci-fi",
+        "metal",
+        "vr",
+        "multiplayer"
+      ],
+      "description": "Native Metal port of Halo: Combat Evolved for Apple Vision Pro and other Apple devices. Head-tracked stereo, foveated rendering, a 3D theater screen and PlayStation VR2 Sense controller aiming. Bring your own disc image of the original Xbox release.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/visr.md",
+      "media": {
+        "commit": "9687cf8b540f36e8e81938148e86264ee44bc924",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 98171,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "9a95825678bc37725d6d77294438ed562eccb64912c01728cd5c487c9d85dfdf",
+              "url": "https://raw.githubusercontent.com/steverice/visr/9687cf8b540f36e8e81938148e86264ee44bc924/port/ios/Assets-visionOS.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 238331,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "a7cd7f34692a242185698fad7fdec4c095b59e085e0fb99efda14d5f70f2e239",
+              "url": "https://raw.githubusercontent.com/steverice/visr/9687cf8b540f36e8e81938148e86264ee44bc924/port/ios/Assets-visionOS.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 113250,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "88aaa8ae1647c92c38daccc0f6781c11e704f08f7003fd4246aecb7e24d2fb5c",
+              "url": "https://raw.githubusercontent.com/steverice/visr/9687cf8b540f36e8e81938148e86264ee44bc924/port/ios/Assets-visionOS.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "VISR: the app icon, a helmet with a gold visor, beside the VISR wordmark on a dark teal grid",
+            "bytes": 282932,
+            "format": "png",
+            "height": 720,
+            "sha256": "8a30729f383a29d06455b44cfca512a1e23eb2c30d22b4be5c3b269b3669779f",
+            "url": "https://raw.githubusercontent.com/steverice/visr/9687cf8b540f36e8e81938148e86264ee44bc924/docs/images/readme-banner.png",
+            "width": 2320
+          }
+        ]
+      }
+    },
+    {
+      "id": "revc-visionos",
+      "name": "reVC for visionOS",
+      "game": {
+        "title": "Grand Theft Auto: Vice City",
+        "original_platform": "ps2",
+        "original_release_year": 2002
+      },
+      "repo_url": "https://github.com/LowRiderXR/revc-visionos-app",
+      "source_ref": null,
+      "source_url": "https://github.com/LowRiderXR/revc-visionos-app/tree/c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c",
+      "install_doc_url": "https://github.com/LowRiderXR/revc-visionos-app/blob/c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "LowRiderXR",
+        "url": null,
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "re3 project",
+          "role": "reVC, the reverse-engineered engine",
+          "url": null
+        },
+        {
+          "name": "librw",
+          "role": "RenderWare reimplementation",
+          "url": "https://github.com/aap/librw"
+        },
+        {
+          "name": "ANGLE",
+          "role": "OpenGL ES to Metal",
+          "url": "https://chromium.googlesource.com/angle/angle"
+        },
+        {
+          "name": "Klepton",
+          "role": "Reference for Compositor Services and ANGLE",
+          "url": "https://github.com/shinyquagsire23/Klepton"
+        },
+        {
+          "name": "OpenAL Soft",
+          "role": "Audio",
+          "url": "https://github.com/kcat/openal-soft"
+        }
+      ],
+      "upstream": [
+        "https://github.com/LowRiderXR/revc-visionos",
+        "https://github.com/LowRiderXR/librw-visionos",
+        "https://github.com/LowRiderXR/visionos-angle-kit"
+      ],
+      "self_reported_status": "developer-verified",
+      "status_notes": "Own code (launcher, renderer) is MIT; the reVC engine itself has no license and is published as-is. Requires the player's own classic PC copy of Vice City (not the Definitive Edition). Tested on Apple Vision Pro M2 and M5.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "developer-verified",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c",
+      "scanned_at": "2026-11-02T22:41:25Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-10-31T14:17:15Z",
+      "license": {
+        "kind": "custom",
+        "spdx": null
+      },
+      "visionos_min": "27.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "6dof-immersive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "gta",
+        "vice-city",
+        "vr",
+        "decompilation"
+      ],
+      "description": "Native Vision Pro port of reVC, the reverse-engineered GTA Vice City engine: stereo rendering in a full immersive space, head tracking, foveated rendering, game-controller input, and a launcher for settings, save games and the game data. Bring your own classic PC copy.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/revc-visionos.md",
+      "media": {
+        "commit": "c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 736567,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "287f3eb1d47b5cf90db0c473ecd3cca1ea01123ababb7e814f457b48bbd73619",
+              "url": "https://raw.githubusercontent.com/LowRiderXR/revc-visionos-app/c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c/AvpViceCity/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 146493,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "648bcacc2460fee90debe2aab47e23f83853a44e775af9ce450e6f719886b247",
+              "url": "https://raw.githubusercontent.com/LowRiderXR/revc-visionos-app/c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c/AvpViceCity/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 75860,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "c94912d2d5fa53dbd1303b16c26f9b4d0e47eba4506c2c9b46e58f1679c561a9",
+              "url": "https://raw.githubusercontent.com/LowRiderXR/revc-visionos-app/c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c/AvpViceCity/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": []
+      }
+    },
+    {
+      "id": "starship",
+      "name": "Starship",
+      "game": {
+        "title": "Star Fox 64",
+        "original_platform": "n64",
+        "original_release_year": 1997
+      },
+      "repo_url": "https://github.com/edgytoast/Starship-ios",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/Starship-ios/tree/5de019c0b16e68ba3ad6a62413b0ca9953285658",
+      "install_doc_url": "https://github.com/edgytoast/Starship-ios/blob/5de019c0b16e68ba3ad6a62413b0ca9953285658/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "rebelancap",
+        "url": null,
+        "github_verified": false
+      },
+      "credits": [
+        {
+          "name": "rebelancap",
+          "role": "The iOS and visionOS port",
+          "url": "https://github.com/rebelancap/Starship-ios"
+        },
+        {
+          "name": "Trevorbilt",
+          "role": "Install guide and AVP Ports Index listing",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "Harbour Masters",
+          "role": "Starship, the port this is built on",
+          "url": "https://github.com/HarbourMasters/Starship"
+        },
+        {
+          "name": "Harbour Masters",
+          "role": "libultraship, the platform layer",
+          "url": "https://github.com/HarbourMasters/libultraship"
+        },
+        {
+          "name": "Nintendo",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/rebelancap/Starship-ios",
+        "https://github.com/HarbourMasters/Starship",
+        "https://github.com/HarbourMasters/libultraship"
+      ],
+      "self_reported_status": "working",
+      "status_notes": null,
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "5de019c0b16e68ba3ad6a62413b0ca9953285658",
+      "scanned_at": "2026-11-13T22:54:24Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-13T22:49:52Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "MIT"
+      },
+      "visionos_min": "2.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d",
+        "3d-immersive"
+      ],
+      "install": [
+        "build",
+        "sideload"
+      ],
+      "tags": [
+        "star-fox",
+        "rail-shooter",
+        "n64",
+        "source-port",
+        "harbour-masters",
+        "stereo-3d"
+      ],
+      "description": "Star Fox 64 on Apple Vision Pro through Harbour Masters' Starship, rendering natively on Metal: a resizable 2D window, or a stereoscopic 3D screen in your room. Full campaign, enhancements menu, controllers and in-app ROM extraction. Bring your own ROM. Listed from a copy with an install guide.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/starship.md",
+      "media": {
+        "commit": "5de019c0b16e68ba3ad6a62413b0ca9953285658",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 112381,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "09be3b3c0816f5dc1ab8836e9ca16b5c600147c9eb4eab759ebb1f477bd3b9a2",
+              "url": "https://raw.githubusercontent.com/edgytoast/Starship-ios/5de019c0b16e68ba3ad6a62413b0ca9953285658/app/ios/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 48397,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "4e6fc72a958c970580482cdb695229392fbf4d4c48dac64a7d869ae0fefc75d4",
+              "url": "https://raw.githubusercontent.com/edgytoast/Starship-ios/5de019c0b16e68ba3ad6a62413b0ca9953285658/app/ios/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "Star Fox 64 on Apple Vision Pro",
+            "bytes": 381778,
+            "format": "jpeg",
+            "height": 1440,
+            "sha256": "a90e6e4e1ce8536af066211a1098c60657ef9ec07ea8da6438c0a8f594dc55aa",
+            "url": "https://raw.githubusercontent.com/edgytoast/Starship-ios/5de019c0b16e68ba3ad6a62413b0ca9953285658/docs/screenshots/visionos-window.jpg",
+            "width": 2560
+          }
+        ]
+      }
+    },
+    {
+      "id": "luigis-mansion-vr",
+      "name": "Luigi's Mansion VR",
+      "game": {
+        "title": "Luigi's Mansion",
+        "original_platform": "gamecube",
+        "original_release_year": 2001
+      },
+      "repo_url": "https://github.com/edgytoast/luigismansion-visionos",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/luigismansion-visionos/tree/c238bbc386b1a4433d31d9f016234492016c415a",
+      "install_doc_url": "https://github.com/edgytoast/luigismansion-visionos/blob/c238bbc386b1a4433d31d9f016234492016c415a/AVP-INSTALL.md",
       "developer": {
         "name": "Trevorbilt",
         "github": "edgytoast",
@@ -32,43 +437,54 @@
       },
       "credits": [
         {
-          "name": "Radical Entertainment",
-          "role": "Original game (2003)",
-          "url": "https://en.wikipedia.org/wiki/Radical_Entertainment"
-        },
-        {
-          "name": "Svxy",
-          "role": "The original source code, on GitHub",
-          "url": "https://github.com/Svxy/The-Simpsons-Hit-and-Run"
-        },
-        {
-          "name": "ZenoArrows",
-          "role": "Source port (Nintendo Switch, PS Vita)",
-          "url": "https://github.com/ZenoArrows/The-Simpsons-Hit-and-Run"
-        },
-        {
-          "name": "Carlox33",
-          "role": "Android port",
-          "url": "https://github.com/Carlox33/The-Simpsons-Hit-and-Run-Android"
-        },
-        {
-          "name": "kote2345",
-          "role": "VR mod (Meta Quest 3, PC VR)",
-          "url": "https://github.com/kote2345/The-Simpsons-Hit-and-Run-VR"
-        },
-        {
           "name": "Trevorbilt",
           "role": "visionOS port",
           "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "u/sonarix",
+          "role": "Luigi's Mansion VR, the VR mod this port is built on",
+          "url": "https://www.reddit.com/user/sonarix"
+        },
+        {
+          "name": "u/sonarix",
+          "role": "Luigi's Mansion VR build 150's source, released and handed on",
+          "url": "https://www.reddit.com/r/virtualreality/comments/1xg3kvj/"
+        },
+        {
+          "name": "rob646464",
+          "role": "Luigi's Mansion Recompiled, the native recompilation",
+          "url": "https://github.com/rob646464/luigis-mansion-recompiled"
+        },
+        {
+          "name": "SomeJakeGuy",
+          "role": "lm-decomp, the decompilation that drives the recompiler",
+          "url": "https://github.com/SomeJakeGuy/lm-decomp"
+        },
+        {
+          "name": "encounter",
+          "role": "Aurora, the GameCube graphics and system layer",
+          "url": "https://github.com/encounter/aurora"
+        },
+        {
+          "name": "Twilit Realm",
+          "role": "Dusklight, source of the JSystem code",
+          "url": "https://github.com/TwilitRealm/dusklight"
+        },
+        {
+          "name": "iChris4",
+          "role": "WiiCompiled Vision, source of the visionOS OpenXR provider",
+          "url": "https://github.com/iChris4/Wiicompiled_VR"
         }
       ],
       "upstream": [
-        "https://github.com/kote2345/The-Simpsons-Hit-and-Run-VR",
-        "https://github.com/Carlox33/The-Simpsons-Hit-and-Run-Android",
-        "https://github.com/ZenoArrows/The-Simpsons-Hit-and-Run"
+        "https://github.com/rob646464/luigis-mansion-recompiled",
+        "https://www.reddit.com/r/virtualreality/comments/1xg3kvj/",
+        "https://github.com/SomeJakeGuy/lm-decomp",
+        "https://github.com/encounter/aurora"
       ],
       "self_reported_status": "working",
-      "status_notes": "Plays in the Full, Progressive and Window views, with PS VR2 Sense controllers, a gamepad or bare hands. Built and played on Apple Vision Pro.",
+      "status_notes": "Plays with a gamepad (the only input supported) as a world-locked diorama in your room (Full) and as a model on your table beside other apps, both played on Apple Vision Pro. USA disc (GLME01) only.",
       "owner_verified": {
         "verified": false,
         "verified_on": null,
@@ -80,39 +496,503 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "218b0cd2baa279d32fb6418ef19fb52c466e71e7",
-      "scanned_at": "2026-10-05T00:31:42Z",
+      "scanned_commit": "c238bbc386b1a4433d31d9f016234492016c415a",
+      "scanned_at": "2026-11-03T06:43:22Z",
       "scan_kind": "automated",
       "commits_since_scan": 0,
       "scan_state": "current",
       "archived": false,
-      "last_commit_date": "2026-10-04T18:49:32Z",
+      "last_commit_date": "2026-11-02T21:37:42Z",
+      "license": {
+        "kind": "none",
+        "spdx": null
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "3d-shared-space",
+        "3d-tabletop"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "luigis-mansion",
+        "vr",
+        "diorama",
+        "tabletop",
+        "gamecube",
+        "recompilation"
+      ],
+      "description": "Luigi's Mansion as a haunted diorama on Apple Vision Pro: the mansion stands in your room as a miniature you can walk around, or sits on your table beside your other apps. A native visionOS port of u/sonarix's Luigi's Mansion VR mod and rob646464's recompilation. Bring your own disc.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/luigis-mansion-vr.md",
+      "media": {
+        "commit": "c238bbc386b1a4433d31d9f016234492016c415a",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 90052,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "a1846baf98573c7d7db578b786db3eabc5e45cd996d9ab07ac377b4af9d923dd",
+              "url": "https://raw.githubusercontent.com/edgytoast/luigismansion-visionos/c238bbc386b1a4433d31d9f016234492016c415a/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 53743,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "baa72eafc3cd3f4dc41799fdd8f1e9af8c1e5f024ea9bc36815db56100a1b73f",
+              "url": "https://raw.githubusercontent.com/edgytoast/luigismansion-visionos/c238bbc386b1a4433d31d9f016234492016c415a/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 185977,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "3808bd1aa8214f2b7679b6afcad54c337448df477a984fff59bdab67acb04044",
+              "url": "https://raw.githubusercontent.com/edgytoast/luigismansion-visionos/c238bbc386b1a4433d31d9f016234492016c415a/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": []
+      }
+    },
+    {
+      "id": "half-life-vr",
+      "name": "Lambda VisionPro",
+      "game": {
+        "title": "Half-Life",
+        "original_platform": "pc",
+        "original_release_year": 1998
+      },
+      "repo_url": "https://github.com/illixion/halflife-visionos",
+      "source_ref": null,
+      "source_url": "https://github.com/illixion/halflife-visionos/tree/d7555089b164ac6004cc02111ef2b122321dc11f",
+      "install_doc_url": "https://github.com/illixion/halflife-visionos/blob/d7555089b164ac6004cc02111ef2b122321dc11f/AVP-INSTALL.md",
+      "developer": {
+        "name": "Ixion",
+        "github": "illixion",
+        "url": null,
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "FWGS",
+          "role": "Xash3D-FWGS, the engine",
+          "url": "https://github.com/FWGS/xash3d-fwgs"
+        },
+        {
+          "name": "FWGS",
+          "role": "hlsdk-portable, the Half-Life game code",
+          "url": "https://github.com/FWGS/hlsdk-portable"
+        },
+        {
+          "name": "ANGLE",
+          "role": "OpenGL ES on Metal",
+          "url": "https://github.com/google/angle"
+        },
+        {
+          "name": "Lambda1VR (DrBeef)",
+          "role": "Inspiration (Quest VR port); no code reused",
+          "url": "https://github.com/DrBeef/Lambda1VR"
+        },
+        {
+          "name": "Valve",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/FWGS/xash3d-fwgs",
+        "https://github.com/FWGS/hlsdk-portable"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "Playable end to end on Apple Vision Pro, per the README. The hand-tracked VR input is described there as proof-of-concept quality: functional, with rough edges.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "d7555089b164ac6004cc02111ef2b122321dc11f",
+      "scanned_at": "2026-11-13T19:52:40Z",
+      "scan_kind": "curator-reviewed",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-02T14:51:47Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "GPL-3.0"
+      },
+      "visionos_min": "26.4",
+      "input": [
+        "hand-tracking",
+        "game-controller"
+      ],
+      "experiences": [
+        "6dof-immersive"
+      ],
+      "install": [
+        "build",
+        "sideload"
+      ],
+      "tags": [
+        "fps",
+        "half-life",
+        "vr",
+        "6dof",
+        "hand-tracking",
+        "xash3d"
+      ],
+      "description": "Half-Life in full immersion on Apple Vision Pro: the Xash3D-FWGS engine with its ref_gl renderer on Metal through ANGLE, presented with Compositor Services, with hand-tracked weapons and locomotion. Bring your own Half-Life from Steam (the pre-25th-anniversary build).",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/half-life-vr.md",
+      "media": {
+        "commit": "d7555089b164ac6004cc02111ef2b122321dc11f",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 5689,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "9b3b1d9bafcb61017537acb5a797ccab2df0e5cba03b9c090ba30e6ad4254a77",
+              "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/d7555089b164ac6004cc02111ef2b122321dc11f/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 14776,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "89431a2ade4de6fbcbb22180a364579895536b6db7e6cd6d2b024f8d772ceb81",
+              "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/d7555089b164ac6004cc02111ef2b122321dc11f/LambdaVision/LambdaVision/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/middle.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "In-game screenshot",
+            "bytes": 301711,
+            "format": "jpeg",
+            "height": 1080,
+            "sha256": "7f6bc0a96597f1e73a417fa9a8ce93ae191a295c7653e683b6eb6bda0397aa69",
+            "url": "https://raw.githubusercontent.com/illixion/halflife-visionos/d7555089b164ac6004cc02111ef2b122321dc11f/images/ingame.jpg",
+            "width": 1920
+          }
+        ]
+      }
+    },
+    {
+      "id": "wind-waker-vr",
+      "name": "Wind Waker VR",
+      "game": {
+        "title": "The Legend of Zelda: The Wind Waker",
+        "original_platform": "gamecube",
+        "original_release_year": 2002
+      },
+      "repo_url": "https://github.com/edgytoast/windwaker-visionos",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/windwaker-visionos/tree/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c",
+      "install_doc_url": "https://github.com/edgytoast/windwaker-visionos/blob/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/AVP-INSTALL.md",
+      "developer": {
+        "name": "Trevorbilt",
+        "github": "edgytoast",
+        "url": "https://trevorbilt.com",
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "Trevorbilt",
+          "role": "visionOS port",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "centollOS",
+          "role": "SwitchWaker, the native port this builds on (Pulpparty, depende3000)",
+          "url": "https://github.com/centollOS/SwitchWaker"
+        },
+        {
+          "name": "zeldaret",
+          "role": "The Wind Waker decompilation",
+          "url": "https://github.com/zeldaret/tww"
+        },
+        {
+          "name": "snrubrm",
+          "role": "Completed the decompilation's missing functions",
+          "url": "https://github.com/snrubrm/tww"
+        },
+        {
+          "name": "encounter",
+          "role": "Aurora, the GameCube graphics, input and disc layer",
+          "url": "https://github.com/encounter/aurora"
+        },
+        {
+          "name": "JoeyAW",
+          "role": "TPVR, whose stereo view and VR hooks this port follows",
+          "url": "https://github.com/JoeyAW/TPVR"
+        },
+        {
+          "name": "Twilit Realm",
+          "role": "Dusklight, the model for SwitchWaker's SDK layer",
+          "url": "https://twilitrealm.dev/"
+        },
+        {
+          "name": "iChris4",
+          "role": "WiiCompiled Vision, source of the visionOS OpenXR provider",
+          "url": "https://github.com/iChris4/Wiicompiled_VR"
+        }
+      ],
+      "upstream": [
+        "https://github.com/centollOS/SwitchWaker",
+        "https://github.com/zeldaret/tww",
+        "https://github.com/encounter/aurora"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "Plays in a window beside your apps, in 3D or in 2D like the original, with a gamepad; played on Apple Vision Pro. Full and Progressive VR are in the app behind an experimental switch, untested on a headset.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": true,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c",
+      "scanned_at": "2026-10-29T22:30:59Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-10-29T22:08:53Z",
       "license": {
         "kind": "open-source",
         "spdx": "MIT"
       },
       "visionos_min": "26.0",
       "input": [
-        "game-controller",
-        "hand-tracking"
+        "game-controller"
       ],
       "experiences": [
-        "3d-shared-space",
-        "6dof-immersive",
-        "6dof-progressive"
+        "2d",
+        "3d-shared-space"
       ],
       "install": [
         "build"
       ],
       "tags": [
-        "vr",
-        "6dof",
-        "driving",
-        "open-world",
-        "source-port"
+        "zelda",
+        "wind-waker",
+        "gamecube",
+        "decompilation",
+        "shared-space",
+        "window",
+        "aurora"
       ],
-      "description": "The Simpsons: Hit & Run in six degrees of freedom on Apple Vision Pro. Walk Springfield with a Sense controller in each hand, drive from the driver's seat, or play it as a 3D window beside your other apps. A native visionOS port of kote2345's Hit & Run VR mod.",
-      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/shar-visionos.md"
+      "description": "The Wind Waker in a window beside your apps on Apple Vision Pro, with the Great Sea rebuilt in real 3D behind the glass every frame, so you can lean in and look around Outset. Or switch it to 2D, like the GameCube. A native visionOS port of SwitchWaker. Bring your own disc.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/wind-waker-vr.md",
+      "media": {
+        "commit": "a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 40431,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "307bb6afe1e04d949ea493aff4c85f647eaad3c8cb780ad3b525ea3c9807d744",
+              "url": "https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 172114,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "ed6f26d218d12716598d0aff696ec46dbd3d52877abfc16e37f0fdabd970e89e",
+              "url": "https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 122170,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "26b7e7568edc896ad85c053666dbf63f596a5c08d361f671de1c952cb68b7b3a",
+              "url": "https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "Link on Outset Island's pier, in a window floating in a living room",
+            "bytes": 195331,
+            "format": "jpeg",
+            "height": 922,
+            "sha256": "50d81fc83ad74804f7bf112280f22b02ca25f473dd5cb20b6806723aab0c5d4a",
+            "url": "https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/docs/images/window-3d.jpg",
+            "width": 1640
+          },
+          {
+            "alt": "Link on Windfall Island's dock, in a window seen from off to one side: he and the cliffs stand out of the sea behind the glass",
+            "bytes": 123448,
+            "format": "jpeg",
+            "height": 697,
+            "sha256": "d7f61553f75c02f23c47ff69f246220445fc4363ae77774c9bafc907a85ed5cc",
+            "url": "https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/docs/images/window-angle.jpg",
+            "width": 1240
+          }
+        ]
+      }
+    },
+    {
+      "id": "galaxyvision",
+      "name": "GalaxyVision",
+      "game": {
+        "title": "Super Mario Galaxy",
+        "original_platform": null,
+        "original_release_year": null
+      },
+      "repo_url": "https://github.com/palex0481/GalaxyVision-AVP",
+      "source_ref": null,
+      "source_url": "https://github.com/palex0481/GalaxyVision-AVP/tree/7ade570d09f703603de170a33fce1ab16b81cab9",
+      "install_doc_url": "https://github.com/palex0481/GalaxyVision-AVP/blob/7ade570d09f703603de170a33fce1ab16b81cab9/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "palex0481",
+        "url": null,
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "GalaxyPad",
+          "role": "Native Super Mario Galaxy for Apple devices, the base of this port",
+          "url": "https://github.com/chrissotraidis/galaxypad"
+        },
+        {
+          "name": "MacioGalaxy",
+          "role": "Native port of the Petari decompilation behind the engine",
+          "url": "https://github.com/classicrob/MacioGalaxy"
+        },
+        {
+          "name": "Petari",
+          "role": "Super Mario Galaxy decompilation",
+          "url": "https://github.com/SMGCommunity/Petari"
+        },
+        {
+          "name": "ModernGekko",
+          "role": "Runtime integration and game-port tooling",
+          "url": "https://github.com/ExpansionPak/ModernGekko"
+        }
+      ],
+      "upstream": [
+        "https://github.com/chrissotraidis/galaxypad"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "Plays in a flat window, or a stereoscopic 3D window (beta) drawn once per eye, per the developer. USA disc (RMGE01 rev 0) only. A hobby project that isn't in active development.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "7ade570d09f703603de170a33fce1ab16b81cab9",
+      "scanned_at": "2026-10-30T16:05:41Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-10-26T06:55:06Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "GPL-3.0"
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d",
+        "3d-shared-space-stereo"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "mario",
+        "platformer",
+        "wii",
+        "decompilation",
+        "recompilation",
+        "stereoscopic"
+      ],
+      "description": "Super Mario Galaxy running natively on Apple Vision Pro: a visionOS app for GalaxyPad, with a flat window or a beta stereoscopic 3D window, a launcher, antialiasing and a side-by-side 3D video recorder. Bring your own disc.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/galaxyvision.md",
+      "media": {
+        "commit": "7ade570d09f703603de170a33fce1ab16b81cab9",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 62786,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "19561d2b983f1159a6d0296544d686f7db22c55d097e365445d5fc02f1bf4bf0",
+              "url": "https://raw.githubusercontent.com/palex0481/GalaxyVision-AVP/7ade570d09f703603de170a33fce1ab16b81cab9/visionos/Resources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 280038,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "4bd0eea93725dfcfdf54de9eeca1329b1e48f6be534ae7e6f0d235f2561d2bea",
+              "url": "https://raw.githubusercontent.com/palex0481/GalaxyVision-AVP/7ade570d09f703603de170a33fce1ab16b81cab9/visionos/Resources/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 60214,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "58eafb71d55ab8f9249754a38e27ae9bb04bf7c19e92554a6339261240feae67",
+              "url": "https://raw.githubusercontent.com/palex0481/GalaxyVision-AVP/7ade570d09f703603de170a33fce1ab16b81cab9/visionos/Resources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": []
+      }
     },
     {
       "id": "twilight-princess-vr",
@@ -124,10 +1004,10 @@
       },
       "repo_url": "https://github.com/edgytoast/tpvr-visionos",
       "source_ref": null,
-      "source_url": "https://github.com/edgytoast/tpvr-visionos/tree/c6b2ecb59fb05c23c96ba77a556662f5aa7050b7",
-      "install_doc_url": "https://github.com/edgytoast/tpvr-visionos/blob/c6b2ecb59fb05c23c96ba77a556662f5aa7050b7/AVP-INSTALL.md",
+      "source_url": "https://github.com/edgytoast/tpvr-visionos/tree/d26c64a224414e8af7e6c450486b41a6209617e8",
+      "install_doc_url": "https://github.com/edgytoast/tpvr-visionos/blob/d26c64a224414e8af7e6c450486b41a6209617e8/AVP-INSTALL.md",
       "developer": {
-        "name": "trevorbilt",
+        "name": "Trevorbilt",
         "github": "edgytoast",
         "url": "https://trevorbilt.com",
         "github_verified": true
@@ -177,13 +1057,13 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "c6b2ecb59fb05c23c96ba77a556662f5aa7050b7",
-      "scanned_at": "2026-10-05T00:17:00Z",
+      "scanned_commit": "d26c64a224414e8af7e6c450486b41a6209617e8",
+      "scanned_at": "2026-10-19T07:54:36Z",
       "scan_kind": "automated",
       "commits_since_scan": 0,
       "scan_state": "current",
       "archived": false,
-      "last_commit_date": "2026-10-04T18:47:59Z",
+      "last_commit_date": "2026-10-17T20:57:34Z",
       "license": {
         "kind": "open-source",
         "spdx": "CC0-1.0"
@@ -212,7 +1092,1154 @@
         "hand-tracking"
       ],
       "description": "Twilight Princess in first person on Apple Vision Pro: JoeyAW's TPVR mod on Dusklight, built natively for visionOS. Full or progressive immersion with PS VR2 Sense controllers or bare hands, or the GameCube game in a window beside your apps, with real depth. Bring your own disc.",
-      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/twilight-princess-vr.md"
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/twilight-princess-vr.md",
+      "media": {
+        "commit": "d26c64a224414e8af7e6c450486b41a6209617e8",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 39048,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "6af87336e2ee53c66bbcc0d11877937a9ca7bdfc2082aae78a1db8695bb9ec06",
+              "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 124181,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "77e2032cd45d5033eb37ba9b440e6f3dad82d82ccbd080ed64d9a9b44901d71c",
+              "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 116263,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "d6fdee278d3a65966659b93def5179629edab6a19bc0c4f5ff2a02cdb61f2fc3",
+              "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "Link at Ordon Ranch, in a window floating in a living room",
+            "bytes": 171535,
+            "format": "jpeg",
+            "height": 900,
+            "sha256": "c9d3f91f26037437afa5e31bf194467c626ba5b03e300baaa57b0b7a1b38ac46",
+            "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/docs/images/window-view.jpg",
+            "width": 1600
+          },
+          {
+            "alt": "Ordon Ranch in first person: the ranch house, goats and a rancher, with the HUD floating ahead",
+            "bytes": 269050,
+            "format": "jpeg",
+            "height": 900,
+            "sha256": "256761e065afb0cf24d1649924783648761e5f94a3726dadf9a069d8588c115d",
+            "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/docs/images/full-immersion.jpg",
+            "width": 1600
+          },
+          {
+            "alt": "The same window seen from the side: Link and the ranch house have real depth behind the glass",
+            "bytes": 184753,
+            "format": "jpeg",
+            "height": 1025,
+            "sha256": "89646502795cadf67303561fe5dcc32ab46e5209574c2c12977a4a50106c0030",
+            "url": "https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/docs/images/window-angle.jpg",
+            "width": 1600
+          }
+        ]
+      }
+    },
+    {
+      "id": "half-life-alyx",
+      "name": "Glovebox",
+      "game": {
+        "title": "Half-Life: Alyx",
+        "original_platform": "pc",
+        "original_release_year": 2020
+      },
+      "repo_url": "https://github.com/edgytoast/glovebox",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/glovebox/tree/77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09",
+      "install_doc_url": "https://github.com/edgytoast/glovebox/blob/77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "glovebox-vr",
+        "url": null,
+        "github_verified": false
+      },
+      "credits": [
+        {
+          "name": "Glovebox contributors",
+          "role": "Glovebox, the visionOS port",
+          "url": "https://github.com/glovebox-vr/glovebox"
+        },
+        {
+          "name": "Trevorbilt",
+          "role": "Install guide and AVP Ports Index listing",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "shinyquagsire23",
+          "role": "Klepton, the runtime Glovebox builds on",
+          "url": "https://github.com/shinyquagsire23/Klepton"
+        },
+        {
+          "name": "Khronos Group",
+          "role": "MoltenVK, Vulkan on Metal",
+          "url": "https://github.com/KhronosGroup/MoltenVK"
+        },
+        {
+          "name": "Valve",
+          "role": "Fossilize, ahead-of-time pipeline building",
+          "url": "https://github.com/ValveSoftware/Fossilize"
+        },
+        {
+          "name": "SDL",
+          "role": "SDL 3 and sdl2-compat",
+          "url": "https://github.com/libsdl-org/SDL"
+        },
+        {
+          "name": "LuaJIT",
+          "role": "The game's Lua scripting, with the JIT off",
+          "url": "https://github.com/LuaJIT/LuaJIT"
+        },
+        {
+          "name": "Debian",
+          "role": "arm64 runtime libraries, downloaded at install time",
+          "url": "https://www.debian.org"
+        },
+        {
+          "name": "Valve",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/glovebox-vr/glovebox",
+        "https://github.com/shinyquagsire23/Klepton"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "Runs on the headset itself; the curator installed it from scratch with this copy's guide (Steam save, controllers, frame rate fine). Known issues: close objects can look doubled as you move (45 fps shown twice), busy scenes can slow down, no left-handed or one-controller play.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09",
+      "scanned_at": "2026-10-13T07:38:00Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-10-13T06:52:59Z",
+      "license": {
+        "kind": "custom",
+        "spdx": null
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "6dof-immersive"
+      ],
+      "install": [
+        "build",
+        "sideload"
+      ],
+      "tags": [
+        "half-life",
+        "half-life-alyx",
+        "vr",
+        "6dof",
+        "first-person",
+        "source-2",
+        "klepton",
+        "steam"
+      ],
+      "description": "Half-Life: Alyx on Apple Vision Pro itself, with no PC or streaming: Klepton converts the game's ARM64 Linux build into signed visionOS code on your Mac. Install it with the Glovebox Mac app or build it from source, with your own Steam copy. Listed from a copy with an install guide and build fixes.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/half-life-alyx.md",
+      "media": {
+        "commit": "77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09",
+        "source": "readme",
+        "icon": {
+          "bytes": 106358,
+          "format": "png",
+          "height": 512,
+          "kind": "flat",
+          "sha256": "c44b7392ab9140c493c6854037311bec5252d8aacbb9bd36a16fd741eb32c128",
+          "url": "https://raw.githubusercontent.com/edgytoast/glovebox/77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09/installer/App/Glovebox/Assets.xcassets/AppIcon.appiconset/icon_256x256%402x.png",
+          "width": 512
+        },
+        "screenshots": [
+          {
+            "alt": "Glovebox",
+            "bytes": 106358,
+            "format": "png",
+            "height": 512,
+            "sha256": "c44b7392ab9140c493c6854037311bec5252d8aacbb9bd36a16fd741eb32c128",
+            "url": "https://raw.githubusercontent.com/edgytoast/glovebox/77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09/installer/App/Glovebox/Assets.xcassets/AppIcon.appiconset/icon_512x512.png",
+            "width": 512
+          }
+        ]
+      }
+    },
+    {
+      "id": "animal-crossing-vr",
+      "name": "Animal Crossing VR",
+      "game": {
+        "title": "Animal Crossing",
+        "original_platform": "gamecube",
+        "original_release_year": 2002
+      },
+      "repo_url": "https://github.com/edgytoast/animalcrossing-visionos",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/animalcrossing-visionos/tree/b5b463f8e29a51a5718db30ecb5d38ee175f0a40",
+      "install_doc_url": "https://github.com/edgytoast/animalcrossing-visionos/blob/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/AVP-INSTALL.md",
+      "developer": {
+        "name": "Trevorbilt",
+        "github": "edgytoast",
+        "url": "https://trevorbilt.com",
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "Trevorbilt",
+          "role": "visionOS port",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "LiquidAzir",
+          "role": "animal-crossing-vr, the VR mod this port is built on",
+          "url": "https://github.com/LiquidAzir/animal-crossing-vr"
+        },
+        {
+          "name": "ACreTeam",
+          "role": "Animal Crossing decompilation",
+          "url": "https://github.com/ACreTeam/ac-decomp"
+        },
+        {
+          "name": "flyngmt",
+          "role": "ACGC-PC-Port, the native PC port",
+          "url": "https://github.com/flyngmt/ACGC-PC-Port"
+        },
+        {
+          "name": "zwaetschge",
+          "role": "ACGC-Android-Port, the 64-bit base",
+          "url": "https://github.com/zwaetschge/ACGC-Android-Port"
+        },
+        {
+          "name": "iChris4",
+          "role": "WiiCompiled Vision, source of the visionOS OpenXR provider",
+          "url": "https://github.com/iChris4/Wiicompiled_VR"
+        }
+      ],
+      "upstream": [
+        "https://github.com/LiquidAzir/animal-crossing-vr",
+        "https://github.com/zwaetschge/ACGC-Android-Port",
+        "https://github.com/flyngmt/ACGC-PC-Port",
+        "https://github.com/ACreTeam/ac-decomp"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "Plays in Full and Progressive immersion with PS VR2 Sense controllers, bare hands or a gamepad, and in a 3D window with a gamepad. Played on Apple Vision Pro in the Window view; Full and Progressive tested in the visionOS Simulator.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": true,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "b5b463f8e29a51a5718db30ecb5d38ee175f0a40",
+      "scanned_at": "2026-10-10T15:55:59Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-10-10T05:22:45Z",
+      "license": {
+        "kind": "custom",
+        "spdx": null
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller",
+        "hand-tracking"
+      ],
+      "experiences": [
+        "3d-shared-space",
+        "6dof-immersive",
+        "6dof-progressive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "animal-crossing",
+        "vr",
+        "first-person",
+        "life-sim",
+        "gamecube",
+        "decompilation",
+        "hand-tracking"
+      ],
+      "description": "Animal Crossing in six degrees of freedom on Apple Vision Pro: walk your town at life size and swing the net with your own arm, or keep it in a 3D window beside your apps. A native visionOS port of LiquidAzir's VR mod. Bring your own disc.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/animal-crossing-vr.md",
+      "media": {
+        "commit": "b5b463f8e29a51a5718db30ecb5d38ee175f0a40",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 103665,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "cd106f05a2a245e9cdbc30d85ed5e9c347a4ef747a09bc265833d14440318bfb",
+              "url": "https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 62278,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "87c97c335c21810adcd7d5bb88408d0801d0b5e41c2b0cbcfcb9fc315af5c7d9",
+              "url": "https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 172170,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "c2f84baf2c48322809d2c1bf9911c014c17a4bd4ed03f69939c6d75295e6f2f9",
+              "url": "https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "The player outside their house, beside the town's notice board and mailbox, in a window floating in a living room",
+            "bytes": 202308,
+            "format": "jpeg",
+            "height": 900,
+            "sha256": "000034e745656dd6c267f89b8a58eabe03cfb9a8ccfc5357bc1929958d6a6f3f",
+            "url": "https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/docs/images/window-view.jpg",
+            "width": 1600
+          },
+          {
+            "alt": "First person in town: a house with a green roof behind a white fence, fruit trees, a paved path and a notice board, under a blue sky",
+            "bytes": 196566,
+            "format": "jpeg",
+            "height": 900,
+            "sha256": "f6a2976b30a12b6c6b33d919814e1bc664abf3074c0b8ac17ef76ea5e00f9b94",
+            "url": "https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/docs/images/full-immersion.jpg",
+            "width": 1600
+          },
+          {
+            "alt": "The same window seen from the side: the notice board and the house stand out of the town behind the glass",
+            "bytes": 189667,
+            "format": "jpeg",
+            "height": 1025,
+            "sha256": "9d7bd63197fd75a5deea92ed2830f5cc9ae769ef4b24bfd7cdba9ba17c4fd43e",
+            "url": "https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/docs/images/window-angle.jpg",
+            "width": 1600
+          }
+        ]
+      }
+    },
+    {
+      "id": "shar-visionos",
+      "name": "SHAR VR",
+      "game": {
+        "title": "The Simpsons: Hit & Run",
+        "original_platform": "pc",
+        "original_release_year": 2003
+      },
+      "repo_url": "https://github.com/edgytoast/shar-visionos",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/shar-visionos/tree/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f",
+      "install_doc_url": "https://github.com/edgytoast/shar-visionos/blob/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/AVP-INSTALL.md",
+      "developer": {
+        "name": "Trevorbilt",
+        "github": "edgytoast",
+        "url": "https://trevorbilt.com",
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "Trevorbilt",
+          "role": "visionOS port",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "Radical Entertainment",
+          "role": "Original game (2003)",
+          "url": "https://en.wikipedia.org/wiki/Radical_Entertainment"
+        },
+        {
+          "name": "Svxy",
+          "role": "The original source code, on GitHub",
+          "url": "https://github.com/Svxy/The-Simpsons-Hit-and-Run"
+        },
+        {
+          "name": "ZenoArrows",
+          "role": "Source port (Nintendo Switch, PS Vita)",
+          "url": "https://github.com/ZenoArrows/The-Simpsons-Hit-and-Run"
+        },
+        {
+          "name": "Carlox33",
+          "role": "Android port",
+          "url": "https://github.com/Carlox33/The-Simpsons-Hit-and-Run-Android"
+        },
+        {
+          "name": "kote2345",
+          "role": "VR mod (Meta Quest 3, PC VR)",
+          "url": "https://github.com/kote2345/The-Simpsons-Hit-and-Run-VR"
+        }
+      ],
+      "upstream": [
+        "https://github.com/kote2345/The-Simpsons-Hit-and-Run-VR",
+        "https://github.com/Carlox33/The-Simpsons-Hit-and-Run-Android",
+        "https://github.com/ZenoArrows/The-Simpsons-Hit-and-Run"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "Plays in the Full, Progressive and Window views, with PS VR2 Sense controllers, a gamepad or bare hands. Built and played on Apple Vision Pro.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": true,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "8c1f827f67c5c18950fc00f9f3dc58c4cf58284f",
+      "scanned_at": "2026-10-09T08:02:35Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-10-08T20:53:28Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "MIT"
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller",
+        "hand-tracking"
+      ],
+      "experiences": [
+        "3d-shared-space",
+        "6dof-immersive",
+        "6dof-progressive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "vr",
+        "6dof",
+        "driving",
+        "open-world",
+        "source-port"
+      ],
+      "description": "The Simpsons: Hit & Run in six degrees of freedom on Apple Vision Pro. Walk Springfield with a Sense controller in each hand, drive from the driver's seat, or play it as a 3D window beside your other apps. A native visionOS port of kote2345's Hit & Run VR mod.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/shar-visionos.md",
+      "media": {
+        "commit": "8c1f827f67c5c18950fc00f9f3dc58c4cf58284f",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 73017,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "bfc59e06045c8b8899e7cef6e355fa6bd729c55b4247b83e44b3d7af3a707518",
+              "url": "https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 13154,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "bb86f27582c84ad9cdf0d6c4bead67497f42401c16f9dd6291ede3edece6c866",
+              "url": "https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 255706,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "03f6d2e0a807d4e86127ea624f6c8f80b9d1995a8e392d137bef0abd613f1542",
+              "url": "https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "Homer outside 742 Evergreen Terrace, in a window floating in a living room",
+            "bytes": 171984,
+            "format": "jpeg",
+            "height": 900,
+            "sha256": "a320cc2af0dbe94cf7bd325c0c09b1934d08a8623f1d033df2963a9fd6ee7638",
+            "url": "https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/docs/images/window-view.jpg",
+            "width": 1600
+          },
+          {
+            "alt": "The same window seen from the side: the scene has real depth behind the glass",
+            "bytes": 156675,
+            "format": "jpeg",
+            "height": 1025,
+            "sha256": "9878be455e47250e07507e710fdbfba0e193ea6d05f4f4effaa045ced787f657",
+            "url": "https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/docs/images/window-angle.jpg",
+            "width": 1600
+          }
+        ]
+      }
+    },
+    {
+      "id": "pokemon-gen1recomp",
+      "name": "Gen1 Vision",
+      "game": {
+        "title": "Pokémon Red, Blue and Yellow",
+        "original_platform": "other",
+        "original_release_year": 1996
+      },
+      "repo_url": "https://github.com/edgytoast/gen1recomp",
+      "source_ref": "visionos-foveation",
+      "source_url": "https://github.com/edgytoast/gen1recomp/tree/bbe5f881c7b070233f724ba6927b82666e54568c",
+      "install_doc_url": "https://github.com/edgytoast/gen1recomp/blob/bbe5f881c7b070233f724ba6927b82666e54568c/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "myMartek",
+        "url": null,
+        "github_verified": false
+      },
+      "credits": [
+        {
+          "name": "myMartek",
+          "role": "Gen1 Vision, the visionOS port",
+          "url": "https://github.com/myMartek/gen1recomp"
+        },
+        {
+          "name": "Trevorbilt",
+          "role": "Install guide and AVP Ports Index listing",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "bryanthaboi",
+          "role": "Gen1Recomp, the LÖVE recreation this visionOS build is a fork of",
+          "url": "https://github.com/bryanthaboi/gen1recomp"
+        },
+        {
+          "name": "pret",
+          "role": "pokered disassembly, credited in the README",
+          "url": "https://github.com/pret/pokered"
+        },
+        {
+          "name": "LÖVE",
+          "role": "Game framework",
+          "url": "https://github.com/love2d/love"
+        },
+        {
+          "name": "Game Freak / Nintendo",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/myMartek/gen1recomp",
+        "https://github.com/bryanthaboi/gen1recomp",
+        "https://github.com/pret/pokered"
+      ],
+      "self_reported_status": "partially-working",
+      "status_notes": "The game shows on a world-locked panel in an immersive space and is played with a game controller. The visionOS README records Simulator verification.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "partially-working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "bbe5f881c7b070233f724ba6927b82666e54568c",
+      "scanned_at": "2026-11-13T22:49:54Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-13T22:42:26Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "MIT"
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "rpg",
+        "pokemon",
+        "game-boy",
+        "love2d",
+        "lua",
+        "recreation"
+      ],
+      "description": "Gen 1 Pokémon on Apple Vision Pro: a visionOS build of Gen1Recomp, the hand-written Lua and LÖVE recreation that decodes its data from your cartridge, on a panel in an immersive space. Bring your own US Red, Blue or Yellow ROM. Listed from a copy with an install guide.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/pokemon-gen1recomp.md",
+      "media": {
+        "commit": "bbe5f881c7b070233f724ba6927b82666e54568c",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 1054272,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "2ccab73fc0ccfb9443fdfc3f3c3f40020f78894156b19aeacfbff56e103a14ba",
+              "url": "https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/mobile/visionos/resources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/background.png",
+              "width": 1024
+            },
+            {
+              "bytes": 461494,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "69f7672296bf2457679d8a537b3f7879410aa9cec4f919c97ac7f540d14a0487",
+              "url": "https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/mobile/visionos/resources/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 340413,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "175f5c60fc790376143591d88a95193a1509ea09937b7d4d844e25678404ad78",
+              "url": "https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/mobile/visionos/resources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/foreground.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "Add to SideStore",
+            "bytes": 747487,
+            "format": "png",
+            "height": 512,
+            "sha256": "2e5ae0c072dba32013d223c64ca1300b26347b8976523ab8376ffd21da656a7d",
+            "url": "https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/.github/resources/sidestore-badge.png",
+            "width": 1418
+          },
+          {
+            "alt": "Add to Feather",
+            "bytes": 595455,
+            "format": "png",
+            "height": 512,
+            "sha256": "1106f8fd4a4414a97baf9114e1d0014713f958cef34f98ec34f72a7b4c2ad387",
+            "url": "https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/.github/resources/feather-badge.png",
+            "width": 1253
+          },
+          {
+            "alt": "Add to AltStore",
+            "bytes": 640748,
+            "format": "png",
+            "height": 512,
+            "sha256": "465d80df2afae0ccf7d500440c3fbfb0ccb398ea22c615880bc0a5a6fe04fb11",
+            "url": "https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/.github/resources/altstore-badge.png",
+            "width": 1299
+          }
+        ]
+      }
+    },
+    {
+      "id": "dark-eco",
+      "name": "Dark Eco",
+      "game": {
+        "title": "Jak and Daxter",
+        "original_platform": null,
+        "original_release_year": null
+      },
+      "repo_url": "https://github.com/zschwendi/dark-eco",
+      "source_ref": "v2.0",
+      "source_url": "https://github.com/zschwendi/dark-eco/tree/6e28cce750406037c4a325ce7fc18c377b575e97",
+      "install_doc_url": "https://github.com/zschwendi/dark-eco/blob/6e28cce750406037c4a325ce7fc18c377b575e97/AVP-INSTALL.md",
+      "developer": {
+        "name": "Zach Schwendiman",
+        "github": "zschwendi",
+        "url": null,
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "OpenGOAL",
+          "role": "GOAL language tools, reconstructed game code and runtime",
+          "url": "https://github.com/open-goal/jak-project"
+        },
+        {
+          "name": "jak-pad",
+          "role": "Pinned Apple-platform OpenGOAL engine fork",
+          "url": "https://github.com/zschwendi/jak-pad"
+        }
+      ],
+      "upstream": [
+        "https://github.com/open-goal/jak-project",
+        "https://github.com/zschwendi/jak-pad"
+      ],
+      "self_reported_status": "partially-working",
+      "status_notes": "Windowed Jak and Daxter is stable per the developer. This public v2.0 source exposes 2D Comfort mode. The separate experimental immersive build has remaining bugs and is not included in this entry.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "partially-working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "6e28cce750406037c4a325ce7fc18c377b575e97",
+      "scanned_at": "2026-11-02T07:32:53Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-02T03:07:20Z",
+      "license": {
+        "kind": "none",
+        "spdx": null
+      },
+      "visionos_min": "26.5",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d"
+      ],
+      "install": [
+        "build",
+        "sideload"
+      ],
+      "tags": [],
+      "description": "Native Apple OpenGOAL port with a Dark Eco launcher, on-device import of user-supplied Jak and Daxter data, Metal graphics and controller support. This entry covers the public windowed Vision Pro build.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/dark-eco.md",
+      "media": {
+        "commit": "6e28cce750406037c4a325ce7fc18c377b575e97",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 1486282,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "cc602a0aefc0506d3010c4b3dd73592caa1f2da96f9e440c9294fc568d6da192",
+              "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/6e28cce750406037c4a325ce7fc18c377b575e97/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-1024.png",
+              "width": 1024
+            },
+            {
+              "bytes": 448,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "1f737c51df0aa9ef372f6b4343f91b797b6ddae5058b858f4f30f34e73b81224",
+              "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/6e28cce750406037c4a325ce7fc18c377b575e97/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-front-transparent-1024.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "Jak 1 immersive gameplay recorded by Zach on Apple Vision Pro",
+            "bytes": 3382412,
+            "format": "gif",
+            "height": 360,
+            "sha256": "95ed31e3215c1af7f28359dc2d893799fa9294a1ba3942747bedba98d1d8e68e",
+            "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/6e28cce750406037c4a325ce7fc18c377b575e97/docs/media/dark-eco-vision-pro.gif",
+            "width": 640
+          }
+        ]
+      }
+    },
+    {
+      "id": "santosvision",
+      "name": "V",
+      "game": {
+        "title": "Grand Theft Auto V",
+        "original_platform": null,
+        "original_release_year": null
+      },
+      "repo_url": "https://github.com/zschwendi/SantosVision",
+      "source_ref": null,
+      "source_url": "https://github.com/zschwendi/SantosVision/tree/941b9b27bc99a42f32d8a08db7ffb7b7ec728fe5",
+      "install_doc_url": "https://github.com/zschwendi/SantosVision/blob/941b9b27bc99a42f32d8a08db7ffb7b7ec728fe5/AVP-INSTALL.md",
+      "developer": {
+        "name": "Zach Schwendiman",
+        "github": "zschwendi",
+        "url": null,
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "Muguet",
+          "role": "Native WASM runtime foundation",
+          "url": "https://github.com/c22dev/muguet"
+        }
+      ],
+      "upstream": [
+        "https://github.com/c22dev/muguet"
+      ],
+      "self_reported_status": "partially-working",
+      "status_notes": "Windowed play is stable per the developer. Experimental third-person immersion has remaining image-quality, depth-edge, flicker and performance bugs.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "partially-working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "941b9b27bc99a42f32d8a08db7ffb7b7ec728fe5",
+      "scanned_at": "2026-11-02T07:20:22Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-01T10:23:24Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "GPL-3.0"
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d",
+        "6dof-immersive"
+      ],
+      "install": [
+        "build",
+        "sideload"
+      ],
+      "tags": [],
+      "description": "Native Apple-platform GTA V port built on Muguet, with local ahead-of-time compiled game code, a game window and experimental head-tracked third-person immersion.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/santosvision.md",
+      "media": {
+        "commit": "941b9b27bc99a42f32d8a08db7ffb7b7ec728fe5",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 1151878,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "cde5a2a4bd62439c9ae894c6de6685ff703c3140cc038dc0a567f0eda0caa51a",
+              "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/941b9b27bc99a42f32d8a08db7ffb7b7ec728fe5/visionos/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/santos-five-palms.png",
+              "width": 1024
+            },
+            {
+              "bytes": 4144,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "f12ddfea20dcca2fa350d75d5ed2ae76a4fffbcdfd2b8f2357558b90072dab9f",
+              "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/941b9b27bc99a42f32d8a08db7ffb7b7ec728fe5/visionos/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/transparent.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "V — green Vision Pro front glass reflecting a Los Santos sunset",
+            "bytes": 1682283,
+            "format": "png",
+            "height": 1254,
+            "sha256": "a956c9a70dfd1a57c864341d1cb179f56f39e49af16059adc906c27411c160ee",
+            "url": "https://raw.githubusercontent.com/zschwendi/SantosVision/941b9b27bc99a42f32d8a08db7ffb7b7ec728fe5/assets/branding/spatial-v-front-glass-master-v28.png",
+            "width": 1254
+          }
+        ]
+      }
+    },
+    {
+      "id": "avp-craft",
+      "name": "AVPcraft",
+      "game": {
+        "title": "Minecraft: Java Edition",
+        "original_platform": null,
+        "original_release_year": null
+      },
+      "repo_url": "https://github.com/zschwendi/avp-craft",
+      "source_ref": null,
+      "source_url": "https://github.com/zschwendi/avp-craft/tree/f2e37d355aa472b360bf88f355c8214f40ab5434",
+      "install_doc_url": "https://github.com/zschwendi/avp-craft/blob/f2e37d355aa472b360bf88f355c8214f40ab5434/AVP-INSTALL.md",
+      "developer": {
+        "name": "Zach Schwendiman",
+        "github": "zschwendi",
+        "url": null,
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "vivecraft-visionos",
+          "role": "Vision Pro port foundation",
+          "url": "https://github.com/rebelancap/vivecraft-visionos"
+        },
+        {
+          "name": "Vivecraft",
+          "role": "Minecraft VR integration",
+          "url": "https://github.com/Vivecraft/VivecraftMod"
+        },
+        {
+          "name": "Klepton",
+          "role": "Ahead-of-time Java runtime",
+          "url": "https://github.com/shinyquagsire23/Klepton"
+        }
+      ],
+      "upstream": [
+        "https://github.com/rebelancap/vivecraft-visionos",
+        "https://github.com/Vivecraft/VivecraftMod",
+        "https://github.com/shinyquagsire23/Klepton"
+      ],
+      "self_reported_status": "partially-working",
+      "status_notes": "Windowed play needs further testing; immersive mode has remaining bugs. The complete build has not yet been repeated from a clean public checkout. See the install guide for known limits.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "partially-working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "f2e37d355aa472b360bf88f355c8214f40ab5434",
+      "scanned_at": "2026-11-02T07:02:36Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-01T09:22:39Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "MIT"
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d",
+        "6dof-immersive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [],
+      "description": "Minecraft: Java Edition 26.2 compiled ahead of time for Vision Pro, with an AVPcraft launcher, windowed play, Vivecraft immersion and PSVR2 Sense input.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/avp-craft.md",
+      "media": {
+        "commit": "f2e37d355aa472b360bf88f355c8214f40ab5434",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 1122893,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "b11a70223839639427d586b1305e31dafe14a8173fa87706fa3993ecdf20ea50",
+              "url": "https://raw.githubusercontent.com/zschwendi/avp-craft/f2e37d355aa472b360bf88f355c8214f40ab5434/visionos/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 4144,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "265149d454822c2c808720c61f5a4317c0bfda56fc96598ea7b19b6ea52c5dd1",
+              "url": "https://raw.githubusercontent.com/zschwendi/avp-craft/f2e37d355aa472b360bf88f355c8214f40ab5434/visionos/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": []
+      }
+    },
+    {
+      "id": "117-vision",
+      "name": "117",
+      "game": {
+        "title": "Halo: Combat Evolved",
+        "original_platform": null,
+        "original_release_year": null
+      },
+      "repo_url": "https://github.com/zschwendi/117-vision",
+      "source_ref": null,
+      "source_url": "https://github.com/zschwendi/117-vision/tree/ab3dad0f33c6175f391ed5ed27556a8706832b62",
+      "install_doc_url": "https://github.com/zschwendi/117-vision/blob/ab3dad0f33c6175f391ed5ed27556a8706832b62/AVP-INSTALL.md",
+      "developer": {
+        "name": "Zach Schwendiman",
+        "github": "zschwendi",
+        "url": null,
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "Master Chef",
+          "role": "Executable translation, native runtime, Metal renderer and visionOS port",
+          "url": "https://github.com/mitchaiet/master-chef"
+        }
+      ],
+      "upstream": [
+        "https://github.com/mitchaiet/master-chef"
+      ],
+      "self_reported_status": "partially-working",
+      "status_notes": "Windowed play is stable per the developer. Immersive mode has remaining bugs; tracked input targets on-foot campaign play. Vehicles and turrets use conventional controls.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "partially-working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "ab3dad0f33c6175f391ed5ed27556a8706832b62",
+      "scanned_at": "2026-10-30T08:19:26Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-10-30T05:17:18Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "MIT"
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d",
+        "6dof-immersive"
+      ],
+      "install": [
+        "build",
+        "sideload"
+      ],
+      "tags": [],
+      "description": "Native Halo: Combat Evolved port based on Master Chef, with windowed and immersive Vision Pro play, PSVR2 Sense tracked aiming and optional iCloud save sync.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/117-vision.md",
+      "media": {
+        "commit": "ab3dad0f33c6175f391ed5ed27556a8706832b62",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 1139365,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "1f62a7f9210cdfc751d4700f63f9124e9f554796e92aefd1e20fee2261ea99d8",
+              "url": "https://raw.githubusercontent.com/zschwendi/117-vision/ab3dad0f33c6175f391ed5ed27556a8706832b62/native/EngineVision/Resources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/117-plasma-background.png",
+              "width": 1024
+            },
+            {
+              "bytes": 4144,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "f12ddfea20dcca2fa350d75d5ed2ae76a4fffbcdfd2b8f2357558b90072dab9f",
+              "url": "https://raw.githubusercontent.com/zschwendi/117-vision/ab3dad0f33c6175f391ed5ed27556a8706832b62/native/EngineVision/Resources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/117-plasma-foreground.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "Halo gameplay on Vision Pro with a visible hand and PSVR2 Sense controller aiming the assault rifle",
+            "bytes": 722664,
+            "format": "png",
+            "height": 720,
+            "sha256": "0667a42b8c750001c83a0d0d738f14097de6495440ef83be5fc3c6e87fef06d9",
+            "url": "https://raw.githubusercontent.com/zschwendi/117-vision/ab3dad0f33c6175f391ed5ed27556a8706832b62/docs/assets/117-sense-rifle-combat.png",
+            "width": 1280
+          },
+          {
+            "alt": "A visible PSVR2 Sense controller beneath the sniper scope during gameplay",
+            "bytes": 351795,
+            "format": "png",
+            "height": 720,
+            "sha256": "3f226f1c2d551b6176bfecc5bc6ad182c2ca85f5a4688449d687a6c74e4dd114",
+            "url": "https://raw.githubusercontent.com/zschwendi/117-vision/ab3dad0f33c6175f391ed5ed27556a8706832b62/docs/assets/117-sense-sniper-scope.png",
+            "width": 1280
+          },
+          {
+            "alt": "A visible hand and PSVR2 Sense controller during a grenade throwing gesture",
+            "bytes": 498958,
+            "format": "png",
+            "height": 720,
+            "sha256": "412cfb28c1a0a09130dc87fce0203315f06b1465313e0e23daadd9bda1804ce8",
+            "url": "https://raw.githubusercontent.com/zschwendi/117-vision/ab3dad0f33c6175f391ed5ed27556a8706832b62/docs/assets/117-sense-grenade-throw.png",
+            "width": 1280
+          }
+        ]
+      }
     }
   ],
   "unavailable": [],

@@ -1,3 +1,336 @@
+117-vision:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: false
+  decay_reset_at: '2026-10-29T07:06:17Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: true
+  health: ok
+  last_checked: '2026-11-13T06:28:54Z'
+  last_commit_date: '2026-10-30T05:17:18Z'
+  license:
+    kind: open-source
+    spdx: MIT
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes:
+  - S1-11d
+  scan_confidence: 100
+  scan_declines: 0
+  scan_kind: automated
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-10-30T08:19:26Z'
+  scanned_commit: ab3dad0f33c6175f391ed5ed27556a8706832b62
+  warnings: []
+animal-crossing-vr:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: true
+  decay_reset_at: '2026-10-10T15:56:01Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: true
+  health: ok
+  last_checked: '2026-11-13T06:28:54Z'
+  last_commit_date: '2026-10-10T05:22:45Z'
+  license:
+    kind: custom
+    spdx: null
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes: []
+  scan_confidence: 95
+  scan_kind: automated
+  scan_state: current
+  scanned_at: '2026-10-10T15:55:59Z'
+  scanned_commit: b5b463f8e29a51a5718db30ecb5d38ee175f0a40
+  warnings: []
+avp-craft:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: false
+  decay_reset_at: '2026-10-29T05:20:24Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: true
+  health: ok
+  last_checked: '2026-11-13T06:28:54Z'
+  last_commit_date: '2026-11-01T09:22:39Z'
+  license:
+    kind: open-source
+    spdx: MIT
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes: []
+  scan_confidence: 95
+  scan_declines: 0
+  scan_kind: automated
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-11-02T07:02:36Z'
+  scanned_commit: f2e37d355aa472b360bf88f355c8214f40ab5434
+  warnings: []
+dark-eco:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: false
+  decay_reset_at: '2026-10-29T06:48:19Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: true
+  health: ok
+  last_checked: '2026-11-13T06:28:54Z'
+  last_commit_date: '2026-11-02T03:07:20Z'
+  license:
+    kind: none
+    spdx: null
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes:
+  - S1-11d
+  scan_confidence: 100
+  scan_declines: 0
+  scan_kind: automated
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-11-02T07:32:53Z'
+  scanned_commit: 6e28cce750406037c4a325ce7fc18c377b575e97
+  warnings: []
+galaxyvision:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: false
+  decay_reset_at: '2026-10-30T16:05:41Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: true
+  health: ok
+  last_checked: '2026-11-13T06:28:54Z'
+  last_commit_date: '2026-10-26T06:55:06Z'
+  license:
+    kind: open-source
+    spdx: GPL-3.0
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes: []
+  scan_confidence: 100
+  scan_declines: 0
+  scan_kind: automated
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-10-30T16:05:41Z'
+  scanned_commit: 7ade570d09f703603de170a33fce1ab16b81cab9
+  warnings: []
+half-life-alyx:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: false
+  decay_reset_at: '2026-10-12T03:39:01Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: false
+  health: ok
+  last_checked: '2026-11-13T06:28:54Z'
+  last_commit_date: '2026-10-13T06:52:59Z'
+  license:
+    kind: custom
+    spdx: null
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes: []
+  scan_confidence: 95
+  scan_declines: 0
+  scan_kind: automated
+  scan_state: current
+  scanned_at: '2026-10-13T07:38:00Z'
+  scanned_commit: 77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09
+  warnings: []
+half-life-vr:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: false
+  decay_reset_at: '2026-10-09T17:02:19Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: true
+  health: ok
+  last_checked: '2026-11-13T06:28:54Z'
+  last_commit_date: '2026-11-02T14:51:47Z'
+  license:
+    kind: open-source
+    spdx: GPL-3.0
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes:
+  - S1-11d
+  scan_confidence: null
+  scan_declines: 0
+  scan_kind: curator-reviewed
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-11-13T19:52:40Z'
+  scanned_commit: d7555089b164ac6004cc02111ef2b122321dc11f
+  warnings: []
+luigis-mansion-vr:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: true
+  decay_reset_at: '2026-10-31T01:08:02Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: true
+  health: ok
+  last_checked: '2026-11-13T06:28:54Z'
+  last_commit_date: '2026-11-02T21:37:42Z'
+  license:
+    kind: none
+    spdx: null
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes: []
+  scan_confidence: 100
+  scan_declines: 0
+  scan_kind: automated
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-11-03T06:43:22Z'
+  scanned_commit: c238bbc386b1a4433d31d9f016234492016c415a
+  warnings:
+  - S1-10
+pokemon-gen1recomp:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: false
+  decay_reset_at: '2026-11-13T22:49:54Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: false
+  health: ok
+  last_checked: null
+  last_commit_date: '2026-11-13T22:42:26Z'
+  license:
+    kind: open-source
+    spdx: MIT
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes: []
+  scan_confidence: 95
+  scan_declines: 0
+  scan_kind: automated
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-11-13T22:49:54Z'
+  scanned_commit: bbe5f881c7b070233f724ba6927b82666e54568c
+  warnings: []
+revc-visionos:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: false
+  decay_reset_at: '2026-11-02T22:41:26Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: true
+  health: ok
+  last_checked: '2026-11-13T06:28:54Z'
+  last_commit_date: '2026-10-31T14:17:15Z'
+  license:
+    kind: custom
+    spdx: null
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes:
+  - S1-11d
+  scan_confidence: 100
+  scan_declines: 0
+  scan_kind: automated
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-11-02T22:41:25Z'
+  scanned_commit: c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c
+  warnings: []
+santosvision:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: false
+  decay_reset_at: '2026-10-29T05:06:28Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: true
+  health: ok
+  last_checked: '2026-11-13T06:28:54Z'
+  last_commit_date: '2026-11-01T10:23:24Z'
+  license:
+    kind: open-source
+    spdx: GPL-3.0
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes:
+  - S1-11d
+  scan_confidence: 100
+  scan_declines: 0
+  scan_kind: automated
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-11-02T07:20:22Z'
+  scanned_commit: 941b9b27bc99a42f32d8a08db7ffb7b7ec728fe5
+  warnings: []
 shar-visionos:
   archived: false
   commits_since_scan: 0
@@ -9,8 +342,8 @@ shar-visionos:
   flagged_commit: null
   github_verified: true
   health: ok
-  last_checked: '2026-10-05T07:03:55Z'
-  last_commit_date: '2026-10-04T18:49:32Z'
+  last_checked: '2026-11-13T06:28:54Z'
+  last_commit_date: '2026-10-08T20:53:28Z'
   license:
     kind: open-source
     spdx: MIT
@@ -22,8 +355,38 @@ shar-visionos:
   scan_confidence: 100
   scan_kind: automated
   scan_state: current
-  scanned_at: '2026-10-05T00:31:42Z'
-  scanned_commit: 218b0cd2baa279d32fb6418ef19fb52c466e71e7
+  scanned_at: '2026-10-09T08:02:35Z'
+  scanned_commit: 8c1f827f67c5c18950fc00f9f3dc58c4cf58284f
+  warnings: []
+starship:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: false
+  decay_reset_at: '2026-11-13T22:54:24Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: false
+  health: ok
+  last_checked: null
+  last_commit_date: '2026-11-13T22:49:52Z'
+  license:
+    kind: open-source
+    spdx: MIT
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes: []
+  scan_confidence: 96
+  scan_declines: 0
+  scan_kind: automated
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-11-13T22:54:24Z'
+  scanned_commit: 5de019c0b16e68ba3ad6a62413b0ca9953285658
   warnings: []
 twilight-princess-vr:
   archived: false
@@ -34,10 +397,11 @@ twilight-princess-vr:
   failing_since: null
   failures: []
   flagged_commit: null
+  flagged_files: []
   github_verified: true
   health: ok
-  last_checked: '2026-10-05T07:03:55Z'
-  last_commit_date: '2026-10-04T18:47:59Z'
+  last_checked: '2026-11-13T06:28:54Z'
+  last_commit_date: '2026-10-17T20:57:34Z'
   license:
     kind: open-source
     spdx: CC0-1.0
@@ -46,9 +410,72 @@ twilight-princess-vr:
   rescan_after: null
   rescan_hold: false
   routes: []
-  scan_confidence: 100
+  scan_confidence: 95
+  scan_declines: 0
   scan_kind: automated
   scan_state: current
-  scanned_at: '2026-10-05T00:17:00Z'
-  scanned_commit: c6b2ecb59fb05c23c96ba77a556662f5aa7050b7
+  scanned_at: '2026-10-19T07:54:36Z'
+  scanned_commit: d26c64a224414e8af7e6c450486b41a6209617e8
+  warnings: []
+visr:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: false
+  decay_reset_at: '2026-11-13T19:53:01Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: false
+  health: ok
+  last_checked: '2026-11-03T06:29:40Z'
+  last_commit_date: '2026-11-13T19:02:10Z'
+  license:
+    kind: open-source
+    spdx: Apache-2.0
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes:
+  - S1-11c
+  - S1-11d
+  scan_confidence: 95
+  scan_declines: 0
+  scan_kind: automated
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-11-13T21:10:44Z'
+  scanned_commit: 9687cf8b540f36e8e81938148e86264ee44bc924
+  warnings: []
+wind-waker-vr:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: true
+  decay_reset_at: '2026-10-29T22:30:59Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: true
+  health: ok
+  last_checked: '2026-11-13T06:28:54Z'
+  last_commit_date: '2026-10-29T22:08:53Z'
+  license:
+    kind: open-source
+    spdx: MIT
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes: []
+  scan_confidence: 95
+  scan_declines: 0
+  scan_kind: automated
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-10-29T22:30:59Z'
+  scanned_commit: a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c
   warnings: []
