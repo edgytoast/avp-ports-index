@@ -12,7 +12,7 @@ import yaml
 from conftest import REPO_ROOT, SHA, git
 from test_stage2 import RID, Clock, FakeJules, message_activity, verdict
 
-from avpindex import cli, jules, store, validate
+from avpindex import antigravity, cli, jules, store, validate
 
 THRESHOLD = 80
 
@@ -174,7 +174,7 @@ def calibrate_env(root, tmp_path_factory, monkeypatch):
     monkeypatch.setenv("INPUT_LINKED_REPO", "edgytoast/twilight-princess-vr")
     monkeypatch.setenv("INPUT_LINKED_COMMIT", SHA(42))
     monkeypatch.setenv("INPUT_LABEL", "tpvr-candidate-1")
-    monkeypatch.setenv("JULES_API_KEY", "k")
+    monkeypatch.setenv("GEMINI_API_KEY", "k")
     monkeypatch.delenv("GH_TOKEN", raising=False)
     monkeypatch.setattr(cli, "_runtime", lambda *a, **k: pytest.fail("calibration must not touch GitHub"))
     finding = {"severity": "low", "file": "scripts/fetch.sh", "line": 3, "category": "download",
@@ -185,10 +185,12 @@ def calibrate_env(root, tmp_path_factory, monkeypatch):
         clients.append(FakeJules(["COMPLETED"], message_activity(verdict(92, findings=[finding]))))
         return clients[-1]
 
+    # The CLI's plumbing is the same whichever agent reviews: drive it with the Jules fakes through
+    # jules.review. antigravity.review itself is tested in test_antigravity.py.
     real = jules.review
     clock = Clock()
-    monkeypatch.setattr(jules, "Jules", make_client)
-    monkeypatch.setattr(jules, "review", lambda client, url, sha, policy, **kw: real(
+    monkeypatch.setattr(antigravity, "Antigravity", make_client)
+    monkeypatch.setattr(antigravity, "review", lambda client, url, sha, policy, **kw: real(
         client, url, sha, policy, sleep=clock.sleep, clock=clock, make_id=lambda: RID, **kw))
     return out, clients
 
@@ -216,7 +218,7 @@ def test_calibrate_stdout_carries_no_workflow_commands(root, calibrate_env, monk
     out, clients = calibrate_env
     nasty = "fine\n::add-mask::ghs_secret\n::warning file=x::spoofed\n  ::stop-commands::t"
     finding = {"severity": "low", "file": "a\n::error::x", "category": "c", "explanation": nasty}
-    monkeypatch.setattr(jules, "Jules", lambda key: clients.append(FakeJules(["COMPLETED"], message_activity(
+    monkeypatch.setattr(antigravity, "Antigravity", lambda key: clients.append(FakeJules(["COMPLETED"], message_activity(
         {**verdict(90, findings=[finding]), "summary": nasty}))) or clients[-1])
     assert cli.main(["calibrate", "--prompt", "candidate", "--out", str(out / "out")]) == 0
     printed = capsys.readouterr().out
@@ -237,7 +239,7 @@ def test_runtime_summary_prints_one_line(capsys):
 def test_calibrate_live_and_declined(root, calibrate_env, monkeypatch):
     out, clients = calibrate_env
     from test_stage2 import REFUSAL, said
-    monkeypatch.setattr(jules, "Jules", lambda key: clients.append(
+    monkeypatch.setattr(antigravity, "Antigravity", lambda key: clients.append(
         FakeJules(["COMPLETED", "IN_PROGRESS", "COMPLETED"], said(REFUSAL))) or clients[-1])
     assert cli.main(["calibrate", "--prompt", "live", "--out", str(out / "out")]) == 0
     assert clients[-1].prompt == jules.render_prompt("https://github.com/edgytoast/twilight-princess-vr", SHA(42),
@@ -246,7 +248,7 @@ def test_calibrate_live_and_declined(root, calibrate_env, monkeypatch):
     assert data["result"] == "declined" and data["calibration"]["prompt"] == "live"
     summary = (out / "summary.md").read_text()
     assert "**Result:** declined" in summary and "follow-ups: restate" in summary
-    assert "Jules declined to review this repository" in summary and f"```text\n{REFUSAL}\n```" in summary
+    assert "Gemini declined to review this repository" in summary and f"```text\n{REFUSAL}\n```" in summary
     assert git(root, "status", "--porcelain").strip() == ""
 
 
@@ -309,11 +311,11 @@ def test_scan_summary_escapes_a_decline(tmp_path, monkeypatch, capsys):
     summary = tmp_path / "summary.md"
     monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(summary))
     for name, value in (("INPUT_LINKED_REPO", "a/b"), ("INPUT_LINKED_COMMIT", SHA(1)), ("INPUT_MODE", "rescan"),
-                        ("INPUT_ENTRY_ID", "good"), ("JULES_API_KEY", "k")):
+                        ("INPUT_ENTRY_ID", "good"), ("GEMINI_API_KEY", "k")):
         monkeypatch.setenv(name, value)
     monkeypatch.delenv("INPUT_PR", raising=False)
-    monkeypatch.setattr(jules, "Jules", lambda key: None)
-    monkeypatch.setattr(jules, "review", lambda *a, **k: jules.Outcome(
+    monkeypatch.setattr(antigravity, "Antigravity", lambda key: None)
+    monkeypatch.setattr(antigravity, "review", lambda *a, **k: jules.Outcome(
         "declined", reason="I refuse. @victim ![beacon](https://evil.example/x.png)\n::add-mask::x\n::error::spoof",
         session_url="u\n::warning::spoof", states=["COMPLETED\n::notice::x"]))
     assert cli.main(["scan", "--out", str(tmp_path / "out")]) == 0

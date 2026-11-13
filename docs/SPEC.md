@@ -463,6 +463,8 @@ Notes:
 
 ### 6.2 Stage 2: Jules safety check (`stage2-scan.yml`; throttled; pre-merge)
 
+> **Reviewer changed on 2026-11-13.** Google turned Jules read-only on 2026-11-11 and shuts it down on 2026-12-31. Stage 2 now runs on the Gemini API's managed Antigravity agent (`tools/avpindex/antigravity.py`, secret `GEMINI_API_KEY`, free tier): a background interaction in a Google-hosted sandbox that clones the repo itself, with the same public prompt, schema, review id and pass rule. It has no follow-up messages: a run that ends without a valid verdict is `error`, a refusal in its output is `declined`, and a quota refusal at any point is `deferred`. Free-tier limits seen in AI Studio: 60 requests a minute, 100,000 tokens a minute and 100 requests a day; how many requests one review uses is still being measured. Where this section says Jules, read the agent; the Jules-only steps (nudges, restatements, plan approval) no longer apply.
+
 **Purpose and limits.** Stage 2 is best-effort diligence, not a guarantee. Its job is to keep egregious things out (malware, credential theft, backdoors, privacy-invading code) without anyone reading every port by hand. It is done by Google's Jules agent, under the owner's Google AI plan, so it costs nothing beyond that subscription.
 
 **Where the risk is.** The highest-risk surface is the user's Mac: building a port runs its build scripts there, unsandboxed, with the user's permissions. The visionOS app itself runs sandboxed on the headset. The review prompt tells Jules to give build-time code the closest attention.

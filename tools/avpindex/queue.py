@@ -147,7 +147,7 @@ def _pause_reason(rt, recent: list[dict]) -> str:
             target = parse_run_name(run.get("display_title") or run.get("name"))
             declined.add(" ".join(target) if target else f"run {run.get('id')}")
     if len(declined) >= DECLINE_PAUSE and not reviewed:
-        return (f"Jules declined scans of {len(declined)} different PRs or entries in the last hour, and none "
+        return (f"Gemini declined scans of {len(declined)} different PRs or entries in the last hour, and none "
                 "passed or flagged")
     return ""
 
@@ -261,12 +261,12 @@ def dispatch(rt) -> list[str]:
                 why = "scan limit reached"
             elif bot_state.get("decline_signal") == "no work":
                 title, summary = NO_VERDICT_TITLE, (
-                    f"Jules finished without a verdict on this PR's repository {declines} times in a row (it may "
+                    f"Gemini finished without a verdict on this PR's repository {declines} times in a row (it may "
                     "have declined, or not printed its verdict), so the curator will look at it by hand. New "
                     "pushes don't send it back.")
                 why = "decline limit reached"
             else:
-                title, summary = DECLINED, (f"Jules declined to review this PR's repository {declines} times, so "
+                title, summary = DECLINED, (f"Gemini declined to review this PR's repository {declines} times, so "
                                             "the curator will look at it by hand. New pushes don't send it back.")
                 why = "decline limit reached"
             rt.gh.create_check(head, STAGE2, conclusion="failure", title=title, summary=summary)

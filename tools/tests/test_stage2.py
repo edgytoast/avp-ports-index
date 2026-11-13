@@ -653,7 +653,7 @@ class TestReport:
             self.rescan_again(rt, gh)
         assert report.run(rt, scan_inputs(), DECLINED) == ("declined", [])
         check = gh.latest(SHA(70), STAGE2)
-        assert check["conclusion"] == "failure" and check["output"]["title"] == "Jules declined to review; waiting for the curator"
+        assert check["conclusion"] == "failure" and check["output"]["title"] == "Gemini declined to review; waiting for the curator"
         summary = check["output"]["summary"]
         assert "```text\nSorry, I cannot fulfill your request. @victim [x](https://evil)\n```" in summary
         assert "jules.google.com" not in summary  # the session link goes only to the owner (§6.3)
@@ -681,9 +681,9 @@ class TestReport:
             report.run(rt, scan_inputs(), no_work)
             self.rescan_again(rt, gh)
         check = gh.latest(SHA(70), STAGE2)
-        assert check["output"]["title"] == "No verdict from Jules; waiting for the curator"
+        assert check["output"]["title"] == "No verdict from Gemini; waiting for the curator"
         summary = check["output"]["summary"]
-        assert summary.startswith("**Jules finished without a verdict** and without showing any work on the repository")
+        assert summary.startswith("**Gemini finished without a verdict** and without showing any work on the repository")
         assert "declined to review" not in summary
         assert messages.read_state({"body": gh.bot_comment(7)})["decline_signal"] == "no work"
         # Pushed and requeued: the dispatcher holds it, in the same words.
@@ -692,7 +692,7 @@ class TestReport:
         gh.add_labels(7, ["stage2:queued"])
         queue.dispatch(rt)
         held = gh.latest(SHA(70), STAGE2)
-        assert held["output"]["title"] == "No verdict from Jules; waiting for the curator"
+        assert held["output"]["title"] == "No verdict from Gemini; waiting for the curator"
         assert "finished without a verdict" in held["output"]["summary"] and gh.dispatched == []
 
     def test_owner_scan_declines_are_bounded(self, rt, gh):
@@ -779,7 +779,7 @@ class TestRescan:
             assert not health["rescan_hold"] and not blocklist.is_flagged(state, SALT, 11)
         issue, comments = self.triage(gh)
         first = issue["body"]
-        assert first.startswith("**Jules declined to review** the new commit of `good`")
+        assert first.startswith("**Gemini declined to review** the new commit of `good`")
         assert "try again after 2026-10-03T14:00:00Z" in first and "nothing to do" in first
         assert "```text\nSorry, I cannot fulfill your request.\n```" in first
         assert "https://jules.google.com/session/1" in first
@@ -796,15 +796,15 @@ class TestRescan:
 
     def test_no_work_is_worded_as_no_verdict(self, rt, gh):
         """A decline on the no-work signal may be a review that never printed its verdict, so the triage note says
-        Jules finished without a verdict, not that it declined; the retry timing is the same."""
+        Gemini finished without a verdict, not that it declined; the retry timing is the same."""
         self.setup_entry(rt, gh)
         inputs = scan_inputs(mode="rescan", base_commit=SHA(5), counted=False)
         report.run(rt, inputs, {"result": "declined", "reason": "All done!", "session_url": "u", "signal": "no work"})
         issue, _ = self.triage(gh)
         body = issue["body"]
-        assert body.startswith("**Jules finished without a verdict** on the new commit of `good`")
+        assert body.startswith("**Gemini finished without a verdict** on the new commit of `good`")
         assert "it may have declined, or just not printed its verdict" in body
-        assert "Jules's last message (untrusted text):" in body and "declined to review" not in body
+        assert "Gemini's last message (untrusted text):" in body and "declined to review" not in body
         assert store.State.load(rt.root).health["good"]["rescan_after"] == "2026-10-03T14:00:00Z"
 
     def test_declines_reset_by_flag_and_kept_by_error(self, rt, gh):
@@ -896,7 +896,7 @@ class TestQueue:
         assert queue._pause_reason(rt, used["recent"]) == ""  # the same PR twice
         gh.artifacts[30] = [{"name": "result-declined"}]
         assert queue._pause_reason(rt, used["recent"]) == (
-            "Jules declined scans of 2 different PRs or entries in the last hour, and none passed or flagged")
+            "Gemini declined scans of 2 different PRs or entries in the last hour, and none passed or flagged")
         for healthy in ("result-pass", "result-flag"):
             gh.artifacts[40] = [{"name": healthy}]  # Jules reviewed something meanwhile: not a storm
             assert queue._pause_reason(rt, used["recent"]) == ""
@@ -914,7 +914,7 @@ class TestQueue:
         gh.runs = [self.run_at(10, "stage2 pr 1"), self.run_at(20, "stage2 rescan good")]
         gh.artifacts = {10: [{"name": "result-declined"}], 20: [{"name": "result-declined"}]}
         log = queue.dispatch(rt)
-        assert gh.dispatched == [] and "paused: Jules declined scans of 2 different PRs or entries" in log[0]
+        assert gh.dispatched == [] and "paused: Gemini declined scans of 2 different PRs or entries" in log[0]
         gh.artifacts[20] = [{"name": "result-pass"}]
         queue.dispatch(rt)
         assert [d[1]["pr"] for d in gh.dispatched] == ["5"]
@@ -945,7 +945,7 @@ class TestQueue:
         assert [d[1]["pr"] for d in gh.dispatched] == ["6"]  # the honest PR still goes
         check = gh.latest(SHA(5), STAGE2)
         assert check["conclusion"] == "failure"
-        assert check["output"]["title"] == "Jules declined to review; waiting for the curator"
+        assert check["output"]["title"] == "Gemini declined to review; waiting for the curator"
         assert "needs-owner" in gh.labels_of(5) and "stage2:queued" not in gh.labels_of(5)
         assert "couldn't settle this one" in gh.bot_comment(5)
         gh.add_labels(5, ["stage2:queued", "owner:scan"])
