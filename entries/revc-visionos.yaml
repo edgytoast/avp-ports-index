@@ -1,0 +1,38 @@
+schema_version: 1
+id: revc-visionos
+name: reVC for visionOS
+game:
+  title: "Grand Theft Auto: Vice City"
+  original_platform: ps2
+  original_release_year: 2002
+repo: https://github.com/LowRiderXR/revc-visionos-app
+developer:
+  github: LowRiderXR
+status: developer-verified
+status_notes: "Own code (launcher, renderer) is MIT; the reVC engine itself has no license and is published as-is. Requires the player's own classic PC copy of Vice City (not the Definitive Edition). Tested on Apple Vision Pro M2 and M5."
+visionos_min: "27.0"
+input: [game-controller]
+experiences: [6dof-immersive]
+media:
+  icon: AvpViceCity/Assets.xcassets/AppIcon.solidimagestack
+upstream:
+  - https://github.com/LowRiderXR/revc-visionos
+  - https://github.com/LowRiderXR/librw-visionos
+  - https://github.com/LowRiderXR/visionos-angle-kit
+credits:
+  - name: re3 project
+    role: reVC, the reverse-engineered engine
+  - name: librw
+    role: RenderWare reimplementation
+    url: https://github.com/aap/librw
+  - name: ANGLE
+    role: OpenGL ES to Metal
+    url: https://chromium.googlesource.com/angle/angle
+  - name: Klepton
+    role: Reference for Compositor Services and ANGLE
+    url: https://github.com/shinyquagsire23/Klepton
+  - name: OpenAL Soft
+    role: Audio
+    url: https://github.com/kcat/openal-soft
+description: "Native Vision Pro port of reVC, the reverse-engineered GTA Vice City engine: stereo rendering in a full immersive space, head tracking, foveated rendering, game-controller input, and a launcher for settings, save games and the game data. Bring your own classic PC copy."
+tags: [gta, vice-city, vr, decompilation]
