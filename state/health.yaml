@@ -359,10 +359,10 @@ twilight-princess-vr:
   warnings: []
 visr:
   archived: false
-  commits_since_scan: 210
+  commits_since_scan: null
   consecutive_failures: 0
   curator_own: false
-  decay_reset_at: '2026-10-29T23:00:52Z'
+  decay_reset_at: '2026-11-13T19:53:01Z'
   failing_since: null
   failures: []
   flagged_commit: 8e10b7533603935883adf095a1e66020ad83ab03
@@ -370,17 +370,17 @@ visr:
   - source/bitmaps/libtiff/mkg3states
   - tools/ios_build.py
   - tools/windows_build.py
-  github_verified: true
+  github_verified: false
   health: ok
   last_checked: '2026-11-03T06:29:40Z'
-  last_commit_date: '2026-11-03T05:29:53Z'
+  last_commit_date: '2026-11-13T19:02:10Z'
   license:
     kind: open-source
     spdx: Apache-2.0
   outreach_issue_url: null
   outreach_opened_at: null
   rescan_after: null
-  rescan_hold: true
+  rescan_hold: false
   routes:
   - S1-11c
   - S1-11d
@@ -388,7 +388,7 @@ visr:
   scan_declines: 0
   scan_kind: automated
   scan_refused: false
-  scan_state: behind
+  scan_state: unknown
   scanned_at: '2026-10-29T23:00:52Z'
   scanned_commit: 154e4f87d458c40a0305fcf0daa987d73b9ffe3d
   warnings: []
