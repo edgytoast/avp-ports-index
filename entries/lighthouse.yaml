@@ -5,7 +5,7 @@ game:
   title: "Banjo-Kazooie"
   original_platform: n64
   original_release_year: 1998
-repo: https://github.com/rebelancap/Lighthouse-ios
+repo: https://github.com/edgytoast/Lighthouse-ios
 developer:
   github: rebelancap
 status: working
@@ -14,11 +14,18 @@ input: [game-controller]
 experiences: [2d, 3d-immersive]
 install: [build, sideload]
 description: >-
-  Banjo-Kazooie on Apple Vision Pro through Harbour Masters' Lighthouse, rendering natively on Metal:
-  a resizable 2D window, or a stereoscopic 3D screen in your room. Enhancements menu, randomizer,
-  online co-op, ROM hacks and in-app ROM extraction. Bring your own ROM.
+  Banjo-Kazooie on Apple Vision Pro through Harbour Masters' Lighthouse, rendering natively on
+  Metal: a resizable 2D window, or a stereoscopic 3D screen in your room. Enhancements, randomizer,
+  co-op, ROM hacks and in-app ROM extraction. Bring your own ROM. Listed from a copy with an install
+  guide.
 tags: [banjo-kazooie, platformer, n64, source-port, harbour-masters, stereo-3d, randomizer]
 credits:
+  - name: rebelancap
+    role: The iOS and visionOS port
+    url: https://github.com/rebelancap/Lighthouse-ios
+  - name: Trevorbilt
+    role: Install guide and AVP Ports Index listing
+    url: https://trevorbilt.com
   - name: Harbour Masters
     role: Lighthouse, the port this is built on
     url: https://github.com/HarbourMasters/Lighthouse
@@ -28,5 +35,6 @@ credits:
   - name: Nintendo and Rare
     role: Original game
 upstream:
+  - https://github.com/rebelancap/Lighthouse-ios
   - https://github.com/HarbourMasters/Lighthouse
   - https://github.com/HarbourMasters/libultraship
