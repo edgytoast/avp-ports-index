@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import datetime as dt
 
-from . import blocklist, lifecycle, messages, store, validate
+from . import approvals, blocklist, lifecycle, messages, store, validate
 from .checks import controls, linked_head
 from .classify import ENTRY_FILE
 from .gate import STAGE1, STAGE2, latest_check, parse_external_id, read_marker
@@ -45,8 +45,10 @@ def repo_facts(rt, entry_id: str, entry: dict, repo: dict, state: store.State) -
     dev_user = rt.gh.user(dev_login) if dev_login else None
     health["github_verified"] = bool(dev_user) and controls(rt.gh, repo, dev_user["id"], dev_user["login"])
     owner_controls = controls(rt.gh, repo, rt.owner_id, rt.owner_login)
-    health["curator_own"] = bool(owner_controls or (
-        record.get("submitted_by_id") == rt.owner_id and dev_login.lower() == rt.owner_login.lower()))
+    curator_dev = dev_login.lower() == rt.owner_login.lower()
+    # A copy the curator hosts of someone else's port (developer.github names its authors) isn't the curator's own.
+    health["curator_own"] = bool((owner_controls and (curator_dev or not dev_login)) or (
+        record.get("submitted_by_id") == rt.owner_id and curator_dev))
     health["archived"] = bool(repo.get("archived"))
     head = linked_head(rt.gh, repo, entry)
     if head:
@@ -79,8 +81,11 @@ def pin(rt, state: store.State, entry_id: str, sha: str, kind: str, confidence: 
     health["scan_confidence"] = confidence if kind == "automated" else None
     if moved:
         health["flagged_commit"] = None
+        health["flagged_files"] = []
         health["rescan_after"] = None
         health["rescan_hold"] = False
+        health["scan_declines"] = 0
+        health["scan_refused"] = False
         if repo:
             head = linked_head(rt.gh, repo, entry)
             health["commits_since_scan"], health["scan_state"] = compare_scan(
@@ -144,6 +149,8 @@ def replay_entry(rt, state: store.State, pr: dict, entry_id: str, raw: bytes, by
         pin(rt, state, entry_id, sha, "automated", confidence, repo, entry)
     elif kind == "result":
         pin(rt, state, entry_id, sha, "curator-reviewed", None, repo, entry)
+        # Merging a flagged PR approves the flagged files' exact bytes too (decision 62).
+        approvals.record(state, entry_id, repo, sha, read_marker(s2).get("files"), rt.http)
         curator = True
     elif kind == "none" and (new_listing or repo_changed):
         fallback = ext1[1] if ext1 else linked_head(rt.gh, repo, entry)

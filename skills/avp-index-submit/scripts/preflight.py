@@ -172,21 +172,31 @@ SCHEMA = {'$schema': 'https://json-schema.org/draft/2020-12/schema',
                                              'hand-tracking',
                                              'keyboard-mouse']}},
                 'experiences': {'description': 'How the port plays on Apple Vision Pro: list every '
-                                               'mode it has. 2d: a flat picture in a window beside '
-                                               'other apps. 3d-immersive: a stereo 3D screen in '
-                                               'front of you, with your other apps put away, seen '
-                                               "from the game's camera. 3d-shared-space: the "
-                                               "game's 3D world with real depth, in a window "
-                                               'beside other apps. 6dof-immersive: inside the game '
-                                               'at life scale, with your head as the camera. '
-                                               '6dof-progressive: the same, through a portal the '
-                                               'Digital Crown widens and narrows.',
+                                               'mode it has. 2d: a flat picture, in a window '
+                                               'beside other apps or on a virtual screen. '
+                                               '3d-immersive: a stereo 3D screen in front of you, '
+                                               'with your other apps put away, seen from the '
+                                               "game's camera. 3d-shared-space: the game's 3D "
+                                               'world with real depth, in a window beside other '
+                                               'apps; lean and you see around things. '
+                                               '3d-shared-space-stereo: a stereo 3D picture seen '
+                                               "from the game's camera, in a window beside other "
+                                               "apps; it has depth, but leaning doesn't show you "
+                                               "around things. 3d-tabletop: the game's world as a "
+                                               'miniature in your room, in real 3D you can walk '
+                                               'around, with your other apps put away. '
+                                               '6dof-immersive: inside the game world, all around '
+                                               'you, with your head as the camera (first person or '
+                                               'a chase view). 6dof-progressive: the same, through '
+                                               'a portal the Digital Crown widens and narrows.',
                                 'type': 'array',
                                 'minItems': 1,
                                 'uniqueItems': True,
                                 'items': {'enum': ['2d',
                                                    '3d-immersive',
                                                    '3d-shared-space',
+                                                   '3d-shared-space-stereo',
+                                                   '3d-tabletop',
                                                    '6dof-immersive',
                                                    '6dof-progressive']}},
                 'install': {'description': 'How players can install it. build: from source with '
@@ -197,6 +207,23 @@ SCHEMA = {'$schema': 'https://json-schema.org/draft/2020-12/schema',
                             'minItems': 1,
                             'uniqueItems': True,
                             'items': {'enum': ['build', 'sideload']}},
+                'media': {'description': 'Pictures for apps and your port page. Leave it out and '
+                                         'the index takes up to three images from your README '
+                                         "(your repo's own files or GitHub attachments, 480x270 or "
+                                         'larger) and your app icon, at the scanned commit. false '
+                                         'turns pictures off. Or pick them: screenshots lists up '
+                                         'to three image files in your repo; icon is your '
+                                         "AppIcon's .solidimagestack folder or a square PNG.",
+                          'oneOf': [{'const': False},
+                                    {'type': 'object',
+                                     'additionalProperties': False,
+                                     'minProperties': 1,
+                                     'properties': {'screenshots': {'type': 'array',
+                                                                    'minItems': 1,
+                                                                    'maxItems': 3,
+                                                                    'uniqueItems': True,
+                                                                    'items': {'$ref': '#/$defs/repo_path'}},
+                                                    'icon': {'$ref': '#/$defs/repo_path'}}}]},
                 'description': {'description': 'One or two sentences about the port.',
                                 'type': 'string',
                                 'minLength': 1,
@@ -210,7 +237,10 @@ SCHEMA = {'$schema': 'https://json-schema.org/draft/2020-12/schema',
                                    'maxLength': 32}}},
  '$defs': {'https_url': {'type': 'string',
                          'pattern': '^https://[A-Za-z0-9.-]+(:[0-9]+)?(/[A-Za-z0-9._~!$&*+,;=:@%/?#-]*)?$',
-                         'maxLength': 2048}}}
+                         'maxLength': 2048},
+           'repo_path': {'type': 'string',
+                         'pattern': '^(?![./])(?!.*(^|/)\\.\\.?(/|$))[A-Za-z0-9 _.()+,@/-]+$',
+                         'maxLength': 300}}}
 
 # ---- validate.py ----
 """Validators for untrusted input (spec §8.0 rule 3) and escaping for untrusted text (rule 4).
@@ -232,6 +262,7 @@ REPO_NAME_RE = re.compile(r"^[A-Za-z0-9-]+/[A-Za-z0-9._-]+$")
 REPO_URL_RE = re.compile(r"^https://github\.com/([A-Za-z0-9-]+)/([A-Za-z0-9._-]+)$")
 LOGIN_RE = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?(\[bot\])?$")
 SOURCE_REF_RE = re.compile(r"^(?!.*\.\.)[A-Za-z0-9_][A-Za-z0-9._/-]{0,99}$")  # same as the schema's
+LABEL_RE = ENTRY_ID_RE  # calibration run labels: the same safe slug as entry ids
 
 MAX_ENTRY_BYTES = 16 * 1024
 
@@ -248,6 +279,13 @@ def entry_id(value: object) -> str:
     """An entry id: ^[a-z0-9]+(-[a-z0-9]+)*$, at most 64 characters."""
     if not isinstance(value, str) or len(value) > 64 or not ENTRY_ID_RE.match(value):
         raise InvalidInput("invalid entry id")
+    return value
+
+
+def label(value: object) -> str:
+    """A calibration run's label: lowercase letters, digits and single hyphens, at most 40 characters."""
+    if not isinstance(value, str) or len(value) > 40 or not LABEL_RE.match(value):
+        raise InvalidInput("invalid label")
     return value
 
 
@@ -376,11 +414,22 @@ def md_inline(value: object, limit: int = 300) -> str:
     return neutralize_mentions(text)
 
 
+def log_line(value: object, limit: int = 2000) -> str:
+    """Untrusted text made safe for a job's stdout or stderr: one line, so it can't start a line of its own,
+    and never starting with "::", so the runner can't read it as a workflow command (::add-mask::,
+    ::warning::, ::stop-commands:: and the like)."""
+    text = " ".join(("" if value is None else str(value)).split())[:limit]
+    return "\u200b" + text if text.startswith("::") else text
+
+
 def fence(value: object, lang: str = "text", limit: int = 20000) -> str:
-    """Wrap untrusted multi-line text in a code fence it can't break out of."""
+    """Wrap untrusted multi-line text in a code fence it can't break out of. An HTML comment opener inside it
+    is broken up with a zero-width space, so the text can never form one of the App's hidden markers
+    (`<!-- avp:stage2 ... -->` and the like) that later code reads back. (md_inline escapes `<` already.)"""
     text = "" if value is None else str(value)
     if len(text) > limit:
         text = text[:limit] + "\n[truncated]"
+    text = text.replace("<!--", "<!\u200b--")
     longest = max((len(m) for m in re.findall(r"`+", text)), default=0)
     ticks = "`" * max(3, longest + 1)
     return f"{ticks}{lang}\n{text}\n{ticks}"
@@ -399,12 +448,14 @@ import base64
 import hashlib
 import re
 import socket
+import struct
 import time
 from dataclasses import dataclass, field
 from urllib.parse import quote
 
 import jsonschema
 import requests
+import urllib3
 
 
 PASS, FAIL, ROUTE = "pass", "fail", "route"
@@ -600,6 +651,102 @@ def probe_url(session: requests.Session, url: str) -> tuple[str, str]:
     return "ok", ""
 
 
+# --- what's inside a prebuilt app ------------------------------------------------------
+# An .ipa is a zip. Its file list sits in the central directory at the end of the file, so two
+# small range requests list the app without downloading it. Nothing in it is ever run.
+
+ZIP_FORMATS = (".ipa", ".zip", ".apk")  # zip files inside: their file list can be read
+ZIP_TAIL = 66 * 1024                 # end-of-central-directory record, plus room for a comment
+ZIP_DIRECTORY_CAP = 4 * 1024 * 1024  # larger directories aren't listed
+
+
+def _byte_range(session: requests.Session, url: str, start: int, end: int) -> bytes | None:
+    """Bytes start..end of a release asset, or None unless the server honours the range."""
+    try:
+        resp = session.get(url, headers={"Range": f"bytes={start}-{end}", "Accept-Encoding": "identity"},
+                           allow_redirects=True, timeout=30, stream=True)
+    except requests.RequestException:
+        return None
+    try:
+        if resp.status_code != 206:
+            return None  # never fall back to downloading the whole app
+        data = resp.raw.read(end - start + 1) if getattr(resp, "raw", None) else resp.content
+        return data[: end - start + 1]
+    except (requests.RequestException, urllib3.exceptions.HTTPError, OSError, ValueError):
+        return None  # a dropped or stalled connection just means "couldn't be listed"
+    finally:
+        try:
+            resp.close()
+        except Exception:
+            pass
+
+
+def zip_listing(session: requests.Session, url: str, size: int) -> list[tuple[str, int]] | None:
+    """(name, unpacked size) for each file in a zip, read from its central directory."""
+    if size < 22:
+        return None
+    tail_start = max(0, size - ZIP_TAIL)
+    tail = _byte_range(session, url, tail_start, size - 1)
+    if not tail:
+        return None
+    at = tail.rfind(b"PK\x05\x06")
+    if at < 0 or len(tail) - at < 22:
+        return None
+    count, dir_size, dir_offset = struct.unpack_from("<HII", tail, at + 10)
+    if count == 0xFFFF or dir_offset == 0xFFFFFFFF or dir_size > ZIP_DIRECTORY_CAP:
+        return None  # zip64 or too big to list
+    if dir_offset >= tail_start:
+        directory = tail[dir_offset - tail_start: dir_offset - tail_start + dir_size]
+    else:
+        directory = _byte_range(session, url, dir_offset, dir_offset + dir_size - 1)
+    if not directory:
+        return None
+    files, i = [], 0
+    while i + 46 <= len(directory) and directory[i:i + 4] == b"PK\x01\x02":
+        unpacked = struct.unpack_from("<I", directory, i + 24)[0]
+        name_len, extra_len, comment_len = struct.unpack_from("<HHH", directory, i + 28)
+        name = directory[i + 46: i + 46 + name_len].decode("utf-8", "replace")
+        files.append((name, unpacked))
+        i += 46 + name_len + extra_len + comment_len
+    if len(files) != count:
+        return None  # the directory doesn't match the zip's own count: don't guess
+    return [(n, s) for n, s in files if not n.endswith("/")]
+
+
+def app_inventories(session: requests.Session, releases: list, policy: dict, reads: int = 3,
+                    rows: int = 8) -> list[dict]:
+    """The flagged assets (archives and prebuilt apps) of the newest release that has any: each
+    one's size, and for up to `reads` zip-format files their file count and files worth a look.
+    Sizes come from the releases API; nothing is downloaded whole or run."""
+    flagged = tuple(policy.get("archive_extensions") or ()) + tuple(policy.get("release_binary_extensions") or ())
+    review = tuple(policy.get("app_review_extensions") or ())
+    for release in releases:
+        assets = [a for a in release.get("assets") or [] if str(a.get("name", "")).lower().endswith(flagged)]
+        if not assets:
+            continue
+        def order(a):
+            name = str(a.get("name", "")).lower()
+            return ("vision" not in name, not name.endswith(ZIP_FORMATS), -int(a.get("size") or 0))
+        assets.sort(key=order)
+        out = []
+        for asset in assets[:rows]:
+            name, size = str(asset.get("name", "")), int(asset.get("size") or 0)
+            url = asset.get("browser_download_url") or ""
+            item = {"name": name, "size": size, "listable": name.lower().endswith(ZIP_FORMATS),
+                    "files": None, "review": []}
+            if item["listable"] and reads > 0 and url.startswith("https://github.com/") and size:
+                reads -= 1
+                listing = zip_listing(session, url, size)
+                if listing is not None:
+                    item["files"] = len(listing)
+                    item["review"] = sorted({n for n, _ in listing if review and n.lower().endswith(review)})[:20]
+            out.append(item)
+        if len(assets) > rows:
+            out.append({"more": len(assets) - rows})
+        return out
+    return []
+
+
 # --- results ----------------------------------------------------------------------------
 
 @dataclass
@@ -644,6 +791,7 @@ class IndexView:
     blocked: set = field(default_factory=set)            # blocklist hashes
     flagged: set = field(default_factory=set)            # flag-memory hashes
     salt: str | None = None
+    owner_id: int | None = None                          # the curator: PRs they open pass S1-08
 
 
 @dataclass
@@ -655,6 +803,7 @@ class Report:
     head: str | None = None                          # linked HEAD (see linked_head)
     license: dict | None = None
     curator_flags: dict = field(default_factory=dict)
+    apps: list = field(default_factory=list)         # what's inside routed prebuilt apps (S1-11d)
 
     def add(self, result: Result | None) -> None:
         if result is not None:
@@ -901,9 +1050,12 @@ def s1_08(ctx: Ctx) -> Result | None:
     """S1-08 · Authority. Decided by numeric user IDs. Adds: the PR author owns the linked repo
     or is a public member of its owning org. Edits and deletes: the author owns (or is a public
     member of the org that owns) the entry's current repo, found by its recorded repo ID, or is
-    the person who first listed the entry. An edit that changes `repo` must pass both."""
+    the person who first listed the entry. An edit that changes `repo` must pass both. PRs the
+    curator opens always pass."""
     if ctx.s.mode == "health":
         return None
+    if ctx.s.mode == "gate" and _by_curator(ctx):
+        return Result("S1-08", PASS, "opened by the curator")
     if ctx.s.mode == "preflight":
         if ctx.repo is None or ctx.s.author_id is None:
             return None
@@ -1076,13 +1228,15 @@ def s1_11d(ctx: Ctx) -> Result | None:
     if ctx.repo is None:
         return None
     policy = ctx.idx.policy
-    names = [a.get("name", "") for r in ctx.gh.releases(ctx.owner, ctx.name, 30)
-             for a in r.get("assets") or []]
+    releases = ctx.gh.releases(ctx.owner, ctx.name, 30)
+    names = [a.get("name", "") for r in releases for a in r.get("assets") or []]
     bad = [n for n in names if _ends(n, policy["forbidden_extensions"])]
     if bad:
         return Result("S1-11d", FAIL, "release assets with game data: " + ", ".join(bad[:5]))
     binaries = [n for n in names if _ends(n, policy["archive_extensions"] + policy["release_binary_extensions"])]
     if binaries:
+        if ctx.s.mode == "gate":
+            ctx.report.apps = app_inventories(ctx.http, releases, policy)
         return Result("S1-11d", ROUTE, "release assets with prebuilt apps or archives: " + ", ".join(binaries[:5]))
     return Result("S1-11d", PASS)
 
@@ -1197,8 +1351,12 @@ def run(subject: Subject, index: IndexView, reader: LinkedRepoReader,
     return ctx.report
 
 
+def _by_curator(ctx: Ctx) -> bool:
+    return ctx.idx.owner_id is not None and ctx.s.author_id == ctx.idx.owner_id
+
+
 def _run_remove(ctx: Ctx) -> Report:
-    ok = authority_a(ctx.gh, ctx.s, ctx.s.old_entry)
+    ok = _by_curator(ctx) or authority_a(ctx.gh, ctx.s, ctx.s.old_entry)
     ctx.report.add(Result("S1-08", PASS) if ok else
                    Result("S1-08", ROUTE, "the PR author has no authority over the listed entry", waivable=False))
     ctx.report.add(s1_15(ctx))
