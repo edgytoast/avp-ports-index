@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.5.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-13T21:04:45Z",
+  "generated_at": "2026-11-13T21:10:48Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -22,8 +22,8 @@
       },
       "repo_url": "https://github.com/steverice/visr",
       "source_ref": null,
-      "source_url": "https://github.com/steverice/visr/tree/8e10b7533603935883adf095a1e66020ad83ab03",
-      "install_doc_url": "https://github.com/steverice/visr/blob/8e10b7533603935883adf095a1e66020ad83ab03/AVP-INSTALL.md",
+      "source_url": "https://github.com/steverice/visr/tree/9687cf8b540f36e8e81938148e86264ee44bc924",
+      "install_doc_url": "https://github.com/steverice/visr/blob/9687cf8b540f36e8e81938148e86264ee44bc924/AVP-INSTALL.md",
       "developer": {
         "name": null,
         "github": "steverice",
@@ -59,7 +59,7 @@
         "https://github.com/NicholasDominici/halo-ce-ios"
       ],
       "self_reported_status": "developer-verified",
-      "status_notes": null,
+      "status_notes": "Plays in a window on visionOS 2 or later. Enter VR (stereo around you, or the 3D theater screen) needs visionOS 26 or later, and PlayStation VR2 Sense aiming needs visionOS 27, per the install guide.",
       "owner_verified": {
         "verified": false,
         "verified_on": null,
@@ -71,11 +71,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "8e10b7533603935883adf095a1e66020ad83ab03",
-      "scanned_at": "2026-11-13T19:53:41Z",
-      "scan_kind": "curator-reviewed",
-      "commits_since_scan": null,
-      "scan_state": "unknown",
+      "scanned_commit": "9687cf8b540f36e8e81938148e86264ee44bc924",
+      "scanned_at": "2026-11-13T21:10:44Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-11-13T19:02:10Z",
       "license": {
@@ -105,7 +105,7 @@
       "description": "Native Metal port of Halo: Combat Evolved for Apple Vision Pro and other Apple devices. Head-tracked stereo, foveated rendering, a 3D theater screen and PlayStation VR2 Sense controller aiming. Bring your own disc image of the original Xbox release.",
       "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/visr.md",
       "media": {
-        "commit": "8e10b7533603935883adf095a1e66020ad83ab03",
+        "commit": "9687cf8b540f36e8e81938148e86264ee44bc924",
         "source": "readme",
         "icon": {
           "kind": "layered",
@@ -116,7 +116,7 @@
               "height": 1024,
               "layer": "back",
               "sha256": "9a95825678bc37725d6d77294438ed562eccb64912c01728cd5c487c9d85dfdf",
-              "url": "https://raw.githubusercontent.com/steverice/visr/8e10b7533603935883adf095a1e66020ad83ab03/port/ios/Assets-visionOS.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "url": "https://raw.githubusercontent.com/steverice/visr/9687cf8b540f36e8e81938148e86264ee44bc924/port/ios/Assets-visionOS.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
               "width": 1024
             },
             {
@@ -125,7 +125,7 @@
               "height": 1024,
               "layer": "middle",
               "sha256": "a7cd7f34692a242185698fad7fdec4c095b59e085e0fb99efda14d5f70f2e239",
-              "url": "https://raw.githubusercontent.com/steverice/visr/8e10b7533603935883adf095a1e66020ad83ab03/port/ios/Assets-visionOS.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "url": "https://raw.githubusercontent.com/steverice/visr/9687cf8b540f36e8e81938148e86264ee44bc924/port/ios/Assets-visionOS.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
               "width": 1024
             },
             {
@@ -134,7 +134,7 @@
               "height": 1024,
               "layer": "front",
               "sha256": "88aaa8ae1647c92c38daccc0f6781c11e704f08f7003fd4246aecb7e24d2fb5c",
-              "url": "https://raw.githubusercontent.com/steverice/visr/8e10b7533603935883adf095a1e66020ad83ab03/port/ios/Assets-visionOS.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "url": "https://raw.githubusercontent.com/steverice/visr/9687cf8b540f36e8e81938148e86264ee44bc924/port/ios/Assets-visionOS.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
               "width": 1024
             }
           ]
@@ -146,7 +146,7 @@
             "format": "png",
             "height": 720,
             "sha256": "8a30729f383a29d06455b44cfca512a1e23eb2c30d22b4be5c3b269b3669779f",
-            "url": "https://raw.githubusercontent.com/steverice/visr/8e10b7533603935883adf095a1e66020ad83ab03/docs/images/readme-banner.png",
+            "url": "https://raw.githubusercontent.com/steverice/visr/9687cf8b540f36e8e81938148e86264ee44bc924/docs/images/readme-banner.png",
             "width": 2320
           }
         ]

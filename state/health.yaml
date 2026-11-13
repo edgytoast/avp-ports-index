@@ -359,7 +359,7 @@ twilight-princess-vr:
   warnings: []
 visr:
   archived: false
-  commits_since_scan: null
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-11-13T19:53:01Z'
@@ -381,13 +381,13 @@ visr:
   routes:
   - S1-11c
   - S1-11d
-  scan_confidence: null
+  scan_confidence: 95
   scan_declines: 0
-  scan_kind: curator-reviewed
+  scan_kind: automated
   scan_refused: false
-  scan_state: unknown
-  scanned_at: '2026-11-13T19:53:41Z'
-  scanned_commit: 8e10b7533603935883adf095a1e66020ad83ab03
+  scan_state: current
+  scanned_at: '2026-11-13T21:10:44Z'
+  scanned_commit: 9687cf8b540f36e8e81938148e86264ee44bc924
   warnings: []
 wind-waker-vr:
   archived: false
