@@ -4,7 +4,7 @@ name: GoldenEye 007
 game:
   title: "GoldenEye 007"
   original_platform: other
-repo: https://github.com/rebelancap/GoldenEye-Recomp-ios
+repo: https://github.com/edgytoast/GoldenEye-Recomp-ios
 developer:
   github: rebelancap
 status: working
@@ -13,12 +13,18 @@ input: [game-controller]
 experiences: [2d]
 install: [build, sideload]
 description: >-
-  GoldenEye 007 on Apple Vision Pro: Rare's unreleased 2007 Xbox 360 remaster, statically
-  recompiled through GoldenEye-Recomp and the ReXGlue SDK, on Metal via MoltenVK. A 2D window, with
-  an instant flip between remastered and original N64 graphics. Bring your own copy of the game
-  files.
+  GoldenEye 007 on Apple Vision Pro: Rare's unreleased 2007 Xbox 360 remaster, statically recompiled
+  through GoldenEye-Recomp and the ReXGlue SDK. A 2D window, with a flip between remastered and
+  original N64 graphics. Bring your own copy of the game files. Listed from a copy with an install
+  guide.
 tags: [goldeneye, fps, first-person, xbox-360, xbla, static-recompilation, rexglue, remaster]
 credits:
+  - name: rebelancap
+    role: The iOS and visionOS port
+    url: https://github.com/rebelancap/GoldenEye-Recomp-ios
+  - name: Trevorbilt
+    role: Install guide and AVP Ports Index listing
+    url: https://trevorbilt.com
   - name: SunJaycy
     role: GoldenEye-Recomp, the PC recompilation this port is built on
     url: https://github.com/SunJaycy/GoldenEye-Recomp
@@ -36,6 +42,7 @@ credits:
   - name: Rare / Nintendo / MGM / Danjaq
     role: Original game
 upstream:
+  - https://github.com/rebelancap/GoldenEye-Recomp-ios
   - https://github.com/SunJaycy/GoldenEye-Recomp
   - https://github.com/rexglue/rexglue-sdk
   - https://github.com/SunJaycy/GoldenEye-Recomp-rexglue
