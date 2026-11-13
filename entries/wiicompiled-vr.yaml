@@ -5,7 +5,7 @@ game:
   title: "Mario Kart Wii"
   original_platform: wii
   original_release_year: 2008
-repo: https://github.com/edgytoast/Wiicompiled_VR
+repo: https://github.com/edgytoast/wiicompiled_vr-avp-index
 source_ref: vision-pro
 developer:
   github: iChris4
