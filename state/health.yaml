@@ -358,6 +358,36 @@ shar-visionos:
   scanned_at: '2026-10-09T08:02:35Z'
   scanned_commit: 8c1f827f67c5c18950fc00f9f3dc58c4cf58284f
   warnings: []
+starship:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: false
+  decay_reset_at: '2026-11-13T22:54:24Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: false
+  health: ok
+  last_checked: null
+  last_commit_date: '2026-11-13T22:49:52Z'
+  license:
+    kind: open-source
+    spdx: MIT
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes: []
+  scan_confidence: 96
+  scan_declines: 0
+  scan_kind: automated
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-11-13T22:54:24Z'
+  scanned_commit: 5de019c0b16e68ba3ad6a62413b0ca9953285658
+  warnings: []
 twilight-princess-vr:
   archived: false
   commits_since_scan: 0

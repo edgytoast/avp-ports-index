@@ -470,6 +470,37 @@ shar-visionos:
   - reason: not a PNG, JPEG, GIF or WebP
     src: https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/docs/images/hands/hand-swing-right.svg
   source: readme
+starship:
+  choice: null
+  collected_at: '2026-11-13T22:54:29Z'
+  commit: 5de019c0b16e68ba3ad6a62413b0ca9953285658
+  icon:
+    kind: layered
+    layers:
+    - bytes: 112381
+      format: png
+      height: 1024
+      layer: back
+      sha256: 09be3b3c0816f5dc1ab8836e9ca16b5c600147c9eb4eab759ebb1f477bd3b9a2
+      url: https://raw.githubusercontent.com/edgytoast/Starship-ios/5de019c0b16e68ba3ad6a62413b0ca9953285658/app/ios/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png
+      width: 1024
+    - bytes: 48397
+      format: png
+      height: 1024
+      layer: front
+      sha256: 4e6fc72a958c970580482cdb695229392fbf4d4c48dac64a7d869ae0fefc75d4
+      url: https://raw.githubusercontent.com/edgytoast/Starship-ios/5de019c0b16e68ba3ad6a62413b0ca9953285658/app/ios/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png
+      width: 1024
+  screenshots:
+  - alt: Star Fox 64 on Apple Vision Pro
+    bytes: 381778
+    format: jpeg
+    height: 1440
+    sha256: a90e6e4e1ce8536af066211a1098c60657ef9ec07ea8da6438c0a8f594dc55aa
+    url: https://raw.githubusercontent.com/edgytoast/Starship-ios/5de019c0b16e68ba3ad6a62413b0ca9953285658/docs/screenshots/visionos-window.jpg
+    width: 2560
+  skipped: []
+  source: readme
 twilight-princess-vr:
   choice: null
   collected_at: '2026-10-20T06:43:24Z'
