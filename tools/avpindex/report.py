@@ -28,7 +28,7 @@ from .lifecycle import LISTED, PULLED
 from .sync import pin
 
 NO_WORK = "no work"                      # jules.review's decline_signal for a session that showed no work
-NO_VERDICT_LEAD = "**Jules finished without a verdict**"
+NO_VERDICT_LEAD = "**Gemini finished without a verdict**"
 DECLINE_RETRY = dt.timedelta(hours=2)    # a declined rescan is tried again this soon,
 DECLINE_QUICK_TRIES = 3                  # until it has declined this many times in a row;
 ERROR_RETRY = dt.timedelta(hours=24)     # then it waits as long as after an error
@@ -113,7 +113,7 @@ def decline_summary(outcome: dict) -> str:
         lead = (f"{NO_VERDICT_LEAD} and without showing any work on the repository; it may have declined, or just "
                 "not printed its verdict. Its last message (untrusted text):")
     else:
-        lead = "Jules declined to review this repository, so there is no verdict. Its reply (untrusted text):"
+        lead = "Gemini declined to review this repository, so there is no verdict. Its reply (untrusted text):"
     return "\n".join([lead, "", validate.fence(outcome.get("reason") or "(no message)")])
 
 
@@ -148,7 +148,7 @@ def triage_body(inputs: Inputs, outcome: dict, threshold: int, what: str) -> str
     return "\n".join([
         f"**{what}** for `{inputs.entry_id}` ({inputs.linked_repo} at `{inputs.linked_commit}`).", "",
         verdict_summary(outcome, threshold), "",
-        f"Jules session (opens for the owner's account only): {session}" if session else "No Jules session link.",
+        f"Scan session (opens for the owner's account only): {session}" if session else "No scan session link.",
         "", "Kill switch actions: `restore` (relist or resume rescans at the current pin), "
             "`approve` (accept the flagged commit), `pull`, `takedown`.",
     ])
@@ -162,9 +162,9 @@ def decline_body(inputs: Inputs, outcome: dict, declines: int, retry_at: dt.date
     if no_work(outcome):
         headline = (f"{NO_VERDICT_LEAD} on {where}, and without showing any work on the repository; it may have "
                     "declined, or just not printed its verdict.")
-        quoted = "Jules's last message (untrusted text):"
+        quoted = "Gemini's last message (untrusted text):"
     else:
-        headline, quoted = f"**Jules declined to review** {where}.", "Jules's reply (untrusted text):"
+        headline, quoted = f"**Gemini declined to review** {where}.", "Gemini's reply (untrusted text):"
         headline += " This note stays open even if a later try passes, so you can look at the refusal."
     tries = f"{declines} {'try' if declines == 1 else 'tries'} in a row without a verdict"
     if declines < DECLINE_QUICK_TRIES:
@@ -178,7 +178,7 @@ def decline_body(inputs: Inputs, outcome: dict, declines: int, retry_at: dt.date
     return "\n".join([
         headline, "", plan, "", quoted, "",
         validate.fence(outcome.get("reason") or "(no message)"), "",
-        f"Jules session (opens for the owner's account only): {session}" if session else "No Jules session link.",
+        f"Scan session (opens for the owner's account only): {session}" if session else "No scan session link.",
     ])
 
 
@@ -325,7 +325,7 @@ def _pr_declined(rt, inputs: Inputs, outcome: dict, pr: dict, bot_state: dict, s
         swap(("stage2:scanning",), ("stage2:queued",))
         messages.upsert(rt, number, scans=scans, **declined, **clear_scanning)
         what = "finished without a verdict" if no_work(outcome) else "declined to review"
-        rt.summary(f"#{number}: Jules {what}; back in the queue ({declines} in a row).")
+        rt.summary(f"#{number}: Gemini {what}; back in the queue ({declines} in a row).")
         return []
     rt.gh.create_check(head, STAGE2, conclusion="failure", title=NO_VERDICT_TITLE if no_work(outcome) else DECLINED,
                        summary=decline_summary(outcome) + "\n\n" + stage2_marker(kind="result", result="declined"),
@@ -381,11 +381,11 @@ def rescan(rt, inputs: Inputs, outcome: dict, threshold: int) -> None:
             health["scan_declines"] = 0
             health["scan_refused"] = False
             again = " on a later try" if declined_before else ""
-            passed = (f"Jules reviewed `{inputs.linked_commit}`{again} and it passed (confidence {confidence}), so "
+            passed = (f"Gemini reviewed `{inputs.linked_commit}`{again} and it passed (confidence {confidence}), so "
                       "the entry is listed at that commit.")
             if refused_before:
                 # Jules refused on an earlier try: that's worth the curator's look, so the note stays open (decision 66).
-                rt.note_triage(inputs.entry_id, passed + " This note stays open because Jules refused to review an "
+                rt.note_triage(inputs.entry_id, passed + " This note stays open because Gemini refused to review an "
                                                          "earlier try; close it when you've had a look.")
             elif not health.get("flagged_commit"):
                 # A pass at the pin settles an earlier "couldn't finish" or "no work" note: close it (decision 66).

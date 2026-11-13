@@ -609,7 +609,7 @@ class TestKillSwitch:
         state.health["good"].update(scan_declines=3, rescan_after="2026-10-04T12:00:00Z")
         blocklist.add_flag(state, SALT, 11)
         state.save()
-        rt.upsert_triage("good", "**Jules declined to review** ...")
+        rt.upsert_triage("good", "**Gemini declined to review** ...")
         before = store.State.load(rt.root)
         assert self.ks(rt, event, "good", "rescan") == "Kill switch: rescan `good` done."
         after = store.State.load(rt.root)

@@ -90,13 +90,13 @@ def _scan_target() -> tuple[str, str]:
 
 
 def cmd_scan(args) -> int:
-    from . import jules
+    from . import antigravity
     repo, sha = _scan_target()
-    key = os.environ.get("JULES_API_KEY")
+    key = os.environ.get("GEMINI_API_KEY")
     if not key:
-        print("JULES_API_KEY is not set", file=sys.stderr)
+        print("GEMINI_API_KEY is not set", file=sys.stderr)
         return 1
-    outcome = jules.review(jules.Jules(key), f"https://github.com/{repo}", sha, store.load_policy())
+    outcome = antigravity.review(antigravity.Antigravity(key), f"https://github.com/{repo}", sha, store.load_policy())
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     (out / "outcome.json").write_text(json.dumps(outcome.to_json(), indent=2), encoding="utf-8")
@@ -187,34 +187,35 @@ def cmd_intake(_args) -> int:
 
 
 def cmd_review(args) -> int:
-    """Calibration (spec §12 step 4): run one real Jules review and print the verdict."""
-    from . import jules
+    """Calibration (spec §12 step 4): run one real safety-check review and print the verdict."""
+    from . import antigravity
     owner, name = validate.parse_repo_url(args.repo_url)
     sha = validate.sha(args.sha)
-    key = os.environ.get("JULES_API_KEY")
+    key = os.environ.get("GEMINI_API_KEY")
     if not key:
-        print("JULES_API_KEY is not set", file=sys.stderr)
+        print("GEMINI_API_KEY is not set", file=sys.stderr)
         return 1
-    outcome = jules.review(jules.Jules(key), f"https://github.com/{owner}/{name}", sha, store.load_policy())
+    outcome = antigravity.review(antigravity.Antigravity(key), f"https://github.com/{owner}/{name}", sha,
+                                   store.load_policy())
     print(json.dumps(outcome.to_json(), indent=2))
     return 0
 
 
 def cmd_calibrate(args) -> int:
-    """stage2-calibrate (decision 63): one real Jules review with the live or the candidate prompt. It writes
+    """stage2-calibrate (decision 63): one real safety-check review with the live or the candidate prompt. It writes
     the outcome to --out and a summary to the run; nothing else. It uses no GitHub token (the job's has no
     scopes), and its sessions are outside the dispatcher's caps."""
-    from . import jules
+    from . import antigravity, jules
     repo = validate.repo_name(os.environ.get("INPUT_LINKED_REPO"))
     sha = validate.sha(os.environ.get("INPUT_LINKED_COMMIT"))
     label = validate.label(os.environ.get("INPUT_LABEL"))
     prompt = validate.choice(args.prompt, tuple(jules.PROMPTS), "prompt")
-    key = os.environ.get("JULES_API_KEY")
+    key = os.environ.get("GEMINI_API_KEY")
     if not key:
-        print("JULES_API_KEY is not set", file=sys.stderr)
+        print("GEMINI_API_KEY is not set", file=sys.stderr)
         return 1
     policy = store.load_policy()
-    outcome = jules.review(jules.Jules(key), f"https://github.com/{repo}", sha, policy, prompt=prompt)
+    outcome = antigravity.review(antigravity.Antigravity(key), f"https://github.com/{repo}", sha, policy, prompt=prompt)
     data = {**outcome.to_json(), "calibration": {"label": label, "prompt": prompt, "repo": repo, "commit": sha}}
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
