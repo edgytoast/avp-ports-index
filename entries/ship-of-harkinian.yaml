@@ -5,7 +5,7 @@ game:
   title: "The Legend of Zelda: Ocarina of Time"
   original_platform: n64
   original_release_year: 1998
-repo: https://github.com/rebelancap/Shipwright-ios
+repo: https://github.com/edgytoast/Shipwright-ios
 developer:
   github: rebelancap
 status: working
@@ -16,9 +16,15 @@ install: [build, sideload]
 description: >-
   Ocarina of Time on Apple Vision Pro through Harbour Masters' Ship of Harkinian, rendering natively
   on Metal: a resizable 2D window, a stereoscopic 3D screen in your room, or first-person VR with PS
-  VR2 Sense controllers as your hands and motion sword combat. Bring your own ROM.
+  VR2 Sense controllers as your hands. Bring your own ROM. Listed from a copy with an install guide.
 tags: [zelda, ocarina-of-time, n64, source-port, harbour-masters, vr, first-person, stereo-3d]
 credits:
+  - name: rebelancap
+    role: The iOS and visionOS port
+    url: https://github.com/rebelancap/Shipwright-ios
+  - name: Trevorbilt
+    role: Install guide and AVP Ports Index listing
+    url: https://trevorbilt.com
   - name: Harbour Masters
     role: Ship of Harkinian (Shipwright), the port this is built on
     url: https://github.com/HarbourMasters/Shipwright
@@ -31,5 +37,6 @@ credits:
   - name: Nintendo
     role: Original game
 upstream:
+  - https://github.com/rebelancap/Shipwright-ios
   - https://github.com/HarbourMasters/Shipwright
   - https://github.com/HarbourMasters/libultraship
