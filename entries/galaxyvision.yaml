@@ -1,0 +1,30 @@
+schema_version: 1
+id: galaxyvision
+name: "GalaxyVision"
+game:
+  title: "Super Mario Galaxy"
+repo: https://github.com/palex0481/GalaxyVision-AVP
+developer:
+  github: palex0481
+status: working
+status_notes: "Plays in a flat window, or a stereoscopic 3D window (beta) drawn once per eye, per the developer. USA disc (RMGE01 rev 0) only. A hobby project that isn't in active development."
+visionos_min: "26.0"
+input: [game-controller]
+experiences: ["2d", "3d-shared-space-stereo"]
+description: "Super Mario Galaxy running natively on Apple Vision Pro: a visionOS app for GalaxyPad, with a flat window or a beta stereoscopic 3D window, a launcher, antialiasing and a side-by-side 3D video recorder. Bring your own disc."
+tags: [mario, platformer, wii, decompilation, recompilation, stereoscopic]
+credits:
+  - name: "GalaxyPad"
+    role: "Native Super Mario Galaxy for Apple devices, the base of this port"
+    url: https://github.com/chrissotraidis/galaxypad
+  - name: "MacioGalaxy"
+    role: "Native port of the Petari decompilation behind the engine"
+    url: https://github.com/classicrob/MacioGalaxy
+  - name: "Petari"
+    role: "Super Mario Galaxy decompilation"
+    url: https://github.com/SMGCommunity/Petari
+  - name: "ModernGekko"
+    role: "Runtime integration and game-port tooling"
+    url: https://github.com/ExpansionPak/ModernGekko
+upstream:
+  - https://github.com/chrissotraidis/galaxypad

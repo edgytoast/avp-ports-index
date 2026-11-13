@@ -45,8 +45,14 @@
           "commits_since_scan": {"type": ["integer", "null"], "minimum": 0},
           "scan_state": {"enum": ["current", "behind", "unknown"]},
           "flagged_commit": {"$ref": "#/$defs/sha_or_null"},
+          "flagged_files": {"description": "Files the findings above info at flagged_commit point at; approve records their SHA-256 (approvals.py).",
+                            "type": "array", "maxItems": 20, "items": {"type": "string", "minLength": 1}},
           "rescan_hold": {"type": "boolean"},
           "rescan_after": {"$ref": "#/$defs/iso_or_null"},
+          "scan_declines": {"description": "Rescans in a row that Jules declined to review; reset by a pass, a flag, a pin move, restore, approve or rescan (report.py, killswitch.py).",
+                            "type": "integer", "minimum": 0},
+          "scan_refused": {"description": "Jules refused to review a rescan since the last verdict, so a later pass leaves the triage note open (decision 66); reset by a flag, a pin move, restore or approve (report.py, sync.py, killswitch.py).",
+                           "type": "boolean"},
           "decay_reset_at": {"$ref": "#/$defs/iso_or_null"},
           "warnings": {"$ref": "#/$defs/check_ids"}
         }
@@ -95,6 +101,46 @@
               "flagged_at": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"}
             }
           }
+        }
+      }
+    },
+    "media": {
+      "description": "state/media.yaml: per listed entry, the screenshots and icon collected at its scanned commit (media.py).",
+      "type": "object",
+      "propertyNames": {"$ref": "#/$defs/entry_id"},
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["commit", "source", "icon", "screenshots", "skipped", "choice", "collected_at"],
+        "properties": {
+          "commit": {"$ref": "#/$defs/sha"},
+          "source": {"enum": ["readme", "entry"]},
+          "icon": {"type": ["object", "null"]},
+          "screenshots": {"type": "array", "maxItems": 3, "items": {"type": "object"}},
+          "skipped": {"type": "array", "maxItems": 20, "items": {"type": "object", "additionalProperties": false, "required": ["src", "reason"],
+                                                               "properties": {"src": {"type": "string"}, "reason": {"type": "string"}}}},
+          "choice": {"type": ["string", "null"]},
+          "collected_at": {"$ref": "#/$defs/iso"}
+        }
+      }
+    },
+    "approvals": {
+      "description": "state/approvals.yaml: per entry, the files the curator approved by SHA-256, for the repo they were approved in (approvals.py).",
+      "type": "object",
+      "propertyNames": {"$ref": "#/$defs/entry_id"},
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["repo_id", "files"],
+        "properties": {
+          "repo_id": {"type": "integer", "minimum": 1},
+          "files": {"type": "array", "items": {"type": "object", "additionalProperties": false,
+                                               "required": ["path", "sha256", "bytes", "commit", "approved_at"],
+                                               "properties": {"path": {"type": "string", "minLength": 1},
+                                                              "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+                                                              "bytes": {"type": "integer", "minimum": 0},
+                                                              "commit": {"$ref": "#/$defs/sha"},
+                                                              "approved_at": {"$ref": "#/$defs/iso"}}}}
         }
       }
     }
