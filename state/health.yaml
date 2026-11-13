@@ -179,16 +179,14 @@ half-life-alyx:
   warnings: []
 half-life-vr:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-10-09T17:02:19Z'
   failing_since: null
   failures: []
-  flagged_commit: d7555089b164ac6004cc02111ef2b122321dc11f
-  flagged_files:
-  - LambdaVision/Packages/GameLibrary/Sources/GameLibraryServer/Web/vendor/libarchive/libarchive.wasm
-  - scripts/prebuilts.sh
+  flagged_commit: null
+  flagged_files: []
   github_verified: true
   health: ok
   last_checked: '2026-11-13T06:28:54Z'
@@ -198,17 +196,17 @@ half-life-vr:
     spdx: GPL-3.0
   outreach_issue_url: null
   outreach_opened_at: null
-  rescan_after: '2026-11-10T07:18:30Z'
-  rescan_hold: true
+  rescan_after: null
+  rescan_hold: false
   routes:
   - S1-11d
-  scan_confidence: 100
+  scan_confidence: null
   scan_declines: 0
-  scan_kind: automated
+  scan_kind: curator-reviewed
   scan_refused: false
-  scan_state: behind
-  scanned_at: '2026-10-30T07:01:08Z'
-  scanned_commit: 6ead127a3248fce9252fb0cf3b1cc83f389bf3d4
+  scan_state: current
+  scanned_at: '2026-11-13T19:52:40Z'
+  scanned_commit: d7555089b164ac6004cc02111ef2b122321dc11f
   warnings: []
 luigis-mansion-vr:
   archived: false
