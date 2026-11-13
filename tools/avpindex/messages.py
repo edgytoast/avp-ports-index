@@ -83,16 +83,17 @@ def read_state(comment: dict | None) -> dict:
     if not comment:
         return state
     body = comment.get("body") or ""
-    match = STATE_RE.search(body)
-    if match:
+    # The App writes its hidden state after the visible text, so the last marker is the real one.
+    found = list(STATE_RE.finditer(body))
+    if found:
         try:
-            state.update(json.loads(match.group(1)))
+            state.update(json.loads(found[-1].group(1)))
         except ValueError:
             pass
     else:
-        scans = SCANS_RE.search(body)
+        scans = list(SCANS_RE.finditer(body))
         if scans:
-            state["scans"] = int(scans.group(1))
+            state["scans"] = int(scans[-1].group(1))
     return state
 
 

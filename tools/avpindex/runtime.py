@@ -111,7 +111,7 @@ class Runtime:
 
     def summary(self, line: str) -> None:
         self.summary_lines.append(line)
-        print(line)
+        print(validate.log_line(line))  # one line, never a workflow command
 
     def flush_summary(self) -> None:
         path = os.environ.get("GITHUB_STEP_SUMMARY")
@@ -148,6 +148,14 @@ class Runtime:
                 self.gh.create_issue(TRIAGE_PREFIX + entry_id, body, labels=["triage"],
                                      assignees=[self.owner_login])
         self.once(f"triage:{entry_id}:{hash(body)}", act)
+
+    def note_triage(self, entry_id: str, body: str) -> None:
+        """Comment on the entry's open triage issue, if it has one; never opens one."""
+        def act():
+            issue = self.find_triage(entry_id)
+            if issue:
+                self.gh.comment(issue["number"], body)
+        self.once(f"note-triage:{entry_id}:{hash(body)}", act)
 
     def close_triage(self, entry_id: str, note: str) -> None:
         def act():
