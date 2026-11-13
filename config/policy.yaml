@@ -18,10 +18,15 @@ stage2:
   daily_cap: 12
   per_pr_max_scans: 3                # then the PR waits for the owner
   rescan_daily_max: 6
-  confidence_threshold: 80          # Jules safe_confidence needed to pass (0-100)
-  jules_timeout_minutes: 60          # enforced by the poller; the job's own timeout-minutes is fixed at 200
+  confidence_threshold: 80          # the verdict's safe_confidence needed to pass (0-100)
+  approved_files_min_confidence: 50  # a flag whose findings are all on curator-approved files (same SHA-256) passes from here up
+  jules_timeout_minutes: 60          # bounds each agent review (name kept from Jules); enforced by the poller; the job's own timeout-minutes is fixed at 200
 health:                             # the schedule itself is fixed in health-check.yml (17 6 * * *); workflows can't read it from here
   confirm_runs_before_outreach: 2
   grace_days: 30
   outreach_max_per_run: 10
 stale_pr_close_days: 14
+stale_pr_close_days_owner: 90      # PRs the curator opened for someone else's port
+stage1_recheck_hours: 24           # rerun Stage 1 on PRs waiting on their port's repo at least this often
+stage1_recheck_max_per_run: 10
+app_review_extensions: [.z64, .n64, .v64, .xex, .xbe, .pak, .pk3, .pk4, .wad, .iso, .rom, .o2r, .otr]  # listed for the curator, not failed
