@@ -569,6 +569,36 @@ visr:
   scanned_at: '2026-11-13T21:10:44Z'
   scanned_commit: 9687cf8b540f36e8e81938148e86264ee44bc924
   warnings: []
+voxelnative:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: false
+  decay_reset_at: '2026-11-14T02:35:02Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: false
+  health: ok
+  last_checked: null
+  last_commit_date: '2026-11-13T23:07:52Z'
+  license:
+    kind: custom
+    spdx: null
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes: []
+  scan_confidence: 98
+  scan_declines: 0
+  scan_kind: automated
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-11-14T02:35:01Z'
+  scanned_commit: f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17
+  warnings: []
 wind-waker-vr:
   archived: false
   commits_since_scan: 0

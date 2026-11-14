@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.5.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-14T02:29:35Z",
+  "generated_at": "2026-11-14T02:35:05Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -275,6 +275,143 @@
               "layer": "front",
               "sha256": "c94912d2d5fa53dbd1303b16c26f9b4d0e47eba4506c2c9b46e58f1679c561a9",
               "url": "https://raw.githubusercontent.com/LowRiderXR/revc-visionos-app/c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c/AvpViceCity/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": []
+      }
+    },
+    {
+      "id": "voxelnative",
+      "name": "VoxelNative",
+      "game": {
+        "title": "Luanti",
+        "original_platform": "pc",
+        "original_release_year": 2010
+      },
+      "repo_url": "https://github.com/edgytoast/voxelnative",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/voxelnative/tree/f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17",
+      "install_doc_url": "https://github.com/edgytoast/voxelnative/blob/f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "bettse",
+        "url": null,
+        "github_verified": false
+      },
+      "credits": [
+        {
+          "name": "bettse",
+          "role": "VoxelNative, the Apple Vision Pro client",
+          "url": "https://github.com/bettse/voxelnative"
+        },
+        {
+          "name": "Trevorbilt",
+          "role": "Install guide and AVP Ports Index listing",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "Luanti",
+          "role": "The engine whose network protocol this client reimplements",
+          "url": "https://github.com/luanti-org/luanti"
+        },
+        {
+          "name": "VoxeLibre",
+          "role": "The game it's built and tested against",
+          "url": "https://github.com/VoxeLibre/VoxeLibre"
+        },
+        {
+          "name": "BigInt",
+          "role": "Third-party code (MIT)",
+          "url": "https://github.com/attaswift/BigInt"
+        },
+        {
+          "name": "Luanti contributors",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/bettse/voxelnative",
+        "https://github.com/luanti-org/luanti"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "Joining a server and playing works in the headset, with VoxeLibre as the daily driver. The README calls it a work in progress, rough in places.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17",
+      "scanned_at": "2026-11-14T02:35:01Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-13T23:07:52Z",
+      "license": {
+        "kind": "custom",
+        "spdx": null
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "6dof-immersive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "luanti",
+        "minetest",
+        "voxelibre",
+        "voxel",
+        "sandbox",
+        "vr",
+        "6dof"
+      ],
+      "description": "A native Swift and Metal Luanti (Minetest) client for Apple Vision Pro. It speaks the Luanti protocol to any server and renders the world per eye in full immersion; walk, dig, place and craft with PS VR2 Sense controllers or a Bluetooth keyboard. Listed from a copy with an install guide.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/voxelnative.md",
+      "media": {
+        "commit": "f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 76708,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "943263a819496a9eb0887d4524d5b91f7577c563a19cabf952108f07f28289a7",
+              "url": "https://raw.githubusercontent.com/edgytoast/voxelnative/f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/icon_back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 6556,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "86a4380e78c0d24d66bf590bfd51a3d81e4824aa566028419db4b96745cf1f8d",
+              "url": "https://raw.githubusercontent.com/edgytoast/voxelnative/f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/icon_middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 39994,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "a2356b0fb96058dac64c723e4476fc34aac3803a73e991b4e3d922f9dde868f0",
+              "url": "https://raw.githubusercontent.com/edgytoast/voxelnative/f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/icon_front.png",
               "width": 1024
             }
           ]

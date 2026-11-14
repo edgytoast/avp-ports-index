@@ -696,6 +696,39 @@ visr:
     width: 2320
   skipped: []
   source: readme
+voxelnative:
+  choice: null
+  collected_at: '2026-11-14T02:35:05Z'
+  commit: f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17
+  icon:
+    kind: layered
+    layers:
+    - bytes: 76708
+      format: png
+      height: 1024
+      layer: back
+      sha256: 943263a819496a9eb0887d4524d5b91f7577c563a19cabf952108f07f28289a7
+      url: https://raw.githubusercontent.com/edgytoast/voxelnative/f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/icon_back.png
+      width: 1024
+    - bytes: 6556
+      format: png
+      height: 1024
+      layer: middle
+      sha256: 86a4380e78c0d24d66bf590bfd51a3d81e4824aa566028419db4b96745cf1f8d
+      url: https://raw.githubusercontent.com/edgytoast/voxelnative/f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/icon_middle.png
+      width: 1024
+    - bytes: 39994
+      format: png
+      height: 1024
+      layer: front
+      sha256: a2356b0fb96058dac64c723e4476fc34aac3803a73e991b4e3d922f9dde868f0
+      url: https://raw.githubusercontent.com/edgytoast/voxelnative/f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/icon_front.png
+      width: 1024
+  screenshots: []
+  skipped:
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/TestFlight-Join_the_beta-0D96F6?style=for-the-badge&logo=apple&logoColor=white
+  source: readme
 wind-waker-vr:
   choice: null
   collected_at: '2026-10-29T22:31:03Z'

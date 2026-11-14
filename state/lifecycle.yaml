@@ -188,6 +188,16 @@ visr:
   status: listed
   submitted_by: steverice
   submitted_by_id: 1423851
+voxelnative:
+  by: merge
+  changed_at: '2026-11-14T02:35:02Z'
+  listed_at: '2026-11-14T02:35:02Z'
+  owner_approved: true
+  repo: https://github.com/edgytoast/voxelnative
+  repo_id: 1406449520
+  status: listed
+  submitted_by: edgytoast
+  submitted_by_id: 146565462
 wind-waker-vr:
   by: merge
   changed_at: '2026-10-29T22:30:59Z'
