@@ -411,6 +411,14 @@ revc-visionos:
   screenshots: []
   skipped: []
   source: readme
+rtcw-avp:
+  choice: null
+  collected_at: '2026-11-14T02:25:14Z'
+  commit: 9982831d996d9f6058b75684c2dae3be2204b5a6
+  icon: null
+  screenshots: []
+  skipped: []
+  source: readme
 santosvision:
   choice: null
   collected_at: '2026-11-02T22:41:35Z'

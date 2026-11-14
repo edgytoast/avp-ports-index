@@ -330,6 +330,36 @@ revc-visionos:
   scanned_at: '2026-11-02T22:41:25Z'
   scanned_commit: c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c
   warnings: []
+rtcw-avp:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: false
+  decay_reset_at: '2026-11-14T02:25:13Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: false
+  health: ok
+  last_checked: null
+  last_commit_date: '2026-11-13T23:07:14Z'
+  license:
+    kind: open-source
+    spdx: GPL-3.0
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes: []
+  scan_confidence: 95
+  scan_declines: 0
+  scan_kind: automated
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-11-14T02:25:12Z'
+  scanned_commit: 9982831d996d9f6058b75684c2dae3be2204b5a6
+  warnings: []
 santosvision:
   archived: false
   commits_since_scan: 0
