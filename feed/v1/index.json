@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.5.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-13T22:54:29Z",
+  "generated_at": "2026-11-14T00:36:44Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -412,6 +412,142 @@
             "height": 1440,
             "sha256": "a90e6e4e1ce8536af066211a1098c60657ef9ec07ea8da6438c0a8f594dc55aa",
             "url": "https://raw.githubusercontent.com/edgytoast/Starship-ios/5de019c0b16e68ba3ad6a62413b0ca9953285658/docs/screenshots/visionos-window.jpg",
+            "width": 2560
+          }
+        ]
+      }
+    },
+    {
+      "id": "lighthouse",
+      "name": "Lighthouse",
+      "game": {
+        "title": "Banjo-Kazooie",
+        "original_platform": "n64",
+        "original_release_year": 1998
+      },
+      "repo_url": "https://github.com/edgytoast/Lighthouse-ios",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/Lighthouse-ios/tree/b2b6b2b8817b7229f63beaad30237f2af2d35e81",
+      "install_doc_url": "https://github.com/edgytoast/Lighthouse-ios/blob/b2b6b2b8817b7229f63beaad30237f2af2d35e81/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "rebelancap",
+        "url": null,
+        "github_verified": false
+      },
+      "credits": [
+        {
+          "name": "rebelancap",
+          "role": "The iOS and visionOS port",
+          "url": "https://github.com/rebelancap/Lighthouse-ios"
+        },
+        {
+          "name": "Trevorbilt",
+          "role": "Install guide and AVP Ports Index listing",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "Harbour Masters",
+          "role": "Lighthouse, the port this is built on",
+          "url": "https://github.com/HarbourMasters/Lighthouse"
+        },
+        {
+          "name": "Harbour Masters",
+          "role": "libultraship, the platform layer",
+          "url": "https://github.com/HarbourMasters/libultraship"
+        },
+        {
+          "name": "Nintendo and Rare",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/rebelancap/Lighthouse-ios",
+        "https://github.com/HarbourMasters/Lighthouse",
+        "https://github.com/HarbourMasters/libultraship"
+      ],
+      "self_reported_status": "working",
+      "status_notes": null,
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "b2b6b2b8817b7229f63beaad30237f2af2d35e81",
+      "scanned_at": "2026-11-14T00:36:41Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-13T22:49:27Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "MIT"
+      },
+      "visionos_min": "2.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d",
+        "3d-immersive"
+      ],
+      "install": [
+        "build",
+        "sideload"
+      ],
+      "tags": [
+        "banjo-kazooie",
+        "platformer",
+        "n64",
+        "source-port",
+        "harbour-masters",
+        "stereo-3d",
+        "randomizer"
+      ],
+      "description": "Banjo-Kazooie on Apple Vision Pro through Harbour Masters' Lighthouse, rendering natively on Metal: a resizable 2D window, or a stereoscopic 3D screen in your room. Enhancements, randomizer, co-op, ROM hacks and in-app ROM extraction. Bring your own ROM. Listed from a copy with an install guide.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/lighthouse.md",
+      "media": {
+        "commit": "b2b6b2b8817b7229f63beaad30237f2af2d35e81",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 5622,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "12f494d8d3821a91a1e1ac8b88b9be6bdbd5be36df0d84570c3f50f254b79b46",
+              "url": "https://raw.githubusercontent.com/edgytoast/Lighthouse-ios/b2b6b2b8817b7229f63beaad30237f2af2d35e81/app/ios/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 150086,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "0530ab3d8cdabd953f802a9740dc41fb33248e311206ffa3861bec7e5b09ff21",
+              "url": "https://raw.githubusercontent.com/edgytoast/Lighthouse-ios/b2b6b2b8817b7229f63beaad30237f2af2d35e81/app/ios/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "Banjo-Kazooie on Apple Vision Pro",
+            "bytes": 381831,
+            "format": "jpeg",
+            "height": 1440,
+            "sha256": "9046392d27b45d81cb70bf8ea9e4f210c52d37891aebf04ea44495487c9a755f",
+            "url": "https://raw.githubusercontent.com/edgytoast/Lighthouse-ios/b2b6b2b8817b7229f63beaad30237f2af2d35e81/docs/screenshots/visionos-window.jpg",
             "width": 2560
           }
         ]
