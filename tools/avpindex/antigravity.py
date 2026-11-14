@@ -3,7 +3,7 @@
 Google turned Jules read-only on 2026-11-11 (shut down 2026-12-31); its successor for this job is the
 Antigravity agent in the Gemini API's Interactions endpoint. Like Jules, it runs in a Google-hosted Linux
 sandbox, clones the repository itself, and works in the background while we poll. The prompt, the verdict
-schema, the random review id and the pass rule are the same as for Jules (jules.py keeps those helpers).
+schema, the random review id and the pass rule are the same as for Jules and live in safety_check.py.
 
 One review:
 1. Create a background interaction with the live (or candidate) prompt. A quota refusal (429, or a 403
@@ -29,8 +29,8 @@ from pathlib import Path
 
 import requests
 
-from . import jules
-from .jules import CANDIDATE, LIVE, PROMPTS, Deferred, Outcome  # noqa: F401  (re-exported for the CLI)
+from . import safety_check
+from .safety_check import CANDIDATE, LIVE, PROMPTS, Deferred, Outcome  # noqa: F401  (re-exported for the CLI)
 
 API = "https://generativelanguage.googleapis.com/v1beta"
 AGENT = "antigravity-preview-09-2026"
@@ -133,19 +133,19 @@ def find_verdict(texts: list[str | None], schema: dict, review_id: str) -> tuple
     for text in texts:
         if not text:
             continue
-        data, issue = jules.check_verdict(text, schema)
-        candidates = [data] if data is not None else jules._json_objects(text)
+        data, issue = safety_check.check_verdict(text, schema)
+        candidates = [data] if data is not None else safety_check._json_objects(text)
         if data is None and not candidates:
             problem = problem or issue
         for obj in candidates:
-            checked, issue = jules.check_verdict(json.dumps(obj), schema)
+            checked, issue = safety_check.check_verdict(json.dumps(obj), schema)
             if checked is None:
                 problem = problem or issue
             elif checked["review_id"] != review_id:
                 problem = problem or "verdict.json doesn't carry this review's id"
             else:
                 return checked, ""
-    return None, problem or jules.NO_VERDICT
+    return None, problem or safety_check.NO_VERDICT
 
 
 def _failure_text(interaction: dict) -> str:
@@ -161,14 +161,14 @@ def _quota_failure(interaction: dict) -> bool:
 # --- one review -----------------------------------------------------------------------------------
 
 def review(client: Antigravity, repo_url: str, sha: str, policy: dict, *, root: Path | None = None,
-           prompt: str = LIVE, sleep=time.sleep, clock=time.monotonic, make_id=jules.new_review_id) -> Outcome:
+           prompt: str = LIVE, sleep=time.sleep, clock=time.monotonic, make_id=safety_check.new_review_id) -> Outcome:
     threshold = int(policy["stage2"]["confidence_threshold"])
-    timeout = int(policy["stage2"]["jules_timeout_minutes"]) * 60
-    schema = jules.verdict_schema(root)  # always the live schema, whichever prompt was shown
+    timeout = int(policy["stage2"]["timeout_minutes"]) * 60
+    schema = safety_check.verdict_schema(root)  # always the live schema, whichever prompt was shown
     review_id = make_id()
     started = clock()
     try:
-        interaction = client.create(jules.render_prompt(repo_url, sha, threshold, review_id, root, prompt))
+        interaction = client.create(safety_check.render_prompt(repo_url, sha, threshold, review_id, root, prompt))
     except Deferred as exc:
         return Outcome("deferred", reason=str(exc)[:200])
     except (AgentError, requests.RequestException) as exc:
@@ -210,9 +210,9 @@ def review(client: Antigravity, repo_url: str, sha: str, policy: dict, *, root: 
                         break
             verdict, problem = find_verdict([*files, said], schema, review_id)
             if verdict is not None:
-                outcome.result, outcome.verdict = jules.decide(verdict, threshold), verdict
-            elif jules.looks_like_refusal(said, review_id):
-                outcome.result, outcome.reason = "declined", jules.excerpt(said)
+                outcome.result, outcome.verdict = safety_check.decide(verdict, threshold), verdict
+            elif safety_check.looks_like_refusal(said, review_id):
+                outcome.result, outcome.reason = "declined", safety_check.excerpt(said)
                 outcome.diagnostics["decline_signal"] = "wording"
             elif status != "completed":
                 outcome.reason = f"the review ended {status or 'without a status'}: {_failure_text(interaction)}"[:300]

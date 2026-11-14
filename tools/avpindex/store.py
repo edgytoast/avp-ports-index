@@ -88,9 +88,9 @@ def load_json(rel: str, root: Path | None = None) -> dict:
 
 def load_policy(root: Path | None = None) -> dict:
     policy = read_yaml((root or ROOT) / POLICY, {})
-    timeout = policy["stage2"]["jules_timeout_minutes"]
+    timeout = policy["stage2"]["timeout_minutes"]
     if not isinstance(timeout, int) or not 1 <= timeout <= 180:
-        raise ValueError("stage2.jules_timeout_minutes must be between 1 and 180")
+        raise ValueError("stage2.timeout_minutes must be between 1 and 180")
     floor = policy["stage2"]["approved_files_min_confidence"]
     if not isinstance(floor, int) or not 0 <= floor <= 100:
         raise ValueError("stage2.approved_files_min_confidence must be between 0 and 100")

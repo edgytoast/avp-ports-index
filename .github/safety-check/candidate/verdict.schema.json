@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/edgytoast/avp-ports-index/.github/jules/verdict.schema.json",
+  "$id": "https://github.com/edgytoast/avp-ports-index/.github/safety-check/verdict.schema.json",
   "title": "Safety check verdict",
   "type": "object",
   "additionalProperties": false,

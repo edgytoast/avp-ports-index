@@ -2,7 +2,7 @@
 
 Runs are idempotent. The ledger comes from the Actions API: each stage2-scan run is named
 "stage2 <mode> <pr or entry id>", and its report job uploads an empty artifact named
-result-<pass|flag|error|deferred|declined>. A declined scan used a Jules session, so it counts like
+result-<pass|flag|error|deferred|declined>. A declined scan used an agent run, so it counts like
 any other run; a deferred one was refused before a review ran, so it doesn't count toward the caps.
 Scans go out one at a time: none while another is queued or running, and at most one per dispatcher
 run, because back-to-back reviews trip the provider's per-minute token limit. A deferral (quota) in
@@ -42,7 +42,7 @@ SCAN_WORKFLOW = "stage2-scan.yml"
 UPSTREAM_CHECKS = {"S1-06", "S1-07", "S1-11a", "S1-11d"}  # failures fixed in the port's repo
 RECHECK_SECONDS = 300  # stop starting new re-checks after this; the workflow step has its own hard limit
 DECLINE_PAUSE = 2      # different PRs or entries declined in the last hour, with no pass or flag, pause dispatching
-DECLINE_WAIT = dt.timedelta(hours=1)  # a declined PR isn't sent back to Jules sooner than this
+DECLINE_WAIT = dt.timedelta(hours=1)  # a declined PR isn't sent back to the agent sooner than this
 RUN_NAME_RE = re.compile(r"^stage2 (pr|rescan) ([0-9]+|[a-z0-9]+(?:-[a-z0-9]+)*)$")
 CALIBRATE_RUN_RE = re.compile(r"^stage2 calibrate\b")
 

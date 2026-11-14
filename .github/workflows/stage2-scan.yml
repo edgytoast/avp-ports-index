@@ -1,5 +1,5 @@
 # One Stage 2 safety check (docs/SPEC.md §6.2, §8.4). Dispatched only by the dispatcher.
-# The scan job holds no GitHub token; Jules runs in Google's environment.
+# The scan job holds no GitHub token; the agent runs in Google's environment.
 name: stage2-scan
 run-name: stage2 ${{ inputs.mode }} ${{ inputs.mode == 'pr' && inputs.pr || inputs.entry_id }}
 
@@ -40,11 +40,11 @@ permissions: {}
 jobs:
   scan:
     runs-on: ubuntu-latest
-    environment: jules
+    environment: safety-check
     permissions: {}
     timeout-minutes: 200
     concurrency:
-      group: jules-scan
+      group: safety-check-scan
       cancel-in-progress: false
       queue: max
     env:
