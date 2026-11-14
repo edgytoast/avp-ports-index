@@ -1,0 +1,28 @@
+schema_version: 1
+id: macnativegames-totk
+name: MacNativeGames
+game:
+  title: "The Legend of Zelda: Tears of the Kingdom"
+  original_platform: other
+  original_release_year: 2023
+repo: https://github.com/ly05010419/MacNativeGames
+developer:
+  github: ly05010419
+status: partially-working
+status_notes: "The developer lists Vision Pro support as early: Tears of the Kingdom plays in a 16:9 window with a game controller, not in VR. Breath of the Wild has no Vision Pro build yet. Not tested by the curator."
+visionos_min: "26.0"
+input: [game-controller]
+experiences: [2d]
+install: [build]
+description: >-
+  Tears of the Kingdom in a window on Apple Vision Pro, with the game's own ARM64 code running directly on Apple
+  silicon and its graphics rebuilt on Metal. Not an emulator. Build it from your own Switch dump and keys.
+tags: [zelda, tears-of-the-kingdom, switch, window, metal, native-port]
+credits:
+  - name: ly05010419
+    role: MacNativeGames, including the visionOS build
+    url: https://github.com/ly05010419/MacNativeGames
+  - name: Ryujinx
+    role: The shader translator and a reference for system services
+  - name: Nintendo
+    role: Original game
