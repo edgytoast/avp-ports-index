@@ -540,6 +540,37 @@ ship-of-harkinian:
     width: 2560
   skipped: []
   source: readme
+spaghettikart:
+  choice: null
+  collected_at: '2026-11-14T02:29:35Z'
+  commit: 1eabc254e86b3a420d761dc8a8efe04c37fb1b06
+  icon:
+    kind: layered
+    layers:
+    - bytes: 6817
+      format: png
+      height: 1024
+      layer: back
+      sha256: 810e2109fa5362ba589f19309ffbfea171bf89a9ce15b706c10b87058db3239d
+      url: https://raw.githubusercontent.com/edgytoast/SpaghettiKart-ios/1eabc254e86b3a420d761dc8a8efe04c37fb1b06/app/ios/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png
+      width: 1024
+    - bytes: 390189
+      format: png
+      height: 1024
+      layer: front
+      sha256: c6528f56f157732ee223d0406f56813745baea1eec8ea526da2e97025a58f5e8
+      url: https://raw.githubusercontent.com/edgytoast/SpaghettiKart-ios/1eabc254e86b3a420d761dc8a8efe04c37fb1b06/app/ios/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png
+      width: 1024
+  screenshots:
+  - alt: Mario Kart 64 on Apple Vision Pro
+    bytes: 732318
+    format: jpeg
+    height: 1440
+    sha256: df2f1217797be429f477a024d44248e29f7e6e1d5a5d47cc817136b0ecc7cc2a
+    url: https://raw.githubusercontent.com/edgytoast/SpaghettiKart-ios/1eabc254e86b3a420d761dc8a8efe04c37fb1b06/docs/screenshots/visionos-window.jpg
+    width: 2560
+  skipped: []
+  source: readme
 starship:
   choice: null
   collected_at: '2026-11-13T22:54:29Z'

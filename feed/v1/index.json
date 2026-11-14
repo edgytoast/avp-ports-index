@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.5.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-14T02:25:15Z",
+  "generated_at": "2026-11-14T02:29:35Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -280,6 +280,142 @@
           ]
         },
         "screenshots": []
+      }
+    },
+    {
+      "id": "spaghettikart",
+      "name": "SpaghettiKart",
+      "game": {
+        "title": "Mario Kart 64",
+        "original_platform": "n64",
+        "original_release_year": 1996
+      },
+      "repo_url": "https://github.com/edgytoast/SpaghettiKart-ios",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/SpaghettiKart-ios/tree/1eabc254e86b3a420d761dc8a8efe04c37fb1b06",
+      "install_doc_url": "https://github.com/edgytoast/SpaghettiKart-ios/blob/1eabc254e86b3a420d761dc8a8efe04c37fb1b06/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "rebelancap",
+        "url": null,
+        "github_verified": false
+      },
+      "credits": [
+        {
+          "name": "rebelancap",
+          "role": "The iOS and visionOS port",
+          "url": "https://github.com/rebelancap/SpaghettiKart-ios"
+        },
+        {
+          "name": "Trevorbilt",
+          "role": "Install guide and AVP Ports Index listing",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "Harbour Masters",
+          "role": "SpaghettiKart, the port this is built on",
+          "url": "https://github.com/HarbourMasters/SpaghettiKart"
+        },
+        {
+          "name": "Harbour Masters",
+          "role": "libultraship, the platform layer",
+          "url": "https://github.com/HarbourMasters/libultraship"
+        },
+        {
+          "name": "Nintendo",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/rebelancap/SpaghettiKart-ios",
+        "https://github.com/HarbourMasters/SpaghettiKart",
+        "https://github.com/HarbourMasters/libultraship"
+      ],
+      "self_reported_status": "working",
+      "status_notes": null,
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "1eabc254e86b3a420d761dc8a8efe04c37fb1b06",
+      "scanned_at": "2026-11-14T02:29:32Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-13T23:07:39Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "MIT"
+      },
+      "visionos_min": "2.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d",
+        "3d-immersive"
+      ],
+      "install": [
+        "build",
+        "sideload"
+      ],
+      "tags": [
+        "racing",
+        "mario-kart",
+        "n64",
+        "source-port",
+        "harbour-masters",
+        "stereo-3d",
+        "texture-packs"
+      ],
+      "description": "Mario Kart 64 on Apple Vision Pro through Harbour Masters' SpaghettiKart, rendering natively on Metal: a resizable 2D window, or a stereoscopic 3D screen in your room. Enhancements, controllers, 4K texture packs, in-app ROM extraction. Bring your own ROM. Listed from a copy with an install guide.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/spaghettikart.md",
+      "media": {
+        "commit": "1eabc254e86b3a420d761dc8a8efe04c37fb1b06",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 6817,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "810e2109fa5362ba589f19309ffbfea171bf89a9ce15b706c10b87058db3239d",
+              "url": "https://raw.githubusercontent.com/edgytoast/SpaghettiKart-ios/1eabc254e86b3a420d761dc8a8efe04c37fb1b06/app/ios/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 390189,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "c6528f56f157732ee223d0406f56813745baea1eec8ea526da2e97025a58f5e8",
+              "url": "https://raw.githubusercontent.com/edgytoast/SpaghettiKart-ios/1eabc254e86b3a420d761dc8a8efe04c37fb1b06/app/ios/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "Mario Kart 64 on Apple Vision Pro",
+            "bytes": 732318,
+            "format": "jpeg",
+            "height": 1440,
+            "sha256": "df2f1217797be429f477a024d44248e29f7e6e1d5a5d47cc817136b0ecc7cc2a",
+            "url": "https://raw.githubusercontent.com/edgytoast/SpaghettiKart-ios/1eabc254e86b3a420d761dc8a8efe04c37fb1b06/docs/screenshots/visionos-window.jpg",
+            "width": 2560
+          }
+        ]
       }
     },
     {

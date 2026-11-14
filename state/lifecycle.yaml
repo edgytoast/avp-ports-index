@@ -148,6 +148,16 @@ ship-of-harkinian:
   status: listed
   submitted_by: edgytoast
   submitted_by_id: 146565462
+spaghettikart:
+  by: merge
+  changed_at: '2026-11-14T02:29:32Z'
+  listed_at: '2026-11-14T02:29:32Z'
+  owner_approved: true
+  repo: https://github.com/edgytoast/SpaghettiKart-ios
+  repo_id: 1406326845
+  status: listed
+  submitted_by: edgytoast
+  submitted_by_id: 146565462
 starship:
   by: merge
   changed_at: '2026-11-13T22:54:24Z'
