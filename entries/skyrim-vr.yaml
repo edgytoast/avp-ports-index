@@ -1,0 +1,38 @@
+schema_version: 1
+id: skyrim-vr
+name: Skyrim VR on Apple Vision Pro
+game:
+  title: "The Elder Scrolls V: Skyrim VR"
+  original_platform: pc
+  original_release_year: 2017
+repo: https://github.com/gseddon/Skyrim-VR-Vision-Pro
+developer:
+  github: gseddon
+status: working
+status_notes: "The developer reports it plays well on the headset: about 35 fps redrawn at 100 Hz, Sense controllers, sound, menus, saves and SKSE mods. Connect both controllers before pressing Start. Needs a paid Apple Developer account. Not tested by the curator."
+visionos_min: "26.0"
+input: [game-controller]
+experiences: [6dof-immersive]
+install: [build]
+description: >-
+  The Windows PC version of Skyrim VR on Apple Vision Pro itself, with no PC or streaming: your Mac recompiles your own
+  Steam copy for Apple silicon once, and the headset plays it in full VR with PS VR2 Sense controllers and physics mods.
+tags: [skyrim, skyrim-vr, vr, 6dof, rpg, open-world, steam, aot-recompilation]
+credits:
+  - name: gseddon
+    role: The visionOS port
+    url: https://github.com/gseddon/Skyrim-VR-Vision-Pro
+  - name: Ag3497120
+    role: VeRantyx, the x86-64 to ARM64 recompiler and Windows layer it builds on
+    url: https://github.com/Ag3497120/VeRantyx
+  - name: Supreeeme
+    role: xrizer, OpenVR on OpenXR
+    url: https://github.com/Supreeeme/xrizer
+  - name: shinyquagsire23
+    role: Klepton, the source of its visionOS OpenXR provider
+    url: https://github.com/shinyquagsire23/Klepton
+  - name: Bethesda Softworks
+    role: Original game
+upstream:
+  - https://github.com/Ag3497120/VeRantyx
+  - https://github.com/Supreeeme/xrizer
