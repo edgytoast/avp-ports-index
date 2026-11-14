@@ -8,7 +8,7 @@ import pytest
 from conftest import REPO_ROOT, SHA
 from test_stage2 import POLICY, REFUSAL, RID, verdict
 
-from avpindex import antigravity, jules
+from avpindex import antigravity, safety_check
 
 URL = "https://github.com/a/b"
 
@@ -70,7 +70,7 @@ def test_verdict_file_passes():
     agent = FakeAgent(["completed"], files={"workspace/verdict.json": json.dumps(verdict(92))})
     out = run(agent)
     assert out.result == "pass" and out.verdict["safe_confidence"] == 92 and out.session_name == "int-1"
-    assert agent.prompt == jules.render_prompt(URL, SHA(1), 80, RID, REPO_ROOT)
+    assert agent.prompt == safety_check.render_prompt(URL, SHA(1), 80, RID, REPO_ROOT)
     assert out.states == ["in_progress", "completed"] and out.diagnostics["usage"] == {"total_tokens": 10}
 
 
@@ -93,7 +93,7 @@ def test_a_verdict_with_another_id_never_counts():
 
 
 def test_quota_at_create_is_deferred():
-    out = run(FakeAgent(["completed"], create_error=jules.Deferred("RESOURCE_EXHAUSTED")))
+    out = run(FakeAgent(["completed"], create_error=safety_check.Deferred("RESOURCE_EXHAUSTED")))
     assert out.result == "deferred"
 
 
@@ -115,7 +115,7 @@ def test_other_failures_are_errors():
 
 def test_timeout_cancels_and_errors():
     agent = FakeAgent(["in_progress"])
-    out = run(agent, {"stage2": {"confidence_threshold": 80, "jules_timeout_minutes": 5}})
+    out = run(agent, {"stage2": {"confidence_threshold": 80, "timeout_minutes": 5}})
     assert out.result == "error" and out.reason == "timed out" and agent.cancelled == ["int-1"]
     assert agent.reads == []  # a timed-out review is never read for a verdict
 

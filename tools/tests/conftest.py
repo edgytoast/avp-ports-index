@@ -28,7 +28,7 @@ STRANGER_ID = 5550002
 APP_ID = 777
 SALT = "00" * 32
 SHA = lambda n: f"{n:040x}"  # noqa: E731
-COPY = ["config", "brand", "schema", "templates", ".github/jules", "tools/avpindex"]
+COPY = ["config", "brand", "schema", "templates", ".github/safety-check", "tools/avpindex"]
 
 
 def git(root: Path, *args: str) -> str:

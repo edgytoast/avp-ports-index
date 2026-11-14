@@ -476,7 +476,7 @@ class TestHealth:
 class TestDeclinedPushes:
     def test_pushes_dont_buy_a_declined_pr_new_reviews(self, rt, gh, event, monkeypatch):
         """U22, the independent review's probe: a PR that keeps getting declined, pushed again and again, gets at
-        most per_pr_max_scans Jules sessions, an hour apart, and then waits for the curator however often it's
+        most per_pr_max_scans agent runs, an hour apart, and then waits for the curator however often it's
         pushed: the gate requeues it on every push, and the dispatcher holds it at the decline limit."""
         from avpindex import report
         gh.add_repo("trevorbilt-bot/good", 11)
@@ -490,7 +490,7 @@ class TestDeclinedPushes:
             gh.runs = []  # an empty ledger: only the PR's own limits can stop it
             before = len(gh.dispatched)
             queue.dispatch(rt)
-            if len(gh.dispatched) > before:  # Jules ran, and declined again
+            if len(gh.dispatched) > before:  # the agent ran, and declined again
                 head = gh.prs[1]["head"]["sha"]
                 report.run(rt, report.Inputs(mode="pr", pr=1, head_sha=head, linked_repo="trevorbilt-bot/good",
                                              linked_commit=SHA(11), entry_id="good", repo_id=11, base_commit=None,

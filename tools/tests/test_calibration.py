@@ -10,9 +10,10 @@ import jinja2
 import pytest
 import yaml
 from conftest import REPO_ROOT, SHA, git
-from test_stage2 import RID, Clock, FakeJules, message_activity, verdict
+from test_antigravity import Clock, FakeAgent
+from test_stage2 import RID, verdict
 
-from avpindex import antigravity, cli, jules, store, validate
+from avpindex import antigravity, cli, safety_check, store, validate
 
 THRESHOLD = 80
 
@@ -29,14 +30,14 @@ def strip_descriptions(node, parent: str | None = None):
 
 
 def render(prompt: str) -> str:
-    return jules.render_prompt("https://github.com/a/b", SHA(1), THRESHOLD, RID, REPO_ROOT, prompt)
+    return safety_check.render_prompt("https://github.com/a/b", SHA(1), THRESHOLD, RID, REPO_ROOT, prompt)
 
 
 def test_candidate_schema_is_structurally_identical():
     """The candidate may reword the schema's title and descriptions, never its structure. (Since the
     2026-10-10 promotion the two are the same files; the next rewording starts from the candidate.)"""
-    live = jules.verdict_schema(REPO_ROOT)
-    candidate = jules.verdict_schema(REPO_ROOT, jules.CANDIDATE)
+    live = safety_check.verdict_schema(REPO_ROOT)
+    candidate = safety_check.verdict_schema(REPO_ROOT, safety_check.CANDIDATE)
     assert strip_descriptions(candidate) == strip_descriptions(live)
     assert live["title"] == "Safety check verdict"
 
@@ -101,19 +102,19 @@ HARMS = [
 ]
 
 
-@pytest.mark.parametrize("prompt", [jules.LIVE, jules.CANDIDATE])
+@pytest.mark.parametrize("prompt", [safety_check.LIVE, safety_check.CANDIDATE])
 def test_prompts_render_strictly_and_keep_the_substance(prompt):
     text = render(prompt)  # StrictUndefined: an unknown or missing variable would raise
     assert "{{" not in text and "{%" not in text
     flat = " ".join(text.split())
     for phrase in SUBSTANCE:
         assert " ".join(phrase.split()) in flat, phrase
-    schema = json.dumps(jules.verdict_schema(REPO_ROOT, prompt), indent=2)
+    schema = json.dumps(safety_check.verdict_schema(REPO_ROOT, prompt), indent=2)
     assert schema in text
 
 
-@pytest.mark.parametrize("prompt", [jules.LIVE, jules.CANDIDATE])
-def test_no_words_jules_declined_on(prompt):
+@pytest.mark.parametrize("prompt", [safety_check.LIVE, safety_check.CANDIDATE])
+def test_no_words_an_agent_declined_on(prompt):
     text = render(prompt).lower()
     for word in ("malicious", "malware", "exploit", "backdoor", "security review"):
         assert word not in text, word
@@ -121,7 +122,7 @@ def test_no_words_jules_declined_on(prompt):
 
 def test_live_wording():
     """The live prompt (promoted from the candidate after calibration, decision 63) names every harm."""
-    text = render(jules.LIVE)
+    text = render(safety_check.LIVE)
     flat = " ".join(text.split())
     assert text.startswith("# AVP Ports Index safety check\n")
     for phrase in HARMS:
@@ -135,39 +136,39 @@ def test_live_wording():
 
 
 def test_strict_undefined_is_in_force(tmp_path):
-    for rel in ("security-review.md", "verdict.schema.json"):
-        target = tmp_path / ".github/jules/candidate" / rel
+    for rel in ("prompt.md", "verdict.schema.json"):
+        target = tmp_path / ".github/safety-check/candidate" / rel
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text((REPO_ROOT / ".github/jules/candidate" / rel).read_text() + ("{{ nope }}" if rel.endswith(".md") else ""))
+        target.write_text((REPO_ROOT / ".github/safety-check/candidate" / rel).read_text() + ("{{ nope }}" if rel.endswith(".md") else ""))
     with pytest.raises(jinja2.UndefinedError):
-        jules.render_prompt("https://github.com/a/b", SHA(1), THRESHOLD, RID, tmp_path, jules.CANDIDATE)
+        safety_check.render_prompt("https://github.com/a/b", SHA(1), THRESHOLD, RID, tmp_path, safety_check.CANDIDATE)
+
+
+def verdict_file(v):
+    return {"workspace/verdict.json": json.dumps(v)}
 
 
 def test_live_reviews_use_the_live_prompt_and_every_verdict_the_live_schema():
-    clock = Clock()
-    client = FakeJules(["COMPLETED"], message_activity(verdict(91)))
-    out = jules.review(client, "https://github.com/a/b", SHA(1), {"stage2": {"confidence_threshold": 80,
-                       "jules_timeout_minutes": 60}}, root=REPO_ROOT, sleep=clock.sleep, clock=clock, make_id=lambda: RID)
-    assert out.result == "pass" and client.prompt == render(jules.LIVE)
-    assert client.title == f"AVP index safety check: a/b@{SHA(1)[:7]}"
-    client = FakeJules(["COMPLETED"], message_activity(verdict(91)))
-    out = jules.review(client, "https://github.com/a/b", SHA(1), {"stage2": {"confidence_threshold": 80,
-                       "jules_timeout_minutes": 60}}, root=REPO_ROOT, prompt=jules.CANDIDATE, sleep=clock.sleep,
-                       clock=clock, make_id=lambda: RID)
-    assert out.result == "pass" and client.prompt == render(jules.CANDIDATE)
-    assert client.title == f"AVP index safety check: a/b@{SHA(1)[:7]}"
+    policy = {"stage2": {"confidence_threshold": 80, "timeout_minutes": 60}}
+    for prompt in (None, safety_check.CANDIDATE):
+        clock = Clock()
+        client = FakeAgent(["completed"], files=verdict_file(verdict(91)))
+        kw = {"prompt": prompt} if prompt else {}
+        out = antigravity.review(client, "https://github.com/a/b", SHA(1), policy, root=REPO_ROOT, sleep=clock.sleep,
+                                 clock=clock, make_id=lambda: RID, **kw)
+        assert out.result == "pass" and client.prompt == render(prompt or safety_check.LIVE)
 
 
 def test_scan_command_has_no_prompt_choice():
     """cmd_scan (live reviews) never passes a prompt, so it always gets the live default."""
     import inspect
     assert "prompt" not in inspect.getsource(cli.cmd_scan)
-    assert inspect.signature(jules.review).parameters["prompt"].default == jules.LIVE
+    assert inspect.signature(antigravity.review).parameters["prompt"].default == safety_check.LIVE
 
 
 @pytest.fixture
 def calibrate_env(root, tmp_path_factory, monkeypatch):
-    """stage2-calibrate's environment: validated inputs, a Jules key, no usable GitHub token, and a fake Jules."""
+    """stage2-calibrate's environment: validated inputs, a Gemini key, no usable GitHub token, and a fake agent."""
     monkeypatch.setattr(store, "ROOT", root)
     out = tmp_path_factory.mktemp("calibration")
     monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(out / "summary.md"))
@@ -182,12 +183,11 @@ def calibrate_env(root, tmp_path_factory, monkeypatch):
     clients = []
 
     def make_client(key):
-        clients.append(FakeJules(["COMPLETED"], message_activity(verdict(92, findings=[finding]))))
+        clients.append(FakeAgent(["completed"], files=verdict_file(verdict(92, findings=[finding]))))
         return clients[-1]
 
-    # The CLI's plumbing is the same whichever agent reviews: drive it with the Jules fakes through
-    # jules.review. antigravity.review itself is tested in test_antigravity.py.
-    real = jules.review
+    # The real antigravity.review drives the fake agent, on a fake clock and a fixed review id.
+    real = antigravity.review
     clock = Clock()
     monkeypatch.setattr(antigravity, "Antigravity", make_client)
     monkeypatch.setattr(antigravity, "review", lambda client, url, sha, policy, **kw: real(
@@ -210,15 +210,15 @@ def test_calibrate_writes_the_outcome_and_nothing_else(root, calibrate_env):
     assert "**Result:** pass" in summary and "**Confidence:** 92 (threshold 80)" in summary
     assert "**Steering attempt:** no" in summary
     assert re.search(r"```text\n- \[low\] scripts/fetch.sh:3 \(download\): Fetches MoltenVK .* @victim\n```", summary)
-    assert "Session: https://jules.google.com/session/1" in summary
+    assert "Session: " in summary
 
 
 def test_calibrate_stdout_carries_no_workflow_commands(root, calibrate_env, monkeypatch, capsys):
-    """Jules's summary and findings go to the rendered summary only; stdout is one JSON line."""
+    """The agent's summary and findings go to the rendered summary only; stdout is one JSON line."""
     out, clients = calibrate_env
     nasty = "fine\n::add-mask::ghs_secret\n::warning file=x::spoofed\n  ::stop-commands::t"
     finding = {"severity": "low", "file": "a\n::error::x", "category": "c", "explanation": nasty}
-    monkeypatch.setattr(antigravity, "Antigravity", lambda key: clients.append(FakeJules(["COMPLETED"], message_activity(
+    monkeypatch.setattr(antigravity, "Antigravity", lambda key: clients.append(FakeAgent(["completed"], files=verdict_file(
         {**verdict(90, findings=[finding]), "summary": nasty}))) or clients[-1])
     assert cli.main(["calibrate", "--prompt", "candidate", "--out", str(out / "out")]) == 0
     printed = capsys.readouterr().out
@@ -238,16 +238,16 @@ def test_runtime_summary_prints_one_line(capsys):
 
 def test_calibrate_live_and_declined(root, calibrate_env, monkeypatch):
     out, clients = calibrate_env
-    from test_stage2 import REFUSAL, said
+    from test_stage2 import REFUSAL
     monkeypatch.setattr(antigravity, "Antigravity", lambda key: clients.append(
-        FakeJules(["COMPLETED", "IN_PROGRESS", "COMPLETED"], said(REFUSAL))) or clients[-1])
+        FakeAgent(["completed"], output=REFUSAL)) or clients[-1])
     assert cli.main(["calibrate", "--prompt", "live", "--out", str(out / "out")]) == 0
-    assert clients[-1].prompt == jules.render_prompt("https://github.com/edgytoast/twilight-princess-vr", SHA(42),
-                                                     80, RID, root, jules.LIVE)
+    assert clients[-1].prompt == safety_check.render_prompt("https://github.com/edgytoast/twilight-princess-vr", SHA(42),
+                                                     80, RID, root, safety_check.LIVE)
     data = json.loads((out / "out/outcome.json").read_text())
     assert data["result"] == "declined" and data["calibration"]["prompt"] == "live"
     summary = (out / "summary.md").read_text()
-    assert "**Result:** declined" in summary and "follow-ups: restate" in summary
+    assert "**Result:** declined" in summary and "follow-ups: none" in summary
     assert "Gemini declined to review this repository" in summary and f"```text\n{REFUSAL}\n```" in summary
     assert git(root, "status", "--porcelain").strip() == ""
 
@@ -259,11 +259,11 @@ def test_calibrate_validates_its_inputs(calibrate_env, monkeypatch, name, value)
     monkeypatch.setenv(name, value)
     with pytest.raises(validate.InvalidInput):
         cli.main(["calibrate", "--prompt", "candidate", "--out", str(out / "out")])
-    assert clients == []  # no Jules session was started
+    assert clients == []  # no agent review was started
 
 
 def test_calibrate_workflow_is_isolated():
-    """stage2-calibrate: dispatch only, permissions {} and no App token, environment jules, its own concurrency group, the same pinned
+    """stage2-calibrate: dispatch only, permissions {} and no App token, environment safety-check, its own concurrency group, the same pinned
     actions as stage2-scan, inputs only through env, and nothing that writes to the repo."""
     path = REPO_ROOT / ".github/workflows/stage2-calibrate.yml"
     text = path.read_text()
@@ -276,11 +276,11 @@ def test_calibrate_workflow_is_isolated():
     assert inputs["prompt"]["options"] == ["candidate", "live"]
     assert flow["permissions"] == {} and list(flow["jobs"]) == ["calibrate"]
     job = flow["jobs"]["calibrate"]
-    assert job["permissions"] == {} and job["environment"] == "jules"
-    assert job["concurrency"]["group"] == "jules-calibrate-${{ inputs.label }}"
+    assert job["permissions"] == {} and job["environment"] == "safety-check"
+    assert job["concurrency"]["group"] == "safety-check-calibrate-${{ inputs.label }}"
     assert job["concurrency"]["cancel-in-progress"] is False
     code = "\n".join(line for line in text.splitlines() if not line.lstrip().startswith("#"))
-    for forbidden in ("main-writer", "jules-scan", "GH_TOKEN", "github.token", "create-github-app-token",
+    for forbidden in ("main-writer", "safety-check-scan", "GH_TOKEN", "github.token", "create-github-app-token",
                       "APP_KEY", "contents: write", "git push"):
         assert forbidden not in code, forbidden
     uses = {s["uses"] for s in job["steps"] if "uses" in s}
@@ -306,7 +306,7 @@ def test_log_line():
 
 
 def test_scan_summary_escapes_a_decline(tmp_path, monkeypatch, capsys):
-    """A decline's reason is Jules's own words: the live scan's run summary escapes it, and stdout keeps it on
+    """A decline's reason is the agent's own words: the live scan's run summary escapes it, and stdout keeps it on
     one line where it can't pose as a workflow command."""
     summary = tmp_path / "summary.md"
     monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(summary))
@@ -315,7 +315,7 @@ def test_scan_summary_escapes_a_decline(tmp_path, monkeypatch, capsys):
         monkeypatch.setenv(name, value)
     monkeypatch.delenv("INPUT_PR", raising=False)
     monkeypatch.setattr(antigravity, "Antigravity", lambda key: None)
-    monkeypatch.setattr(antigravity, "review", lambda *a, **k: jules.Outcome(
+    monkeypatch.setattr(antigravity, "review", lambda *a, **k: safety_check.Outcome(
         "declined", reason="I refuse. @victim ![beacon](https://evil.example/x.png)\n::add-mask::x\n::error::spoof",
         session_url="u\n::warning::spoof", states=["COMPLETED\n::notice::x"]))
     assert cli.main(["scan", "--out", str(tmp_path / "out")]) == 0

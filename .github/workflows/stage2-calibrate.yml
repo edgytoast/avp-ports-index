@@ -1,8 +1,8 @@
-# Calibration of the Stage 2 review (docs/SPEC.md §8.10, decision 63): one real Jules review of a
-# repo at a commit, with the live prompt or the candidate in .github/jules/candidate/, dispatched by
+# Calibration of the Stage 2 review (docs/SPEC.md §8.10, decision 63): one real agent review of a
+# repo at a commit, with the live prompt or the candidate in .github/safety-check/candidate/, dispatched by
 # the owner. It runs with permissions: {} (its GITHUB_TOKEN has no scopes) and mints no App token,
-# and writes nothing to the repo, state, issues or PRs: the outcome is an artifact and the run summary. Its Jules sessions count against the plan's quota but
-# not the dispatcher's hourly or daily caps, and it never shares the jules-scan or main-writer groups.
+# and writes nothing to the repo, state, issues or PRs: the outcome is an artifact and the run summary. Its agent runs count against the plan's quota but
+# not the dispatcher's hourly or daily caps, and it never shares the safety-check-scan or main-writer groups.
 name: stage2-calibrate
 run-name: stage2 calibrate ${{ inputs.label }}
 
@@ -18,7 +18,7 @@ on:
         type: string
         required: true
       prompt:
-        description: Which prompt Jules gets
+        description: Which prompt the agent gets
         type: choice
         options: [candidate, live]
         default: candidate
@@ -33,11 +33,11 @@ permissions: {}
 jobs:
   calibrate:
     runs-on: ubuntu-latest
-    environment: jules
+    environment: safety-check
     permissions: {}
     timeout-minutes: 200
     concurrency:
-      group: jules-calibrate-${{ inputs.label }}
+      group: safety-check-calibrate-${{ inputs.label }}
       cancel-in-progress: false
       queue: max
     env:
@@ -54,7 +54,7 @@ jobs:
         run: |
           python3 -m venv "$RUNNER_TEMP/venv"
           "$RUNNER_TEMP/venv/bin/pip" install --quiet --require-hashes --no-deps -r tools/requirements.txt
-      - name: Run one Jules review
+      - name: Run one agent review
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: '"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli calibrate --prompt "$INPUT_PROMPT" --out "$RUNNER_TEMP/out"'

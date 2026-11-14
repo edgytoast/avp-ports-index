@@ -103,7 +103,7 @@ def cmd_scan(args) -> int:
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
     line = (f"Scan of {repo}@{sha[:12]}: {outcome.result} after {outcome.minutes:.1f} min; "
             f"states {validate.log_line(', '.join(outcome.states)) or 'none'}; ")
-    # The reason can be Jules's own words (a decline): one line on stdout, so it can't pose as a workflow
+    # The reason can be the agent's own words (a decline): one line on stdout, so it can't pose as a workflow
     # command, and escaped in the rendered summary.
     print(line + validate.log_line(outcome.reason))
     print(f"Session: {validate.log_line(outcome.session_url)}")
@@ -205,11 +205,11 @@ def cmd_calibrate(args) -> int:
     """stage2-calibrate (decision 63): one real safety-check review with the live or the candidate prompt. It writes
     the outcome to --out and a summary to the run; nothing else. It uses no GitHub token (the job's has no
     scopes), and its sessions are outside the dispatcher's caps."""
-    from . import antigravity, jules
+    from . import antigravity, safety_check
     repo = validate.repo_name(os.environ.get("INPUT_LINKED_REPO"))
     sha = validate.sha(os.environ.get("INPUT_LINKED_COMMIT"))
     label = validate.label(os.environ.get("INPUT_LABEL"))
-    prompt = validate.choice(args.prompt, tuple(jules.PROMPTS), "prompt")
+    prompt = validate.choice(args.prompt, tuple(safety_check.PROMPTS), "prompt")
     key = os.environ.get("GEMINI_API_KEY")
     if not key:
         print("GEMINI_API_KEY is not set", file=sys.stderr)
@@ -221,7 +221,7 @@ def cmd_calibrate(args) -> int:
     out.mkdir(parents=True, exist_ok=True)
     (out / "outcome.json").write_text(json.dumps(data, indent=2), encoding="utf-8")
     text = _calibration_summary(data, int(policy["stage2"]["confidence_threshold"]))
-    # Jules's text goes only to the rendered summary; stdout gets one JSON line, which no workflow command
+    # The agent's text goes only to the rendered summary; stdout gets one JSON line, which no workflow command
     # can hide in.
     verdict = data.get("verdict") or {}
     print(json.dumps({"label": label, "prompt": prompt, "repo": repo, "commit": sha, "result": data["result"],
@@ -235,7 +235,7 @@ def cmd_calibrate(args) -> int:
 
 
 def _calibration_summary(data: dict, threshold: int) -> str:
-    """Result, confidence, steering, findings and the session link. Jules's text is fenced as untrusted."""
+    """Result, confidence, steering, findings and the session link. The agent's text is fenced as untrusted."""
     from . import report
     cal = data["calibration"]
     verdict = data.get("verdict")
@@ -250,35 +250,6 @@ def _calibration_summary(data: dict, threshold: int) -> str:
         lines.append(report.verdict_summary({"result": data["result"], "reason": data.get("reason")}, threshold))
     lines += ["", f"Session: {data.get('session_url') or 'none'}"]
     return "\n".join(lines)
-
-
-def cmd_jules_smoke(_args) -> int:
-    """Spec §12 step 1: list sessions, run one trivial repoless session, report states and outputs."""
-    import time
-    from . import jules
-    client = jules.Jules(os.environ["JULES_API_KEY"])
-    listed = client.list_sessions(1)
-    print("list sessions: ok", "(keys: " + ", ".join(sorted(listed)) + ")")
-    session = client.create_session("Write a file named hello.txt containing the text hi, then print its "
-                                    "contents in a fenced block.", "AVP index smoke test")
-    print("session fields:", ", ".join(sorted(session)))
-    states, started = [], time.monotonic()
-    while time.monotonic() - started < 1200:
-        time.sleep(15)
-        state = client.get_session(session["name"]).get("state")
-        if not states or states[-1] != state:
-            states.append(state)
-            print("state:", state)
-        if state in jules.DONE_STATES | jules.STOPPED_STATES:
-            break
-    acts = client.activities(session["name"])
-    kinds = sorted({k for a in acts for k in a if k not in ("name", "id", "createTime", "description", "originator")})
-    print("activity fields:", ", ".join(kinds))
-    patches = [art["changeSet"]["gitPatch"].get("unidiffPatch", "") for a in acts for art in a.get("artifacts") or []
-               if (art.get("changeSet") or {}).get("gitPatch")]
-    print("change set has hello.txt:", any("hello.txt" in p for p in patches))
-    print(json.dumps({"states": states, "session_url": session.get("url")}))
-    return 0
 
 
 def cmd_generate(args) -> int:
@@ -329,7 +300,7 @@ def main(argv: list[str] | None = None) -> int:
     for name, func in [("gate", cmd_gate), ("blocklist-label", cmd_blocklist_label), ("dispatch", cmd_dispatch), ("recheck", cmd_recheck),
                        ("build-surfaces", cmd_build_surfaces), ("health", cmd_health),
                        ("kill-switch", cmd_kill_switch), ("intake", cmd_intake),
-                       ("jules-smoke", cmd_jules_smoke), ("check-data", cmd_check_data)]:
+                       ("check-data", cmd_check_data)]:
         sub.add_parser(name).set_defaults(func=func)
     merge = sub.add_parser("merge")
     merge.add_argument("--sweep", action="store_true")

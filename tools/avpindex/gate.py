@@ -32,7 +32,7 @@ def stage2_marker(**data) -> str:
 
 
 def read_marker(check: dict | None, pattern: re.Pattern = MARKER_RE) -> dict:
-    """The marker the App appended to a check summary: always the last one, since untrusted text (Jules's
+    """The marker the App appended to a check summary: always the last one, since untrusted text (the agent's
     summary and findings, fenced) comes before it. validate.fence also breaks up any "<!--" in that text."""
     summary = ((check or {}).get("output") or {}).get("summary") or ""
     matches = list(pattern.finditer(summary))

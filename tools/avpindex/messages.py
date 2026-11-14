@@ -112,7 +112,7 @@ def upsert(rt, number: int, text: str | None = None, **changes) -> dict:
     state.update(changes)
     shown = visible_text(comment) if text is None else text
     encoded = json.dumps(state, sort_keys=True)
-    # Jules findings quote attacker-chosen file names: keep "-->" from closing the comment.
+    # Agent findings quote attacker-chosen file names: keep "-->" from closing the comment.
     encoded = encoded.replace("&", "\\u0026").replace("<", "\\u003c").replace(">", "\\u003e")
     body = (f"{shown}\n\n{BOT_MARK}\n<!-- avp:scans={int(state['scans'])} -->\n"
             f"<!-- avp:state {encoded} -->")
