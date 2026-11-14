@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.5.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-14T02:35:05Z",
+  "generated_at": "2026-11-14T04:25:28Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -280,6 +280,129 @@
           ]
         },
         "screenshots": []
+      }
+    },
+    {
+      "id": "apotris",
+      "name": "Apotris",
+      "game": {
+        "title": "Apotris",
+        "original_platform": "other",
+        "original_release_year": null
+      },
+      "repo_url": "https://github.com/edgytoast/apotris-ios",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/apotris-ios/tree/865f50b5223ffc91eb0f864bf3a06043006b4f36",
+      "install_doc_url": "https://github.com/edgytoast/apotris-ios/blob/865f50b5223ffc91eb0f864bf3a06043006b4f36/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "rebelancap",
+        "url": null,
+        "github_verified": false
+      },
+      "credits": [
+        {
+          "name": "rebelancap",
+          "role": "The iOS and visionOS port",
+          "url": "https://github.com/rebelancap/apotris-ios"
+        },
+        {
+          "name": "Trevorbilt",
+          "role": "Install guide and AVP Ports Index listing",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "akouzoukos",
+          "role": "Apotris, the game and its engine",
+          "url": "https://apotris.com"
+        }
+      ],
+      "upstream": [
+        "https://github.com/rebelancap/apotris-ios",
+        "https://apotris.com"
+      ],
+      "self_reported_status": "working",
+      "status_notes": null,
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "865f50b5223ffc91eb0f864bf3a06043006b4f36",
+      "scanned_at": "2026-11-14T04:25:25Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-13T23:08:03Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "AGPL-3.0"
+      },
+      "visionos_min": "2.0",
+      "input": [
+        "game-controller",
+        "keyboard-mouse"
+      ],
+      "experiences": [
+        "2d"
+      ],
+      "install": [
+        "build",
+        "sideload"
+      ],
+      "tags": [
+        "puzzle",
+        "block-stacking",
+        "free-game",
+        "multiplayer",
+        "open-source"
+      ],
+      "description": "Apotris, akouzoukos' free and open block-stacking game, built natively for Apple Vision Pro: a resizable window with left- and right-hand pinch controls, a control ornament, controller and keyboard support, and online Multi Battle. Nothing to supply. Listed from a copy with an install guide.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/apotris.md",
+      "media": {
+        "commit": "865f50b5223ffc91eb0f864bf3a06043006b4f36",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 6904,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "7eab6ff1483cbfc635af6c1a98135d2b3109336d0b3b35818d185ce853477f0b",
+              "url": "https://raw.githubusercontent.com/edgytoast/apotris-ios/865f50b5223ffc91eb0f864bf3a06043006b4f36/app/Assets-vision.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 32708,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "a25c1109be31f2eea7753f2694febffc38423acb4f5ef33accd59889b9a61ffa",
+              "url": "https://raw.githubusercontent.com/edgytoast/apotris-ios/865f50b5223ffc91eb0f864bf3a06043006b4f36/app/Assets-vision.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "Apotris running natively on iPhone — a Marathon game with the score bar on top and a large playfield",
+            "bytes": 222537,
+            "format": "png",
+            "height": 2622,
+            "sha256": "120a72df995a194c8d85919cbe410852e40312ce87078eb8123d901945ea71ed",
+            "url": "https://raw.githubusercontent.com/edgytoast/apotris-ios/865f50b5223ffc91eb0f864bf3a06043006b4f36/screenshots/hero.png",
+            "width": 1206
+          }
+        ]
       }
     },
     {

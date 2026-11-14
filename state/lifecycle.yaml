@@ -18,6 +18,16 @@ animal-crossing-vr:
   status: listed
   submitted_by: edgytoast
   submitted_by_id: 146565462
+apotris:
+  by: merge
+  changed_at: '2026-11-14T04:25:25Z'
+  listed_at: '2026-11-14T04:25:25Z'
+  owner_approved: true
+  repo: https://github.com/edgytoast/apotris-ios
+  repo_id: 1406327904
+  status: listed
+  submitted_by: edgytoast
+  submitted_by_id: 146565462
 avp-craft:
   by: merge
   changed_at: '2026-10-29T05:20:24Z'

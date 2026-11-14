@@ -57,6 +57,36 @@ animal-crossing-vr:
   scanned_at: '2026-10-10T15:55:59Z'
   scanned_commit: b5b463f8e29a51a5718db30ecb5d38ee175f0a40
   warnings: []
+apotris:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: false
+  decay_reset_at: '2026-11-14T04:25:25Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: false
+  health: ok
+  last_checked: null
+  last_commit_date: '2026-11-13T23:08:03Z'
+  license:
+    kind: open-source
+    spdx: AGPL-3.0
+  outreach_issue_url: null
+  outreach_opened_at: null
+  rescan_after: null
+  rescan_hold: false
+  routes: []
+  scan_confidence: 97
+  scan_declines: 0
+  scan_kind: automated
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-11-14T04:25:25Z'
+  scanned_commit: 865f50b5223ffc91eb0f864bf3a06043006b4f36
+  warnings: []
 avp-craft:
   archived: false
   commits_since_scan: 0

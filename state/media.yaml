@@ -97,6 +97,37 @@ animal-crossing-vr:
   - reason: smaller than 480x270
     src: https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/docs/images/trevorbilt.png
   source: readme
+apotris:
+  choice: null
+  collected_at: '2026-11-14T04:25:28Z'
+  commit: 865f50b5223ffc91eb0f864bf3a06043006b4f36
+  icon:
+    kind: layered
+    layers:
+    - bytes: 6904
+      format: png
+      height: 1024
+      layer: back
+      sha256: 7eab6ff1483cbfc635af6c1a98135d2b3109336d0b3b35818d185ce853477f0b
+      url: https://raw.githubusercontent.com/edgytoast/apotris-ios/865f50b5223ffc91eb0f864bf3a06043006b4f36/app/Assets-vision.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png
+      width: 1024
+    - bytes: 32708
+      format: png
+      height: 1024
+      layer: front
+      sha256: a25c1109be31f2eea7753f2694febffc38423acb4f5ef33accd59889b9a61ffa
+      url: https://raw.githubusercontent.com/edgytoast/apotris-ios/865f50b5223ffc91eb0f864bf3a06043006b4f36/app/Assets-vision.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png
+      width: 1024
+  screenshots:
+  - alt: Apotris running natively on iPhone — a Marathon game with the score bar on top and a large playfield
+    bytes: 222537
+    format: png
+    height: 2622
+    sha256: 120a72df995a194c8d85919cbe410852e40312ce87078eb8123d901945ea71ed
+    url: https://raw.githubusercontent.com/edgytoast/apotris-ios/865f50b5223ffc91eb0f864bf3a06043006b4f36/screenshots/hero.png
+    width: 1206
+  skipped: []
+  source: readme
 avp-craft:
   choice: null
   collected_at: '2026-11-02T22:41:29Z'
