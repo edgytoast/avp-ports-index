@@ -38,6 +38,16 @@ avp-craft:
   status: listed
   submitted_by: zschwendi
   submitted_by_id: 139005358
+ctrpad:
+  by: merge
+  changed_at: '2026-11-14T17:30:10Z'
+  listed_at: '2026-11-14T17:30:10Z'
+  owner_approved: true
+  repo: https://github.com/edgytoast/ctrpad
+  repo_id: 1406450367
+  status: listed
+  submitted_by: edgytoast
+  submitted_by_id: 146565462
 dark-eco:
   by: merge
   changed_at: '2026-11-03T15:35:20Z'

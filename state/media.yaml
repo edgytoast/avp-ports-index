@@ -152,6 +152,52 @@ avp-craft:
   screenshots: []
   skipped: []
   source: readme
+ctrpad:
+  choice: null
+  collected_at: '2026-11-14T17:30:15Z'
+  commit: df1d0671ed8d540b695113f1cc28e9fb26e570e9
+  icon:
+    bytes: 1180575
+    format: png
+    height: 1024
+    kind: flat
+    sha256: dc45cccfb959c962af0d8465de993734a15070085ed30e305194954368292257
+    url: https://raw.githubusercontent.com/edgytoast/ctrpad/df1d0671ed8d540b695113f1cc28e9fb26e570e9/platform/apple/Assets.xcassets/AppIcon.appiconset/appicon-1024.png
+    width: 1024
+  screenshots:
+  - alt: CTRPad app icon
+    bytes: 1180575
+    format: png
+    height: 1024
+    sha256: dc45cccfb959c962af0d8465de993734a15070085ed30e305194954368292257
+    url: https://raw.githubusercontent.com/edgytoast/ctrpad/df1d0671ed8d540b695113f1cc28e9fb26e570e9/docs/design/ctrpad-app-icon-master.png
+    width: 1024
+  - alt: CTRPad running Crash Cove on iPad with the touch controller
+    bytes: 1243145
+    format: png
+    height: 2048
+    sha256: e1efac89a9d874272f2a257682ec89770689f1f146fdffcad7162eb25a097a51
+    url: https://raw.githubusercontent.com/edgytoast/ctrpad/df1d0671ed8d540b695113f1cc28e9fb26e570e9/docs/readme/ctrpad-crash-cove-gameplay.png
+    width: 2732
+  - alt: CTRPad title screen on iPad
+    bytes: 1036006
+    format: png
+    height: 2048
+    sha256: 3848246d654d6be6192421af7d656d2a4393420ca7f06d915682b863944e3e5c
+    url: https://raw.githubusercontent.com/edgytoast/ctrpad/df1d0671ed8d540b695113f1cc28e9fb26e570e9/docs/readme/ctrpad-title-screen.png
+    width: 2732
+  skipped:
+  - reason: not this repo's file or a GitHub attachment
+    src: https://github.com/chrissotraidis/ctrpad/actions/workflows/apple-packages.yml/badge.svg
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/macOS-11%2B-0A84FF?logo=apple
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/iOS%20%2F%20iPadOS-15%2B-0A84FF?logo=apple
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/renderer-OpenGL%20%2F%20GLES%203-5E5CE6
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/game%20data-not%20included-FF453A
+  source: readme
 dark-eco:
   choice: null
   collected_at: '2026-11-02T22:41:31Z'
