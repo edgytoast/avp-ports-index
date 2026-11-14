@@ -876,7 +876,7 @@ def test_surfaces_and_brand(rt, gh):
     assert out["llms.txt"].startswith("# AVP Ports Index\n") and "1 port listed" in out["llms.txt"]
     more = readme.index("## More from Trevorbilt")
     assert readme.index("## Reports and takedowns") < more < readme.index(generate.brand_lines(store.load_brand(rt.root))["footer"])
-    assert "[Loose Papers](https://trevorbilt.com/loose-papers)" in readme and "More from" not in out["llms.txt"]
+    assert "[Loose Papers](https://apps.apple.com/app/apple-store/id6755368606?pt=127797875&ct=gh-index&mt=8)" in readme and "More from" not in out["llms.txt"]
     assert "More from" not in out["feed/v1/index.json"] and "Developer site" not in out["ports/good.md"]
     write_entry(rt.root, "good", "trevorbilt-bot/good", developer={"github": "trevorbilt-bot", "url": "https://example.com/dev"})
     assert "| Developer site | <https://example.com/dev> |" in generate.generate(rt.root, rt.repo)["ports/good.md"]
