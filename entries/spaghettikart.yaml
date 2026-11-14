@@ -1,0 +1,40 @@
+schema_version: 1
+id: spaghettikart
+name: SpaghettiKart
+game:
+  title: "Mario Kart 64"
+  original_platform: n64
+  original_release_year: 1996
+repo: https://github.com/edgytoast/SpaghettiKart-ios
+developer:
+  github: rebelancap
+status: working
+visionos_min: "2.0"
+input: [game-controller]
+experiences: [2d, 3d-immersive]
+install: [build, sideload]
+description: >-
+  Mario Kart 64 on Apple Vision Pro through Harbour Masters' SpaghettiKart, rendering natively on
+  Metal: a resizable 2D window, or a stereoscopic 3D screen in your room. Enhancements, controllers,
+  4K texture packs, in-app ROM extraction. Bring your own ROM. Listed from a copy with an install
+  guide.
+tags: [racing, mario-kart, n64, source-port, harbour-masters, stereo-3d, texture-packs]
+credits:
+  - name: rebelancap
+    role: The iOS and visionOS port
+    url: https://github.com/rebelancap/SpaghettiKart-ios
+  - name: Trevorbilt
+    role: Install guide and AVP Ports Index listing
+    url: https://trevorbilt.com
+  - name: Harbour Masters
+    role: SpaghettiKart, the port this is built on
+    url: https://github.com/HarbourMasters/SpaghettiKart
+  - name: Harbour Masters
+    role: libultraship, the platform layer
+    url: https://github.com/HarbourMasters/libultraship
+  - name: Nintendo
+    role: Original game
+upstream:
+  - https://github.com/rebelancap/SpaghettiKart-ios
+  - https://github.com/HarbourMasters/SpaghettiKart
+  - https://github.com/HarbourMasters/libultraship
