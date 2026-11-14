@@ -3,7 +3,10 @@
 Runs are idempotent. The ledger comes from the Actions API: each stage2-scan run is named
 "stage2 <mode> <pr or entry id>", and its report job uploads an empty artifact named
 result-<pass|flag|error|deferred|declined>. A declined scan used a Jules session, so it counts like
-any other run. A deferral (quota) in the last hour pauses dispatching, and so does a refusal storm: declines
+any other run; a deferred one was refused before a review ran, so it doesn't count toward the caps.
+Scans go out one at a time: none while another is queued or running, and at most one per dispatcher
+run, because back-to-back reviews trip the provider's per-minute token limit. A deferral (quota) in
+the last hour pauses dispatching, and so does a refusal storm: declines
 of DECLINE_PAUSE different PRs or entries in the hour with nothing passed or flagged meanwhile, so
 one PR that keeps getting declined can't pause everyone. That PR waits DECLINE_WAIT after each
 decline and stops at per_pr_max_scans declines (both kept in its bot comment, so pushes don't
@@ -49,13 +52,23 @@ def parse_run_name(name: str | None) -> tuple[str, str] | None:
     return (match.group(1), match.group(2)) if match else None
 
 
-def ledger(runs: list[dict], now: dt.datetime) -> dict:
+def ledger(runs: list[dict], now: dt.datetime, deferred: frozenset | set = frozenset()) -> dict:
+    """Counts the scan runs of the last hour and day. Runs in `deferred` (ids of runs that ended
+    `deferred`) stay in `recent`, so a deferral still pauses dispatching, but use none of the caps:
+    the provider refused them before a review ran. `busy` is true while any scan is queued or running."""
     hour_ago, day_ago = now - dt.timedelta(hours=1), now - dt.timedelta(days=1)
-    out = {"used_hour": 0, "used_day": 0, "rescans_day": 0, "recent": [], "active_rescans": set()}
+    out = {"used_hour": 0, "used_day": 0, "rescans_day": 0, "recent": [], "active_rescans": set(),
+           "busy": False}
     for run in runs:
         created = store.parse_iso(run["created_at"])
         title = run.get("display_title") or run.get("name")
         if created < day_ago or CALIBRATE_RUN_RE.match(title or ""):
+            continue
+        if run.get("status") != "completed":
+            out["busy"] = True
+        if created >= hour_ago:
+            out["recent"].append(run)
+        if run.get("id") in deferred:
             continue
         out["used_day"] += 1
         parsed = parse_run_name(title)
@@ -65,15 +78,22 @@ def ledger(runs: list[dict], now: dt.datetime) -> dict:
                 out["active_rescans"].add(parsed[1])  # never dispatch a second rescan of the same entry
         if created >= hour_ago:
             out["used_hour"] += 1
-            out["recent"].append(run)
     return out
 
 
+def deferred_runs(rt, runs: list[dict]) -> set:
+    """Ids of completed scan runs whose report recorded `deferred` (one artifact list per run)."""
+    return {run["id"] for run in runs if run.get("status") == "completed"
+            and not CALIBRATE_RUN_RE.match(run.get("display_title") or run.get("name") or "")
+            and "result-deferred" in {a.get("name") for a in rt.gh.run_artifacts(run["id"])}}
+
+
 def slots(policy: dict, enabled: bool, used: dict, deferred_recent: bool) -> int:
-    if not enabled or deferred_recent:
+    """At most one: a scan is only started when none is queued or running (see the module docstring)."""
+    if not enabled or deferred_recent or used.get("busy"):
         return 0
     stage2 = policy["stage2"]
-    return max(0, min(stage2["hourly_cap"] - used["used_hour"], stage2["daily_cap"] - used["used_day"]))
+    return max(0, min(1, stage2["hourly_cap"] - used["used_hour"], stage2["daily_cap"] - used["used_day"]))
 
 
 def eta_text(position: int, hourly_cap: int) -> str:
@@ -209,11 +229,14 @@ def dispatch(rt) -> list[str]:
     now = store.utcnow()
     policy = rt.policy
     runs = rt.gh.workflow_runs(SCAN_WORKFLOW, store.iso(now - dt.timedelta(days=1)))
-    used = ledger(runs, now)
+    deferred = deferred_runs(rt, runs)
+    used = ledger(runs, now, deferred)
     paused = _pause_reason(rt, used["recent"])
     free = slots(policy, rt.stage2_enabled, used, bool(paused))
     log = [f"ledger: {used['used_hour']} this hour, {used['used_day']} today "
-           f"({used['rescans_day']} rescans); {free} slot(s)" + (f"; paused: {paused}" if paused else "")]
+           f"({used['rescans_day']} rescans, {len(deferred)} deferred not counted); {free} slot(s)"
+           + ("; a scan is still queued or running" if used["busy"] else "")
+           + (f"; paused: {paused}" if paused else "")]
     state = store.State.load(rt.root)
     entries, _ = store.load_entries(rt.root)
     max_scans = policy["stage2"]["per_pr_max_scans"]
