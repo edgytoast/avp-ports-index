@@ -1,0 +1,39 @@
+schema_version: 1
+id: portal-2-vr
+name: Portal 2 VR
+game:
+  title: "Portal 2"
+  original_platform: pc
+  original_release_year: 2011
+repo: https://github.com/edgytoast/portal2-visionos
+source_ref: portal2-visionos
+developer:
+  github: portal-in-the-visor
+status: working
+status_notes: "The author played it on one M2 headset and archived it; this copy adds an install guide. Heavier areas can drop below 60 fps, the gun's glow is missing, and menus show on a flat screen. Not tested by the curator."
+visionos_min: "26.0"
+input: [game-controller, hand-tracking]
+experiences: [6dof-immersive]
+install: [build]
+description: >-
+  Portal 2 in VR on Apple Vision Pro, from the Nintendo Switch version: stereo 3D, head tracking, and your hand aims the
+  portal gun while Joy-Cons walk. Built on nxnative from your own Switch dump. Listed from a copy with an install guide.
+tags: [portal-2, portal, valve, vr, 6dof, first-person, puzzle, nxnative]
+credits:
+  - name: portal-in-the-visor
+    role: Portal 2 VR, the visionOS port
+    url: https://github.com/portal-in-the-visor/portal2-visionos
+  - name: Trevorbilt
+    role: Install guide and AVP Ports Index listing
+    url: https://trevorbilt.com
+  - name: seedds
+    role: nxnative, the Switch-to-Apple native framework it builds on
+    url: https://github.com/seedds/nxnative
+  - name: Gistix
+    role: portal2vr, whose per-eye rendering approach it follows
+    url: https://github.com/Gistix/portal2vr
+  - name: Valve
+    role: Original game
+upstream:
+  - https://github.com/portal-in-the-visor/portal2-visionos
+  - https://github.com/seedds/nxnative
