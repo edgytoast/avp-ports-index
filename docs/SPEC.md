@@ -388,7 +388,7 @@ site:
   raw_base_url: auto    # auto = https://raw.githubusercontent.com/<this repo>/main
 stage2:
   hourly_cap: 3
-  daily_cap: 12
+  daily_cap: 50
   per_pr_max_scans: 3                # then the PR waits for the owner
   rescan_daily_max: 6
   confidence_threshold: 80          # the verdict's safe_confidence needed to pass (0-100)
