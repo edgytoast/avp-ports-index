@@ -1,0 +1,96 @@
+# Keep GitHub's traffic numbers past their 14-day window.
+# Weekly, read views, clones, referrers and popular pages, and save them on the
+# `traffic-data` branch (never main, so the index's surfaces and rules are untouched).
+# Views and clones merge by day into one history file; referrers and pages only
+# exist as 14-day totals, so each run saves a dated snapshot of them.
+#
+# Needs the secret TRAFFIC_TOKEN: a fine-grained token for this repository with
+# "Administration: read" (GitHub's traffic API requires it). Without the secret
+# the job stops at the first step and says so.
+
+name: traffic-history
+
+on:
+  schedule:
+    - cron: "17 13 * * 1"   # Mondays, before the weekly health review
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: traffic-history
+  cancel-in-progress: false
+
+jobs:
+  save:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write   # push to the traffic-data branch only
+    steps:
+      - name: Check for the token
+        env:
+          TRAFFIC_TOKEN: ${{ secrets.TRAFFIC_TOKEN }}
+        run: |
+          if [ -z "$TRAFFIC_TOKEN" ]; then
+            echo "::error::Add the TRAFFIC_TOKEN secret (fine-grained, this repo, Administration: read)."
+            exit 1
+          fi
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Switch to the traffic-data branch
+        run: |
+          if git ls-remote --exit-code --heads origin traffic-data >/dev/null; then
+            git fetch --quiet origin traffic-data
+            git switch --quiet traffic-data
+          else
+            git switch --quiet --orphan traffic-data
+            git rm -rq --cached . >/dev/null 2>&1 || true
+            find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          fi
+
+      - name: Fetch and merge traffic
+        env:
+          GH_TOKEN: ${{ secrets.TRAFFIC_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mkdir -p raw
+          for ep in views clones popular/referrers popular/paths; do
+            gh api "repos/$REPO/traffic/$ep" > "raw/$(echo "$ep" | tr / -).json"
+          done
+          python3 - <<'PY'
+          import json, os, datetime
+          raw = lambda n: json.load(open(f"raw/{n}.json"))
+          path = "daily.json"
+          daily = json.load(open(path)) if os.path.exists(path) else {}
+          for kind in ("views", "clones"):
+              for d in raw(kind)[kind]:
+                  day = d["timestamp"][:10]
+                  daily.setdefault(day, {})[kind] = {"count": d["count"], "uniques": d["uniques"]}
+          json.dump(dict(sorted(daily.items())), open(path, "w"), indent=1)
+          today = datetime.date.today().isoformat()
+          os.makedirs("snapshots", exist_ok=True)
+          json.dump({"taken": today, "window_days": 14,
+                     "referrers": raw("popular-referrers"), "paths": raw("popular-paths")},
+                    open(f"snapshots/{today}.json", "w"), indent=1)
+          top = ", ".join(f"{r['referrer']} {r['uniques']}" for r in raw("popular-referrers")[:5]) or "none"
+          print(f"Days on record: {len(daily)}. Top referrers (14 days, unique visitors): {top}")
+          PY
+          rm -rf raw
+
+      - name: Save
+        env:
+          PUSH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add daily.json snapshots
+          git diff --cached --quiet && { echo "No change."; exit 0; }
+          git commit --quiet -m "Traffic snapshot $(date -u +%F)"
+          git push --quiet "https://x-access-token:${PUSH_TOKEN}@github.com/${REPO}.git" HEAD:traffic-data
