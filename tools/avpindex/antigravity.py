@@ -23,6 +23,7 @@ those one review uses isn't documented, so quota refusals are handled wherever t
 from __future__ import annotations
 
 import json
+import re
 import time
 from pathlib import Path
 
@@ -37,10 +38,22 @@ POLL_SECONDS = 60          # polls are cheap, but keep them well under the per-m
 MAX_TOTAL_TOKENS = 600_000  # uncached tokens one review may spend (the test review used about 163k)
 DONE = {"completed", "failed", "cancelled", "incomplete"}
 VERDICT_PATHS = ("workspace/verdict.json", "verdict.json")
+MINUTE_LIMIT_TRIES = 4      # waits for a per-minute rate limit at create before giving up and deferring
+MINUTE_LIMIT_MAX_WAIT = 90  # seconds per wait; the API asks for under a minute ("Please retry in 25s")
 
 
 class AgentError(Exception):
     pass
+
+
+def _minute_wait(resp: requests.Response) -> int | None:
+    """Seconds to wait when a refusal is the per-minute rate limit (it clears in under a minute), or None
+    for anything else, such as the daily request limit, which waiting in the job can't fix."""
+    text = resp.text.lower()
+    if "per minute" not in text:
+        return None
+    match = re.search(r"retry in ([0-9.]+)\s*s", text)
+    return min(MINUTE_LIMIT_MAX_WAIT, int(float(match.group(1))) + 5) if match else 60
 
 
 def _quota(resp: requests.Response) -> bool:
@@ -64,7 +77,12 @@ class Antigravity:
                                      headers=self.headers, timeout=120)
             limited = resp.status_code == 429 or (resp.status_code == 403 and _quota(resp))
             if limited and defer:
-                raise Deferred(resp.text[:300])
+                # Waiting out the per-minute limit is safe here: the refused create started no review.
+                wait = _minute_wait(resp)
+                if wait is None or attempt >= MINUTE_LIMIT_TRIES:
+                    raise Deferred(resp.text[:300])
+                self.sleep(wait)
+                continue
             if (limited or resp.status_code >= 500) and attempt < 5:
                 self.sleep(15 * (attempt + 1))
                 continue

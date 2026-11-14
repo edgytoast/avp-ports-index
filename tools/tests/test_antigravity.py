@@ -134,3 +134,54 @@ def test_client_create_errors(status, body, result):
     client = antigravity.Antigravity("k", session=Http(), sleep=lambda s: None)
     out = run(client)
     assert out.result == result
+
+
+MINUTE_LIMIT = ('{"error":{"message":"Rate limit exceeded for model antigravity (limit: 100000 input tokens per '
+                'minute on Free Tier). Please retry in 25s or upgrade your tier at https://ai.dev/rate-limit.",'
+                '"code":429}}')  # the refusal deferred PR #43's scan on 2026-11-14
+
+
+class _Resp:
+    def __init__(self, status, body):
+        self.status_code, self.text, self.content = status, body, body.encode()
+
+    def json(self):
+        return json.loads(self.text)
+
+
+def test_per_minute_limit_at_create_is_waited_out():
+    """A per-minute token refusal clears within a minute and started no review, so the job waits and tries
+    again instead of deferring (a deferral holds the PR back an hour)."""
+    replies = [_Resp(429, MINUTE_LIMIT), _Resp(429, MINUTE_LIMIT), _Resp(200, '{"id": "int-9"}')]
+    sent, waits = [], []
+
+    class Http:
+        def request(self, method, url, **k):
+            sent.append(method)
+            return replies.pop(0)
+
+    client = antigravity.Antigravity("k", session=Http(), sleep=waits.append)
+    assert client.create("p")["id"] == "int-9"
+    assert sent == ["POST"] * 3 and waits == [30, 30]
+
+
+def test_per_minute_limit_that_persists_is_deferred():
+    waits = []
+
+    class Http:
+        def request(self, *a, **k):
+            return _Resp(429, MINUTE_LIMIT)
+
+    out = run(antigravity.Antigravity("k", session=Http(), sleep=waits.append))
+    assert out.result == "deferred" and len(waits) == antigravity.MINUTE_LIMIT_TRIES
+
+
+def test_daily_limit_is_deferred_without_waiting():
+    waits = []
+
+    class Http:
+        def request(self, *a, **k):
+            return _Resp(429, '{"error":{"message":"Quota exceeded: requests per day","code":429}}')
+
+    out = run(antigravity.Antigravity("k", session=Http(), sleep=waits.append))
+    assert out.result == "deferred" and waits == []

@@ -883,6 +883,35 @@ class TestQueue:
         assert (used["used_hour"], used["used_day"], used["rescans_day"]) == (1, 1, 1)
         assert used["active_rescans"] == set()
 
+    def test_deferred_runs_use_no_slot_but_still_pause(self, rt, gh):
+        """A deferred run was refused before a review ran, so it uses none of the caps; it still pauses the hour."""
+        runs = [self.run_at(10, "stage2 pr 7"), self.run_at(20, "stage2 rescan good"), self.run_at(200, "stage2 pr 8")]
+        gh.artifacts = {10: [{"name": "result-deferred"}], 20: [{"name": "result-deferred"}],
+                        200: [{"name": "result-pass"}]}
+        deferred = queue.deferred_runs(rt, runs)
+        assert deferred == {10, 20}
+        used = queue.ledger(runs, store.utcnow(), deferred)
+        assert (used["used_hour"], used["used_day"], used["rescans_day"]) == (0, 1, 0)
+        assert len(used["recent"]) == 2 and "deferred" in queue._pause_reason(rt, used["recent"])
+
+    def test_one_scan_at_a_time(self, rt, gh):
+        """Back-to-back reviews trip the provider's per-minute token limit (PRs #27, #44 and #43 on 2026-11-13/14),
+        so a dispatcher run starts at most one scan, and none while another is queued or running."""
+        for number, name, rid in ((5, "q1", 21), (6, "q2", 22), (7, "q3", 23)):
+            self.queued(rt, gh, number, name, rid)
+        rt.memo["policy"] = dict(store.load_policy(rt.root))
+        rt.memo["policy"]["stage2"] = dict(rt.memo["policy"]["stage2"], hourly_cap=3, daily_cap=12)
+        gh.runs = []
+        queue.dispatch(rt)
+        assert len(gh.dispatched) == 1
+        gh.runs = [dict(self.run_at(1, f"stage2 pr {gh.dispatched[0][1]['pr']}"), status="in_progress")]
+        log = queue.dispatch(rt)
+        assert len(gh.dispatched) == 1 and "still queued or running" in log[0]
+        gh.runs[0]["status"] = "completed"
+        gh.artifacts = {1: [{"name": "result-pass"}]}
+        queue.dispatch(rt)
+        assert len(gh.dispatched) == 2
+
     def test_declined_runs_count_and_only_a_storm_pauses(self, rt, gh):
         """A declined scan used a session, so it counts toward the caps. Only a storm pauses dispatching:
         declines of two different PRs or entries in the hour with nothing passed or flagged. One PR declining
