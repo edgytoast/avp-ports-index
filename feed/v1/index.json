@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.5.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-14T00:36:44Z",
+  "generated_at": "2026-11-14T00:40:31Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -412,6 +412,149 @@
             "height": 1440,
             "sha256": "a90e6e4e1ce8536af066211a1098c60657ef9ec07ea8da6438c0a8f594dc55aa",
             "url": "https://raw.githubusercontent.com/edgytoast/Starship-ios/5de019c0b16e68ba3ad6a62413b0ca9953285658/docs/screenshots/visionos-window.jpg",
+            "width": 2560
+          }
+        ]
+      }
+    },
+    {
+      "id": "ship-of-harkinian",
+      "name": "Ship of Harkinian",
+      "game": {
+        "title": "The Legend of Zelda: Ocarina of Time",
+        "original_platform": "n64",
+        "original_release_year": 1998
+      },
+      "repo_url": "https://github.com/edgytoast/Shipwright-ios",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/Shipwright-ios/tree/a61edd238439f0fd81ef1e49694731e8cfca334c",
+      "install_doc_url": "https://github.com/edgytoast/Shipwright-ios/blob/a61edd238439f0fd81ef1e49694731e8cfca334c/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "rebelancap",
+        "url": null,
+        "github_verified": false
+      },
+      "credits": [
+        {
+          "name": "rebelancap",
+          "role": "The iOS and visionOS port",
+          "url": "https://github.com/rebelancap/Shipwright-ios"
+        },
+        {
+          "name": "Trevorbilt",
+          "role": "Install guide and AVP Ports Index listing",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "Harbour Masters",
+          "role": "Ship of Harkinian (Shipwright), the port this is built on",
+          "url": "https://github.com/HarbourMasters/Shipwright"
+        },
+        {
+          "name": "Harbour Masters",
+          "role": "libultraship, the platform layer",
+          "url": "https://github.com/HarbourMasters/libultraship"
+        },
+        {
+          "name": "Harbour Masters",
+          "role": "ZAPDTR, the asset pipeline",
+          "url": "https://github.com/HarbourMasters/ZAPDTR"
+        },
+        {
+          "name": "Nintendo",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/rebelancap/Shipwright-ios",
+        "https://github.com/HarbourMasters/Shipwright",
+        "https://github.com/HarbourMasters/libultraship"
+      ],
+      "self_reported_status": "working",
+      "status_notes": null,
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "a61edd238439f0fd81ef1e49694731e8cfca334c",
+      "scanned_at": "2026-11-14T00:40:28Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-13T22:49:41Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "MIT"
+      },
+      "visionos_min": "2.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d",
+        "3d-immersive",
+        "6dof-immersive"
+      ],
+      "install": [
+        "build",
+        "sideload"
+      ],
+      "tags": [
+        "zelda",
+        "ocarina-of-time",
+        "n64",
+        "source-port",
+        "harbour-masters",
+        "vr",
+        "first-person",
+        "stereo-3d"
+      ],
+      "description": "Ocarina of Time on Apple Vision Pro through Harbour Masters' Ship of Harkinian, rendering natively on Metal: a resizable 2D window, a stereoscopic 3D screen in your room, or first-person VR with PS VR2 Sense controllers as your hands. Bring your own ROM. Listed from a copy with an install guide.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/ship-of-harkinian.md",
+      "media": {
+        "commit": "a61edd238439f0fd81ef1e49694731e8cfca334c",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 5338,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "27bbe097503620c9c93376749a851d2994a9c75d87fa219294c39a448125bf79",
+              "url": "https://raw.githubusercontent.com/edgytoast/Shipwright-ios/a61edd238439f0fd81ef1e49694731e8cfca334c/app/ios/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 146715,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "4c9160a9c89a790c9b08ab814a9f2199fdd6fb69d365543360792300ec097a51",
+              "url": "https://raw.githubusercontent.com/edgytoast/Shipwright-ios/a61edd238439f0fd81ef1e49694731e8cfca334c/app/ios/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "The Legend of Zelda: Ocarina of Time on Apple Vision Pro",
+            "bytes": 611111,
+            "format": "jpeg",
+            "height": 1440,
+            "sha256": "5aa5c91f74d6189ac9f3edf90b59a1e2a83e8471617801f8b697f517a333b232",
+            "url": "https://raw.githubusercontent.com/edgytoast/Shipwright-ios/a61edd238439f0fd81ef1e49694731e8cfca334c/docs/screenshots/visionos-window.jpg",
             "width": 2560
           }
         ]

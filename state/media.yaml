@@ -501,6 +501,37 @@ shar-visionos:
   - reason: not a PNG, JPEG, GIF or WebP
     src: https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/docs/images/hands/hand-swing-right.svg
   source: readme
+ship-of-harkinian:
+  choice: null
+  collected_at: '2026-11-14T00:40:31Z'
+  commit: a61edd238439f0fd81ef1e49694731e8cfca334c
+  icon:
+    kind: layered
+    layers:
+    - bytes: 5338
+      format: png
+      height: 1024
+      layer: back
+      sha256: 27bbe097503620c9c93376749a851d2994a9c75d87fa219294c39a448125bf79
+      url: https://raw.githubusercontent.com/edgytoast/Shipwright-ios/a61edd238439f0fd81ef1e49694731e8cfca334c/app/ios/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png
+      width: 1024
+    - bytes: 146715
+      format: png
+      height: 1024
+      layer: front
+      sha256: 4c9160a9c89a790c9b08ab814a9f2199fdd6fb69d365543360792300ec097a51
+      url: https://raw.githubusercontent.com/edgytoast/Shipwright-ios/a61edd238439f0fd81ef1e49694731e8cfca334c/app/ios/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png
+      width: 1024
+  screenshots:
+  - alt: 'The Legend of Zelda: Ocarina of Time on Apple Vision Pro'
+    bytes: 611111
+    format: jpeg
+    height: 1440
+    sha256: 5aa5c91f74d6189ac9f3edf90b59a1e2a83e8471617801f8b697f517a333b232
+    url: https://raw.githubusercontent.com/edgytoast/Shipwright-ios/a61edd238439f0fd81ef1e49694731e8cfca334c/docs/screenshots/visionos-window.jpg
+    width: 2560
+  skipped: []
+  source: readme
 starship:
   choice: null
   collected_at: '2026-11-13T22:54:29Z'

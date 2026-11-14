@@ -128,6 +128,16 @@ shar-visionos:
   status: listed
   submitted_by: edgytoast
   submitted_by_id: 146565462
+ship-of-harkinian:
+  by: merge
+  changed_at: '2026-11-14T00:40:28Z'
+  listed_at: '2026-11-14T00:40:28Z'
+  owner_approved: true
+  repo: https://github.com/edgytoast/Shipwright-ios
+  repo_id: 1406325460
+  status: listed
+  submitted_by: edgytoast
+  submitted_by_id: 146565462
 starship:
   by: merge
   changed_at: '2026-11-13T22:54:24Z'
