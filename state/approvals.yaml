@@ -29,6 +29,39 @@ jkxr:
     path: Projects/Android/gradle/wrapper/gradle-wrapper.jar
     sha256: 269633f219b111e2fd7a45b7f572e57e67b7191d28c3e34d85c704828882e8f4
   repo_id: 1459239561
+macnativegames-totk:
+  files:
+  - approved_at: '2026-11-16T21:12:08Z'
+    bytes: 213691
+    commit: 31aa41b4101a413f69113985120ba095e1c9586f
+    path: build_app.py
+    sha256: 3f2d5ef58e9c4fdfca982df94b910c9f77d7291fc6cb54c822fdf4f3fdbf9350
+  - approved_at: '2026-11-16T21:12:08Z'
+    bytes: 37796984
+    commit: 31aa41b4101a413f69113985120ba095e1c9586f
+    path: games/totk/prebuilt/ios-arm64/libtotk_xlate.a
+    sha256: 856193d5ccd291bfc0a651307ecabf160bfce699480f582d76c39495823dfb8f
+  - approved_at: '2026-11-16T21:12:08Z'
+    bytes: 6736
+    commit: 31aa41b4101a413f69113985120ba095e1c9586f
+    path: games/totk/prebuilt/ios-arm64/libtotk_xlate_bootstrap.o
+    sha256: 14bd9d44df29303ecc51d5e27c3a396ba147c82f1ef10a77707292af5d67499a
+  - approved_at: '2026-11-16T21:12:08Z'
+    bytes: 1981080
+    commit: 31aa41b4101a413f69113985120ba095e1c9586f
+    path: games/oot/prebuilt/macos-arm64/oot_write_proof.dylib
+    sha256: d77fec8298be581f44f1158feac4f8c633c08e90eb9aa975584932c881690fc7
+  - approved_at: '2026-11-16T21:12:08Z'
+    bytes: 124712
+    commit: 31aa41b4101a413f69113985120ba095e1c9586f
+    path: games/jamboree/prebuilt/macos-arm64/dmsh_xlate/dmsh_xlate
+    sha256: 69b0f8c7e8848c1bb5e6f682e6f8b271565a092dc39e7fd3c56f2687be748165
+  - approved_at: '2026-11-16T21:12:08Z'
+    bytes: 5353
+    commit: 31aa41b4101a413f69113985120ba095e1c9586f
+    path: windows_games/ra2/scripts/ios/build_deps.sh
+    sha256: b5fdb72f5695666e0171b07f3efc6db77beec56a7d748832caa921e35d53263f
+  repo_id: 1423689866
 portal-2-vr:
   files:
   - approved_at: '2026-11-15T17:29:48Z'

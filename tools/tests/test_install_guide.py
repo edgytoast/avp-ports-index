@@ -220,6 +220,8 @@ class TestSurfaces:
         assert f"follow the [install guide]({feed['readme']['install_doc_url']})" in page
         assert f"[AVP-INSTALL.md at {SHA(21)[:12]}]" in out["ports/plain.md"]
         assert f"blob/{SHA(22)}/README.md#install" in out["README.md"]
+        assert f"[README.md](https://github.com/trevorbilt-bot/readme/blob/{SHA(22)}/README.md#install)" in out["README.md"]
+        assert f"[AVP-INSTALL.md](https://github.com/trevorbilt-bot/plain/blob/{SHA(21)}/AVP-INSTALL.md)" in out["README.md"]
 
 
 # The live prompt (decision 63), rendered with fixed inputs and the default guide: this hash was taken from
