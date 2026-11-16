@@ -6,10 +6,10 @@ Port by Zach Schwendiman ([@zschwendi](https://github.com/zschwendi))
 Start with this command, which gets exactly the code that was scanned:
 
 ```
-git clone https://github.com/zschwendi/dark-eco && cd dark-eco && git checkout 6e28cce750406037c4a325ce7fc18c377b575e97 && git submodule update --init --recursive
+git clone https://github.com/zschwendi/dark-eco && cd dark-eco && git checkout f4be973817c26257ff638a1ebd43ede23f96f8a7 && git submodule update --init --recursive
 ```
 
-Then follow the [install guide](https://github.com/zschwendi/dark-eco/blob/6e28cce750406037c4a325ce7fc18c377b575e97/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+Then follow the [install guide](https://github.com/zschwendi/dark-eco/blob/f4be973817c26257ff638a1ebd43ede23f96f8a7/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
 
 | | |
 | --- | --- |
@@ -17,14 +17,14 @@ Then follow the [install guide](https://github.com/zschwendi/dark-eco/blob/6e28c
 | Status | Partially working: Windowed Jak and Daxter is stable per the developer. This public v2.0 source exposes 2D Comfort mode. The separate experimental immersive build has remaining bugs and is not included in this entry. |
 | Plays as | 2D |
 | Health | OK |
-| Scan | Scanned 2026-11-02 · 0 commits since |
-| Source (scanned) | [zschwendi/dark-eco at 6e28cce75040](https://github.com/zschwendi/dark-eco/tree/6e28cce750406037c4a325ce7fc18c377b575e97) |
-| Install guide | [AVP-INSTALL.md at 6e28cce75040](https://github.com/zschwendi/dark-eco/blob/6e28cce750406037c4a325ce7fc18c377b575e97/AVP-INSTALL.md) |
+| Scan | Scanned 2026-11-16 · 0 commits since |
+| Source (scanned) | [zschwendi/dark-eco at f4be973817c2](https://github.com/zschwendi/dark-eco/tree/f4be973817c26257ff638a1ebd43ede23f96f8a7) |
+| Install guide | [AVP-INSTALL.md at f4be973817c2](https://github.com/zschwendi/dark-eco/blob/f4be973817c26257ff638a1ebd43ede23f96f8a7/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [zschwendi/dark-eco](https://github.com/zschwendi/dark-eco) |
 | Branch | `v2.0` |
 | License | No license stated |
-| Last commit | 2026-11-02 |
+| Last commit | 2026-11-15 |
 | visionOS | 26.5 or later |
 | Input | game controller |
 

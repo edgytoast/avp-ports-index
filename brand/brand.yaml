@@ -11,10 +11,10 @@ more_from:                          # README only, at the end; never in the feed
   intro: Apps for Apple Vision Pro from the curator of this index.
   apps:
     - name: Loose Papers
-      url: https://trevorbilt.com/loose-papers
+      url: https://apps.apple.com/app/apple-store/id6755368606?pt=127797875&ct=gh-index&mt=8   # App Store campaign link; ct=gh-index separates index-driven downloads in App Store Connect
       icon: https://trevorbilt.com/assets/loose-papers-icon-DJ006cPT.png
       blurb: A reader for your own books and comics (PDF, EPUB, CBR and CBZ), with page turns that follow your hand.
     - name: Papa's Ball & Tee
-      url: https://trevorbilt.com/papas-ball-and-tee
+      url: https://apps.apple.com/app/apple-store/id6757321188?pt=127797875&ct=gh-index&mt=8
       icon: https://trevorbilt.com/assets/papas-icon-DUIo8ARw.png
       blurb: A small balancing game that rests in your space, for a quick challenge you never quite master.

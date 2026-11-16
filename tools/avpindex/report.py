@@ -1,7 +1,7 @@
 """The stage2-scan report job (spec §8.4, §6.3): apply a scan result in PR or rescan mode.
 
 It runs with if: always(), so a failed, cancelled or timed-out scan job still produces an
-`error` here and no PR is left at stage2:scanning. A `declined` scan (Jules refused to review,
+`error` here and no PR is left at stage2:scanning. A `declined` scan (the agent refused to review,
 decision 63) never passes: a rescan is retried soon, a PR goes back in the queue until its scans
 run out.
 """
@@ -14,7 +14,7 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 
-from . import approvals, blocklist, jules, lifecycle, messages, store, validate
+from . import approvals, blocklist, lifecycle, messages, safety_check, store, validate
 from .gate import (
     DECLINED,
     NO_VERDICT_TITLE,
@@ -27,7 +27,7 @@ from .gate import (
 from .lifecycle import LISTED, PULLED
 from .sync import pin
 
-NO_WORK = "no work"                      # jules.review's decline_signal for a session that showed no work
+NO_WORK = "no work"                      # safety_check.review's decline_signal for a session that showed no work
 NO_VERDICT_LEAD = "**Gemini finished without a verdict**"
 DECLINE_RETRY = dt.timedelta(hours=2)    # a declined rescan is tried again this soon,
 DECLINE_QUICK_TRIES = 3                  # until it has declined this many times in a row;
@@ -85,24 +85,24 @@ def load_outcome(path: Path, scan_result: str, policy: dict) -> dict:
     if result == "deferred":
         return {"result": "deferred", "reason": data.get("reason", "")}
     if result == "declined":
-        # Jules refused to review, or finished without a verdict and without showing any work (the "no work"
+        # The agent refused to review, or finished without a verdict and without showing any work (the "no work"
         # signal, which can't tell the two apart). Whatever else the artifact holds, this is never a pass.
         diagnostics = data.get("diagnostics") if isinstance(data.get("diagnostics"), dict) else {}
         signal = NO_WORK if diagnostics.get("decline_signal") == NO_WORK else "wording"
-        return {"result": "declined", "reason": str(data.get("reason") or "")[:jules.EXCERPT_CHARS],
+        return {"result": "declined", "reason": str(data.get("reason") or "")[:safety_check.EXCERPT_CHARS],
                 "session_url": data.get("session_url"), "minutes": data.get("minutes"), "signal": signal}
-    verdict, problem = jules.check_verdict(json.dumps(data.get("verdict")) if data.get("verdict") else None,
-                                           jules.verdict_schema())
+    text = json.dumps(data.get("verdict")) if data.get("verdict") else None
+    verdict, problem = safety_check.check_verdict(text, safety_check.verdict_schema())
     out = {"result": "error", "reason": data.get("reason") or problem, "session_url": data.get("session_url"),
            "minutes": data.get("minutes")}
     if verdict is not None:
-        out.update(result=jules.decide(verdict, int(policy["stage2"]["confidence_threshold"])), verdict=verdict,
-                   reason="")
+        threshold = int(policy["stage2"]["confidence_threshold"])
+        out.update(result=safety_check.decide(verdict, threshold), verdict=verdict, reason="")
     return out
 
 
 def no_work(outcome: dict) -> bool:
-    """A `declined` result on the no-work signal: Jules finished without a verdict and without showing any
+    """A `declined` result on the no-work signal: the agent finished without a verdict and without showing any
     work. Calibration showed working sessions may show only their messages, so that may not be a refusal at
     all, and it's never worded as one."""
     return outcome.get("signal") == NO_WORK
@@ -189,7 +189,7 @@ def apply_rescan_flag(rt, state: store.State, inputs: Inputs, outcome: dict, thr
     health["flagged_commit"] = inputs.linked_commit
     health["flagged_files"] = approvals.flagged_files(outcome.get("verdict")) or []
     health["rescan_hold"] = True
-    health["scan_declines"] = 0  # Jules did review this commit
+    health["scan_declines"] = 0  # the agent did review this commit
     health["scan_refused"] = False
     blocklist.add_flag(state, rt.salt, inputs.repo_id)
     record = state.lifecycle[entry_id]
@@ -304,13 +304,13 @@ def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
 
 def _pr_declined(rt, inputs: Inputs, outcome: dict, pr: dict, bot_state: dict, scans: int, mine: bool,
                  swap) -> list[int]:
-    """Jules declined to review. That isn't the contributor's doing, so it isn't charged to their scans; the
+    """The agent declined to review. That isn't the contributor's doing, so it isn't charged to their scans; the
     PR goes back in the queue while it has had fewer than `per_pr_max_scans` declines (counted on their own,
     `owner:scan` or not, so it can't loop forever), then the curator decides."""
     number = inputs.pr
     max_scans = int(rt.policy["stage2"]["per_pr_max_scans"])
     # The count and time live in the bot comment, so pushes can't reset them: the dispatcher holds a PR at the
-    # cap (as it does at the scan cap) and waits an hour after each decline before sending it back to Jules.
+    # cap (as it does at the scan cap) and waits an hour after each decline before sending it back to the agent.
     declined = {"declines": int(bot_state.get("declines") or 0) + 1, "declined_at": store.iso(store.utcnow()),
                 "decline_signal": NO_WORK if no_work(outcome) else "wording"}  # how the dispatcher words its limit
     declines = declined["declines"]
@@ -384,7 +384,7 @@ def rescan(rt, inputs: Inputs, outcome: dict, threshold: int) -> None:
             passed = (f"Gemini reviewed `{inputs.linked_commit}`{again} and it passed (confidence {confidence}), so "
                       "the entry is listed at that commit.")
             if refused_before:
-                # Jules refused on an earlier try: that's worth the curator's look, so the note stays open (decision 66).
+                # The agent refused on an earlier try: that's worth the curator's look, so the note stays open (decision 66).
                 rt.note_triage(inputs.entry_id, passed + " This note stays open because Gemini refused to review an "
                                                          "earlier try; close it when you've had a look.")
             elif not health.get("flagged_commit"):

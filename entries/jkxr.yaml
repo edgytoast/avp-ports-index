@@ -1,0 +1,32 @@
+schema_version: 1
+id: jkxr
+name: "JKXR for Apple Vision Pro"
+game:
+  title: "Jedi Outcast and Jedi Academy"
+  original_platform: pc
+  original_release_year: 2002
+repo: https://github.com/myMartek/JKXR
+developer:
+  github: myMartek
+status: working
+status_notes: "Both games play fully immersive with PS VR2 Sense controllers or a gamepad. Loading a level shows a black view for a while."
+visionos_min: "26.4"
+input: [game-controller]
+experiences: ["6dof-immersive"]
+description: "Team Beef's open-source VR engine for two first-person action classics of the early 2000s, native on visionOS: fully immersive, foveated, with tracked Sense controllers and room-scale play. Bring your own game files; AVP Play can fetch them from Steam."
+credits:
+  - name: "JKXR by Team Beef"
+    role: "VR port the visionOS version is based on"
+    url: https://github.com/Team-Beef-Studios/JKXR
+  - name: "OpenJK"
+    role: "Open-source engine"
+    url: https://github.com/JACoders/OpenJK
+  - name: "gl4es"
+    role: "OpenGL translation layer"
+    url: https://github.com/ptitSeb/gl4es
+  - name: "ANGLE"
+    role: "OpenGL ES on Metal"
+    url: https://chromium.googlesource.com/angle/angle
+upstream:
+  - https://github.com/Team-Beef-Studios/JKXR
+  - https://github.com/JACoders/OpenJK

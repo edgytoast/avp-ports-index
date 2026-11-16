@@ -40,7 +40,7 @@ Building a port runs its build scripts on that person's Mac, unsandboxed, with t
 - Swift Package Manager plugins and macros
 - CMake and Make files, and any other build configuration
 - shell, Python and other scripts, and git hooks
-- `AVP-INSTALL.md`, whose commands people paste into a terminal
+- `{{ install_guide }}`, whose commands people paste into a terminal
 
 Then check the app code.
 

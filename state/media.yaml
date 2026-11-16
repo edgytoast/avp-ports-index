@@ -43,6 +43,44 @@
     width: 1280
   skipped: []
   source: readme
+2ship2harkinian:
+  choice: null
+  collected_at: '2026-11-14T21:15:27Z'
+  commit: a2ee3158f5a0edf5c1882db161c9186e81f216b3
+  icon:
+    kind: layered
+    layers:
+    - bytes: 68028
+      format: png
+      height: 1024
+      layer: back
+      sha256: 64aff1d06018bfeb36f1d6167300f82d21d631eb4fbb01f8c3b74b64864dc2f5
+      url: https://raw.githubusercontent.com/edgytoast/2ship2harkinian-ios/a2ee3158f5a0edf5c1882db161c9186e81f216b3/app/ios/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/layer-back-1024.png
+      width: 1024
+    - bytes: 64947
+      format: png
+      height: 1024
+      layer: middle
+      sha256: 31cd459d39e50f87a261a9c53f27dced050dc8fb5b6f9f418f6aabce766fbe93
+      url: https://raw.githubusercontent.com/edgytoast/2ship2harkinian-ios/a2ee3158f5a0edf5c1882db161c9186e81f216b3/app/ios/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/layer-middle-1024.png
+      width: 1024
+    - bytes: 132200
+      format: png
+      height: 1024
+      layer: front
+      sha256: 5fa23456d2fef4848c66165b6aea766d896565f0a7fdd3157c21eb29df15a0b4
+      url: https://raw.githubusercontent.com/edgytoast/2ship2harkinian-ios/a2ee3158f5a0edf5c1882db161c9186e81f216b3/app/ios/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/layer-front-1024.png
+      width: 1024
+  screenshots:
+  - alt: 'The Legend of Zelda: Majora''s Mask on Apple Vision Pro'
+    bytes: 444066
+    format: jpeg
+    height: 1440
+    sha256: 565350151f3fcd6e9a86698e40a24fdb795c21c0b540e1ba271ae9d8abdfc948
+    url: https://raw.githubusercontent.com/edgytoast/2ship2harkinian-ios/a2ee3158f5a0edf5c1882db161c9186e81f216b3/docs/screenshots/visionos-window.jpg
+    width: 2560
+  skipped: []
+  source: readme
 animal-crossing-vr:
   choice: null
   collected_at: '2026-10-10T15:56:05Z'
@@ -152,6 +190,52 @@ avp-craft:
   screenshots: []
   skipped: []
   source: readme
+ctrpad:
+  choice: null
+  collected_at: '2026-11-14T17:30:15Z'
+  commit: df1d0671ed8d540b695113f1cc28e9fb26e570e9
+  icon:
+    bytes: 1180575
+    format: png
+    height: 1024
+    kind: flat
+    sha256: dc45cccfb959c962af0d8465de993734a15070085ed30e305194954368292257
+    url: https://raw.githubusercontent.com/edgytoast/ctrpad/df1d0671ed8d540b695113f1cc28e9fb26e570e9/platform/apple/Assets.xcassets/AppIcon.appiconset/appicon-1024.png
+    width: 1024
+  screenshots:
+  - alt: CTRPad app icon
+    bytes: 1180575
+    format: png
+    height: 1024
+    sha256: dc45cccfb959c962af0d8465de993734a15070085ed30e305194954368292257
+    url: https://raw.githubusercontent.com/edgytoast/ctrpad/df1d0671ed8d540b695113f1cc28e9fb26e570e9/docs/design/ctrpad-app-icon-master.png
+    width: 1024
+  - alt: CTRPad running Crash Cove on iPad with the touch controller
+    bytes: 1243145
+    format: png
+    height: 2048
+    sha256: e1efac89a9d874272f2a257682ec89770689f1f146fdffcad7162eb25a097a51
+    url: https://raw.githubusercontent.com/edgytoast/ctrpad/df1d0671ed8d540b695113f1cc28e9fb26e570e9/docs/readme/ctrpad-crash-cove-gameplay.png
+    width: 2732
+  - alt: CTRPad title screen on iPad
+    bytes: 1036006
+    format: png
+    height: 2048
+    sha256: 3848246d654d6be6192421af7d656d2a4393420ca7f06d915682b863944e3e5c
+    url: https://raw.githubusercontent.com/edgytoast/ctrpad/df1d0671ed8d540b695113f1cc28e9fb26e570e9/docs/readme/ctrpad-title-screen.png
+    width: 2732
+  skipped:
+  - reason: not this repo's file or a GitHub attachment
+    src: https://github.com/chrissotraidis/ctrpad/actions/workflows/apple-packages.yml/badge.svg
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/macOS-11%2B-0A84FF?logo=apple
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/iOS%20%2F%20iPadOS-15%2B-0A84FF?logo=apple
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/renderer-OpenGL%20%2F%20GLES%203-5E5CE6
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/game%20data-not%20included-FF453A
+  source: readme
 dark-eco:
   choice: null
   collected_at: '2026-11-02T22:41:31Z'
@@ -214,6 +298,21 @@ galaxyvision:
   screenshots: []
   skipped: []
   source: readme
+goldeneye-xbla:
+  choice: null
+  collected_at: '2026-11-14T18:14:33Z'
+  commit: 95bcd76b08da5111d6e6f420e19d44e1237fe119
+  icon: null
+  screenshots:
+  - alt: GoldenEye on Apple Vision Pro
+    bytes: 363008
+    format: jpeg
+    height: 1080
+    sha256: 2d67515a6f07381ee059786454adc4fbcc6df13f4220b75ee01065a624e26a72
+    url: https://raw.githubusercontent.com/edgytoast/GoldenEye-Recomp-ios/95bcd76b08da5111d6e6f420e19d44e1237fe119/docs/screenshots/vision-pro-dam-remaster.jpg
+    width: 1920
+  skipped: []
+  source: readme
 half-life-alyx:
   choice: null
   collected_at: '2026-10-14T06:44:27Z'
@@ -265,6 +364,30 @@ half-life-vr:
     sha256: 7f6bc0a96597f1e73a417fa9a8ce93ae191a295c7653e683b6eb6bda0397aa69
     url: https://raw.githubusercontent.com/illixion/halflife-visionos/d7555089b164ac6004cc02111ef2b122321dc11f/images/ingame.jpg
     width: 1920
+  skipped: []
+  source: readme
+jkxr:
+  choice: null
+  collected_at: '2026-11-16T02:41:24Z'
+  commit: a94c94603d06295956d3b5c100e4d8a836a5b0c8
+  icon:
+    kind: layered
+    layers:
+    - bytes: 844615
+      format: png
+      height: 1024
+      layer: back
+      sha256: 954ee4104194961a11353812b1d315579e11cd32d772a325e073f991a1ab0825
+      url: https://raw.githubusercontent.com/myMartek/JKXR/a94c94603d06295956d3b5c100e4d8a836a5b0c8/visionos/App/Sources/Resources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png
+      width: 1024
+    - bytes: 1017256
+      format: png
+      height: 1024
+      layer: front
+      sha256: 1ce7f832e5d6ca9d527610a66165c0ec3002bb897acc4139f1ad976bba4237b7
+      url: https://raw.githubusercontent.com/myMartek/JKXR/a94c94603d06295956d3b5c100e4d8a836a5b0c8/visionos/App/Sources/Resources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png
+      width: 1024
+  screenshots: []
   skipped: []
   source: readme
 lighthouse:
@@ -332,6 +455,37 @@ luigis-mansion-vr:
     src: https://trevorbilt.com/assets/logo-BdrEikAq.png
   - reason: not this repo's file or a GitHub attachment
     src: https://img.shields.io/badge/AVP_Ports_Index-listed-0A84FF
+  source: readme
+perfect-dark:
+  choice: null
+  collected_at: '2026-11-14T18:28:53Z'
+  commit: 906f3f676d8e3a21d3e226d719137c32ffc02674
+  icon:
+    kind: layered
+    layers:
+    - bytes: 6489
+      format: png
+      height: 1024
+      layer: back
+      sha256: cd35d58f304b8d8fad68411d5b2fb0f210d656a61d07c87f3b62086981ec2bec
+      url: https://raw.githubusercontent.com/edgytoast/perfect-dark-ios/906f3f676d8e3a21d3e226d719137c32ffc02674/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/img.png
+      width: 1024
+    - bytes: 176421
+      format: png
+      height: 1024
+      layer: front
+      sha256: caf8c14e1c24936f3fd449db79e5758953d72d13f60bbb9d91c6644c3c514bc8
+      url: https://raw.githubusercontent.com/edgytoast/perfect-dark-ios/906f3f676d8e3a21d3e226d719137c32ffc02674/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/img.png
+      width: 1024
+  screenshots:
+  - alt: Perfect Dark on Apple Vision Pro — Air Base, XBLA art
+    bytes: 312480
+    format: jpeg
+    height: 1080
+    sha256: da78a15556401ef1bccf64c8b37581ac48699681b8922b9ccb86b96ee23724bd
+    url: https://raw.githubusercontent.com/edgytoast/perfect-dark-ios/906f3f676d8e3a21d3e226d719137c32ffc02674/docs/screenshots/vision-pro-airbase-xbla.jpg
+    width: 1920
+  skipped: []
   source: readme
 pokemon-gen1recomp:
   choice: null
@@ -410,6 +564,14 @@ pokemon-gen1recomp:
     src: https://img.youtube.com/vi/8IOgqbe4YvA/maxresdefault.jpg
   - reason: not this repo's file or a GitHub attachment
     src: https://raw.githubusercontent.com/bryanthaboi/gen1recomp/refs/heads/dev/assets/logo/bcg.png
+  source: readme
+portal-2-vr:
+  choice: null
+  collected_at: '2026-11-15T17:29:52Z'
+  commit: b5f1fc29b707daacf88a86bb50f228626586e893
+  icon: null
+  screenshots: []
+  skipped: []
   source: readme
 revc-visionos:
   choice: ab060d8c909256ae
@@ -571,6 +733,75 @@ ship-of-harkinian:
     width: 2560
   skipped: []
   source: readme
+skyrim-vr:
+  choice: null
+  collected_at: '2026-11-15T16:31:21Z'
+  commit: c036b4e4b3580c5ee5442540f0d14b912153c584
+  icon:
+    kind: layered
+    layers:
+    - bytes: 20626
+      format: png
+      height: 1024
+      layer: back
+      sha256: 10efbd2913fb88cb0306a208c865bd84064a8cb7874f8ae5f77c97183c3535c6
+      url: https://raw.githubusercontent.com/gseddon/Skyrim-VR-Vision-Pro/c036b4e4b3580c5ee5442540f0d14b912153c584/VXRuntime/xros/app/Icon/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
+      width: 1024
+    - bytes: 18478
+      format: png
+      height: 1024
+      layer: middle
+      sha256: ac9277fa34614099985f437ef4a06dcc0fddfc41f47dbb4e044a5268103d8e29
+      url: https://raw.githubusercontent.com/gseddon/Skyrim-VR-Vision-Pro/c036b4e4b3580c5ee5442540f0d14b912153c584/VXRuntime/xros/app/Icon/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
+      width: 1024
+    - bytes: 1001032
+      format: png
+      height: 1024
+      layer: front
+      sha256: 480c8be77d0972a459e58365546b3c64b22027d594cdc7515833175627d76b65
+      url: https://raw.githubusercontent.com/gseddon/Skyrim-VR-Vision-Pro/c036b4e4b3580c5ee5442540f0d14b912153c584/VXRuntime/xros/app/Icon/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
+      width: 1024
+  screenshots: []
+  skipped: []
+  source: readme
+sm64coopdx:
+  choice: null
+  collected_at: '2026-11-14T21:28:03Z'
+  commit: 05fe583f6163c08f36041352115dab0d863a2627
+  icon:
+    kind: layered
+    layers:
+    - bytes: 39738
+      format: png
+      height: 1024
+      layer: back
+      sha256: a07b1d1d7932d49dbd19671b674f812790a72db6cda3b973cbbd05b8fd37780e
+      url: https://raw.githubusercontent.com/edgytoast/sm64coopdx-ios/05fe583f6163c08f36041352115dab0d863a2627/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png
+      width: 1024
+    - bytes: 4144
+      format: png
+      height: 1024
+      layer: middle
+      sha256: 265149d454822c2c808720c61f5a4317c0bfda56fc96598ea7b19b6ea52c5dd1
+      url: https://raw.githubusercontent.com/edgytoast/sm64coopdx-ios/05fe583f6163c08f36041352115dab0d863a2627/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/clear.png
+      width: 1024
+    - bytes: 578577
+      format: png
+      height: 1024
+      layer: front
+      sha256: e1b451b511409ca54f52ad830195a0f2a0a5c6365e1a2af112fd9e7f4e89601a
+      url: https://raw.githubusercontent.com/edgytoast/sm64coopdx-ios/05fe583f6163c08f36041352115dab0d863a2627/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png
+      width: 1024
+  screenshots:
+  - alt: sm64coopdx in a visionOS window
+    bytes: 2881499
+    format: png
+    height: 1237
+    sha256: 8fab636e5bc6720147f24ba7e3b383e5f267457acf3737c01fede1cd3b3a395a
+    url: https://raw.githubusercontent.com/edgytoast/sm64coopdx-ios/05fe583f6163c08f36041352115dab0d863a2627/docs/screenshots/visionos-window.png
+    width: 2200
+  skipped: []
+  source: readme
 spaghettikart:
   choice: null
   collected_at: '2026-11-14T02:29:35Z'
@@ -729,8 +960,8 @@ visr:
   source: readme
 voxelnative:
   choice: null
-  collected_at: '2026-11-14T02:35:05Z'
-  commit: f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17
+  collected_at: '2026-11-15T16:31:22Z'
+  commit: 4e83af388f9461075d41ab2d7e49be47f2e33303
   icon:
     kind: layered
     layers:
@@ -739,26 +970,111 @@ voxelnative:
       height: 1024
       layer: back
       sha256: 943263a819496a9eb0887d4524d5b91f7577c563a19cabf952108f07f28289a7
-      url: https://raw.githubusercontent.com/edgytoast/voxelnative/f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/icon_back.png
+      url: https://raw.githubusercontent.com/edgytoast/voxelnative/4e83af388f9461075d41ab2d7e49be47f2e33303/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/icon_back.png
       width: 1024
     - bytes: 6556
       format: png
       height: 1024
       layer: middle
       sha256: 86a4380e78c0d24d66bf590bfd51a3d81e4824aa566028419db4b96745cf1f8d
-      url: https://raw.githubusercontent.com/edgytoast/voxelnative/f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/icon_middle.png
+      url: https://raw.githubusercontent.com/edgytoast/voxelnative/4e83af388f9461075d41ab2d7e49be47f2e33303/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/icon_middle.png
       width: 1024
     - bytes: 39994
       format: png
       height: 1024
       layer: front
       sha256: a2356b0fb96058dac64c723e4476fc34aac3803a73e991b4e3d922f9dde868f0
-      url: https://raw.githubusercontent.com/edgytoast/voxelnative/f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/icon_front.png
+      url: https://raw.githubusercontent.com/edgytoast/voxelnative/4e83af388f9461075d41ab2d7e49be47f2e33303/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/icon_front.png
       width: 1024
   screenshots: []
   skipped:
   - reason: not this repo's file or a GitHub attachment
     src: https://img.shields.io/badge/TestFlight-Join_the_beta-0D96F6?style=for-the-badge&logo=apple&logoColor=white
+  source: readme
+vxpro:
+  choice: null
+  collected_at: '2026-11-16T00:45:52Z'
+  commit: 4498bec05b35fa290e55663f798cab6c85f5595c
+  icon:
+    kind: layered
+    layers:
+    - bytes: 172271
+      format: png
+      height: 1024
+      layer: back
+      sha256: 0162873ef9b550af036da1fd508bd93daf7a2176e3dfff451f44b62131e6a12d
+      url: https://raw.githubusercontent.com/Ag3497120/VXpro/4498bec05b35fa290e55663f798cab6c85f5595c/app/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png
+      width: 1024
+    - bytes: 252376
+      format: png
+      height: 1024
+      layer: middle
+      sha256: 484e617fd4dd2f44b5ed16d5160d064ee04aeeb22792ab2bbf379382939b7e84
+      url: https://raw.githubusercontent.com/Ag3497120/VXpro/4498bec05b35fa290e55663f798cab6c85f5595c/app/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/middle.png
+      width: 1024
+    - bytes: 75515
+      format: png
+      height: 1024
+      layer: front
+      sha256: 67b6d661e1551fa99004124066a3d57abb06363bd07e9f1999d310f7e64e654f
+      url: https://raw.githubusercontent.com/Ag3497120/VXpro/4498bec05b35fa290e55663f798cab6c85f5595c/app/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png
+      width: 1024
+  screenshots: []
+  skipped:
+  - reason: over 8 MB
+    src: https://raw.githubusercontent.com/Ag3497120/VXpro/4498bec05b35fa290e55663f798cab6c85f5595c/docs/media/vision-pro-gameplay.gif
+  source: readme
+wiicompiled-vr:
+  choice: null
+  collected_at: '2026-11-14T21:32:25Z'
+  commit: 87c18efa00ceca1706321a1b0d87254a92afbdc7
+  icon:
+    kind: layered
+    layers:
+    - bytes: 253691
+      format: png
+      height: 1024
+      layer: back
+      sha256: 41b9bcea04bbdef6f1d19cf5f8eddcbb69ed38b29f9189f9d0b1c6d9dc4286a0
+      url: https://raw.githubusercontent.com/edgytoast/wiicompiled_vr-avp-index/87c18efa00ceca1706321a1b0d87254a92afbdc7/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
+      width: 1024
+    - bytes: 176793
+      format: png
+      height: 1024
+      layer: middle
+      sha256: 060a7a5052f86fdf1197a06cfb620c32178ff7117edce35dfe8f938d47e98e03
+      url: https://raw.githubusercontent.com/edgytoast/wiicompiled_vr-avp-index/87c18efa00ceca1706321a1b0d87254a92afbdc7/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
+      width: 1024
+    - bytes: 125847
+      format: png
+      height: 1024
+      layer: front
+      sha256: 82e8514c1ef50f441942b49c0a5d6a5126e69248d917525ff5b044957895ecfc
+      url: https://raw.githubusercontent.com/edgytoast/wiicompiled_vr-avp-index/87c18efa00ceca1706321a1b0d87254a92afbdc7/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
+      width: 1024
+  screenshots:
+  - alt: Mario Kart WiiCompiled VR logo (logo by Inkwreck)
+    bytes: 2528072
+    format: png
+    height: 2464
+    sha256: 8c4c7ab51ac2ebbcf803f82e366e226a59ce8af0fcfef6b6517cf5e6747e8668
+    url: https://raw.githubusercontent.com/edgytoast/wiicompiled_vr-avp-index/87c18efa00ceca1706321a1b0d87254a92afbdc7/docs/images/wiicompiled-vr-logo.png
+    width: 4190
+  skipped:
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/Windows-10%20%2F%2011%20%C2%B7%20x64-0078D4
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/Linux-x64%20%2F%20ARM64-FCC624?logo=linux&amp;logoColor=white
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/macOS-14%2B%20%C2%B7%20Apple%20Silicon-0A84FF?logo=apple&amp;logoColor=white
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/PowerPC-static%20recompilation-FF9F0A
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/Retro%20Rewind-supported-FF375F
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/install%20with-Wheel%20Wizard-8B5CF6
+  - reason: not this repo's file or a GitHub attachment
+    src: https://img.shields.io/badge/license-GPLv3-2EA44F?logo=gnu&amp;logoColor=white
   source: readme
 wind-waker-vr:
   choice: null

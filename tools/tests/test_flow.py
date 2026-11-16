@@ -476,7 +476,7 @@ class TestHealth:
 class TestDeclinedPushes:
     def test_pushes_dont_buy_a_declined_pr_new_reviews(self, rt, gh, event, monkeypatch):
         """U22, the independent review's probe: a PR that keeps getting declined, pushed again and again, gets at
-        most per_pr_max_scans Jules sessions, an hour apart, and then waits for the curator however often it's
+        most per_pr_max_scans agent runs, an hour apart, and then waits for the curator however often it's
         pushed: the gate requeues it on every push, and the dispatcher holds it at the decline limit."""
         from avpindex import report
         gh.add_repo("trevorbilt-bot/good", 11)
@@ -490,7 +490,7 @@ class TestDeclinedPushes:
             gh.runs = []  # an empty ledger: only the PR's own limits can stop it
             before = len(gh.dispatched)
             queue.dispatch(rt)
-            if len(gh.dispatched) > before:  # Jules ran, and declined again
+            if len(gh.dispatched) > before:  # the agent ran, and declined again
                 head = gh.prs[1]["head"]["sha"]
                 report.run(rt, report.Inputs(mode="pr", pr=1, head_sha=head, linked_repo="trevorbilt-bot/good",
                                              linked_commit=SHA(11), entry_id="good", repo_id=11, base_commit=None,
@@ -741,7 +741,8 @@ FULL_ENTRY = {  # every field the entry schema defines; a credit with and one wi
     "developer": {"github": "trevorbilt-bot", "name": "Bot", "url": "https://example.com/bot"},
     "status": "working", "status_notes": "Runs on the headset.", "visionos_min": "26.0",
     "input": ["game-controller", "hand-tracking"], "experiences": ["2d", "6dof-immersive"],
-    "install": ["build", "sideload"], "description": "A port with every field. Bring your own game.",
+    "install": ["build", "sideload"], "install_guide": "README.md#install",
+    "description": "A port with every field. Bring your own game.",
     "tags": ["test"], "upstream": ["https://example.com/engine"],
     "credits": [{"name": "Upstream", "role": "Engine", "url": "https://example.com/engine"},
                 {"name": "Maker", "role": "Original game"}],
@@ -765,6 +766,10 @@ def test_every_entry_field_renders_present_and_absent(rt, gh):
         list_entry(rt, entry_id, repo, write=False)
     out = generate.generate(rt.root, rt.repo)  # also validates the feed against its schema
     assert "- Maker: Original game" in out["ports/full.md"]
+    full = next(e for e in json.loads(out["feed/v1/index.json"])["entries"] if e["id"] == "full")
+    assert full["install_guide"] == "README.md#install"
+    assert full["install_doc_url"] == f"https://github.com/trevorbilt-bot/full/blob/{SHA(12)}/README.md#install"
+    assert f"| Install guide | [README.md\\#install at {SHA(12)[:12]}]({full['install_doc_url']}) |" in out["ports/full.md"]
     assert "- [Upstream](https://example.com/engine): Engine" in out["ports/full.md"]
     assert "ports/min.md" in out
     state = store.State.load(rt.root)
@@ -790,7 +795,7 @@ def test_play_modes_and_prebuilt_apps(rt, gh):
     assert "| Prebuilt app | The developer publishes an app you can sideload; see their repo." in out["ports/good.md"]
     assert "· prebuilt app (not safety-checked)" in out["README.md"] and "prebuilt app available (not safety-checked)" in out["llms.txt"]
     feed = json.loads(out["feed/v1/index.json"])
-    assert feed["schema_version"] == "1.5.0" and feed["entries"][0]["install"] == ["build", "sideload"]
+    assert feed["schema_version"] == "1.6.0" and feed["entries"][0]["install"] == ["build", "sideload"]
 
 
 class TestRecheck:
@@ -876,7 +881,7 @@ def test_surfaces_and_brand(rt, gh):
     assert out["llms.txt"].startswith("# AVP Ports Index\n") and "1 port listed" in out["llms.txt"]
     more = readme.index("## More from Trevorbilt")
     assert readme.index("## Reports and takedowns") < more < readme.index(generate.brand_lines(store.load_brand(rt.root))["footer"])
-    assert "[Loose Papers](https://trevorbilt.com/loose-papers)" in readme and "More from" not in out["llms.txt"]
+    assert "[Loose Papers](https://apps.apple.com/app/apple-store/id6755368606?pt=127797875&ct=gh-index&mt=8)" in readme and "More from" not in out["llms.txt"]
     assert "More from" not in out["feed/v1/index.json"] and "Developer site" not in out["ports/good.md"]
     write_entry(rt.root, "good", "trevorbilt-bot/good", developer={"github": "trevorbilt-bot", "url": "https://example.com/dev"})
     assert "| Developer site | <https://example.com/dev> |" in generate.generate(rt.root, rt.repo)["ports/good.md"]

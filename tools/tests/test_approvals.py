@@ -220,7 +220,7 @@ def test_a_later_pass_closes_a_stale_couldnt_finish_note(rt, gh):
 
 @pytest.mark.parametrize("signal, stays_open", [("wording", True), ("no work", False)])
 def test_a_later_pass_leaves_a_refusal_note_open(rt, gh, signal, stays_open):
-    """Decision 66: a pass closes a "no work" note, but a note about Jules refusing stays open for the curator."""
+    """Decision 66: a pass closes a "no work" note, but a note about the agent refusing stays open for the curator."""
     repo = gh.add_repo(REPO, 11)
     list_entry(rt, "good", repo, scanned=SHA(5), owner_approved=True)
     gh.move_head(REPO, SHA(11))

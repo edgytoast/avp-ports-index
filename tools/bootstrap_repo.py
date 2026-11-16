@@ -5,7 +5,7 @@
     python tools/bootstrap_repo.py --repo edgytoast/avp-ports-index-staging
 
 Credentials are read from files in AVP_SECRETS_DIR (default ~/.config/avp-index): owner_pat,
-app_id, app.pem, outreach_pat, jules_api_key. AVP_OWNER_TOKEN (for example `gh auth token`) can
+app_id, app.pem, outreach_pat, gemini_api_key. AVP_OWNER_TOKEN (for example `gh auth token`) can
 stand in for owner_pat. Values are never printed. Steps whose credentials aren't there yet are
 skipped and listed at the end, so the script can be run again once they are.
 
@@ -95,7 +95,7 @@ def load_credentials(folder: Path) -> dict:
         raise SystemExit(f"no owner token: set AVP_OWNER_TOKEN or create {folder / 'owner_pat'}")
     return {"owner_pat": owner.strip(), "app_id": read("app_id"), "app_key": read("app.pem"),
             "app_client_id": read("app_client_id"),
-            "outreach_pat": read("outreach_pat"), "jules_api_key": read("jules_api_key")}
+            "outreach_pat": read("outreach_pat"), "gemini_api_key": read("gemini_api_key")}
 
 
 class Bootstrap:
@@ -200,7 +200,7 @@ class Bootstrap:
             self.log("secrets: BLOCKLIST_SALT already exists; left untouched")
 
     def environments(self) -> None:
-        for env, secret, value in (("jules", "JULES_API_KEY", self.creds["jules_api_key"]),
+        for env, secret, value in (("safety-check", "GEMINI_API_KEY", self.creds["gemini_api_key"]),
                                    ("outreach", "OUTREACH_PAT", self.creds["outreach_pat"])):
             self.api.call("PUT", f"{self.base}/environments/{env}",
                           {"deployment_branch_policy": {"protected_branches": False, "custom_branch_policies": True}})
@@ -218,7 +218,7 @@ class Bootstrap:
             key = self.api.json("GET", f"{self.base}/environments/{env}/secrets/public-key")
             self.api.call("PUT", f"{self.base}/environments/{env}/secrets/{secret}",
                           {"encrypted_value": seal(key["key"], value.strip()), "key_id": key["key_id"]})
-        self.log("environments: jules and outreach (main only)")
+        self.log("environments: safety-check and outreach (main only)")
 
     def labels(self) -> None:
         existing = {label["name"] for label in self.api.call("GET", f"{self.base}/labels?per_page=100").json()}

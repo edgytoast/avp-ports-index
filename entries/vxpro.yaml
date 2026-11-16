@@ -1,0 +1,25 @@
+schema_version: 1
+id: vxpro
+name: VXpro
+game:
+  title: "Cyberpunk 2077"
+  original_platform: pc
+  original_release_year: 2020
+repo: https://github.com/Ag3497120/VXpro
+developer:
+  github: Ag3497120
+status: partially-working
+status_notes: "An experimental preview, per the developer: stereo VR on an M2 headset at about 37 fps, reprojected. Borders can show in some vehicle and story scenes; only English voice on 2.5.0. Needs 85 to 160 GB free on the headset. Not tested by the curator."
+input: [game-controller, hand-tracking]
+experiences: [6dof-immersive]
+install: [build]
+description: >-
+  Cyberpunk 2077's Mac App Store edition in stereo VR on Apple Vision Pro, running on the headset with no streaming.
+  Your Mac prepares and installs your own copy; Joy-Cons and tracked wrists move the in-game arms and weapons.
+tags: [cyberpunk-2077, vr, 6dof, first-person, open-world, mac-app-store, hand-tracking]
+credits:
+  - name: Ag3497120
+    role: VXpro, the visionOS port
+    url: https://github.com/Ag3497120/VXpro
+  - name: CD PROJEKT RED
+    role: Original game

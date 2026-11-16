@@ -2,8 +2,11 @@
 
 Runs are idempotent. The ledger comes from the Actions API: each stage2-scan run is named
 "stage2 <mode> <pr or entry id>", and its report job uploads an empty artifact named
-result-<pass|flag|error|deferred|declined>. A declined scan used a Jules session, so it counts like
-any other run. A deferral (quota) in the last hour pauses dispatching, and so does a refusal storm: declines
+result-<pass|flag|error|deferred|declined>. A declined scan used an agent run, so it counts like
+any other run; a deferred one was refused before a review ran, so it doesn't count toward the caps.
+Scans go out one at a time: none while another is queued or running, and at most one per dispatcher
+run, because back-to-back reviews trip the provider's per-minute token limit. A deferral (quota) in
+the last hour pauses dispatching, and so does a refusal storm: declines
 of DECLINE_PAUSE different PRs or entries in the hour with nothing passed or flagged meanwhile, so
 one PR that keeps getting declined can't pause everyone. That PR waits DECLINE_WAIT after each
 decline and stops at per_pr_max_scans declines (both kept in its bot comment, so pushes don't
@@ -39,7 +42,7 @@ SCAN_WORKFLOW = "stage2-scan.yml"
 UPSTREAM_CHECKS = {"S1-06", "S1-07", "S1-11a", "S1-11d"}  # failures fixed in the port's repo
 RECHECK_SECONDS = 300  # stop starting new re-checks after this; the workflow step has its own hard limit
 DECLINE_PAUSE = 2      # different PRs or entries declined in the last hour, with no pass or flag, pause dispatching
-DECLINE_WAIT = dt.timedelta(hours=1)  # a declined PR isn't sent back to Jules sooner than this
+DECLINE_WAIT = dt.timedelta(hours=1)  # a declined PR isn't sent back to the agent sooner than this
 RUN_NAME_RE = re.compile(r"^stage2 (pr|rescan) ([0-9]+|[a-z0-9]+(?:-[a-z0-9]+)*)$")
 CALIBRATE_RUN_RE = re.compile(r"^stage2 calibrate\b")
 
@@ -49,13 +52,23 @@ def parse_run_name(name: str | None) -> tuple[str, str] | None:
     return (match.group(1), match.group(2)) if match else None
 
 
-def ledger(runs: list[dict], now: dt.datetime) -> dict:
+def ledger(runs: list[dict], now: dt.datetime, deferred: frozenset | set = frozenset()) -> dict:
+    """Counts the scan runs of the last hour and day. Runs in `deferred` (ids of runs that ended
+    `deferred`) stay in `recent`, so a deferral still pauses dispatching, but use none of the caps:
+    the provider refused them before a review ran. `busy` is true while any scan is queued or running."""
     hour_ago, day_ago = now - dt.timedelta(hours=1), now - dt.timedelta(days=1)
-    out = {"used_hour": 0, "used_day": 0, "rescans_day": 0, "recent": [], "active_rescans": set()}
+    out = {"used_hour": 0, "used_day": 0, "rescans_day": 0, "recent": [], "active_rescans": set(),
+           "busy": False}
     for run in runs:
         created = store.parse_iso(run["created_at"])
         title = run.get("display_title") or run.get("name")
         if created < day_ago or CALIBRATE_RUN_RE.match(title or ""):
+            continue
+        if run.get("status") != "completed":
+            out["busy"] = True
+        if created >= hour_ago:
+            out["recent"].append(run)
+        if run.get("id") in deferred:
             continue
         out["used_day"] += 1
         parsed = parse_run_name(title)
@@ -65,15 +78,22 @@ def ledger(runs: list[dict], now: dt.datetime) -> dict:
                 out["active_rescans"].add(parsed[1])  # never dispatch a second rescan of the same entry
         if created >= hour_ago:
             out["used_hour"] += 1
-            out["recent"].append(run)
     return out
 
 
+def deferred_runs(rt, runs: list[dict]) -> set:
+    """Ids of completed scan runs whose report recorded `deferred` (one artifact list per run)."""
+    return {run["id"] for run in runs if run.get("status") == "completed"
+            and not CALIBRATE_RUN_RE.match(run.get("display_title") or run.get("name") or "")
+            and "result-deferred" in {a.get("name") for a in rt.gh.run_artifacts(run["id"])}}
+
+
 def slots(policy: dict, enabled: bool, used: dict, deferred_recent: bool) -> int:
-    if not enabled or deferred_recent:
+    """At most one: a scan is only started when none is queued or running (see the module docstring)."""
+    if not enabled or deferred_recent or used.get("busy"):
         return 0
     stage2 = policy["stage2"]
-    return max(0, min(stage2["hourly_cap"] - used["used_hour"], stage2["daily_cap"] - used["used_day"]))
+    return max(0, min(1, stage2["hourly_cap"] - used["used_hour"], stage2["daily_cap"] - used["used_day"]))
 
 
 def eta_text(position: int, hourly_cap: int) -> str:
@@ -209,11 +229,14 @@ def dispatch(rt) -> list[str]:
     now = store.utcnow()
     policy = rt.policy
     runs = rt.gh.workflow_runs(SCAN_WORKFLOW, store.iso(now - dt.timedelta(days=1)))
-    used = ledger(runs, now)
+    deferred = deferred_runs(rt, runs)
+    used = ledger(runs, now, deferred)
     paused = _pause_reason(rt, used["recent"])
     free = slots(policy, rt.stage2_enabled, used, bool(paused))
     log = [f"ledger: {used['used_hour']} this hour, {used['used_day']} today "
-           f"({used['rescans_day']} rescans); {free} slot(s)" + (f"; paused: {paused}" if paused else "")]
+           f"({used['rescans_day']} rescans, {len(deferred)} deferred not counted); {free} slot(s)"
+           + ("; a scan is still queued or running" if used["busy"] else "")
+           + (f"; paused: {paused}" if paused else "")]
     state = store.State.load(rt.root)
     entries, _ = store.load_entries(rt.root)
     max_scans = policy["stage2"]["per_pr_max_scans"]
@@ -286,7 +309,7 @@ def dispatch(rt) -> list[str]:
         messages.upsert(rt, number, scanning=f"{repo_id}@{linked}")
         inputs = {"mode": "pr", "pr": str(number), "head_sha": head, "linked_repo": _repo_name(entry),
                   "linked_commit": linked, "entry_id": entry_id, "repo_id": str(repo_id), "base_commit": "",
-                  "counted": "false" if owner_scan else "true"}
+                  "counted": "false" if owner_scan else "true", "install_guide": _guide(entry, policy)}
         if rt.gh.dispatch(SCAN_WORKFLOW, inputs):
             free -= 1
             log.append(f"#{number}: dispatched scan of {linked[:12]}")
@@ -327,7 +350,8 @@ def dispatch(rt) -> list[str]:
             repo, head = pre
             inputs = {"mode": "rescan", "pr": "", "head_sha": "", "linked_repo": repo["full_name"],
                       "linked_commit": head, "entry_id": entry_id, "repo_id": str(repo["id"]),
-                      "base_commit": health["scanned_commit"], "counted": "false"}
+                      "base_commit": health["scanned_commit"], "counted": "false",
+                      "install_guide": _guide(entry, policy)}
             if rt.gh.dispatch(SCAN_WORKFLOW, inputs):
                 free -= 1
                 rescans_left -= 1
@@ -342,6 +366,11 @@ def dispatch(rt) -> list[str]:
         messages.upsert(rt, item["number"], messages.render(
             "queued", rt.root, name=name, n=position, eta=eta_text(position, policy["stage2"]["hourly_cap"])))
     return log
+
+
+def _guide(entry: dict, policy: dict) -> str:
+    """The install guide the safety-check prompt names: the entry's (the PR's own, in PR mode), no anchor."""
+    return checks.entry_install_guide_or_default(entry, policy)[0]
 
 
 def _declined_recently(bot_state: dict, now: dt.datetime) -> bool:

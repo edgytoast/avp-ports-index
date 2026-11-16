@@ -68,7 +68,7 @@ class FakeApi:
 def test_bootstrap_rerun_keeps_salt_and_skip_ruleset(monkeypatch):
     """U16."""
     api = FakeApi()
-    creds = {"owner_pat": "x", "app_id": "777", "app_key": "pem", "outreach_pat": "o", "jules_api_key": "j"}
+    creds = {"owner_pat": "x", "app_id": "777", "app_key": "pem", "outreach_pat": "o", "gemini_api_key": "j"}
     boot = bootstrap_repo.Bootstrap(api, INDEX, creds, log=lambda *_: None)
     monkeypatch.setattr(boot, "app_info", lambda: {"id": 777, "client_id": "Iv1.x", "slug": "trevorbilt-index"})
     monkeypatch.setattr(type(boot), "has_key", property(lambda self: True))

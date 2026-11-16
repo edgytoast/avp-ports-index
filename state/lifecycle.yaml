@@ -8,6 +8,16 @@
   status: listed
   submitted_by: zschwendi
   submitted_by_id: 139005358
+2ship2harkinian:
+  by: merge
+  changed_at: '2026-11-14T21:15:23Z'
+  listed_at: '2026-11-14T21:15:23Z'
+  owner_approved: true
+  repo: https://github.com/edgytoast/2ship2harkinian-ios
+  repo_id: 1406326275
+  status: listed
+  submitted_by: edgytoast
+  submitted_by_id: 146565462
 animal-crossing-vr:
   by: merge
   changed_at: '2026-10-10T15:56:01Z'
@@ -38,6 +48,16 @@ avp-craft:
   status: listed
   submitted_by: zschwendi
   submitted_by_id: 139005358
+ctrpad:
+  by: merge
+  changed_at: '2026-11-14T17:30:10Z'
+  listed_at: '2026-11-14T17:30:10Z'
+  owner_approved: true
+  repo: https://github.com/edgytoast/ctrpad
+  repo_id: 1406450367
+  status: listed
+  submitted_by: edgytoast
+  submitted_by_id: 146565462
 dark-eco:
   by: merge
   changed_at: '2026-11-03T15:35:20Z'
@@ -55,6 +75,16 @@ galaxyvision:
   owner_approved: false
   repo: https://github.com/palex0481/GalaxyVision-AVP
   repo_id: 1431772342
+  status: listed
+  submitted_by: edgytoast
+  submitted_by_id: 146565462
+goldeneye-xbla:
+  by: merge
+  changed_at: '2026-11-14T18:14:30Z'
+  listed_at: '2026-11-14T18:14:30Z'
+  owner_approved: true
+  repo: https://github.com/edgytoast/GoldenEye-Recomp-ios
+  repo_id: 1406327720
   status: listed
   submitted_by: edgytoast
   submitted_by_id: 146565462
@@ -78,6 +108,16 @@ half-life-vr:
   status: listed
   submitted_by: edgytoast
   submitted_by_id: 146565462
+jkxr:
+  by: merge
+  changed_at: '2026-11-16T02:41:21Z'
+  listed_at: '2026-11-16T02:41:21Z'
+  owner_approved: true
+  repo: https://github.com/myMartek/JKXR
+  repo_id: 1459239561
+  status: listed
+  submitted_by: myMartek
+  submitted_by_id: 3337806
 lighthouse:
   by: merge
   changed_at: '2026-11-14T00:36:42Z'
@@ -98,6 +138,16 @@ luigis-mansion-vr:
   status: listed
   submitted_by: edgytoast
   submitted_by_id: 146565462
+perfect-dark:
+  by: merge
+  changed_at: '2026-11-14T18:28:51Z'
+  listed_at: '2026-11-14T18:28:51Z'
+  owner_approved: true
+  repo: https://github.com/edgytoast/perfect-dark-ios
+  repo_id: 1406327380
+  status: listed
+  submitted_by: edgytoast
+  submitted_by_id: 146565462
 pokemon-gen1recomp:
   by: merge
   changed_at: '2026-11-13T22:49:54Z'
@@ -105,6 +155,16 @@ pokemon-gen1recomp:
   owner_approved: true
   repo: https://github.com/edgytoast/gen1recomp
   repo_id: 1406543974
+  status: listed
+  submitted_by: edgytoast
+  submitted_by_id: 146565462
+portal-2-vr:
+  by: merge
+  changed_at: '2026-11-15T17:29:48Z'
+  listed_at: '2026-11-15T17:29:48Z'
+  owner_approved: true
+  repo: https://github.com/edgytoast/portal2-visionos
+  repo_id: 1458039821
   status: listed
   submitted_by: edgytoast
   submitted_by_id: 146565462
@@ -158,6 +218,26 @@ ship-of-harkinian:
   status: listed
   submitted_by: edgytoast
   submitted_by_id: 146565462
+skyrim-vr:
+  by: merge
+  changed_at: '2026-11-15T16:31:18Z'
+  listed_at: '2026-11-15T16:31:18Z'
+  owner_approved: false
+  repo: https://github.com/gseddon/Skyrim-VR-Vision-Pro
+  repo_id: 1450243789
+  status: listed
+  submitted_by: edgytoast
+  submitted_by_id: 146565462
+sm64coopdx:
+  by: merge
+  changed_at: '2026-11-14T21:28:00Z'
+  listed_at: '2026-11-14T21:28:00Z'
+  owner_approved: true
+  repo: https://github.com/edgytoast/sm64coopdx-ios
+  repo_id: 1406325644
+  status: listed
+  submitted_by: edgytoast
+  submitted_by_id: 146565462
 spaghettikart:
   by: merge
   changed_at: '2026-11-14T02:29:32Z'
@@ -205,6 +285,26 @@ voxelnative:
   owner_approved: true
   repo: https://github.com/edgytoast/voxelnative
   repo_id: 1406449520
+  status: listed
+  submitted_by: edgytoast
+  submitted_by_id: 146565462
+vxpro:
+  by: merge
+  changed_at: '2026-11-16T00:45:49Z'
+  listed_at: '2026-11-16T00:45:49Z'
+  owner_approved: false
+  repo: https://github.com/Ag3497120/VXpro
+  repo_id: 1440610684
+  status: listed
+  submitted_by: edgytoast
+  submitted_by_id: 146565462
+wiicompiled-vr:
+  by: merge
+  changed_at: '2026-11-14T21:32:22Z'
+  listed_at: '2026-11-14T21:32:22Z'
+  owner_approved: true
+  repo: https://github.com/edgytoast/wiicompiled_vr-avp-index
+  repo_id: 1406544398
   status: listed
   submitted_by: edgytoast
   submitted_by_id: 146565462

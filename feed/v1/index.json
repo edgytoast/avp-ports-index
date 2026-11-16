@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.5.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-14T06:28:49Z",
+  "generated_at": "2026-11-16T07:14:48Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -74,10 +74,10 @@
       "scanned_commit": "9687cf8b540f36e8e81938148e86264ee44bc924",
       "scanned_at": "2026-11-13T21:10:44Z",
       "scan_kind": "automated",
-      "commits_since_scan": 5,
+      "commits_since_scan": 170,
       "scan_state": "behind",
       "archived": false,
-      "last_commit_date": "2026-11-14T05:38:48Z",
+      "last_commit_date": "2026-11-16T03:02:03Z",
       "license": {
         "kind": "open-source",
         "spdx": "Apache-2.0"
@@ -162,8 +162,8 @@
       },
       "repo_url": "https://github.com/LowRiderXR/revc-visionos-app",
       "source_ref": null,
-      "source_url": "https://github.com/LowRiderXR/revc-visionos-app/tree/c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c",
-      "install_doc_url": "https://github.com/LowRiderXR/revc-visionos-app/blob/c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c/AVP-INSTALL.md",
+      "source_url": "https://github.com/LowRiderXR/revc-visionos-app/tree/e1810d7c63c0275ce72269803bf850b9ed5c93dc",
+      "install_doc_url": "https://github.com/LowRiderXR/revc-visionos-app/blob/e1810d7c63c0275ce72269803bf850b9ed5c93dc/AVP-INSTALL.md",
       "developer": {
         "name": null,
         "github": "LowRiderXR",
@@ -215,13 +215,13 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "c0ddb43a395beb14ffd195cfe9f98bb8aa5c874c",
-      "scanned_at": "2026-11-02T22:41:25Z",
+      "scanned_commit": "e1810d7c63c0275ce72269803bf850b9ed5c93dc",
+      "scanned_at": "2026-11-16T07:14:47Z",
       "scan_kind": "automated",
       "commits_since_scan": 0,
       "scan_state": "current",
       "archived": false,
-      "last_commit_date": "2026-10-31T14:17:15Z",
+      "last_commit_date": "2026-11-15T20:45:53Z",
       "license": {
         "kind": "custom",
         "spdx": null
@@ -280,6 +280,1235 @@
           ]
         },
         "screenshots": []
+      }
+    },
+    {
+      "id": "jkxr",
+      "name": "JKXR for Apple Vision Pro",
+      "game": {
+        "title": "Jedi Outcast and Jedi Academy",
+        "original_platform": "pc",
+        "original_release_year": 2002
+      },
+      "repo_url": "https://github.com/myMartek/JKXR",
+      "source_ref": null,
+      "source_url": "https://github.com/myMartek/JKXR/tree/a94c94603d06295956d3b5c100e4d8a836a5b0c8",
+      "install_doc_url": "https://github.com/myMartek/JKXR/blob/a94c94603d06295956d3b5c100e4d8a836a5b0c8/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "myMartek",
+        "url": null,
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "JKXR by Team Beef",
+          "role": "VR port the visionOS version is based on",
+          "url": "https://github.com/Team-Beef-Studios/JKXR"
+        },
+        {
+          "name": "OpenJK",
+          "role": "Open-source engine",
+          "url": "https://github.com/JACoders/OpenJK"
+        },
+        {
+          "name": "gl4es",
+          "role": "OpenGL translation layer",
+          "url": "https://github.com/ptitSeb/gl4es"
+        },
+        {
+          "name": "ANGLE",
+          "role": "OpenGL ES on Metal",
+          "url": "https://chromium.googlesource.com/angle/angle"
+        }
+      ],
+      "upstream": [
+        "https://github.com/Team-Beef-Studios/JKXR",
+        "https://github.com/JACoders/OpenJK"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "Both games play fully immersive with PS VR2 Sense controllers or a gamepad. Loading a level shows a black view for a while.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "a94c94603d06295956d3b5c100e4d8a836a5b0c8",
+      "scanned_at": "2026-11-16T02:41:20Z",
+      "scan_kind": "curator-reviewed",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-16T01:55:32Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "GPL-2.0"
+      },
+      "visionos_min": "26.4",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "6dof-immersive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [],
+      "description": "Team Beef's open-source VR engine for two first-person action classics of the early 2000s, native on visionOS: fully immersive, foveated, with tracked Sense controllers and room-scale play. Bring your own game files; AVP Play can fetch them from Steam.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/jkxr.md",
+      "media": {
+        "commit": "a94c94603d06295956d3b5c100e4d8a836a5b0c8",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 844615,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "954ee4104194961a11353812b1d315579e11cd32d772a325e073f991a1ab0825",
+              "url": "https://raw.githubusercontent.com/myMartek/JKXR/a94c94603d06295956d3b5c100e4d8a836a5b0c8/visionos/App/Sources/Resources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 1017256,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "1ce7f832e5d6ca9d527610a66165c0ec3002bb897acc4139f1ad976bba4237b7",
+              "url": "https://raw.githubusercontent.com/myMartek/JKXR/a94c94603d06295956d3b5c100e4d8a836a5b0c8/visionos/App/Sources/Resources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": []
+      }
+    },
+    {
+      "id": "skyrim-vr",
+      "name": "Skyrim VR on Apple Vision Pro",
+      "game": {
+        "title": "The Elder Scrolls V: Skyrim VR",
+        "original_platform": "pc",
+        "original_release_year": 2017
+      },
+      "repo_url": "https://github.com/gseddon/Skyrim-VR-Vision-Pro",
+      "source_ref": null,
+      "source_url": "https://github.com/gseddon/Skyrim-VR-Vision-Pro/tree/c036b4e4b3580c5ee5442540f0d14b912153c584",
+      "install_doc_url": "https://github.com/gseddon/Skyrim-VR-Vision-Pro/blob/c036b4e4b3580c5ee5442540f0d14b912153c584/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "gseddon",
+        "url": null,
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "gseddon",
+          "role": "The visionOS port",
+          "url": "https://github.com/gseddon/Skyrim-VR-Vision-Pro"
+        },
+        {
+          "name": "Ag3497120",
+          "role": "VeRantyx, the x86-64 to ARM64 recompiler and Windows layer it builds on",
+          "url": "https://github.com/Ag3497120/VeRantyx"
+        },
+        {
+          "name": "Supreeeme",
+          "role": "xrizer, OpenVR on OpenXR",
+          "url": "https://github.com/Supreeeme/xrizer"
+        },
+        {
+          "name": "shinyquagsire23",
+          "role": "Klepton, the source of its visionOS OpenXR provider",
+          "url": "https://github.com/shinyquagsire23/Klepton"
+        },
+        {
+          "name": "Bethesda Softworks",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/Ag3497120/VeRantyx",
+        "https://github.com/Supreeeme/xrizer"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "The developer reports it plays well on the headset: about 35 fps redrawn at 100 Hz, Sense controllers, sound, menus, saves and SKSE mods. Connect both controllers before pressing Start. Needs a paid Apple Developer account. Not tested by the curator.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "c036b4e4b3580c5ee5442540f0d14b912153c584",
+      "scanned_at": "2026-11-15T16:31:17Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 41,
+      "scan_state": "behind",
+      "archived": false,
+      "last_commit_date": "2026-11-15T16:59:25Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "MIT"
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "6dof-immersive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "skyrim",
+        "skyrim-vr",
+        "vr",
+        "6dof",
+        "rpg",
+        "open-world",
+        "steam",
+        "aot-recompilation"
+      ],
+      "description": "The Windows PC version of Skyrim VR on Apple Vision Pro itself, with no PC or streaming: your Mac recompiles your own Steam copy for Apple silicon once, and the headset plays it in full VR with PS VR2 Sense controllers and physics mods.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/skyrim-vr.md",
+      "media": {
+        "commit": "c036b4e4b3580c5ee5442540f0d14b912153c584",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 20626,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "10efbd2913fb88cb0306a208c865bd84064a8cb7874f8ae5f77c97183c3535c6",
+              "url": "https://raw.githubusercontent.com/gseddon/Skyrim-VR-Vision-Pro/c036b4e4b3580c5ee5442540f0d14b912153c584/VXRuntime/xros/app/Icon/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 18478,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "ac9277fa34614099985f437ef4a06dcc0fddfc41f47dbb4e044a5268103d8e29",
+              "url": "https://raw.githubusercontent.com/gseddon/Skyrim-VR-Vision-Pro/c036b4e4b3580c5ee5442540f0d14b912153c584/VXRuntime/xros/app/Icon/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 1001032,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "480c8be77d0972a459e58365546b3c64b22027d594cdc7515833175627d76b65",
+              "url": "https://raw.githubusercontent.com/gseddon/Skyrim-VR-Vision-Pro/c036b4e4b3580c5ee5442540f0d14b912153c584/VXRuntime/xros/app/Icon/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": []
+      }
+    },
+    {
+      "id": "voxelnative",
+      "name": "VoxelNative",
+      "game": {
+        "title": "Luanti",
+        "original_platform": "pc",
+        "original_release_year": 2010
+      },
+      "repo_url": "https://github.com/edgytoast/voxelnative",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/voxelnative/tree/4e83af388f9461075d41ab2d7e49be47f2e33303",
+      "install_doc_url": "https://github.com/edgytoast/voxelnative/blob/4e83af388f9461075d41ab2d7e49be47f2e33303/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "bettse",
+        "url": null,
+        "github_verified": false
+      },
+      "credits": [
+        {
+          "name": "bettse",
+          "role": "VoxelNative, the Apple Vision Pro client",
+          "url": "https://github.com/bettse/voxelnative"
+        },
+        {
+          "name": "Trevorbilt",
+          "role": "Install guide and AVP Ports Index listing",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "Luanti",
+          "role": "The engine whose network protocol this client reimplements",
+          "url": "https://github.com/luanti-org/luanti"
+        },
+        {
+          "name": "VoxeLibre",
+          "role": "The game it's built and tested against",
+          "url": "https://github.com/VoxeLibre/VoxeLibre"
+        },
+        {
+          "name": "BigInt",
+          "role": "Third-party code (MIT)",
+          "url": "https://github.com/attaswift/BigInt"
+        },
+        {
+          "name": "Luanti contributors",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/bettse/voxelnative",
+        "https://github.com/luanti-org/luanti"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "Joining a server and playing works in the headset, with VoxeLibre as the daily driver. The README calls it a work in progress, rough in places.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "4e83af388f9461075d41ab2d7e49be47f2e33303",
+      "scanned_at": "2026-11-15T06:39:19Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-15T06:32:10Z",
+      "license": {
+        "kind": "custom",
+        "spdx": null
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "6dof-immersive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "luanti",
+        "minetest",
+        "voxelibre",
+        "voxel",
+        "sandbox",
+        "vr",
+        "6dof"
+      ],
+      "description": "A native Swift and Metal Luanti (Minetest) client for Apple Vision Pro. It speaks the Luanti protocol to any server and renders the world per eye in full immersion; walk, dig, place and craft with PS VR2 Sense controllers or a Bluetooth keyboard. Listed from a copy with an install guide.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/voxelnative.md",
+      "media": {
+        "commit": "4e83af388f9461075d41ab2d7e49be47f2e33303",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 76708,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "943263a819496a9eb0887d4524d5b91f7577c563a19cabf952108f07f28289a7",
+              "url": "https://raw.githubusercontent.com/edgytoast/voxelnative/4e83af388f9461075d41ab2d7e49be47f2e33303/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/icon_back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 6556,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "86a4380e78c0d24d66bf590bfd51a3d81e4824aa566028419db4b96745cf1f8d",
+              "url": "https://raw.githubusercontent.com/edgytoast/voxelnative/4e83af388f9461075d41ab2d7e49be47f2e33303/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/icon_middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 39994,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "a2356b0fb96058dac64c723e4476fc34aac3803a73e991b4e3d922f9dde868f0",
+              "url": "https://raw.githubusercontent.com/edgytoast/voxelnative/4e83af388f9461075d41ab2d7e49be47f2e33303/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/icon_front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": []
+      }
+    },
+    {
+      "id": "portal-2-vr",
+      "name": "Portal 2 VR",
+      "game": {
+        "title": "Portal 2",
+        "original_platform": "pc",
+        "original_release_year": 2011
+      },
+      "repo_url": "https://github.com/edgytoast/portal2-visionos",
+      "source_ref": "portal2-visionos",
+      "source_url": "https://github.com/edgytoast/portal2-visionos/tree/b5f1fc29b707daacf88a86bb50f228626586e893",
+      "install_doc_url": "https://github.com/edgytoast/portal2-visionos/blob/b5f1fc29b707daacf88a86bb50f228626586e893/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "portal-in-the-visor",
+        "url": null,
+        "github_verified": false
+      },
+      "credits": [
+        {
+          "name": "portal-in-the-visor",
+          "role": "Portal 2 VR, the visionOS port",
+          "url": "https://github.com/portal-in-the-visor/portal2-visionos"
+        },
+        {
+          "name": "Trevorbilt",
+          "role": "Install guide and AVP Ports Index listing",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "seedds",
+          "role": "nxnative, the Switch-to-Apple native framework it builds on",
+          "url": "https://github.com/seedds/nxnative"
+        },
+        {
+          "name": "Gistix",
+          "role": "portal2vr, whose per-eye rendering approach it follows",
+          "url": "https://github.com/Gistix/portal2vr"
+        },
+        {
+          "name": "Valve",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/portal-in-the-visor/portal2-visionos",
+        "https://github.com/seedds/nxnative"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "The author played it on one M2 headset and archived it; this copy adds an install guide. Heavier areas can drop below 60 fps, the gun's glow is missing, and menus show on a flat screen. Not tested by the curator.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "b5f1fc29b707daacf88a86bb50f228626586e893",
+      "scanned_at": "2026-11-15T17:29:47Z",
+      "scan_kind": "curator-reviewed",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-14T18:15:19Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "MIT"
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller",
+        "hand-tracking"
+      ],
+      "experiences": [
+        "6dof-immersive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "portal-2",
+        "portal",
+        "valve",
+        "vr",
+        "6dof",
+        "first-person",
+        "puzzle",
+        "nxnative"
+      ],
+      "description": "Portal 2 in VR on Apple Vision Pro, from the Nintendo Switch version: stereo 3D, head tracking, and your hand aims the portal gun while Joy-Cons walk. Built on nxnative from your own Switch dump. Listed from a copy with an install guide.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/portal-2-vr.md",
+      "media": null
+    },
+    {
+      "id": "wiicompiled-vr",
+      "name": "WiiCompiled Vision",
+      "game": {
+        "title": "Mario Kart Wii",
+        "original_platform": "wii",
+        "original_release_year": 2008
+      },
+      "repo_url": "https://github.com/edgytoast/wiicompiled_vr-avp-index",
+      "source_ref": "vision-pro",
+      "source_url": "https://github.com/edgytoast/wiicompiled_vr-avp-index/tree/87c18efa00ceca1706321a1b0d87254a92afbdc7",
+      "install_doc_url": "https://github.com/edgytoast/wiicompiled_vr-avp-index/blob/87c18efa00ceca1706321a1b0d87254a92afbdc7/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "iChris4",
+        "url": null,
+        "github_verified": false
+      },
+      "credits": [
+        {
+          "name": "iChris4",
+          "role": "WiiCompiled Vision, the Apple Vision Pro port",
+          "url": "https://github.com/iChris4/Wiicompiled_VR"
+        },
+        {
+          "name": "Trevorbilt",
+          "role": "Install guide and AVP Ports Index listing",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "WiiCompiled",
+          "role": "The Mario Kart Wii static recompilation this fork builds on",
+          "url": "https://github.com/patchzyy/Wiicompiled"
+        },
+        {
+          "name": "Aurora",
+          "role": "GameCube and Wii graphics layer",
+          "url": "https://github.com/encounter/aurora"
+        },
+        {
+          "name": "Dawn",
+          "role": "WebGPU implementation under Aurora",
+          "url": "https://dawn.googlesource.com/dawn"
+        },
+        {
+          "name": "heurazy",
+          "role": "mario-kart-wii-VR-port, source of the cockpit wheel and hand steering",
+          "url": "https://github.com/heurazy/mario-kart-wii-VR-port"
+        },
+        {
+          "name": "Dolphin Emulator",
+          "role": "Hardware reference, DSP coefficient ROM and WiiConnect24 bootstrap files",
+          "url": "https://github.com/dolphin-emu/dolphin"
+        },
+        {
+          "name": "Retro Rewind (ZPL)",
+          "role": "The supported mod distribution",
+          "url": "https://wiki.tockdom.com/wiki/Retro_Rewind"
+        },
+        {
+          "name": "Nintendo",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/iChris4/Wiicompiled_VR",
+        "https://github.com/patchzyy/Wiicompiled",
+        "https://github.com/encounter/aurora",
+        "https://github.com/heurazy/mario-kart-wii-VR-port"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "Runs on Apple Vision Pro (tested on visionOS 26.6.1): menus on a virtual screen, races in stereo. The docs call the port experimental; comfort, frame timing and bare-hand driving are still being tuned.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "87c18efa00ceca1706321a1b0d87254a92afbdc7",
+      "scanned_at": "2026-11-14T21:32:21Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-13T23:21:44Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "GPL-3.0"
+      },
+      "visionos_min": "2.0",
+      "input": [
+        "game-controller",
+        "hand-tracking"
+      ],
+      "experiences": [
+        "2d",
+        "3d-immersive",
+        "6dof-immersive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "racing",
+        "kart",
+        "mario-kart",
+        "wii",
+        "recompilation",
+        "vr",
+        "first-person",
+        "hand-tracking"
+      ],
+      "description": "Mario Kart Wii on Apple Vision Pro through WiiCompiled, a static recompilation with no emulator: 6DoF stereo races, from the chase camera or a life-size cockpit, with menus on a virtual screen, or a window. Bring your own PAL disc image. Listed from a copy with an install guide.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/wiicompiled-vr.md",
+      "media": {
+        "commit": "87c18efa00ceca1706321a1b0d87254a92afbdc7",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 253691,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "41b9bcea04bbdef6f1d19cf5f8eddcbb69ed38b29f9189f9d0b1c6d9dc4286a0",
+              "url": "https://raw.githubusercontent.com/edgytoast/wiicompiled_vr-avp-index/87c18efa00ceca1706321a1b0d87254a92afbdc7/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 176793,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "060a7a5052f86fdf1197a06cfb620c32178ff7117edce35dfe8f938d47e98e03",
+              "url": "https://raw.githubusercontent.com/edgytoast/wiicompiled_vr-avp-index/87c18efa00ceca1706321a1b0d87254a92afbdc7/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 125847,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "82e8514c1ef50f441942b49c0a5d6a5126e69248d917525ff5b044957895ecfc",
+              "url": "https://raw.githubusercontent.com/edgytoast/wiicompiled_vr-avp-index/87c18efa00ceca1706321a1b0d87254a92afbdc7/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "Mario Kart WiiCompiled VR logo (logo by Inkwreck)",
+            "bytes": 2528072,
+            "format": "png",
+            "height": 2464,
+            "sha256": "8c4c7ab51ac2ebbcf803f82e366e226a59ce8af0fcfef6b6517cf5e6747e8668",
+            "url": "https://raw.githubusercontent.com/edgytoast/wiicompiled_vr-avp-index/87c18efa00ceca1706321a1b0d87254a92afbdc7/docs/images/wiicompiled-vr-logo.png",
+            "width": 4190
+          }
+        ]
+      }
+    },
+    {
+      "id": "sm64coopdx",
+      "name": "Super Mario 64 Co-op Deluxe",
+      "game": {
+        "title": "Super Mario 64",
+        "original_platform": "n64",
+        "original_release_year": 1996
+      },
+      "repo_url": "https://github.com/edgytoast/sm64coopdx-ios",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/sm64coopdx-ios/tree/05fe583f6163c08f36041352115dab0d863a2627",
+      "install_doc_url": "https://github.com/edgytoast/sm64coopdx-ios/blob/05fe583f6163c08f36041352115dab0d863a2627/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "rebelancap",
+        "url": null,
+        "github_verified": false
+      },
+      "credits": [
+        {
+          "name": "rebelancap",
+          "role": "The iOS and visionOS port",
+          "url": "https://github.com/rebelancap/sm64coopdx-ios"
+        },
+        {
+          "name": "Trevorbilt",
+          "role": "Install guide and AVP Ports Index listing",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "Coop Deluxe Team",
+          "role": "sm64coopdx, the port this is built on",
+          "url": "https://github.com/coop-deluxe/sm64coopdx"
+        },
+        {
+          "name": "djoslin0",
+          "role": "sm64ex-coop, which sm64coopdx continues",
+          "url": "https://github.com/djoslin0/sm64ex-coop"
+        },
+        {
+          "name": "LeoManrique",
+          "role": "iOS groundwork (sm64coopdx-ios), forked by this port",
+          "url": "https://github.com/LeoManrique/sm64coopdx-ios"
+        },
+        {
+          "name": "RaYRoD",
+          "role": "Quest VR port of sm64coopdx that shaped the VR mode",
+          "url": null
+        },
+        {
+          "name": "Nintendo",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/rebelancap/sm64coopdx-ios",
+        "https://github.com/coop-deluxe/sm64coopdx",
+        "https://github.com/LeoManrique/sm64coopdx-ios"
+      ],
+      "self_reported_status": "working",
+      "status_notes": null,
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "05fe583f6163c08f36041352115dab0d863a2627",
+      "scanned_at": "2026-11-14T21:28:00Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-13T23:20:39Z",
+      "license": {
+        "kind": "none",
+        "spdx": null
+      },
+      "visionos_min": "2.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d",
+        "3d-immersive",
+        "6dof-immersive"
+      ],
+      "install": [
+        "build",
+        "sideload"
+      ],
+      "tags": [
+        "mario",
+        "super-mario-64",
+        "n64",
+        "platformer",
+        "co-op",
+        "multiplayer",
+        "vr",
+        "stereo-3d"
+      ],
+      "description": "Super Mario 64 Co-op Deluxe on Apple Vision Pro with online co-op: a 2D window, a stereoscopic 3D screen in your room, or VR as a diorama on your floor, in third person or in first person at life size. Bring your own Super Mario 64 (US) ROM. Listed from a copy with an install guide.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/sm64coopdx.md",
+      "media": {
+        "commit": "05fe583f6163c08f36041352115dab0d863a2627",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 39738,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "a07b1d1d7932d49dbd19671b674f812790a72db6cda3b973cbbd05b8fd37780e",
+              "url": "https://raw.githubusercontent.com/edgytoast/sm64coopdx-ios/05fe583f6163c08f36041352115dab0d863a2627/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 4144,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "265149d454822c2c808720c61f5a4317c0bfda56fc96598ea7b19b6ea52c5dd1",
+              "url": "https://raw.githubusercontent.com/edgytoast/sm64coopdx-ios/05fe583f6163c08f36041352115dab0d863a2627/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/clear.png",
+              "width": 1024
+            },
+            {
+              "bytes": 578577,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "e1b451b511409ca54f52ad830195a0f2a0a5c6365e1a2af112fd9e7f4e89601a",
+              "url": "https://raw.githubusercontent.com/edgytoast/sm64coopdx-ios/05fe583f6163c08f36041352115dab0d863a2627/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "sm64coopdx in a visionOS window",
+            "bytes": 2881499,
+            "format": "png",
+            "height": 1237,
+            "sha256": "8fab636e5bc6720147f24ba7e3b383e5f267457acf3737c01fede1cd3b3a395a",
+            "url": "https://raw.githubusercontent.com/edgytoast/sm64coopdx-ios/05fe583f6163c08f36041352115dab0d863a2627/docs/screenshots/visionos-window.png",
+            "width": 2200
+          }
+        ]
+      }
+    },
+    {
+      "id": "2ship2harkinian",
+      "name": "2 Ship 2 Harkinian",
+      "game": {
+        "title": "The Legend of Zelda: Majora's Mask",
+        "original_platform": "n64",
+        "original_release_year": 2000
+      },
+      "repo_url": "https://github.com/edgytoast/2ship2harkinian-ios",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/2ship2harkinian-ios/tree/a2ee3158f5a0edf5c1882db161c9186e81f216b3",
+      "install_doc_url": "https://github.com/edgytoast/2ship2harkinian-ios/blob/a2ee3158f5a0edf5c1882db161c9186e81f216b3/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "rebelancap",
+        "url": null,
+        "github_verified": false
+      },
+      "credits": [
+        {
+          "name": "rebelancap",
+          "role": "The iOS and visionOS port",
+          "url": "https://github.com/rebelancap/2ship2harkinian-ios"
+        },
+        {
+          "name": "Trevorbilt",
+          "role": "Install guide and AVP Ports Index listing",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "Harbour Masters",
+          "role": "2 Ship 2 Harkinian, the port this is built on",
+          "url": "https://github.com/HarbourMasters/2ship2harkinian"
+        },
+        {
+          "name": "Harbour Masters",
+          "role": "libultraship, the platform layer",
+          "url": "https://github.com/HarbourMasters/libultraship"
+        },
+        {
+          "name": "Nintendo",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/rebelancap/2ship2harkinian-ios",
+        "https://github.com/HarbourMasters/2ship2harkinian",
+        "https://github.com/HarbourMasters/libultraship"
+      ],
+      "self_reported_status": "working",
+      "status_notes": null,
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "a2ee3158f5a0edf5c1882db161c9186e81f216b3",
+      "scanned_at": "2026-11-14T21:15:23Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-13T23:08:38Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "MIT"
+      },
+      "visionos_min": "2.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d",
+        "3d-immersive"
+      ],
+      "install": [
+        "build",
+        "sideload"
+      ],
+      "tags": [
+        "zelda",
+        "majoras-mask",
+        "n64",
+        "source-port",
+        "harbour-masters",
+        "stereo-3d"
+      ],
+      "description": "Majora's Mask on Apple Vision Pro through Harbour Masters' 2 Ship 2 Harkinian, rendering natively on Metal: a resizable 2D window, or a stereoscopic 3D screen in your room. Enhancements menu, texture packs and in-app ROM extraction. Bring your own ROM. Listed from a copy with an install guide.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/2ship2harkinian.md",
+      "media": {
+        "commit": "a2ee3158f5a0edf5c1882db161c9186e81f216b3",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 68028,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "64aff1d06018bfeb36f1d6167300f82d21d631eb4fbb01f8c3b74b64864dc2f5",
+              "url": "https://raw.githubusercontent.com/edgytoast/2ship2harkinian-ios/a2ee3158f5a0edf5c1882db161c9186e81f216b3/app/ios/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/layer-back-1024.png",
+              "width": 1024
+            },
+            {
+              "bytes": 64947,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "31cd459d39e50f87a261a9c53f27dced050dc8fb5b6f9f418f6aabce766fbe93",
+              "url": "https://raw.githubusercontent.com/edgytoast/2ship2harkinian-ios/a2ee3158f5a0edf5c1882db161c9186e81f216b3/app/ios/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/layer-middle-1024.png",
+              "width": 1024
+            },
+            {
+              "bytes": 132200,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "5fa23456d2fef4848c66165b6aea766d896565f0a7fdd3157c21eb29df15a0b4",
+              "url": "https://raw.githubusercontent.com/edgytoast/2ship2harkinian-ios/a2ee3158f5a0edf5c1882db161c9186e81f216b3/app/ios/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/layer-front-1024.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "The Legend of Zelda: Majora's Mask on Apple Vision Pro",
+            "bytes": 444066,
+            "format": "jpeg",
+            "height": 1440,
+            "sha256": "565350151f3fcd6e9a86698e40a24fdb795c21c0b540e1ba271ae9d8abdfc948",
+            "url": "https://raw.githubusercontent.com/edgytoast/2ship2harkinian-ios/a2ee3158f5a0edf5c1882db161c9186e81f216b3/docs/screenshots/visionos-window.jpg",
+            "width": 2560
+          }
+        ]
+      }
+    },
+    {
+      "id": "perfect-dark",
+      "name": "Perfect Dark",
+      "game": {
+        "title": "Perfect Dark",
+        "original_platform": "n64",
+        "original_release_year": 2000
+      },
+      "repo_url": "https://github.com/edgytoast/perfect-dark-ios",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/perfect-dark-ios/tree/906f3f676d8e3a21d3e226d719137c32ffc02674",
+      "install_doc_url": "https://github.com/edgytoast/perfect-dark-ios/blob/906f3f676d8e3a21d3e226d719137c32ffc02674/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "rebelancap",
+        "url": null,
+        "github_verified": false
+      },
+      "credits": [
+        {
+          "name": "rebelancap",
+          "role": "The iOS and visionOS port",
+          "url": "https://github.com/rebelancap/perfect-dark-ios"
+        },
+        {
+          "name": "Trevorbilt",
+          "role": "Install guide and AVP Ports Index listing",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "DabDavis",
+          "role": "Dab's Mod, the fork this port is built on",
+          "url": "https://github.com/DabDavis/perfect-dark-dabs-mod"
+        },
+        {
+          "name": "Perfect Dark PC port",
+          "role": "Platform layer, Fast3D renderer and CLI",
+          "url": "https://github.com/perfect-dark-pc-port/perfect_dark"
+        },
+        {
+          "name": "n64decomp",
+          "role": "Perfect Dark decompilation",
+          "url": "https://github.com/n64decomp/perfect_dark"
+        },
+        {
+          "name": "ANGLE",
+          "role": "OpenGL ES on Metal",
+          "url": "https://chromium.googlesource.com/angle/angle"
+        },
+        {
+          "name": "SDL2",
+          "role": "Windowing, input and audio",
+          "url": "https://libsdl.org"
+        },
+        {
+          "name": "Rare / Microsoft",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/rebelancap/perfect-dark-ios",
+        "https://github.com/DabDavis/perfect-dark-dabs-mod",
+        "https://github.com/perfect-dark-pc-port/perfect_dark",
+        "https://github.com/n64decomp/perfect_dark"
+      ],
+      "self_reported_status": "working",
+      "status_notes": null,
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "906f3f676d8e3a21d3e226d719137c32ffc02674",
+      "scanned_at": "2026-11-14T18:28:50Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-13T23:08:27Z",
+      "license": {
+        "kind": "custom",
+        "spdx": null
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d",
+        "3d-immersive"
+      ],
+      "install": [
+        "build",
+        "sideload"
+      ],
+      "tags": [
+        "fps",
+        "first-person",
+        "n64",
+        "decompilation",
+        "stereo-3d",
+        "dabs-mod",
+        "xbla"
+      ],
+      "description": "Perfect Dark on Apple Vision Pro: the decompilation through the PC port and Dab's Mod, on Metal. A 2D window or a stereoscopic 3D screen in your room, with optional Xbox 360 (XBLA) art and GoldenEye 007 (GE Plus) from your own copies. Bring your own ROM. Listed from a copy with an install guide.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/perfect-dark.md",
+      "media": {
+        "commit": "906f3f676d8e3a21d3e226d719137c32ffc02674",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 6489,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "cd35d58f304b8d8fad68411d5b2fb0f210d656a61d07c87f3b62086981ec2bec",
+              "url": "https://raw.githubusercontent.com/edgytoast/perfect-dark-ios/906f3f676d8e3a21d3e226d719137c32ffc02674/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/img.png",
+              "width": 1024
+            },
+            {
+              "bytes": 176421,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "caf8c14e1c24936f3fd449db79e5758953d72d13f60bbb9d91c6644c3c514bc8",
+              "url": "https://raw.githubusercontent.com/edgytoast/perfect-dark-ios/906f3f676d8e3a21d3e226d719137c32ffc02674/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/img.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "Perfect Dark on Apple Vision Pro — Air Base, XBLA art",
+            "bytes": 312480,
+            "format": "jpeg",
+            "height": 1080,
+            "sha256": "da78a15556401ef1bccf64c8b37581ac48699681b8922b9ccb86b96ee23724bd",
+            "url": "https://raw.githubusercontent.com/edgytoast/perfect-dark-ios/906f3f676d8e3a21d3e226d719137c32ffc02674/docs/screenshots/vision-pro-airbase-xbla.jpg",
+            "width": 1920
+          }
+        ]
+      }
+    },
+    {
+      "id": "goldeneye-xbla",
+      "name": "GoldenEye 007",
+      "game": {
+        "title": "GoldenEye 007",
+        "original_platform": "other",
+        "original_release_year": null
+      },
+      "repo_url": "https://github.com/edgytoast/GoldenEye-Recomp-ios",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/GoldenEye-Recomp-ios/tree/95bcd76b08da5111d6e6f420e19d44e1237fe119",
+      "install_doc_url": "https://github.com/edgytoast/GoldenEye-Recomp-ios/blob/95bcd76b08da5111d6e6f420e19d44e1237fe119/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "rebelancap",
+        "url": null,
+        "github_verified": false
+      },
+      "credits": [
+        {
+          "name": "rebelancap",
+          "role": "The iOS and visionOS port",
+          "url": "https://github.com/rebelancap/GoldenEye-Recomp-ios"
+        },
+        {
+          "name": "Trevorbilt",
+          "role": "Install guide and AVP Ports Index listing",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "SunJaycy",
+          "role": "GoldenEye-Recomp, the PC recompilation this port is built on",
+          "url": "https://github.com/SunJaycy/GoldenEye-Recomp"
+        },
+        {
+          "name": "ReXGlue SDK",
+          "role": "PowerPC to C++ recompiler and Xbox 360 runtime",
+          "url": "https://github.com/rexglue/rexglue-sdk"
+        },
+        {
+          "name": "Xenia",
+          "role": "GPU, kernel/XAM and XMA audio work that ReXGlue's runtime derives from",
+          "url": "https://xenia.jp"
+        },
+        {
+          "name": "BeanTools Community Edition",
+          "role": "Door, portal, near-clip and audio fixes, and 3D-positioned sound",
+          "url": null
+        },
+        {
+          "name": "MoltenVK",
+          "role": "Vulkan on Metal",
+          "url": "https://github.com/KhronosGroup/MoltenVK"
+        },
+        {
+          "name": "Rare / Nintendo / MGM / Danjaq",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/rebelancap/GoldenEye-Recomp-ios",
+        "https://github.com/SunJaycy/GoldenEye-Recomp",
+        "https://github.com/rexglue/rexglue-sdk",
+        "https://github.com/SunJaycy/GoldenEye-Recomp-rexglue"
+      ],
+      "self_reported_status": "working",
+      "status_notes": null,
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "95bcd76b08da5111d6e6f420e19d44e1237fe119",
+      "scanned_at": "2026-11-14T18:14:30Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-13T23:08:15Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "Unlicense"
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d"
+      ],
+      "install": [
+        "build",
+        "sideload"
+      ],
+      "tags": [
+        "goldeneye",
+        "fps",
+        "first-person",
+        "xbox-360",
+        "xbla",
+        "static-recompilation",
+        "rexglue",
+        "remaster"
+      ],
+      "description": "GoldenEye 007 on Apple Vision Pro: Rare's unreleased 2007 Xbox 360 remaster, statically recompiled through GoldenEye-Recomp and the ReXGlue SDK. A 2D window, with a flip between remastered and original N64 graphics. Bring your own copy of the game files. Listed from a copy with an install guide.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/goldeneye-xbla.md",
+      "media": {
+        "commit": "95bcd76b08da5111d6e6f420e19d44e1237fe119",
+        "source": "readme",
+        "icon": null,
+        "screenshots": [
+          {
+            "alt": "GoldenEye on Apple Vision Pro",
+            "bytes": 363008,
+            "format": "jpeg",
+            "height": 1080,
+            "sha256": "2d67515a6f07381ee059786454adc4fbcc6df13f4220b75ee01065a624e26a72",
+            "url": "https://raw.githubusercontent.com/edgytoast/GoldenEye-Recomp-ios/95bcd76b08da5111d6e6f420e19d44e1237fe119/docs/screenshots/vision-pro-dam-remaster.jpg",
+            "width": 1920
+          }
+        ]
       }
     },
     {
@@ -403,143 +1632,6 @@
             "width": 1206
           }
         ]
-      }
-    },
-    {
-      "id": "voxelnative",
-      "name": "VoxelNative",
-      "game": {
-        "title": "Luanti",
-        "original_platform": "pc",
-        "original_release_year": 2010
-      },
-      "repo_url": "https://github.com/edgytoast/voxelnative",
-      "source_ref": null,
-      "source_url": "https://github.com/edgytoast/voxelnative/tree/f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17",
-      "install_doc_url": "https://github.com/edgytoast/voxelnative/blob/f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17/AVP-INSTALL.md",
-      "developer": {
-        "name": null,
-        "github": "bettse",
-        "url": null,
-        "github_verified": false
-      },
-      "credits": [
-        {
-          "name": "bettse",
-          "role": "VoxelNative, the Apple Vision Pro client",
-          "url": "https://github.com/bettse/voxelnative"
-        },
-        {
-          "name": "Trevorbilt",
-          "role": "Install guide and AVP Ports Index listing",
-          "url": "https://trevorbilt.com"
-        },
-        {
-          "name": "Luanti",
-          "role": "The engine whose network protocol this client reimplements",
-          "url": "https://github.com/luanti-org/luanti"
-        },
-        {
-          "name": "VoxeLibre",
-          "role": "The game it's built and tested against",
-          "url": "https://github.com/VoxeLibre/VoxeLibre"
-        },
-        {
-          "name": "BigInt",
-          "role": "Third-party code (MIT)",
-          "url": "https://github.com/attaswift/BigInt"
-        },
-        {
-          "name": "Luanti contributors",
-          "role": "Original game",
-          "url": null
-        }
-      ],
-      "upstream": [
-        "https://github.com/bettse/voxelnative",
-        "https://github.com/luanti-org/luanti"
-      ],
-      "self_reported_status": "working",
-      "status_notes": "Joining a server and playing works in the headset, with VoxeLibre as the daily driver. The README calls it a work in progress, rough in places.",
-      "owner_verified": {
-        "verified": false,
-        "verified_on": null,
-        "verified_commit": null
-      },
-      "trust_tier": "working",
-      "curator_own": false,
-      "health": {
-        "status": "ok",
-        "failing_since": null
-      },
-      "scanned_commit": "f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17",
-      "scanned_at": "2026-11-14T02:35:01Z",
-      "scan_kind": "automated",
-      "commits_since_scan": 0,
-      "scan_state": "current",
-      "archived": false,
-      "last_commit_date": "2026-11-13T23:07:52Z",
-      "license": {
-        "kind": "custom",
-        "spdx": null
-      },
-      "visionos_min": "26.0",
-      "input": [
-        "game-controller"
-      ],
-      "experiences": [
-        "6dof-immersive"
-      ],
-      "install": [
-        "build"
-      ],
-      "tags": [
-        "luanti",
-        "minetest",
-        "voxelibre",
-        "voxel",
-        "sandbox",
-        "vr",
-        "6dof"
-      ],
-      "description": "A native Swift and Metal Luanti (Minetest) client for Apple Vision Pro. It speaks the Luanti protocol to any server and renders the world per eye in full immersion; walk, dig, place and craft with PS VR2 Sense controllers or a Bluetooth keyboard. Listed from a copy with an install guide.",
-      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/voxelnative.md",
-      "media": {
-        "commit": "f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17",
-        "source": "readme",
-        "icon": {
-          "kind": "layered",
-          "layers": [
-            {
-              "bytes": 76708,
-              "format": "png",
-              "height": 1024,
-              "layer": "back",
-              "sha256": "943263a819496a9eb0887d4524d5b91f7577c563a19cabf952108f07f28289a7",
-              "url": "https://raw.githubusercontent.com/edgytoast/voxelnative/f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/icon_back.png",
-              "width": 1024
-            },
-            {
-              "bytes": 6556,
-              "format": "png",
-              "height": 1024,
-              "layer": "middle",
-              "sha256": "86a4380e78c0d24d66bf590bfd51a3d81e4824aa566028419db4b96745cf1f8d",
-              "url": "https://raw.githubusercontent.com/edgytoast/voxelnative/f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/icon_middle.png",
-              "width": 1024
-            },
-            {
-              "bytes": 39994,
-              "format": "png",
-              "height": 1024,
-              "layer": "front",
-              "sha256": "a2356b0fb96058dac64c723e4476fc34aac3803a73e991b4e3d922f9dde868f0",
-              "url": "https://raw.githubusercontent.com/edgytoast/voxelnative/f8aca2d1efe4f8ab20dcb13ea786e755dc90bf17/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/icon_front.png",
-              "width": 1024
-            }
-          ]
-        },
-        "screenshots": []
       }
     },
     {
@@ -2417,6 +3509,388 @@
       }
     },
     {
+      "id": "vxpro",
+      "name": "VXpro",
+      "game": {
+        "title": "Cyberpunk 2077",
+        "original_platform": "pc",
+        "original_release_year": 2020
+      },
+      "repo_url": "https://github.com/Ag3497120/VXpro",
+      "source_ref": null,
+      "source_url": "https://github.com/Ag3497120/VXpro/tree/4498bec05b35fa290e55663f798cab6c85f5595c",
+      "install_doc_url": "https://github.com/Ag3497120/VXpro/blob/4498bec05b35fa290e55663f798cab6c85f5595c/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "Ag3497120",
+        "url": null,
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "Ag3497120",
+          "role": "VXpro, the visionOS port",
+          "url": "https://github.com/Ag3497120/VXpro"
+        },
+        {
+          "name": "CD PROJEKT RED",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [],
+      "self_reported_status": "partially-working",
+      "status_notes": "An experimental preview, per the developer: stereo VR on an M2 headset at about 37 fps, reprojected. Borders can show in some vehicle and story scenes; only English voice on 2.5.0. Needs 85 to 160 GB free on the headset. Not tested by the curator.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "partially-working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "4498bec05b35fa290e55663f798cab6c85f5595c",
+      "scanned_at": "2026-11-16T00:45:49Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-16T00:14:20Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "MIT"
+      },
+      "visionos_min": null,
+      "input": [
+        "game-controller",
+        "hand-tracking"
+      ],
+      "experiences": [
+        "6dof-immersive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "cyberpunk-2077",
+        "vr",
+        "6dof",
+        "first-person",
+        "open-world",
+        "mac-app-store",
+        "hand-tracking"
+      ],
+      "description": "Cyberpunk 2077's Mac App Store edition in stereo VR on Apple Vision Pro, running on the headset with no streaming. Your Mac prepares and installs your own copy; Joy-Cons and tracked wrists move the in-game arms and weapons.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/vxpro.md",
+      "media": {
+        "commit": "4498bec05b35fa290e55663f798cab6c85f5595c",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 172271,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "0162873ef9b550af036da1fd508bd93daf7a2176e3dfff451f44b62131e6a12d",
+              "url": "https://raw.githubusercontent.com/Ag3497120/VXpro/4498bec05b35fa290e55663f798cab6c85f5595c/app/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 252376,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "484e617fd4dd2f44b5ed16d5160d064ee04aeeb22792ab2bbf379382939b7e84",
+              "url": "https://raw.githubusercontent.com/Ag3497120/VXpro/4498bec05b35fa290e55663f798cab6c85f5595c/app/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 75515,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "67b6d661e1551fa99004124066a3d57abb06363bd07e9f1999d310f7e64e654f",
+              "url": "https://raw.githubusercontent.com/Ag3497120/VXpro/4498bec05b35fa290e55663f798cab6c85f5595c/app/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": []
+      }
+    },
+    {
+      "id": "dark-eco",
+      "name": "Dark Eco",
+      "game": {
+        "title": "Jak and Daxter",
+        "original_platform": null,
+        "original_release_year": null
+      },
+      "repo_url": "https://github.com/zschwendi/dark-eco",
+      "source_ref": "v2.0",
+      "source_url": "https://github.com/zschwendi/dark-eco/tree/f4be973817c26257ff638a1ebd43ede23f96f8a7",
+      "install_doc_url": "https://github.com/zschwendi/dark-eco/blob/f4be973817c26257ff638a1ebd43ede23f96f8a7/AVP-INSTALL.md",
+      "developer": {
+        "name": "Zach Schwendiman",
+        "github": "zschwendi",
+        "url": null,
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "OpenGOAL",
+          "role": "GOAL language tools, reconstructed game code and runtime",
+          "url": "https://github.com/open-goal/jak-project"
+        },
+        {
+          "name": "jak-pad",
+          "role": "Pinned Apple-platform OpenGOAL engine fork",
+          "url": "https://github.com/zschwendi/jak-pad"
+        }
+      ],
+      "upstream": [
+        "https://github.com/open-goal/jak-project",
+        "https://github.com/zschwendi/jak-pad"
+      ],
+      "self_reported_status": "partially-working",
+      "status_notes": "Windowed Jak and Daxter is stable per the developer. This public v2.0 source exposes 2D Comfort mode. The separate experimental immersive build has remaining bugs and is not included in this entry.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "partially-working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "f4be973817c26257ff638a1ebd43ede23f96f8a7",
+      "scanned_at": "2026-11-16T06:54:26Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-15T08:53:47Z",
+      "license": {
+        "kind": "none",
+        "spdx": null
+      },
+      "visionos_min": "26.5",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d"
+      ],
+      "install": [
+        "build",
+        "sideload"
+      ],
+      "tags": [],
+      "description": "Native Apple OpenGOAL port with a Dark Eco launcher, on-device import of user-supplied Jak and Daxter data, Metal graphics and controller support. This entry covers the public windowed Vision Pro build.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/dark-eco.md",
+      "media": {
+        "commit": "6e28cce750406037c4a325ce7fc18c377b575e97",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 1486282,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "cc602a0aefc0506d3010c4b3dd73592caa1f2da96f9e440c9294fc568d6da192",
+              "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/6e28cce750406037c4a325ce7fc18c377b575e97/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-1024.png",
+              "width": 1024
+            },
+            {
+              "bytes": 448,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "1f737c51df0aa9ef372f6b4343f91b797b6ddae5058b858f4f30f34e73b81224",
+              "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/6e28cce750406037c4a325ce7fc18c377b575e97/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-front-transparent-1024.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": "Jak 1 immersive gameplay recorded by Zach on Apple Vision Pro",
+            "bytes": 3382412,
+            "format": "gif",
+            "height": 360,
+            "sha256": "95ed31e3215c1af7f28359dc2d893799fa9294a1ba3942747bedba98d1d8e68e",
+            "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/6e28cce750406037c4a325ce7fc18c377b575e97/docs/media/dark-eco-vision-pro.gif",
+            "width": 640
+          }
+        ]
+      }
+    },
+    {
+      "id": "ctrpad",
+      "name": "CTRPad for Vision Pro",
+      "game": {
+        "title": "Crash Team Racing",
+        "original_platform": "ps1",
+        "original_release_year": 1999
+      },
+      "repo_url": "https://github.com/edgytoast/ctrpad",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/ctrpad/tree/df1d0671ed8d540b695113f1cc28e9fb26e570e9",
+      "install_doc_url": "https://github.com/edgytoast/ctrpad/blob/df1d0671ed8d540b695113f1cc28e9fb26e570e9/AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "eurobob",
+        "url": null,
+        "github_verified": false
+      },
+      "credits": [
+        {
+          "name": "eurobob",
+          "role": "The Apple Vision Pro port",
+          "url": "https://github.com/eurobob/ctrpad"
+        },
+        {
+          "name": "Trevorbilt",
+          "role": "Install guide and AVP Ports Index listing",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "chrissotraidis",
+          "role": "CTRPad, the Apple-platform port this visionOS work is built on",
+          "url": "https://github.com/chrissotraidis/ctrpad"
+        },
+        {
+          "name": "CTR Native",
+          "role": "Native PC port and platform architecture",
+          "url": "https://github.com/CTR-tools/ctr-native"
+        },
+        {
+          "name": "CTR-ModSDK",
+          "role": "Crash Team Racing decompilation",
+          "url": "https://github.com/CTR-tools/CTR-ModSDK"
+        },
+        {
+          "name": "PsyCross",
+          "role": "Portions of the native platform layer and PsyQ facade",
+          "url": "https://github.com/OpenDriver2/PsyCross"
+        },
+        {
+          "name": "SDL3",
+          "role": "Multimedia and controller layer",
+          "url": "https://github.com/libsdl-org/SDL"
+        },
+        {
+          "name": "Naughty Dog / Sony Computer Entertainment",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/eurobob/ctrpad",
+        "https://github.com/chrissotraidis/ctrpad",
+        "https://github.com/CTR-tools/ctr-native",
+        "https://github.com/CTR-tools/CTR-ModSDK"
+      ],
+      "self_reported_status": "partially-working",
+      "status_notes": "The README calls the Apple Vision Pro target a development preview: portal and cockpit stereo are implemented, and physical-headset acceptance is still required.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "partially-working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "df1d0671ed8d540b695113f1cc28e9fb26e570e9",
+      "scanned_at": "2026-11-14T17:30:09Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-13T23:07:28Z",
+      "license": {
+        "kind": "custom",
+        "spdx": null
+      },
+      "visionos_min": null,
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d",
+        "3d-immersive",
+        "6dof-immersive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "racing",
+        "kart",
+        "ps1",
+        "crash",
+        "decompilation",
+        "stereo-3d",
+        "vr"
+      ],
+      "description": "Crash Team Racing built from the CTR-ModSDK decompilation, through CTR Native and CTRPad, with a visionOS preview: a 4:3 window, a stereo Portal into the game in your room, or Cockpit VR from the driver's seat. Bring your own NTSC-U disc image. Listed from a copy with an install guide.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/ctrpad.md",
+      "media": {
+        "commit": "df1d0671ed8d540b695113f1cc28e9fb26e570e9",
+        "source": "readme",
+        "icon": {
+          "bytes": 1180575,
+          "format": "png",
+          "height": 1024,
+          "kind": "flat",
+          "sha256": "dc45cccfb959c962af0d8465de993734a15070085ed30e305194954368292257",
+          "url": "https://raw.githubusercontent.com/edgytoast/ctrpad/df1d0671ed8d540b695113f1cc28e9fb26e570e9/platform/apple/Assets.xcassets/AppIcon.appiconset/appicon-1024.png",
+          "width": 1024
+        },
+        "screenshots": [
+          {
+            "alt": "CTRPad app icon",
+            "bytes": 1180575,
+            "format": "png",
+            "height": 1024,
+            "sha256": "dc45cccfb959c962af0d8465de993734a15070085ed30e305194954368292257",
+            "url": "https://raw.githubusercontent.com/edgytoast/ctrpad/df1d0671ed8d540b695113f1cc28e9fb26e570e9/docs/design/ctrpad-app-icon-master.png",
+            "width": 1024
+          },
+          {
+            "alt": "CTRPad running Crash Cove on iPad with the touch controller",
+            "bytes": 1243145,
+            "format": "png",
+            "height": 2048,
+            "sha256": "e1efac89a9d874272f2a257682ec89770689f1f146fdffcad7162eb25a097a51",
+            "url": "https://raw.githubusercontent.com/edgytoast/ctrpad/df1d0671ed8d540b695113f1cc28e9fb26e570e9/docs/readme/ctrpad-crash-cove-gameplay.png",
+            "width": 2732
+          },
+          {
+            "alt": "CTRPad title screen on iPad",
+            "bytes": 1036006,
+            "format": "png",
+            "height": 2048,
+            "sha256": "3848246d654d6be6192421af7d656d2a4393420ca7f06d915682b863944e3e5c",
+            "url": "https://raw.githubusercontent.com/edgytoast/ctrpad/df1d0671ed8d540b695113f1cc28e9fb26e570e9/docs/readme/ctrpad-title-screen.png",
+            "width": 2732
+          }
+        ]
+      }
+    },
+    {
       "id": "pokemon-gen1recomp",
       "name": "Gen1 Vision",
       "game": {
@@ -2577,117 +4051,6 @@
             "sha256": "465d80df2afae0ccf7d500440c3fbfb0ccb398ea22c615880bc0a5a6fe04fb11",
             "url": "https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/.github/resources/altstore-badge.png",
             "width": 1299
-          }
-        ]
-      }
-    },
-    {
-      "id": "dark-eco",
-      "name": "Dark Eco",
-      "game": {
-        "title": "Jak and Daxter",
-        "original_platform": null,
-        "original_release_year": null
-      },
-      "repo_url": "https://github.com/zschwendi/dark-eco",
-      "source_ref": "v2.0",
-      "source_url": "https://github.com/zschwendi/dark-eco/tree/6e28cce750406037c4a325ce7fc18c377b575e97",
-      "install_doc_url": "https://github.com/zschwendi/dark-eco/blob/6e28cce750406037c4a325ce7fc18c377b575e97/AVP-INSTALL.md",
-      "developer": {
-        "name": "Zach Schwendiman",
-        "github": "zschwendi",
-        "url": null,
-        "github_verified": true
-      },
-      "credits": [
-        {
-          "name": "OpenGOAL",
-          "role": "GOAL language tools, reconstructed game code and runtime",
-          "url": "https://github.com/open-goal/jak-project"
-        },
-        {
-          "name": "jak-pad",
-          "role": "Pinned Apple-platform OpenGOAL engine fork",
-          "url": "https://github.com/zschwendi/jak-pad"
-        }
-      ],
-      "upstream": [
-        "https://github.com/open-goal/jak-project",
-        "https://github.com/zschwendi/jak-pad"
-      ],
-      "self_reported_status": "partially-working",
-      "status_notes": "Windowed Jak and Daxter is stable per the developer. This public v2.0 source exposes 2D Comfort mode. The separate experimental immersive build has remaining bugs and is not included in this entry.",
-      "owner_verified": {
-        "verified": false,
-        "verified_on": null,
-        "verified_commit": null
-      },
-      "trust_tier": "partially-working",
-      "curator_own": false,
-      "health": {
-        "status": "ok",
-        "failing_since": null
-      },
-      "scanned_commit": "6e28cce750406037c4a325ce7fc18c377b575e97",
-      "scanned_at": "2026-11-02T07:32:53Z",
-      "scan_kind": "automated",
-      "commits_since_scan": 0,
-      "scan_state": "current",
-      "archived": false,
-      "last_commit_date": "2026-11-02T03:07:20Z",
-      "license": {
-        "kind": "none",
-        "spdx": null
-      },
-      "visionos_min": "26.5",
-      "input": [
-        "game-controller"
-      ],
-      "experiences": [
-        "2d"
-      ],
-      "install": [
-        "build",
-        "sideload"
-      ],
-      "tags": [],
-      "description": "Native Apple OpenGOAL port with a Dark Eco launcher, on-device import of user-supplied Jak and Daxter data, Metal graphics and controller support. This entry covers the public windowed Vision Pro build.",
-      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/dark-eco.md",
-      "media": {
-        "commit": "6e28cce750406037c4a325ce7fc18c377b575e97",
-        "source": "readme",
-        "icon": {
-          "kind": "layered",
-          "layers": [
-            {
-              "bytes": 1486282,
-              "format": "png",
-              "height": 1024,
-              "layer": "back",
-              "sha256": "cc602a0aefc0506d3010c4b3dd73592caa1f2da96f9e440c9294fc568d6da192",
-              "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/6e28cce750406037c4a325ce7fc18c377b575e97/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-1024.png",
-              "width": 1024
-            },
-            {
-              "bytes": 448,
-              "format": "png",
-              "height": 1024,
-              "layer": "front",
-              "sha256": "1f737c51df0aa9ef372f6b4343f91b797b6ddae5058b858f4f30f34e73b81224",
-              "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/6e28cce750406037c4a325ce7fc18c377b575e97/GOALPad/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/AppIcon-build134-visionOS-front-transparent-1024.png",
-              "width": 1024
-            }
-          ]
-        },
-        "screenshots": [
-          {
-            "alt": "Jak 1 immersive gameplay recorded by Zach on Apple Vision Pro",
-            "bytes": 3382412,
-            "format": "gif",
-            "height": 360,
-            "sha256": "95ed31e3215c1af7f28359dc2d893799fa9294a1ba3942747bedba98d1d8e68e",
-            "url": "https://raw.githubusercontent.com/zschwendi/dark-eco/6e28cce750406037c4a325ce7fc18c377b575e97/docs/media/dark-eco-vision-pro.gif",
-            "width": 640
           }
         ]
       }

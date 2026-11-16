@@ -7,6 +7,7 @@ Wording: always "safety check", never "security review".
 ## Which PRs to open
 
 - **Owner:** commit `AVP-INSTALL.md` to the port's branch yourself (step 4), then open the index PR. There is no install-guide PR.
+- **Owner whose README or docs already have the full guide:** set `install_guide` in the entry instead (SKILL.md step 2) and open the index PR. There is no install-guide PR; the curator reads the guide before the entry is listed.
 - **Contributor:** you can't push to the port's repo, so open the index PR first (the install-guide PR links to it), then the install-guide PR in the owner's repo, then edit the index PR body to add its link. The index PR waits for the curator, because only the repo's owner (or a public member of its org) passes the authority check on their own.
 - If one owner has several ports to list, open one install-guide PR per repo plus one comment mentioning the owner that lists them.
 

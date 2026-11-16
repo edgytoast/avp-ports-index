@@ -61,4 +61,5 @@ ${context}
 - prebuilt_note (matches placeholder_two in the external PR): cleared = " The curator pre-reviewed the repo's prebuilt files and archives."; still blocking = " The curator checks the prebuilt app before the safety check runs."; no prebuilt app = omit.
 - context (optional): same Reddit link as the external PR.
 - If the owner opens the external PR themselves: "Waiting for the `AVP-INSTALL.md` in {repo_url}", rest unchanged.
+- If the entry points at the owner's own guide with `install_guide` (no external PR): replace the "Waiting for…" line with "Uses the install guide at {guide_url} instead of `AVP-INSTALL.md`. The curator read it before listing: {one line on what it covers, and anything a Vision Pro player should read first}." Put that last part in `status_notes` too if players need it. S1-07b routes these to the curator; merging is the review. *(Proposed 2026-11-16 with the install_guide route; not yet approved by the curator.)*
 - Wording: always "safety check", never "security review".
