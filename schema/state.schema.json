@@ -54,7 +54,21 @@
           "scan_refused": {"description": "The agent refused to review a rescan since the last verdict, so a later pass leaves the triage note open (decision 66); reset by a flag, a pin move, restore or approve (report.py, sync.py, killswitch.py).",
                            "type": "boolean"},
           "decay_reset_at": {"$ref": "#/$defs/iso_or_null"},
-          "warnings": {"$ref": "#/$defs/check_ids"}
+          "warnings": {"$ref": "#/$defs/check_ids"},
+          "testflight": {
+            "description": "The port's public TestFlight beta, found by the health check in its repo (testflight.py); null when it has none in use.",
+            "anyOf": [{"type": "null"}, {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["url", "status"],
+              "properties": {
+                "url": {"type": "string", "pattern": "^https://testflight\\.apple\\.com/join/[A-Za-z0-9]{6,12}$"},
+                "status": {"enum": ["open", "full"]},
+                "app": {"type": ["string", "null"], "maxLength": 120},
+                "source": {"type": "string", "maxLength": 200}
+              }
+            }]
+          }
         }
       }
     },

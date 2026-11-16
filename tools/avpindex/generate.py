@@ -192,6 +192,7 @@ def view(entry_id: str, entry: dict, state: store.State, base_url: str, raw_url:
         "inputs": ", ".join(INPUT_LABEL.get(i, i) for i in entry.get("input") or []),
         "experiences": ", ".join(EXPERIENCE_LABEL[k] for k in EXPERIENCE_LABEL if k in (entry.get("experiences") or [])),
         "sideload": "sideload" in (entry.get("install") or []),
+        "testflight": health.get("testflight") or None,
         "listed_at": record.get("listed_at"),
         "changed_at": record.get("changed_at"),
         "media": None if entry.get("media") is False else media.feed_block(state.media.get(entry_id)),

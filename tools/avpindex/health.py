@@ -7,7 +7,7 @@ from __future__ import annotations
 import datetime as dt
 import re
 
-from . import checks, gate, lifecycle, media, messages, store, validate
+from . import checks, gate, lifecycle, media, messages, store, testflight, validate
 from .checks import GitHubError
 from .checks import FIXES, PASS, Subject
 from .lifecycle import DECAY, LISTED, PULLED, TAKEN_DOWN, WITHDRAWN
@@ -122,6 +122,7 @@ def run(rt) -> None:
             entry = report.entry or entries.get(entry_id) or {}
             if report.repo and report.head:
                 repo_facts(rt, entry_id, entry, report.repo, state)
+                testflight.refresh(rt, health, entry_id, entry, report.repo)
             if report.license:
                 health["license"] = report.license
             routes = sorted(report.routes)

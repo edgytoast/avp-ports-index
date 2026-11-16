@@ -809,6 +809,7 @@ Classification goes by changed paths first, then author.
   - Where the fallback "Health tracking" comment stood in for the issue (Stage B), the same comments are posted there instead, and nothing is closed.
 - **Stale PRs:** close PRs labeled `needs-author` with no activity for `stale_pr_close_days`, or `stale_pr_close_days_owner` for PRs the curator opened (invitations for someone else's port).
 - **Media:** refresh `state/media.yaml` for entries whose scanned commit or `media` picks changed (§10.4).
+- **TestFlight:** for each listed entry, look for a public TestFlight invite (`https://testflight.apple.com/join/<code>`) in the repo's description, website, README on the linked branch and five newest releases; a GitHub fork with none is read through its parent, the developer's own repo, on its default branch. Nothing else counts (no engines or credited upstreams). Each link found is opened on Apple's site without a token: open, full, closed to new testers, or gone. Exactly one open or full beta is recorded as `testflight` in `state/health.yaml` and shown in the README's TestFlight column; none, or more than one live, records null and names the links in the run summary. A failure keeps the previous record (`testflight.py`).
 - **Output:** regenerate surfaces and make one `[skip ci]` commit. `last_checked` changes daily, so this also keeps scheduled workflows active.
 
 ### 8.7 `kill-switch.yml`
