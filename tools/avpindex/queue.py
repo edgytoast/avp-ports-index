@@ -139,12 +139,11 @@ def rescan_candidates(state: store.State, now: dt.datetime) -> list[str]:
 
 
 def rescan_precheck(rt, entry_id: str, entry: dict, state: store.State) -> tuple[dict, str] | None:
-    """S1-06, S1-07, S1-07b and S1-11a to S1-11c at the linked HEAD. Returns (repo, head) if all pass. S1-07b
-    holds the pin while an install guide outside AVP-INSTALL.md differs from the one the curator read."""
-    index = IndexView(policy=rt.policy, schema=rt.entry_schema(), index_repo=rt.repo, approvals=state.approvals)
+    """S1-06, S1-07 and S1-11a to S1-11c at the linked HEAD. Returns (repo, head) if all pass."""
+    index = IndexView(policy=rt.policy, schema=rt.entry_schema(), index_repo=rt.repo)
     ctx = checks.Ctx(Subject(mode="health", entry_id=entry_id), index, rt.gh, None)
     ctx.entry = entry
-    for check in (checks.s1_06, checks.s1_07, checks.s1_07b, checks.s1_11a, checks.s1_11b, checks.s1_11c):
+    for check in (checks.s1_06, checks.s1_07, checks.s1_11a, checks.s1_11b, checks.s1_11c):
         result = check(ctx)
         if result is None or result.outcome != PASS:
             return None

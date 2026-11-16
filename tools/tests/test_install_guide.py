@@ -125,14 +125,6 @@ class TestS107:
         assert gate.get("S1-07").outcome == PASS and gate.warnings and "S1-07" not in gate.failures
 
 
-def read(index, path, anchor, data, repo_id=11):
-    """Record the curator's reading of a guide, as merging the entry or `approve` does."""
-    import hashlib as _h
-    digest = _h.sha256(checks.guide_section(data.decode(), anchor).encode()).hexdigest()
-    index.approvals["good"] = {"repo_id": repo_id, "files": [], "install_guide": {
-        "path": path, "anchor": anchor, "sha256": digest, "commit": SHA(11), "approved_at": "2026-11-16T00:00:00Z"}}
-
-
 class TestS107b:
     """A README always exists, so a guide outside AVP-INSTALL.md goes to the curator when it's new or changed."""
 
@@ -145,52 +137,20 @@ class TestS107b:
         assert run(gh, index, install_guide="README.md#install", owner_scan=True).overall == PASS  # waived
         curator = run(gh, index, install_guide="README.md#install", author=OWNER_ID, login="edgytoast")
         assert curator.get("S1-07b").outcome == PASS
-        health = run(gh, index, install_guide="README.md#install", mode="health", change="listed").get("S1-07b")
-        assert health.outcome == ROUTE  # never read: rescans wait
+        assert run(gh, index, install_guide="README.md#install", mode="health", change="listed").get("S1-07b") is None
         preflight = run(gh, index, install_guide="README.md", mode="preflight")
         assert preflight.get("S1-07b").outcome == ROUTE
 
     def test_edits_route_only_when_the_guide_changes(self, index):
         gh = repo_with({"README.md": README, "docs/install.md": b"# Install\n", "AVP-INSTALL.md": b"# Install\n"})
         old = json.loads(entry_yaml("good", "trevorbilt-bot/good", install_guide="README.md#install"))
-        read(index, "README.md", "install", README)
         same = run(gh, index, change="edit", old=old, install_guide="README.md#install", status_notes="New notes.")
-        assert same.get("S1-07b").outcome == PASS and "already read" in same.get("S1-07b").detail
+        assert same.get("S1-07b").outcome == PASS
         for changed in ("README.md#you-need", "docs/install.md"):
             assert run(gh, index, change="edit", old=old, install_guide=changed).get("S1-07b").outcome == ROUTE
         plain = json.loads(entry_yaml("good", "trevorbilt-bot/good"))
         assert run(gh, index, change="edit", old=plain, install_guide="README.md").get("S1-07b").outcome == ROUTE
         assert run(gh, index, change="edit", old=old).get("S1-07b").outcome == PASS  # back to AVP-INSTALL.md
-
-    def test_a_changed_guide_routes_again(self, index):
-        gh = repo_with({"README.md": README})
-        read(index, "README.md", "install", README)
-        listed = dict(mode="health", change="listed", install_guide="README.md#install")
-        assert run(gh, index, **listed).get("S1-07b").outcome == PASS
-        # Edits outside the section, and line-ending or trailing-space changes, don't count.
-        gh.files[("trevorbilt-bot/good", "README.md", SHA(11))] = (
-            README.replace(b"- a Mac", b"- a Mac with macOS 26").replace(b"\n", b"\r\n") + b"  \r\n\r\n")
-        assert run(gh, index, **listed).get("S1-07b").outcome == PASS
-        gh.files[("trevorbilt-bot/good", "README.md", SHA(11))] = README.replace(b"1. Build it.", b"See the wiki.")
-        result = run(gh, index, **listed).get("S1-07b")
-        assert result.outcome == ROUTE and "changed since the curator read it" in result.detail
-        assert run(gh, index, change="edit", old=json.loads(entry_yaml("good", "trevorbilt-bot/good",
-                   install_guide="README.md#install")), install_guide="README.md#install").get("S1-07b").outcome == ROUTE
-        other_repo = dict(index.approvals["good"], repo_id=99)
-        index.approvals["good"] = other_repo
-        gh.files[("trevorbilt-bot/good", "README.md", SHA(11))] = README
-        assert run(gh, index, **listed).get("S1-07b").outcome == ROUTE  # a reading belongs to its repo
-
-    def test_sections(self):
-        text = "# T\n\n## You need\n\n- a Mac\n\n## Install\n\n### Signing\n\nrenew weekly\n\n## Credits\n"
-        assert checks.guide_section(text, "install") == "## Install\n\n### Signing\n\nrenew weekly\n"
-        assert checks.guide_section(text, "signing") == "### Signing\n\nrenew weekly\n"
-        assert checks.guide_section(text, "credits") == "## Credits\n"
-        assert checks.guide_section(text, "missing") == checks.guide_section(text) == text
-        setext = "Intro\n=====\n\nInstall\n-------\nsteps\n\nNext\n----\n"
-        assert checks.guide_section(setext, "install") == "Install\n-------\nsteps\n"
-        fenced = "## Install\n```\n## not a heading\n```\nok\n## After\n"
-        assert checks.guide_section(fenced, "install") == "## Install\n```\n## not a heading\n```\nok\n"
 
     def test_route_message(self):
         assert "somewhere other than AVP-INSTALL.md" in messages.route_reasons(["S1-07b"])
@@ -354,13 +314,6 @@ class TestDispatch:
         assert len(gh.dispatched) == before  # the rescan precheck follows the entry's guide: S1-07 fails
         gh.files[("trevorbilt-bot/good", "docs/install.md", SHA(6))] = b"# Install\n"
         queue.dispatch(rt)
-        assert len(gh.dispatched) == before  # S1-07b: the curator hasn't read this guide yet, so the pin waits
-        state = store.State.load(rt.root)
-        state.approvals["good"] = {"repo_id": repo["id"], "files": [], "install_guide": {
-            "path": "docs/install.md", "anchor": "", "sha256": hashlib.sha256(b"# Install\n").hexdigest(),
-            "commit": SHA(6), "approved_at": "2026-11-16T00:00:00Z"}}
-        state.save()
-        queue.dispatch(rt)
         assert gh.dispatched[-1][1]["mode"] == "rescan" and gh.dispatched[-1][1]["install_guide"] == "docs/install.md"
 
 
@@ -372,61 +325,3 @@ def test_the_scan_workflow_takes_the_guide():
     assert flow["jobs"]["scan"]["env"]["INPUT_INSTALL_GUIDE"] == "${{ inputs.install_guide }}"
     assert not any("install_guide" in str(s.get("run", "")) for s in flow["jobs"]["scan"]["steps"])
     assert re.search(r"S1-07b", " ".join(checks.ORDER))
-
-
-class TestReviewedGuide:
-    """Decision 68: merging records the guide the curator read; a later change holds rescans and opens a triage
-    note; kill-switch `approve` records the new text and the pin can move again."""
-
-    def test_merge_change_approve(self, rt, gh, monkeypatch):
-        from avpindex import killswitch, sync
-        from avpindex.gate import STAGE2, stage2_marker
-        repo = gh.add_repo("trevorbilt-bot/good", 11)
-        gh.move_head("trevorbilt-bot/good", SHA(11))
-        gh.files[("trevorbilt-bot/good", "README.md", SHA(11))] = README
-        raw = entry_yaml("good", "trevorbilt-bot/good", install_guide="README.md#install")
-        gh.open_pr(3, "trevorbilt-bot", "entries/good.yaml", "added", raw, head=SHA(103))
-        gh.create_check(SHA(103), STAGE1, conclusion="success", external_id=f"11@{SHA(11)}")
-        gh.create_check(SHA(103), STAGE2, conclusion="success", external_id=f"11@{SHA(11)}",
-                        summary=stage2_marker(kind="scan", result="pass", confidence=90))
-        state = store.State.load(rt.root)
-        sync.replay_entry(rt, state, gh.prs[3], "good", raw)
-        read = state.approvals["good"]["install_guide"]
-        assert read["path"] == "README.md" and read["anchor"] == "install" and read["commit"] == SHA(11)
-        assert read["sha256"] == hashlib.sha256(checks.guide_section(README.decode(), "install").encode()).hexdigest()
-        state.save()
-        (rt.root / "entries/good.yaml").write_bytes(raw)
-        git(rt.root, "add", "-A")
-        git(rt.root, "commit", "-qm", "listed")
-
-        # The owner thins the section out at a new commit: the health check routes S1-07b and tells the curator.
-        gh.move_head("trevorbilt-bot/good", SHA(12))
-        gh.files[("trevorbilt-bot/good", "README.md", SHA(12))] = README.replace(b"1. Build it.", b"See the wiki.")
-        gh.files[("trevorbilt-bot/good", "AVP-INSTALL.md", SHA(12))] = b"# Install\n"
-        monkeypatch.setenv("AVP_NOW", "2026-10-04T06:17:00Z")
-        health.run(rt)
-        state = store.State.load(rt.root)
-        assert state.health["good"]["routes"] == ["S1-07b"]
-        triage = next(i for i in gh.issue_store.values() if i["title"] == "Triage: good")
-        assert "changed since the curator read it" in triage["body"] and "`approve`" in triage["body"]
-        assert queue.rescan_precheck(rt, "good", json.loads(raw), state) is None  # the pin waits
-
-        for key, value in (("GITHUB_EVENT_NAME", "workflow_dispatch"), ("INPUT_ENTRY_ID", "good"),
-                           ("INPUT_ACTION", "approve"), ("INPUT_BLOCKLIST", "false")):
-            monkeypatch.setenv(key, value)
-        note = killswitch.run(rt)
-        assert f"approved as of {SHA(12)[:12]}" in note
-        state = store.State.load(rt.root)
-        assert state.approvals["good"]["install_guide"]["commit"] == SHA(12)
-        assert state.lifecycle["good"]["owner_approved"] is False  # it says nothing about the code
-        assert queue.rescan_precheck(rt, "good", json.loads(raw), state) is not None
-        assert "did nothing" in killswitch.run(rt)  # a second approve changes nothing
-        assert store.State.load(rt.root).approvals["good"]["install_guide"]["commit"] == SHA(12)
-
-    def test_back_to_avp_install_forgets_the_reading(self, rt, gh):
-        state = store.State.load(rt.root)
-        state.approvals["good"] = {"repo_id": 11, "files": [], "install_guide": {
-            "path": "README.md", "anchor": "", "sha256": "0" * 64, "commit": SHA(11), "approved_at": "2026-11-16T00:00:00Z"}}
-        from avpindex import approvals
-        approvals.forget_guide(state, "good")
-        assert "good" not in state.approvals

@@ -150,8 +150,7 @@ def entry_bytes_at(rt, path: str, ref: str) -> bytes | None:
 def index_view(rt, state: store.State, entries: dict) -> IndexView:
     return IndexView(policy=rt.policy, schema=rt.entry_schema(), index_repo=rt.repo, entries=entries,
                      lifecycle=state.lifecycle, blocked=blocklist.hashes(state),
-                     flagged=blocklist.flag_hashes(state), salt=rt.salt, owner_id=rt.owner_id,
-                     approvals=state.approvals)
+                     flagged=blocklist.flag_hashes(state), salt=rt.salt, owner_id=rt.owner_id)
 
 
 def stage1_report(rt, pr: dict, cls, labels: set[str], state: store.State | None = None,

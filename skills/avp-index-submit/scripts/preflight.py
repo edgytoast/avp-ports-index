@@ -837,7 +837,6 @@ class IndexView:
     flagged: set = field(default_factory=set)            # flag-memory hashes
     salt: str | None = None
     owner_id: int | None = None                          # the curator: PRs they open pass S1-08
-    approvals: dict = field(default_factory=dict)        # state/approvals.yaml: the guide the curator read (S1-07b)
 
 
 @dataclass
@@ -1123,14 +1122,11 @@ def s1_07(ctx: Ctx) -> Result | None:
 
 def s1_07b(ctx: Ctx) -> Result | None:
     """S1-07b · Install guide outside AVP-INSTALL.md (decision 68). A README always exists, so S1-07 alone proves
-    little for a guide elsewhere: an entry whose `install_guide` names another file goes to the curator, who
-    confirms it tells a Vision Pro player what they need, that they must supply their own game files and keys,
-    and how to build and install. The curator's reading is kept as a SHA-256 of the guide (the #anchor's section,
-    or the whole file) at the commit they read; while the guide at the linked commit has those bytes, entry PRs
-    and rescans pass, and once it changes they route again, so the listing stays at the reviewed commit until
-    the curator has read the new text (kill-switch `approve`). Entries using AVP-INSTALL.md are unaffected;
-    the curator's own PRs pass."""
-    if ctx.s.mode not in ("gate", "preflight", "health") or ctx.entry is None:
+    little for a guide elsewhere: an entry PR that sets `install_guide` to another file, or changes it, goes to
+    the curator, who confirms it tells a Vision Pro player what they need, that they must supply their own game
+    files and keys, and how to build and install. The review is once, at merge: later edits to the guide don't
+    route again. Entries using AVP-INSTALL.md are unaffected; the curator's own PRs pass."""
+    if ctx.s.mode not in ("gate", "preflight") or ctx.entry is None:
         return None
     try:
         guide = entry_install_guide(ctx.entry, ctx.idx.policy)
@@ -1140,55 +1136,11 @@ def s1_07b(ctx: Ctx) -> Result | None:
         return Result("S1-07b", PASS)
     if ctx.s.mode == "gate" and _by_curator(ctx):
         return Result("S1-07b", PASS, "opened by the curator")
+    if (ctx.s.mode == "gate" and ctx.s.change == "edit" and not ctx.repo_changed
+            and entry_install_guide_or_default(ctx.s.old_entry, ctx.idx.policy) == guide):
+        return Result("S1-07b", PASS, "the same install guide the listing already has")
     shown = guide[0] + (f"#{guide[1]}" if guide[1] else "")
-    if ctx.s.mode == "preflight" or ctx.repo is None or not ctx.head:
-        return Result("S1-07b", ROUTE, f"the install guide is {shown}, not AVP-INSTALL.md")
-    read = reviewed_guide(ctx.idx.approvals, ctx.s.entry_id, ctx.repo["id"])
-    digest = guide_digest(ctx.gh, ctx.owner, ctx.name, ctx.head, *guide)
-    if read and digest and (read.get("path"), read.get("anchor") or "") == guide and read.get("sha256") == digest:
-        return Result("S1-07b", PASS, "the curator already read this install guide")
-    if read and (read.get("path"), read.get("anchor") or "") == guide:
-        return Result("S1-07b", ROUTE, f"the install guide {shown} changed since the curator read it "
-                                       f"at {str(read.get('commit', ''))[:12]}")
     return Result("S1-07b", ROUTE, f"the install guide is {shown}, not AVP-INSTALL.md")
-
-
-def reviewed_guide(approvals: dict, entry_id: str | None, repo_id: int | None) -> dict | None:
-    """The install guide the curator last read for this entry and repo, or None."""
-    record = (approvals or {}).get(entry_id or "") or {}
-    if repo_id is None or record.get("repo_id") != repo_id:
-        return None  # a reading belongs to the repo it was made for
-    return record.get("install_guide") or None
-
-
-def guide_digest(reader, owner: str | None, name: str | None, sha: str | None, path: str,
-                 anchor: str = "") -> str | None:
-    """SHA-256 of the guide's text at `sha`: the #anchor's section, or the whole file. None if it can't be read."""
-    if not (owner and name and sha):
-        return None
-    try:
-        item = reader.contents(owner, name, path, sha)
-    except Exception:  # noqa: BLE001 - an unreadable guide is simply not the one the curator read
-        return None
-    if item is None or item.get("type") != "file":
-        return None
-    text = guide_section(decode_content(item).decode("utf-8", "replace"), anchor)
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
-
-
-def guide_section(markdown: str, anchor: str = "") -> str:
-    """The text a guide link opens on: from the heading the #anchor slugs to, up to the next heading of the same
-    or a higher level, or the whole file when there's no anchor or no such heading. Line endings and trailing
-    blank lines are normalised, so an editor's re-save doesn't count as a change."""
-    lines = markdown.replace("\r\n", "\n").replace("\r", "\n").split("\n")
-    if anchor:
-        headings = list(_headings(lines))
-        for i, (start, level, slugs) in enumerate(headings):
-            if anchor in slugs:
-                stop = next((s for s, lvl, _ in headings[i + 1:] if lvl <= level), len(lines))
-                lines = lines[start:stop]
-                break
-    return "\n".join(line.rstrip() for line in lines).strip("\n") + "\n"
 
 
 # GitHub's heading anchors (github-slugger): lowercase, drop everything but letters, digits, "_", "-" and
@@ -1509,7 +1461,7 @@ RUN = [s1_01, s1_02, s1_03, s1_06, s1_04, s1_05, s1_07, s1_07b, s1_08, s1_09, s1
 
 ALL_CHECKS = sorted(RUN, key=lambda f: ORDER.index(f.__doc__.split(" ")[0]))
 
-HEALTH_IDS = {"S1-02", "S1-03", "S1-05", "S1-06", "S1-07", "S1-07b", "S1-09", "S1-10",
+HEALTH_IDS = {"S1-02", "S1-03", "S1-05", "S1-06", "S1-07", "S1-09", "S1-10",
               "S1-11a", "S1-11b", "S1-11c", "S1-11d", "S1-16"}
 PREFLIGHT_SKIPS = {"S1-01", "S1-04", "S1-05", "S1-15", "S1-16", "S1-17", "S1-18"}
 
