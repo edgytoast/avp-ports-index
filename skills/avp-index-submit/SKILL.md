@@ -22,3 +22,4 @@ You are preparing the user's port repo so it passes the index's automated checks
 - Edit any file outside `entries/` in the index.
 - Add verification, health, scan or date fields.
 - Link to downloads of game files.
+- Say how to obtain, dump, extract, decrypt or convert game files or keys, or name tools for it. The guide states them as requirements only.

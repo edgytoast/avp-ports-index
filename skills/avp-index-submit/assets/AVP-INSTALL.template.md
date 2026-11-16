@@ -7,16 +7,18 @@
 - A Mac with Xcode <version> or later
 - Apple Vision Pro on visionOS <version> or later
 - An Apple ID (a free developer account works; sideloaded apps then need re-signing every 7 days)
-- Your own copy of <game> on <original platform>
+- Your own copy of <game> on <original platform>, and its game files (see Game files)
 - <Anything else: a game controller, disk space, tools installed with Homebrew>
 
 ## Game files
 
-You need to supply your own game files. This repository contains none.
+You need to supply your own game files, legally obtained from a copy you own. This repository contains none.
 
-1. <How to dump or extract the files from a copy you own, or where the port's docs explain it>
-2. <Where to put them, with exact file or folder names>
-3. <How to check they're right, such as a checksum or a file count>
+<!-- State what's required; never say how to obtain, dump, extract, decrypt or convert game files or keys, and name no tool for it. -->
+
+- <What's required: the game, region and version, the file format, and any keys from the same device, each as a requirement>
+- <Where to put them, with exact file or folder names>
+- <How to check they're right, such as a checksum or a file count>
 
 ## Build
 

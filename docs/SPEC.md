@@ -259,7 +259,7 @@ Owner and bot fields cannot appear in entry files. This includes `owner_verified
 
 - **Location:** exactly `AVP-INSTALL.md` (case-sensitive) at the root of the linked repo, fetched with `GET /repos/{o}/{r}/contents/AVP-INSTALL.md?ref=<sha>`, at the same commit SHA whose tree the other checks read (the linked HEAD in the gate and health check, `linked_commit` before a rescan).
 - **Size:** at most 256 KB, and not empty (at least one line that isn't whitespace).
-- **Content:** free-form. It should tell a player what they need, how to supply their own game files, and how to build and install on Apple Vision Pro, but no headings or front matter are required. The skill's template (§10.8) suggests a layout.
+- **Content:** free-form. It should tell a player what they need, that they must supply their own game files and any keys from a copy they own, and how to build and install on Apple Vision Pro, but no headings or front matter are required. Game files and keys are stated as requirements only: the guide never says how to obtain, dump, extract, decrypt or convert them and names no tool for it, which keeps it explicit that this is done legally. The skill's template (§10.8) suggests a layout.
 
 ### 5.3 `verification/owner-verified.yaml` (owner-only)
 
@@ -1063,6 +1063,7 @@ You are preparing the user's port repo so it passes the index's automated checks
 - Edit any file outside `entries/` in the index.
 - Add verification, health, scan or date fields.
 - Link to downloads of game files.
+- Say how to obtain, dump, extract, decrypt or convert game files or keys, or name tools for it. The guide states them as requirements only.
 ```
 
 ---

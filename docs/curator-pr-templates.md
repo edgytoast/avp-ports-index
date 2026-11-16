@@ -10,6 +10,7 @@ The PR opened in the port's own repo to add `AVP-INSTALL.md`.
 
 - Branch `avp-ports-index` from the fork, targeting the branch the entry's `source_ref` points to. Commit: `Add AVP-INSTALL.md for the AVP Ports Index`
 - Files: only `AVP-INSTALL.md` at the root (from `skills/avp-index-submit/assets/AVP-INSTALL.template.md`). No game data, binaries or license changes.
+- Game files and keys (curator's rule, 2026-11-16): the guide states them as requirements and never says how to obtain, dump, extract, decrypt or convert them, or names a tool for it.
 - Title: `Add AVP-INSTALL.md (AVP Ports Index)`
 - Batch to one owner: one PR per repo plus one comment mentioning the owner that lists them.
 - Body:
