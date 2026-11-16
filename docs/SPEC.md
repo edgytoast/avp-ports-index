@@ -33,8 +33,8 @@ Do all fixture and destructive testing in a separate public repo, `edgytoast/avp
 - Never print secrets.
 - Commit this document to both repos as `docs/SPEC.md`.
 - **Never tune `.github/safety-check/prompt.md` or `confidence_threshold` to make a fixture or a port pass.** Calibration may change only `timeout_minutes` (§12 step 4).
-- The Jules review runs in Google's environment, not on GitHub runners. The rule above still applies to everything the agent and the workflows do themselves.
-- Any test whose outcome depends on a Jules verdict may be re-run once. A second failure is recorded as a finding for the owner, not fixed by changing prompts.
+- The Stage 2 review runs in Google's environment, not on GitHub runners. The rule above still applies to everything the agent and the workflows do themselves.
+- Any test whose outcome depends on a Stage 2 verdict may be re-run once. A second failure is recorded as a finding for the owner, not fixed by changing prompts.
 - **If T1 still fails after its re-run,** later tests depend on `good` being listed. Merge the T1 PR as an owner bypass with `OWNER_PAT` (recorded as `curator-reviewed`), mark T1 failed, continue the other tests, and put the failure first in the handoff. T9 is then recorded as blocked by T1, not as a pass, because it needs `good` listed by an automated pass (an owner bypass makes it `owner_approved`, which changes what a rescan flag does). Whenever T9 is blocked or fails, T10's S1-17 step is recorded as blocked too, since it relies on T9's flag record.
 - Where this spec leaves a detail open, choose the simplest option consistent with it and record the choice in `docs/BOOTSTRAP-REPORT.md` under "Decisions".
 - Use Python 3.11+ for all tooling (`tools/avpindex`), with dependencies pinned with hashes in `tools/requirements.txt`. Use `gh` CLI and the REST API for repository configuration. No npm packages in any workflow that holds a secret.
@@ -51,11 +51,11 @@ The agent cannot create these itself. The owner supplies them in the first messa
 | 2 | `OWNER_PAT` | Fine-grained PAT for `edgytoast`, scoped to those two repos, read and write on: Administration, Contents, Pull requests, Issues, Actions, Secrets, Variables, Environments, Workflows, Commit statuses; Metadata read. Commit statuses is needed only for test T3(c). |
 | 3 | **GitHub App `trevorbilt-index`** | The one App the index runs as. It posts the required checks, labels and comments, dispatches scans, merges clean PRs through the API, and is the only identity that commits directly to `main` (state, blocklist, generated files). Ruleset bypass actor. Webhook off. Repository permissions: Checks RW, Pull requests RW, Issues RW, Contents RW, Actions RW, Metadata R. Installed on both repos. Provide the App ID and private key `.pem`. |
 | 4 | **Machine account `trevorbilt-bot`** | GitHub permits one free machine account per person, used only for automation. It needs no access to either index repo. Provide two classic PATs: `OUTREACH_PAT` (scope `public_repo`; permanent) and `TEST_PAT` (scopes `public_repo`, `delete_repo`, `workflow`; temporary, revoked after testing). `workflow` lets the bot push T3(a)'s change to a workflow file and sync its fork of staging after workflow fixes. |
-| 5 | **`JULES_API_KEY`** | Generated at jules.google.com/settings, signed in with the Google account that holds the owner's Google AI Pro or Ultra plan, so scans count against that plan's daily Jules task limit and nothing is billed per use. In the same Jules settings, **disconnect any MCP services** (Linear, Supabase and the like): a review session can use whatever the account has connected, and a hostile repo could try to steer it toward them. Tell the agent which plan you have, so it can keep `daily_cap` well under the plan's daily task limit. |
-| 6 | **Both ports public** | Public repo URLs for both ports. Jules can't clone a private repo, and the calibration review (§12 step 4) is the only measurement that predicts whether the owner's ports will merge automatically. Before making them public, move any agent settings that pull from private sources (such as a private plugin marketplace in `.claude/settings.json`) into an uncommitted `.claude/settings.local.json`, so calibration reviews what the public will see (§15 step 3). Never built or executed by the agent. If a port is still private at "go", ask the owner before continuing; if he says go ahead, skip it and note that in the handoff. |
+| 5 | **`GEMINI_API_KEY`** | A free Gemini API key from Google AI Studio, stored in the environment `safety-check` (§7.3). Stage 2 runs on the Gemini API's managed Antigravity agent (§6.2), so nothing is billed per use; the free tier allows 100 agent requests a day, so keep `daily_cap` under that. (Until 2026-11-13 this was `JULES_API_KEY` for Google's Jules, which Google shut down.) |
+| 6 | **Both ports public** | Public repo URLs for both ports. The safety check can't clone a private repo, and the calibration review (§12 step 4) is the only measurement that predicts whether the owner's ports will merge automatically. Before making them public, move any agent settings that pull from private sources (such as a private plugin marketplace in `.claude/settings.json`) into an uncommitted `.claude/settings.local.json`, so calibration reviews what the public will see (§15 step 3). Never built or executed by the agent. If a port is still private at "go", ask the owner before continuing; if he says go ahead, skip it and note that in the handoff. |
 | 7 | Logo (optional) | `trevorbilt-logo.svg`, the orange oval badge. If absent, leave the logo slot empty (no text-only substitute) and list it as an owner to-do in the handoff. |
 
-There is no model setting: Jules uses its default model for the owner's plan.
+There is no model setting: the Antigravity agent uses its default model.
 
 ---
 
@@ -75,7 +75,7 @@ A **link-only, preservation-and-discovery index** of community ports of classic 
 
 1. A contributor opens a PR adding one `entries/<id>.yaml`.
 2. A base-owned gate runs free checks (Stage 1) against the linked repo.
-3. Passing PRs enter a throttled queue for a best-effort safety check by Google's Jules agent (Stage 2) of the linked repo at a pinned commit.
+3. Passing PRs enter a throttled queue for a best-effort safety check by the Gemini API's Antigravity agent (Stage 2) of the linked repo at a pinned commit.
 4. Clean PRs are merged automatically, and CI regenerates every surface.
 5. A daily health check keeps entries honest, contacts the developer when something breaks, and delists entries that stay broken while keeping a public record that they existed.
 
@@ -466,7 +466,7 @@ Notes:
 
 > **Reviewer changed on 2026-11-13.** Google turned Jules read-only on 2026-11-11 and shuts it down on 2026-12-31. Stage 2 now runs on the Gemini API's managed Antigravity agent (`tools/avpindex/antigravity.py`, secret `GEMINI_API_KEY`, free tier): a background interaction in a Google-hosted sandbox that clones the repo itself, with the same public prompt, schema, review id and pass rule. It has no follow-up messages: a run that ends without a valid verdict is `error`, a refusal in its output is `declined`, and a quota refusal at any point is `deferred`. Free-tier limits seen in AI Studio: 60 requests a minute, 100,000 tokens a minute and 100 requests a day; how many requests one review uses is still being measured. Where this section says Jules, read the agent; the Jules-only steps (nudges, restatements, plan approval) no longer apply. On 2026-11-14 the Jules client was removed, the prompt files moved to `.github/safety-check/` (the prompt is now `prompt.md`), the shared verdict rules to `tools/avpindex/safety_check.py`, and the environment, concurrency groups and policy key lost the Jules name.
 
-**Purpose and limits.** Stage 2 is best-effort diligence, not a guarantee. Its job is to keep egregious things out (malware, credential theft, backdoors, privacy-invading code) without anyone reading every port by hand. It is done by Google's Jules agent, under the owner's Google AI plan, so it costs nothing beyond that subscription.
+**Purpose and limits.** Stage 2 is best-effort diligence, not a guarantee. Its job is to keep egregious things out (malware, credential theft, backdoors, privacy-invading code) without anyone reading every port by hand. It is done by the Gemini API's Antigravity agent on a free API key, so it costs nothing (Google's Jules did it until November 2026).
 
 **Where the risk is.** The highest-risk surface is the user's Mac: building a port runs its build scripts there, unsandboxed, with the user's permissions. The visionOS app itself runs sandboxed on the headset. The review prompt tells Jules to give build-time code the closest attention.
 
@@ -882,7 +882,7 @@ In order:
 
 3. **Disclaimer** (verbatim):
 
-   > **Read before installing.** Most entries here are *not* human-reviewed. Each listing either passed automated checks or was reviewed by the curator, and is labeled accordingly. The automated checks confirm that the linked source repo exists and is public, has an install guide (`AVP-INSTALL.md`), its links resolve, and no disc images or other known game-data file types were found; anything that looked like archives or prebuilt downloads went to the curator. Each entry shows its license as stated; some ports have a custom license or none. An AI agent (Google's Jules) reviewed the specific commit linked as **Source (scanned)** for signs of malicious code, paying closest attention to its build scripts; build that commit to get what was reviewed, and check the "commits since scan" count. Building a port runs its build scripts on your Mac with your permissions. Automation **cannot** confirm a port runs on Apple Vision Pro, does not vet third-party code downloaded during the build, may not read every file, and can miss malicious code. Sideloading is at your own discretion. Some developers also publish prebuilt apps; the safety check covers the source code, never the apps. This index hosts no games, ports, emulators or binaries. You must own the game and supply your own legally obtained game files, then build from the linked repo.
+   > **Read before installing.** Most entries here are *not* human-reviewed. Each listing either passed automated checks or was reviewed by the curator, and is labeled accordingly. The automated checks confirm that the linked source repo exists and is public, has an install guide (`AVP-INSTALL.md`), its links resolve, and no disc images or other known game-data file types were found; anything that looked like archives or prebuilt downloads went to the curator. Each entry shows its license as stated; some ports have a custom license or none. An AI agent (Google's Jules until November 2026, now the Gemini API's Antigravity agent) reviewed the specific commit linked as **Source (scanned)** for signs of malicious code, paying closest attention to its build scripts; build that commit to get what was reviewed, and check the "commits since scan" count. Building a port runs its build scripts on your Mac with your permissions. Automation **cannot** confirm a port runs on Apple Vision Pro, does not vet third-party code downloaded during the build, may not read every file, and can miss malicious code. Sideloading is at your own discretion. Some developers also publish prebuilt apps; the safety check covers the source code, never the apps. This index hosts no games, ports, emulators or binaries. You must own the game and supply your own legally obtained game files, then build from the linked repo.
 
 4. **How to install a port:**
    1. Own the original game and prepare your own files as the port describes.
@@ -1114,10 +1114,10 @@ Rules for every template:
    - `OWNER_PAT` can administer both repos.
    - The App key mints installation tokens on both repos.
    - `TEST_PAT` authenticates as `trevorbilt-bot` and can create and delete a repo.
-   - `JULES_API_KEY` can list sessions (`GET /v1alpha/sessions`). Start one trivial repoless session ("Write hello.txt containing hi"), confirm its file output can be read back, and record the session states and output fields actually returned.
+   - `GEMINI_API_KEY` can start one trivial Antigravity agent interaction; record the states and output fields actually returned.
 2. **Build in staging.** Assemble the full tree from §3: data files empty, `.gitkeep` in `entries/`, `docs/SPEC.md`. Run unit tests and a dry-run generate locally.
 3. **Configure staging,** in the same order as production (step 8), so no workflow runs before its secrets exist: run `tools/bootstrap_repo.py --repo edgytoast/avp-ports-index-staging --skip-ruleset`; push the tree as one commit ending in `[skip ci]`; run the script again without the flag to create the ruleset. Create and pin the "Health tracking" issue. Confirm the three required checks are pinned to the App.
-4. **Calibrate.** Run `python -m avpindex.cli review <repo-url> <sha>` three times on each of the owner's public ports, at its current HEAD (six Jules tasks). One score can't show whether a port is reliably above the threshold. This runs a real Jules review and prints the verdict; nothing is posted anywhere, and the agent builds and executes nothing.
+4. **Calibrate.** Run `python -m avpindex.cli review <repo-url> <sha>` three times on each of the owner's public ports, at its current HEAD (six agent reviews). One score can't show whether a port is reliably above the threshold. This runs a real agent review and prints the verdict; nothing is posted anywhere, and the agent builds and executes nothing.
    - **Record for each run:** `safe_confidence`, the result it would get, the summary, the findings, and how long the session took. Report each port's lowest score as the one that predicts its result.
    - **Adjust only** `timeout_minutes` (≤ 180), if a session needed longer.
    - **Do not change** the prompt or the threshold. A port that comes back below the threshold is reported to the owner with the findings, not worked around.
@@ -1132,7 +1132,7 @@ Rules for every template:
    - Run `tools/bootstrap_repo.py --repo edgytoast/avp-ports-index` again, without the flag, to create the ruleset with its required checks.
    - Create and pin the "Health tracking" issue.
    - Run the production smoke test (§14.5).
-9. **Send the handoff** (§15), then delete every credential from the agent's workspace (the App `.pem`, `JULES_API_KEY`, `OUTREACH_PAT`, `OWNER_PAT`, `TEST_PAT`).
+9. **Send the handoff** (§15), then delete every credential from the agent's workspace (the App `.pem`, `GEMINI_API_KEY`, `OUTREACH_PAT`, `OWNER_PAT`, `TEST_PAT`).
 
 ---
 
@@ -1256,7 +1256,7 @@ Post the handoff as a new issue in the production repo titled "Bootstrap handoff
 1. **Results:** the link to `docs/BOOTSTRAP-REPORT.md`, a one-line summary, and the calibration results (§12 step 4: three scores per port, and the lowest) with any routing they predict for his ports.
 2. **To-dos for the owner:**
    - Revoke `TEST_PAT` and `OWNER_PAT` (both are only needed during the build).
-   - Confirm the agent has deleted its workspace copies of the App `.pem`, `JULES_API_KEY`, `OUTREACH_PAT` and both PATs; the repo secrets and environments keep what the workflows need.
+   - Confirm the agent has deleted its workspace copies of the App `.pem`, `GEMINI_API_KEY`, `OUTREACH_PAT` and both PATs; the repo secrets and environments keep what the workflows need.
    - Add the logo if it wasn't supplied.
    - Read the bot messages in the report's appendix once; they should sound warm, plain and unpushy.
 3. **How to submit his two ports to production.** In each port repo:
