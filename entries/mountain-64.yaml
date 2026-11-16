@@ -1,0 +1,35 @@
+schema_version: 1
+id: mountain-64
+name: Mountain 64
+game:
+  title: "Celeste 64: Fragments of the Mountain"
+  original_platform: pc
+  original_release_year: 2024
+repo: https://github.com/LowRiderXR/mountain64-visionos-app
+developer:
+  github: LowRiderXR
+status: working
+status_notes: "Unofficial, free fan port, not made or endorsed by the Celeste team. The developer also offers it on TestFlight. Building from source needs your own FMOD Engine download from fmod.com. Not tested by the curator."
+visionos_min: "27.0"
+input: [game-controller]
+experiences: [6dof-immersive]
+media:
+  icon: AvpCeleste64/Assets.xcassets/AppIcon.solidimagestack
+upstream:
+  - https://github.com/EXOK/Celeste64
+  - https://github.com/LowRiderXR/foster-visionos
+  - https://github.com/LowRiderXR/sdl-visionos
+credits:
+  - name: Maddy Makes Games and EXOK
+    role: Celeste 64, the original game and its source
+    url: https://github.com/EXOK/Celeste64
+  - name: Noel Berry
+    role: Foster framework
+    url: https://github.com/FosterFramework/Foster
+  - name: SDL
+    role: Input, windowing and GPU
+    url: https://github.com/libsdl-org/SDL
+  - name: FMOD Studio by Firelight Technologies
+    role: Audio
+description: "Native Vision Pro port of Celeste 64, the free 3D Celeste platformer released with its source: the mountain in stereo in a full immersive space, with head tracking and game-controller input. The game content comes from the official source release."
+tags: [celeste, celeste-64, platformer, 3d, vr, source-port]
