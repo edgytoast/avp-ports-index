@@ -22,7 +22,7 @@ from pathlib import Path
 import jinja2
 import jsonschema
 
-from . import store
+from . import store, validate
 
 EXCERPT_CHARS = 400     # how much of a refusal is kept as the reason
 NO_VERDICT = "no verdict.json was found"
@@ -34,6 +34,7 @@ NO_VERDICT = "no verdict.json was found"
 # holds the same files as live, so the next rewording starts from there.
 LIVE, CANDIDATE = "live", "candidate"
 PROMPTS = {LIVE: ".github/safety-check", CANDIDATE: ".github/safety-check/candidate"}
+DEFAULT_GUIDE = "AVP-INSTALL.md"  # the install guide the prompt names when the entry doesn't set install_guide
 
 class Deferred(Exception):
     """The agent refused the review for quota or rate limits."""
@@ -68,12 +69,15 @@ def new_review_id() -> str:
 
 
 def render_prompt(repo_url: str, sha: str, threshold: int, review_id: str, root: Path | None = None,
-                  prompt: str = LIVE) -> str:
+                  prompt: str = LIVE, install_guide: str = DEFAULT_GUIDE) -> str:
+    """The prompt for one review. `install_guide` is the entry's guide path (decision 68): contributor text,
+    so it's checked against the strict path charset here too, whatever the caller did."""
     root = root or store.ROOT
     template = (root / PROMPTS[prompt] / "prompt.md").read_text(encoding="utf-8")
     schema = json.dumps(verdict_schema(root, prompt), indent=2)
+    guide = validate.install_guide_path(install_guide, DEFAULT_GUIDE)
     return jinja2.Environment(undefined=jinja2.StrictUndefined).from_string(template).render(
-        repo_url=repo_url, sha=sha, threshold=threshold, review_id=review_id, schema=schema)
+        repo_url=repo_url, sha=sha, threshold=threshold, review_id=review_id, schema=schema, install_guide=guide)
 
 def _json_objects(text: str) -> list[dict]:
     """Every JSON object in a text that looks like a verdict, last first."""

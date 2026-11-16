@@ -24,8 +24,10 @@ PLAIN_REASONS = {
     "S1-17": "an earlier automated review of this repo asked for a closer look",
     "S1-18": "this entry id belonged to a different port before",
     "S1-09": "the license looks like it may not allow personal use",
+    "S1-07b": "the install guide is somewhere other than AVP-INSTALL.md, and a person should confirm it covers "
+              "what players need",
 }
-ROUTE_ORDER = ["S1-08", "S1-16", "S1-17", "S1-18", "S1-09", "S1-11b", "S1-11c", "S1-11d"]
+ROUTE_ORDER = ["S1-08", "S1-16", "S1-17", "S1-18", "S1-09", "S1-07b", "S1-11b", "S1-11c", "S1-11d"]
 
 BOT_MARK = "<!-- avp:bot -->"
 STATE_RE = re.compile(r"<!-- avp:state (\{.*?\}) -->", re.S)
@@ -58,7 +60,7 @@ def route_reasons(route_ids: list[str]) -> str:
 
 
 def fail_rows(results) -> list[dict]:
-    return [{"id": r.id, "detail": r.detail or "failed", "fix": FIXES.get(r.id, "See the check details.")}
+    return [{"id": r.id, "detail": r.detail or "failed", "fix": r.how_to_fix or "See the check details."}
             for r in results if r.effective == "fail"]
 
 

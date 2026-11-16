@@ -324,7 +324,9 @@ def _clear(rt, number: int, labels: set[str], names: tuple[str, ...]) -> None:
 
 def _render_stage1(rt, number: int, name: str, report: Report) -> None:
     if report.overall == FAIL:
-        text = messages.render("stage1-fail", rt.root, name=name, rows=messages.fail_rows(report.results))
+        guide = checks.entry_install_guide_or_default(report.entry, rt.policy)[0]  # validated charset
+        text = messages.render("stage1-fail", rt.root, name=name, rows=messages.fail_rows(report.results),
+                               guide=guide)
     else:
         text = messages.render("route", rt.root, name=name, reasons=messages.route_reasons(report.routes),
                                apps=apps_table(report.apps))

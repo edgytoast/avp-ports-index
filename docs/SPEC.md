@@ -224,6 +224,7 @@ YAML files are parsed **only** with `yaml.safe_load`. Each file is capped at 16 
 | `status` | enum `developer-verified, working, partially-working, not-working` | yes |
 | `experiences[]` | enum `2d, 3d-immersive, 3d-shared-space, 3d-shared-space-stereo, 3d-tabletop, 6dof-immersive, 6dof-progressive`; at least one, no repeats | yes |
 | `schema_version` | const `1`; treated as `1` when absent | no |
+| `install_guide` | the port's own install instructions when they aren't in `AVP-INSTALL.md`: a Markdown file in the repo, or the root `README`, with an optional `#anchor` for a section (`^(?![./])…(\.md\|README)(#[a-z0-9_-]{1,100})?$`, no `..`, no URL, ≤200 chars); leave it out to use `AVP-INSTALL.md`. Routes to the curator (S1-07b, §5.2) | no |
 | `source_ref` | branch name, `^(?!.*\.\.)[A-Za-z0-9_][A-Za-z0-9._/-]{0,99}$`; set only when the port isn't on the repo's default branch | no |
 | `game.original_platform` | enum `gamecube, wii, n64, ps1, ps2, xbox, dreamcast, pc, other` | no |
 | `game.original_release_year` | integer 1970–2030 | no |
@@ -255,11 +256,13 @@ Owner and bot fields cannot appear in entry files. This includes `owner_verified
 - `partially-working`: playable with notable bugs or missing features.
 - `not-working`: does not currently run; listed for preservation.
 
-### 5.2 The install file in the linked repo: `AVP-INSTALL.md`
+### 5.2 The install guide in the linked repo: `AVP-INSTALL.md`, or the owner's own file
 
-- **Location:** exactly `AVP-INSTALL.md` (case-sensitive) at the root of the linked repo, fetched with `GET /repos/{o}/{r}/contents/AVP-INSTALL.md?ref=<sha>`, at the same commit SHA whose tree the other checks read (the linked HEAD in the gate and health check, `linked_commit` before a rescan).
+- **Location:** exactly `AVP-INSTALL.md` (case-sensitive) at the root of the linked repo by default, or the file the entry's `install_guide` names (decision 68), fetched with `GET /repos/{o}/{r}/contents/<path>?ref=<sha>`, at the same commit SHA whose tree the other checks read (the linked HEAD in the gate and health check, `linked_commit` before a rescan). An `#anchor` that no heading slugs to (GitHub's rules) is a warning, never a failure.
 - **Size:** at most 256 KB, and not empty (at least one line that isn't whitespace).
-- **Content:** free-form. It should tell a player what they need, that they must supply their own game files and any keys from a copy they own, and how to build and install on Apple Vision Pro, but no headings or front matter are required. Game files and keys are stated as requirements only: the guide never says how to obtain, dump, extract, decrypt or convert them and names no tool for it, which keeps it explicit that this is done legally. The skill's template (§10.8) suggests a layout.
+- **Content:** free-form, with no required headings or front matter. It tells a player what they need (Mac, Xcode, headset, accounts), that they must supply their own game files and any keys, as a requirement only, how to build, and how to install on Apple Vision Pro, including signing and renewal. It never says how to obtain, dump, extract, decrypt or convert game files or keys, and names no tool for doing so: stating the requirement makes it explicit that this is the player's to do legally. The skill's template (§10.8) suggests a layout.
+- **Why `AVP-INSTALL.md`:** adding the file is how an owner acknowledges the index's requirement for clear install instructions. It passes automatically (S1-07). An owner whose README or docs already have complete instructions can set `install_guide` instead; then S1-07b routes the entry to the curator, who reads the guide against the bar above before it's listed.
+- **Reviewed once:** the curator's read happens on the entry PR that sets or changes `install_guide`; once merged, later edits to the guide in the port's repo don't route again (owner's call, 2026-11-16).
 
 ### 5.3 `verification/owner-verified.yaml` (owner-only)
 
@@ -438,7 +441,8 @@ Each check returns `pass`, `fail` (the contributor must fix something) or `route
 | S1-04 | `id` unique, and `repo` not used by another current entry file (case-insensitive and by repo ID). Re-checked right before the merge call (§8.2 step 9), so two PRs for the same repo can't both merge | fail | ✓ | — |
 | S1-05 | Not blocklisted (any of its hashes) | fail | ✓ | ✓ (a hit means immediate `pulled`, not decay) |
 | S1-06 | Linked repo resolves (renames followed), is public, is not disabled, has ≥1 commit, and is not this index. Archived is allowed and recorded. If the entry sets `source_ref`, that branch must exist. | fail | ✓ | ✓ |
-| S1-07 | `AVP-INSTALL.md` present, ≤256 KB, not empty (§5.2) | fail | ✓ | ✓ |
+| S1-07 | The install guide is present, ≤256 KB, not empty: `AVP-INSTALL.md` at the root, or the file `install_guide` names (§5.2). A missing `#anchor` heading is a warning | fail | ✓ | ✓ |
+| S1-07b | Install guide outside `AVP-INSTALL.md` (§5.2): an entry PR that sets `install_guide`, or changes it or the repo, routes to the curator. An edit keeping the listed guide passes, and so do the curator's own PRs; `owner:scan` waives it | route | ✓ | — |
 | S1-08 | Authority, decided by numeric user IDs, never logins. PRs opened by the curator (`OWNER_ID`) always pass. **(a)** Edits and deletes: find the entry's current repo through its recorded `repo_id` (`GET /repositories/{repo_id}`, which follows renames). The PR author's ID equals that repo's owner ID, or the author is a public member of its owning org, or the author's ID equals `submitted_by_id` (§5.5). If the recorded repo no longer exists, only `submitted_by_id` qualifies. Deletes check only this. **(b)** Adds: the PR author's ID equals the linked repo's owner ID, or the author is a public member of its owning org (`GET /orgs/{org}/public_members/{login}` returns 204). An edit that changes `repo` must pass **both**: (a) against the current repo and (b) against the new one | route; (a) is never waivable | ✓ | — |
 | S1-09 | License. Never fails. Records `license.kind`: `open-source` (SPDX in `license_open_source`), `custom` (any other ID, `Other` or `NOASSERTION`) or `none`. If a non-open-source license's text matches `license_route_phrases`, the result is `route` so the owner can reject a license that forbids personal use | route | ✓ | ✓ |
 | S1-10 | Every URL in the entry resolves (`checks.py`, using `requests`: HEAD, then GET on 405). Only 404, 410 or a DNS failure is a `fail`. Any other error (403s from sites behind bot protection, 429, timeouts, 5xx) is a warning: shown in the gate's check summary, or recorded in `warnings` by the health check (§8.6), and it never blocks a PR or affects an entry | fail | ✓ | ✓ |
@@ -903,7 +907,7 @@ In order:
 
 **Pinned links** (used everywhere):
 
-- Install guide: `https://github.com/<o>/<r>/blob/<scanned_commit>/AVP-INSTALL.md`
+- Install guide: `https://github.com/<o>/<r>/blob/<scanned_commit>/AVP-INSTALL.md`, or the entry's `install_guide` path with its `#anchor`
 - Source (scanned): `https://github.com/<o>/<r>/tree/<scanned_commit>`
 - Repo: unpinned `repo` URL, for credit and browsing
 
@@ -928,7 +932,7 @@ Use this index to answer questions like "What retro games can I play on Apple Vi
 
 ## For developers
 
-- [How to submit a port](<raw_base_url>/CONTRIBUTING.md): one YAML file plus AVP-INSTALL.md in your repo; clean submissions merge automatically.
+- [How to submit a port](<raw_base_url>/CONTRIBUTING.md): one YAML file plus AVP-INSTALL.md in your repo (or `install_guide` pointing at your own install docs, which the curator reads first); clean submissions merge automatically.
 - [Agent skill](<raw_base_url>/skills/avp-index-submit/SKILL.md): give it to your coding agent to make your repo ready to list.
 
 ## Data
@@ -994,7 +998,7 @@ Plain and friendly, no em dashes. It covers:
 1. **Who it's for**, and that the index only links to your repo.
 2. **The checklist**, mirroring §6.1:
    - one PR = one `entries/<id>.yaml`
-   - `AVP-INSTALL.md` at your repo root, telling players how to supply their own game files, build and install (no set format; the skill has a template). Players start from a checkout of your scanned commit, so keep the build steps usable from an existing checkout
+   - `AVP-INSTALL.md` at your repo root, telling players what they need, that they must supply their own game files and keys, and how to build and install (no set format; the skill has a template). If your README or docs already say all that, set `install_guide` to that file instead; the curator reads it before listing. Players start from a checkout of your scanned commit, so keep the build steps usable from an existing checkout
    - a public repo that you own, or that belongs to an org you're a public member of (anyone else's submission goes to the curator first)
    - a license if you have one (none or a custom one is fine; it's shown as stated)
    - no game data, disc images, archives or LFS in the repo or its releases; a prebuilt app in releases is fine if players still supply their own game files (set `install: [build, sideload]`; the curator looks first)
@@ -1223,6 +1227,7 @@ Test T8 alone lowers `hourly_cap` to 1 and restores it afterwards.
 | U21 | Approved files (§5.9) | A rescan or PR `flag` whose findings above `info` are all on files with an approved SHA-256 passes and moves the pin as `automated`; changed bytes, another repo or entry, any other finding, a `critical` finding, a steering attempt, a confidence under `approved_files_min_confidence`, a flag with no findings or an unreadable file keep the flag, which records `flagged_files`. `approve` records those files at `flagged_commit`, after which a later commit with the same bytes passes; a file it can't read is noted and the commit is still approved. Merging a flagged PR records the files in its marker, ignoring paths outside the repo |
 | U22 | Jules declines (§6.2, §6.3, §8.3, §8.7) | Refusals are recognised in the first-person shapes listed in `safety_check.py`, tested on Jules's message of 2026-10-10, the phrasings both independent reviews tried and a few more, in any message since the last follow-up (a refusal followed by "Is there anything else I can help you with?" counts); wordings outside those shapes are left to the no-work signal. Third-person or incidental uses of the words, refusals of an action within the review ("I decline to rate the binary as safe", "I must refuse to run the install script") and verdict-adjacent caveats ("the repository's prebuilt binaries", "which I cannot review") are not refusals, nor is a message with a verdict carrying this review's id, while one with another id hides nothing. A finished session with no verdict, no attempt at one and no sign of work is a refusal whatever it says; command output, a change set, a progress note about the clone or any verdict-shaped object (an over-long summary, a mistyped id, a malformed one in a progress note) is work, and gets the format fix naming its problem. The first refusal gets one restatement, which names any verdict problem too; a second refusal, a new refusal in a failed session, or no answer to the restatement is `declined`, never `pass`; an old refusal is never judged again; answers within one poll are judged once settled; other missing verdicts stay `error`. In PR mode a decline isn't charged to `scans`; the PR is requeued until it has had `per_pr_max_scans` declines (also under `owner:scan`), waiting an hour after each, then `needs-owner` with a fenced "Jules declined" failure and no session link, and the dispatcher holds it there through any number of pushes (eight pushes buy three sessions), while honest PRs are dispatched meanwhile. Declines of two different PRs or entries in an hour with no pass or flag pause dispatching; one PR's declines never do; a declined run counts toward the caps. In rescan mode `scan_declines` rises with `rescan_after` 2, 2, then 24 hours ahead, the pin and listing don't change, the triage issue says so and points at `rescan`, and a pass, flag, `restore` or `approve` resets it while an error doesn't. Kill-switch `rescan` clears only `rescan_after` and `scan_declines`, never `owner_approved`, flags, pins or the blocklist, and does nothing on a held or unlisted entry. A rescan decline gets `contents: write`, a PR decline `contents: read`. A decline on the no-work signal is worded "Jules finished without a verdict" (rescan triage note, PR check "No verdict from Jules", the dispatcher's limit check), never "declined", with the signal read from the scan artifact. The candidate schema equals the live one without titles and descriptions; both prompts render with `StrictUndefined` and keep the same rules; the live prompt, promoted from the candidate, names every harm the old one did, and neither prompt uses the words Jules declined on; live scans use the live prompt, titled "AVP index safety check"; `calibrate` writes only its outcome and summary; the ledger never counts or parses calibration runs |
 | U23 | Untrusted text (§8.0 rule 4) | A finding or summary quoting `<!-- avp:stage2 ... -->` can't turn a pass into "unchanged", fake its confidence or name the files a bypass merge approves: fenced and escaped text never contains `<!--`, and stage1, stage2 and bot-comment markers are read from the end. Jules's text printed by `scan`, `calibrate` or a job summary stays on one line and never starts with `::`, so it can't pose as a workflow command |
+| U24 | Install guide outside AVP-INSTALL.md (§5.2, S1-07, S1-07b) | `install_guide` takes a Markdown path in the repo or the root `README` with an optional anchor, and nothing else (no `..`, URL, spaces, markup or newline; schema and validator agree). S1-07 follows it in the gate, health check and rescan precheck; a missing anchor heading is only a warning, never a failure or decay. S1-07b routes an entry PR that sets or changes the guide, passes an edit that keeps it and the curator's own PRs, and `owner:scan` waives it; it doesn't run in the health check. Pages and the feed link the guide at the pin, anchor included. The safety-check prompt names the entry's guide and, for `AVP-INSTALL.md`, is byte for byte the prompt before the field existed |
 
 `self-test` also runs zizmor and actionlint, which must be green, with only the ignores allowed in §8.9. If actionlint doesn't yet recognize `concurrency.queue`, add a targeted ignore in `.github/actionlint.yaml` and note it. If Dependabot opens a PR during the build, confirm the gate skipped it and `self-test` ran; otherwise note "not yet observed" (not blocking).
 
@@ -1284,7 +1289,7 @@ Post the handoff as a new issue in the production repo titled "Bootstrap handoff
 | Item | Default |
 | --- | --- |
 | Visibility | Public from day one; all testing in a separate staging repo, deleted afterwards; production unannounced until launch |
-| Install file | `AVP-INSTALL.md` at repo root, not empty; no required format |
+| Install file | `AVP-INSTALL.md` at repo root, not empty; no required format. Or the entry's `install_guide`, read by the curator (S1-07b) |
 | Entry | 6 required fields (id, name, game title, repo, developer's GitHub, status); the rest optional |
 | Authority | Decided by GitHub user IDs. The repo's owner (or a public member of its org) lists it automatically; edits and removals also allowed for the original submitter; anyone else, and anyone re-adding a withdrawn id for a different repo, goes to the owner |
 | Licenses | Shown as stated; never a fail; route only if the text appears to forbid personal use |

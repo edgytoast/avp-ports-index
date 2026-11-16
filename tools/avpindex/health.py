@@ -59,7 +59,7 @@ class Outreach:
     def open(self, entry_id: str, entry: dict, repo: dict | None, report, state: store.State,
              removal: str) -> str | None:
         rt = self.rt
-        items = [{"problem": f"{r.id}: {r.detail or 'failed'}", "fix": FIXES.get(r.id, "")}
+        items = [{"problem": f"{r.id}: {r.detail or 'failed'}", "fix": r.how_to_fix}
                  for r in report.results if r.effective == "fail"]
         name = entry.get("name", entry_id)
         body = messages.render("outreach", rt.root, name=name, items=items, date=removal, owner_login=rt.owner_login)

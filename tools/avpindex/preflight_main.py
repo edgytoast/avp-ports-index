@@ -48,8 +48,8 @@ def main(argv: list[str] | None = None) -> int:
         mark = {PASS: "pass ", FAIL: "FAIL ", ROUTE: "route"}[result.outcome]
         line = f"{result.id.ljust(width)}  {mark}  {result.detail}".rstrip()
         print(line)
-        if result.outcome == FAIL and result.id in FIXES:
-            print(f"{'':{width}}         fix: {FIXES[result.id]}")
+        if result.outcome == FAIL and result.how_to_fix:
+            print(f"{'':{width}}         fix: {result.how_to_fix}")
     for check_id, text in report.warnings:
         print(f"{check_id.ljust(width)}  warn   {text}")
     if author_id is None:
