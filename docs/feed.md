@@ -24,6 +24,7 @@ Missing optional fields are `null`, or empty lists, except `install`, which is `
 - 1.4.0 added `entries[].media`: screenshots and the app icon.
 - 1.5.0 added the `3d-shared-space-stereo` value to `entries[].experiences`.
 - 1.6.0 added `entries[].install_guide`: an entry can point at an install guide in its README or docs instead of `AVP-INSTALL.md`. `install_doc_url` follows it, so apps that link that URL need no change.
+- 1.7.0 added `entries[].kind`: `port` (a game port) or `emulator` (an emulator, listed in its own README section). Treat a missing value as `port`.
 
 ## Media
 

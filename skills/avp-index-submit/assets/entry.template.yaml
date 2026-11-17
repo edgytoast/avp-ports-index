@@ -3,6 +3,7 @@
 schema_version: 1
 id: my-port                         # lowercase slug; must equal the file name (my-port.yaml)
 name: "My Port"
+# kind: emulator                   # only for an emulator; leave out for a game port
 game:
   title: "Original Game Title"
   original_platform: gamecube        # gamecube, wii, n64, ps1, ps2, xbox, dreamcast, pc or other

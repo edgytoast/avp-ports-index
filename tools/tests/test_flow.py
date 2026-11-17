@@ -735,7 +735,7 @@ def _data_paths(data, path=""):
 
 
 FULL_ENTRY = {  # every field the entry schema defines; a credit with and one without a url
-    "schema_version": 1, "id": "full", "name": "Full port",
+    "schema_version": 1, "id": "full", "name": "Full port", "kind": "port",
     "game": {"title": "Full game", "original_platform": "pc", "original_release_year": 1998},
     "repo": "https://github.com/trevorbilt-bot/full", "source_ref": "visionos",
     "developer": {"github": "trevorbilt-bot", "name": "Bot", "url": "https://example.com/bot"},
@@ -795,7 +795,7 @@ def test_play_modes_and_prebuilt_apps(rt, gh):
     assert "| Prebuilt app | The developer publishes an app you can sideload; see their repo." in out["ports/good.md"]
     assert "· prebuilt app (not safety-checked)" in out["README.md"] and "prebuilt app available (not safety-checked)" in out["llms.txt"]
     feed = json.loads(out["feed/v1/index.json"])
-    assert feed["schema_version"] == "1.6.0" and feed["entries"][0]["install"] == ["build", "sideload"]
+    assert feed["schema_version"] == "1.7.0" and feed["entries"][0]["install"] == ["build", "sideload"]
 
 
 class TestRecheck:

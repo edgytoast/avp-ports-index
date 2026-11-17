@@ -44,14 +44,26 @@ Everything below "Verified by trevorbilt" is self-reported by whoever submitted 
 
 ## Ports
 
-{% if listed %}
+{% if ports %}
 | Game | Port | Developer | Plays as | Trust | Health | License | Last commit | Scan | Install guide | TestFlight |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-{% for v in listed %}
+{% for v in ports %}
 | {{ v.game_title | md }} | [{{ v.name | md }}](ports/{{ v.id }}.md) | {{ v.developer }} | {{ v.experiences }} | {{ v.trust }}{% if v.curator_own %} · Curator's own port{% endif %} | {{ v.health_label }} | {{ v.license_label | md }} | {{ v.last_commit }}{% if v.archived %} (archived){% endif %} | {{ v.scan_label }} | [{{ v.install_guide_file | md }}]({{ v.install_url }}){% if v.sideload %} · prebuilt app (not safety-checked){% endif %} | {% if v.testflight %}[{{ "Beta full" if v.testflight.status == "full" else "Join the beta" }}]({{ v.testflight.url }}){% endif %} |
 {% endfor %}
 {% else %}
 No ports listed yet.
+{% endif %}
+{% if emulators %}
+
+## Emulators
+
+Emulators that run on the headset and play a console's own games. They're held to the same checks as the ports above. You supply your own console files and games, and the install guide says which ones.
+
+| Plays | Emulator | Developer | Plays as | Trust | Health | License | Last commit | Scan | Install guide | TestFlight |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+{% for v in emulators %}
+| {{ v.game_title | md }} | [{{ v.name | md }}](ports/{{ v.id }}.md) | {{ v.developer }} | {{ v.experiences }} | {{ v.trust }}{% if v.curator_own %} · Curator's own emulator{% endif %} | {{ v.health_label }} | {{ v.license_label | md }} | {{ v.last_commit }}{% if v.archived %} (archived){% endif %} | {{ v.scan_label }} | [{{ v.install_guide_file | md }}]({{ v.install_url }}){% if v.sideload %} · prebuilt app (not safety-checked){% endif %} | {% if v.testflight %}[{{ "Beta full" if v.testflight.status == "full" else "Join the beta" }}]({{ v.testflight.url }}){% endif %} |
+{% endfor %}
 {% endif %}
 {% if unavailable %}
 

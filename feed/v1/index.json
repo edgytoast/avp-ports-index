@@ -1,8 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
-  "schema_version": "1.6.0",
+  "schema_version": "1.7.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-17T21:10:19Z",
+  "generated_at": "2026-11-17T22:46:14Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -15,6 +15,7 @@
     {
       "id": "quakeavp",
       "name": "QuakeAVP",
+      "kind": "port",
       "game": {
         "title": "Quake",
         "original_platform": "pc",
@@ -177,6 +178,7 @@
     {
       "id": "visr",
       "name": "VISR",
+      "kind": "port",
       "game": {
         "title": "Halo: Combat Evolved",
         "original_platform": "xbox",
@@ -318,6 +320,7 @@
     {
       "id": "revc-visionos",
       "name": "reVC for visionOS",
+      "kind": "port",
       "game": {
         "title": "Grand Theft Auto: Vice City",
         "original_platform": "ps2",
@@ -449,6 +452,7 @@
     {
       "id": "mountain-64",
       "name": "Mountain 64",
+      "kind": "port",
       "game": {
         "title": "Celeste 64: Fragments of the Mountain",
         "original_platform": "pc",
@@ -577,6 +581,7 @@
     {
       "id": "voxelnative",
       "name": "VoxelNative",
+      "kind": "port",
       "game": {
         "title": "Luanti",
         "original_platform": "pc",
@@ -715,6 +720,7 @@
     {
       "id": "jkxr",
       "name": "JKXR for Apple Vision Pro",
+      "kind": "port",
       "game": {
         "title": "Jedi Outcast and Jedi Academy",
         "original_platform": "pc",
@@ -826,6 +832,7 @@
     {
       "id": "skyrim-vr",
       "name": "Skyrim VR on Apple Vision Pro",
+      "kind": "port",
       "game": {
         "title": "The Elder Scrolls V: Skyrim VR",
         "original_platform": "pc",
@@ -960,6 +967,7 @@
     {
       "id": "portal-2-vr",
       "name": "Portal 2 VR",
+      "kind": "port",
       "game": {
         "title": "Portal 2",
         "original_platform": "pc",
@@ -1059,6 +1067,7 @@
     {
       "id": "wiicompiled-vr",
       "name": "WiiCompiled Vision",
+      "kind": "port",
       "game": {
         "title": "Mario Kart Wii",
         "original_platform": "wii",
@@ -1228,6 +1237,7 @@
     {
       "id": "sm64coopdx",
       "name": "Super Mario 64 Co-op Deluxe",
+      "kind": "port",
       "game": {
         "title": "Super Mario 64",
         "original_platform": "n64",
@@ -1386,6 +1396,7 @@
     {
       "id": "2ship2harkinian",
       "name": "2 Ship 2 Harkinian",
+      "kind": "port",
       "game": {
         "title": "The Legend of Zelda: Majora's Mask",
         "original_platform": "n64",
@@ -1531,6 +1542,7 @@
     {
       "id": "perfect-dark",
       "name": "Perfect Dark",
+      "kind": "port",
       "game": {
         "title": "Perfect Dark",
         "original_platform": "n64",
@@ -1684,6 +1696,7 @@
     {
       "id": "goldeneye-xbla",
       "name": "GoldenEye 007",
+      "kind": "port",
       "game": {
         "title": "GoldenEye 007",
         "original_platform": "other",
@@ -1815,6 +1828,7 @@
     {
       "id": "apotris",
       "name": "Apotris",
+      "kind": "port",
       "game": {
         "title": "Apotris",
         "original_platform": "other",
@@ -1939,6 +1953,7 @@
     {
       "id": "spaghettikart",
       "name": "SpaghettiKart",
+      "kind": "port",
       "game": {
         "title": "Mario Kart 64",
         "original_platform": "n64",
@@ -2076,6 +2091,7 @@
     {
       "id": "rtcw-avp",
       "name": "RTCW for Apple Vision Pro",
+      "kind": "port",
       "game": {
         "title": "Return to Castle Wolfenstein",
         "original_platform": "pc",
@@ -2190,6 +2206,7 @@
     {
       "id": "starship",
       "name": "Starship",
+      "kind": "port",
       "game": {
         "title": "Star Fox 64",
         "original_platform": "n64",
@@ -2326,6 +2343,7 @@
     {
       "id": "ship-of-harkinian",
       "name": "Ship of Harkinian",
+      "kind": "port",
       "game": {
         "title": "The Legend of Zelda: Ocarina of Time",
         "original_platform": "n64",
@@ -2470,6 +2488,7 @@
     {
       "id": "lighthouse",
       "name": "Lighthouse",
+      "kind": "port",
       "game": {
         "title": "Banjo-Kazooie",
         "original_platform": "n64",
@@ -2607,6 +2626,7 @@
     {
       "id": "luigis-mansion-vr",
       "name": "Luigi's Mansion VR",
+      "kind": "port",
       "game": {
         "title": "Luigi's Mansion",
         "original_platform": "gamecube",
@@ -2757,6 +2777,7 @@
     {
       "id": "half-life-vr",
       "name": "Lambda VisionPro",
+      "kind": "port",
       "game": {
         "title": "Half-Life",
         "original_platform": "pc",
@@ -2892,6 +2913,7 @@
     {
       "id": "wind-waker-vr",
       "name": "Wind Waker VR",
+      "kind": "port",
       "game": {
         "title": "The Legend of Zelda: The Wind Waker",
         "original_platform": "gamecube",
@@ -3061,6 +3083,7 @@
     {
       "id": "galaxyvision",
       "name": "GalaxyVision",
+      "kind": "port",
       "game": {
         "title": "Super Mario Galaxy",
         "original_platform": null,
@@ -3188,6 +3211,7 @@
     {
       "id": "twilight-princess-vr",
       "name": "Twilight Princess VR",
+      "kind": "port",
       "game": {
         "title": "The Legend of Zelda: Twilight Princess",
         "original_platform": "gamecube",
@@ -3354,6 +3378,7 @@
     {
       "id": "half-life-alyx",
       "name": "Glovebox",
+      "kind": "port",
       "game": {
         "title": "Half-Life: Alyx",
         "original_platform": "pc",
@@ -3496,6 +3521,7 @@
     {
       "id": "animal-crossing-vr",
       "name": "Animal Crossing VR",
+      "kind": "port",
       "game": {
         "title": "Animal Crossing",
         "original_platform": "gamecube",
@@ -3667,6 +3693,7 @@
     {
       "id": "shar-visionos",
       "name": "SHAR VR",
+      "kind": "port",
       "game": {
         "title": "The Simpsons: Hit & Run",
         "original_platform": "pc",
@@ -3826,6 +3853,7 @@
     {
       "id": "macnativegames-totk",
       "name": "MacNativeGames",
+      "kind": "port",
       "game": {
         "title": "The Legend of Zelda: Tears of the Kingdom",
         "original_platform": "other",
@@ -3909,6 +3937,7 @@
     {
       "id": "vxpro",
       "name": "VXpro",
+      "kind": "port",
       "game": {
         "title": "Cyberpunk 2077",
         "original_platform": "pc",
@@ -4025,6 +4054,7 @@
     {
       "id": "dark-eco",
       "name": "Dark Eco",
+      "kind": "port",
       "game": {
         "title": "Jak and Daxter",
         "original_platform": null,
@@ -4137,6 +4167,7 @@
     {
       "id": "ctrpad",
       "name": "CTRPad for Vision Pro",
+      "kind": "port",
       "game": {
         "title": "Crash Team Racing",
         "original_platform": "ps1",
@@ -4294,6 +4325,7 @@
     {
       "id": "pokemon-gen1recomp",
       "name": "Gen1 Vision",
+      "kind": "port",
       "game": {
         "title": "Pokémon Red, Blue and Yellow",
         "original_platform": "other",
@@ -4460,6 +4492,7 @@
     {
       "id": "santosvision",
       "name": "V",
+      "kind": "port",
       "game": {
         "title": "Grand Theft Auto V",
         "original_platform": null,
@@ -4567,6 +4600,7 @@
     {
       "id": "avp-craft",
       "name": "AVPcraft",
+      "kind": "port",
       "game": {
         "title": "Minecraft: Java Edition",
         "original_platform": null,
@@ -4675,6 +4709,7 @@
     {
       "id": "117-vision",
       "name": "117",
+      "kind": "port",
       "game": {
         "title": "Halo: Combat Evolved",
         "original_platform": null,

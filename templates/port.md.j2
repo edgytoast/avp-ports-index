@@ -2,7 +2,7 @@
 
 **{{ v.game_title | md }}**{% if v.platform_label %} · originally on {{ v.platform_label }}{% endif %}{% if v.year %} ({{ v.year }}){% endif %}
 
-Port by {{ v.developer }}
+{{ "Emulator" if v.kind == "emulator" else "Port" }} by {{ v.developer }}
 
 Start with this command, which gets exactly the code that was scanned:
 

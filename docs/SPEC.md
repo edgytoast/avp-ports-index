@@ -61,7 +61,7 @@ There is no model setting: the Antigravity agent uses its default model.
 
 ## 2. What the system is
 
-A **link-only, preservation-and-discovery index** of community ports of classic games (built on decompilation and source-port projects) that run natively on Apple Vision Pro. Each port is one small YAML file pointing at the developer's own public source repository. The index **never hosts** game files, ports, binaries or emulators. Users bring their own legally-owned game files and build from the linked source.
+A **link-only, preservation-and-discovery index** of community ports of classic games (built on decompilation and source-port projects) that run natively on Apple Vision Pro. Each port is one small YAML file pointing at the developer's own public source repository. Emulators that run on the headset and play a console's own games are listed too, as entries with `kind: emulator`, in their own README section (decision 69). The index **never hosts** game files, ports, binaries or emulators. Users bring their own legally-owned game files and build from the linked source.
 
 **Audiences, all served from one source of truth (`entries/`):**
 

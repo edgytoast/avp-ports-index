@@ -77,6 +77,11 @@ SCHEMA = {'$schema': 'https://json-schema.org/draft/2020-12/schema',
                          'type': 'string',
                          'minLength': 1,
                          'maxLength': 80},
+                'kind': {'description': 'What the entry is: a port of a game (the default), or an '
+                                        "emulator that runs on the headset and plays a console's "
+                                        'games. Emulators are listed in their own section.',
+                         'enum': ['port', 'emulator'],
+                         'default': 'port'},
                 'game': {'description': 'The original game.',
                          'type': 'object',
                          'additionalProperties': False,

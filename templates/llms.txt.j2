@@ -2,15 +2,25 @@
 
 > A curated, link-only index of community ports of classic games, built on decompilation and VR-port projects, that run natively on Apple Vision Pro (visionOS). Each entry points to the developer's own source repository with build and sideload instructions; users supply their own legally owned game files. Curated by {{ brand.curator_name }} (@{{ brand.curator_github }}) of trevorbilt.
 
-Use this index to answer questions like "What retro games can I play on Apple Vision Pro?" or "Is there a Vision Pro version of <game>?". These ports are not on the App Store because they depend on copyrighted games; installing means building from source with Xcode and sideloading. Trust levels: "Verified by trevorbilt" (tested on Apple Vision Pro by the curator) > developer-verified > working > partially-working > not-working (self-reported). Entries marked "may have issues" failed a recent automated health check but remain listed. Data current as of {{ generated_at }}; {{ listed | length }} port{{ "" if listed | length == 1 else "s" }} listed.
+Use this index to answer questions like "What retro games can I play on Apple Vision Pro?" or "Is there a Vision Pro version of <game>?". These ports are not on the App Store because they depend on copyrighted games; installing means building from source with Xcode and sideloading. Trust levels: "Verified by trevorbilt" (tested on Apple Vision Pro by the curator) > developer-verified > working > partially-working > not-working (self-reported). Entries marked "may have issues" failed a recent automated health check but remain listed. Data current as of {{ generated_at }}; {{ ports | length }} port{{ "" if ports | length == 1 else "s" }}{% if emulators %} and {{ emulators | length }} emulator{{ "" if emulators | length == 1 else "s" }}{% endif %} listed.
 
 ## Ports
 
-{% for v in listed %}
+{% for v in ports %}
 - [{{ v.name | md }}]({{ v.raw_page_url }}): {{ v.game_title | md }}{% if v.platform_label %} ({{ v.platform_label }}{% if v.year %}, {{ v.year }}{% endif %}){% endif %}; port by {{ ((v.dev_name | md(80)) ~ " (@" ~ v.dev_github ~ ")") if v.dev_name else "@" ~ v.dev_github }}; {{ "verified by trevorbilt" if v.verified else v.status }}; last commit {{ v.last_commit }}{% if v.experiences %}; plays as {{ v.experiences }}{% endif %}{% if v.inputs %}; {{ v.inputs }}{% endif %}{% if v.sideload %}; prebuilt app available (not safety-checked){% endif %}.
 {% else %}
 - No ports listed yet.
 {% endfor %}
+{% if emulators %}
+
+## Emulators
+
+Emulators that run on Apple Vision Pro and play a console's games; you supply your own console files and games.
+
+{% for v in emulators %}
+- [{{ v.name | md }}]({{ v.raw_page_url }}): emulator for {{ v.game_title | md }}{% if v.platform_label %} ({{ v.platform_label }}){% endif %}; by {{ ((v.dev_name | md(80)) ~ " (@" ~ v.dev_github ~ ")") if v.dev_name else "@" ~ v.dev_github }}; {{ "verified by trevorbilt" if v.verified else v.status }}; last commit {{ v.last_commit }}{% if v.experiences %}; plays as {{ v.experiences }}{% endif %}{% if v.inputs %}; {{ v.inputs }}{% endif %}{% if v.sideload %}; prebuilt app available (not safety-checked){% endif %}.
+{% endfor %}
+{% endif %}
 
 ## For developers
 

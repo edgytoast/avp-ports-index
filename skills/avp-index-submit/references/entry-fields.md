@@ -9,6 +9,7 @@ Every field allowed in `entries/<id>.yaml`. Anything else fails the schema check
 | `schema_version` | no | `1` | Always 1. Treated as 1 when absent. |
 | `id` | yes | pattern `^[a-z0-9]+(-[a-z0-9]+)*$`; 0 to 64 characters | Lowercase slug, equal to the file name without .yaml. |
 | `name` | yes | 1 to 80 characters | The port's name as players should see it. |
+| `kind` | no | `port`, `emulator` | What the entry is: a port of a game (the default), or an emulator that runs on the headset and plays a console's games. Emulators are listed in their own section. |
 | `game` | yes | object | The original game. |
 | `game.title` | yes | 1 to 120 characters | The original game's title. |
 | `game.original_platform` | no | `gamecube`, `wii`, `n64`, `ps1`, `ps2`, `xbox`, `dreamcast`, `pc`, `other` | The platform the game first shipped on. |

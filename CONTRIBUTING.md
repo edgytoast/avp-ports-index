@@ -2,6 +2,8 @@
 
 Thanks for thinking of listing your port here. This index is for people who have brought a classic game to Apple Vision Pro as a native visionOS app, usually on top of a decompilation or source-port project. The index only links to your repository. It never hosts your code, your builds or anyone's game files, and players always bring their own copy of the game.
 
+Emulators that run on the headset are welcome too. Add `kind: emulator` to your entry and it's listed in the Emulators section, with the same checks as ports.
+
 ## The checklist
 
 These mirror the automated checks (the [full list of checks](skills/avp-index-submit/references/checks.md) explains each one).
