@@ -1,0 +1,29 @@
+schema_version: 1
+id: sheikahvision
+name: SheikahVision
+game:
+  title: "The Legend of Zelda: Breath of the Wild"
+  original_platform: other
+  original_release_year: 2017
+repo: https://github.com/zlinoliver/BotW-SheikahVision
+developer:
+  github: zlinoliver
+  url: https://sheikahvision.com
+status: developer-verified
+status_notes: "Beta. The developer plays it through end to end on Apple Vision Pro (M5, visionOS 27); M2 untested. Needs PS VR2 Sense controllers. The Mac installer in Releases builds the app on your Mac from your own game files; it holds no game data and no prebuilt Vision Pro app."
+visionos_min: "26.0"
+input: [game-controller]
+experiences: [6dof-immersive]
+install: [build]
+description: "Breath of the Wild in first-person VR on Apple Vision Pro, running natively on the headset: the Wii U executable is statically recompiled on your Mac, graphics run on Metal, motion controls follow BetterVR. No emulator, no PC, no streaming."
+tags: [zelda, breath-of-the-wild, wiiu, vr, static-recompilation, motion-controls]
+credits:
+  - {name: zlinoliver, role: "SheikahVision, the visionOS port and Mac installer", url: "https://github.com/zlinoliver/BotW-SheikahVision"}
+  - {name: Crementif, role: "BetterVR, the PC VR mod whose methods and research the VR layer follows", url: "https://github.com/Crementif/BotW-BetterVR"}
+  - {name: Ishaan Kalra, role: "BotWRecomp, the static recompilation this port is built on", url: "https://github.com/IshaanKalra2103/BotWRecomp"}
+  - {name: Cemu, role: "Latte, the graphics layer, running on Metal", url: "https://github.com/cemu-project/Cemu"}
+  - {name: Glovebox, role: "Glovebox, the Mac installer SheikahVision's installer is modelled on", url: "https://github.com/glovebox-vr/glovebox"}
+  - {name: Nintendo, role: "Original game"}
+upstream:
+  - https://github.com/IshaanKalra2103/BotWRecomp
+  - https://github.com/Crementif/BotW-BetterVR
