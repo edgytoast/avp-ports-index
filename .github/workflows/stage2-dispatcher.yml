@@ -64,6 +64,7 @@ jobs:
           private-key: ${{ secrets.APP_KEY }}
           permission-contents: write
           permission-pull-requests: write
+          permission-workflows: write          # GitHub refuses an App's merge of a fork PR that is behind workflow changes on main without it
       - name: Sweep green PRs through the merge rule
         env:
           GH_TOKEN: ${{ steps.app.outputs.token }}

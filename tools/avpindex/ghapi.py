@@ -55,6 +55,10 @@ class GitHub(LinkedRepoReader):
         resp = self.request("PUT", f"{self.base}/pulls/{int(number)}/merge", token=token,
                             json={"merge_method": "squash", "sha": sha, "commit_title": title,
                                   "commit_message": ""}, ok=(405, 409, 422))
+        if resp.status_code >= 400:
+            # Keep GitHub's reason in the run log; a bare status code doesn't say why a merge was refused.
+            self.log.append(f"merge #{number} refused ({resp.status_code}): {resp.text[:300]}")
+            print(self.log[-1], file=sys.stderr)
         return resp.status_code
 
     def close_pr(self, number: int) -> None:

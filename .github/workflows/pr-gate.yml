@@ -65,6 +65,7 @@ jobs:
           private-key: ${{ secrets.APP_KEY }}
           permission-contents: write
           permission-pull-requests: write
+          permission-workflows: write          # GitHub refuses an App's merge of a fork PR that is behind workflow changes on main without it
       - name: Apply the merge rule
         if: steps.gate.outputs.merge_prs != ''
         env:
