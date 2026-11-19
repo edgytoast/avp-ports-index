@@ -46,10 +46,8 @@ jobs:
     environment: safety-check
     permissions: {}
     timeout-minutes: 200
-    concurrency:
-      group: safety-check-scan
-      cancel-in-progress: false
-      queue: max
+    # No concurrency group: scans may run side by side. The dispatcher spaces their starts
+    # (stage2.start_gap_minutes) and caps the day (stage2.daily_cap).
     env:
       PYTHONPATH: tools
       INPUT_MODE: ${{ inputs.mode }}

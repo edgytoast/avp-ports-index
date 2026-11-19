@@ -4,8 +4,9 @@ Runs are idempotent. The ledger comes from the Actions API: each stage2-scan run
 "stage2 <mode> <pr or entry id>", and its report job uploads an empty artifact named
 result-<pass|flag|error|deferred|declined>. A declined scan used an agent run, so it counts like
 any other run; a deferred one was refused before a review ran, so it doesn't count toward the caps.
-Scans go out one at a time: none while another is queued or running, and at most one per dispatcher
-run, because back-to-back reviews trip the provider's per-minute token limit. A deferral (quota) in
+Scans may run side by side, but at most one starts per dispatcher run and none within start_gap_minutes
+of the last start, because reviews started back to back trip the provider's per-minute token limit; the
+daily_cap bounds the day. A deferral (quota) in
 the last hour pauses dispatching, and so does a refusal storm: declines
 of DECLINE_PAUSE different PRs or entries in the hour with nothing passed or flagged meanwhile, so
 one PR that keeps getting declined can't pause everyone. That PR waits DECLINE_WAIT after each
@@ -55,10 +56,11 @@ def parse_run_name(name: str | None) -> tuple[str, str] | None:
 def ledger(runs: list[dict], now: dt.datetime, deferred: frozenset | set = frozenset()) -> dict:
     """Counts the scan runs of the last hour and day. Runs in `deferred` (ids of runs that ended
     `deferred`) stay in `recent`, so a deferral still pauses dispatching, but use none of the caps:
-    the provider refused them before a review ran. `busy` is true while any scan is queued or running."""
+    the provider refused them before a review ran. `busy` is true while any scan is queued or running, and
+    `last_start` is when the newest scan run (deferred ones included) was created."""
     hour_ago, day_ago = now - dt.timedelta(hours=1), now - dt.timedelta(days=1)
     out = {"used_hour": 0, "used_day": 0, "rescans_day": 0, "recent": [], "active_rescans": set(),
-           "busy": False}
+           "busy": False, "last_start": None}
     for run in runs:
         created = store.parse_iso(run["created_at"])
         title = run.get("display_title") or run.get("name")
@@ -66,6 +68,8 @@ def ledger(runs: list[dict], now: dt.datetime, deferred: frozenset | set = froze
             continue
         if run.get("status") != "completed":
             out["busy"] = True
+        if out["last_start"] is None or created > out["last_start"]:
+            out["last_start"] = created
         if created >= hour_ago:
             out["recent"].append(run)
         if run.get("id") in deferred:
@@ -88,16 +92,24 @@ def deferred_runs(rt, runs: list[dict]) -> set:
             and "result-deferred" in {a.get("name") for a in rt.gh.run_artifacts(run["id"])}}
 
 
-def slots(policy: dict, enabled: bool, used: dict, deferred_recent: bool) -> int:
-    """At most one: a scan is only started when none is queued or running (see the module docstring)."""
-    if not enabled or deferred_recent or used.get("busy"):
+def slots(policy: dict, enabled: bool, used: dict, deferred_recent: bool, now: dt.datetime | None = None) -> int:
+    """At most one per dispatcher run, and none until start_gap_minutes have passed since the last scan started
+    (see the module docstring). Scans already running don't block a new one."""
+    if not enabled or deferred_recent:
         return 0
     stage2 = policy["stage2"]
-    return max(0, min(1, stage2["hourly_cap"] - used["used_hour"], stage2["daily_cap"] - used["used_day"]))
+    last = used.get("last_start")
+    if last is not None and (now or store.utcnow()) - last < dt.timedelta(minutes=stage2["start_gap_minutes"]):
+        return 0
+    return max(0, min(1, stage2["daily_cap"] - used["used_day"]))
 
 
-def eta_text(position: int, hourly_cap: int) -> str:
-    hours = max(1, math.ceil(position / max(1, hourly_cap)))
+def starts_per_hour(policy: dict) -> int:
+    return max(1, 60 // policy["stage2"]["start_gap_minutes"])
+
+
+def eta_text(position: int, per_hour: int) -> str:
+    hours = max(1, math.ceil(position / max(1, per_hour)))
     if hours == 1:
         return "an hour or less"
     if hours >= 48:
@@ -232,10 +244,14 @@ def dispatch(rt) -> list[str]:
     deferred = deferred_runs(rt, runs)
     used = ledger(runs, now, deferred)
     paused = _pause_reason(rt, used["recent"])
-    free = slots(policy, rt.stage2_enabled, used, bool(paused))
+    free = slots(policy, rt.stage2_enabled, used, bool(paused), now)
     log = [f"ledger: {used['used_hour']} this hour, {used['used_day']} today "
            f"({used['rescans_day']} rescans, {len(deferred)} deferred not counted); {free} slot(s)"
            + ("; a scan is still queued or running" if used["busy"] else "")
+           + ("; the last scan started less than "
+              f"{policy['stage2']['start_gap_minutes']} minutes ago"
+              if not free and not paused and used["last_start"] is not None
+              and now - used["last_start"] < dt.timedelta(minutes=policy["stage2"]["start_gap_minutes"]) else "")
            + (f"; paused: {paused}" if paused else "")]
     state = store.State.load(rt.root)
     entries, _ = store.load_entries(rt.root)
@@ -364,7 +380,7 @@ def dispatch(rt) -> list[str]:
         entry_id, entry, _ = _pr_entry(rt, pr)
         name = (entry or {}).get("name", entry_id or "this port")
         messages.upsert(rt, item["number"], messages.render(
-            "queued", rt.root, name=name, n=position, eta=eta_text(position, policy["stage2"]["hourly_cap"])))
+            "queued", rt.root, name=name, n=position, eta=eta_text(position, starts_per_hour(policy))))
     return log
 
 

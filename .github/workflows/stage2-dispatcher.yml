@@ -9,7 +9,7 @@ on:
     workflows: [stage2-scan, pr-gate, health-check, build-surfaces, kill-switch]
     types: [completed]
   schedule:
-    - cron: "7 * * * *"
+    - cron: "*/5 * * * *" # every 5 minutes, so queued scans can start as often as stage2.start_gap_minutes allows
   workflow_dispatch:
 
 permissions: {}

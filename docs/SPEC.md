@@ -392,13 +392,13 @@ site:
   base_url: auto        # auto = https://github.com/<this repo>/blob/main
   raw_base_url: auto    # auto = https://raw.githubusercontent.com/<this repo>/main
 stage2:
-  hourly_cap: 3
+  start_gap_minutes: 5               # at most one scan starts in any 5 minutes; scans may run side by side
   daily_cap: 50
   per_pr_max_scans: 3                # then the PR waits for the owner
   rescan_daily_max: 6
   confidence_threshold: 80          # the verdict's safe_confidence needed to pass (0-100)
   approved_files_min_confidence: 50  # a flag whose findings are all on curator-approved files (same SHA-256) passes from here up (§5.9)
-  timeout_minutes: 60                # enforced by the poller; the job's own timeout-minutes is fixed at 200
+  timeout_minutes: 150               # enforced by the poller; the job's own timeout-minutes is fixed at 200
 health:                             # the schedule itself is fixed in health-check.yml (17 6 * * *); workflows can't read it from here
   confirm_runs_before_outreach: 2
   grace_days: 30
@@ -720,7 +720,7 @@ Classification goes by changed paths first, then author.
 
 ### 8.3 `stage2-dispatcher.yml`
 
-- **Triggers:** `workflow_run` of `stage2-scan`, `pr-gate`, `health-check`, `build-surfaces` and `kill-switch` (completed), schedule `7 * * * *` (hourly), and `workflow_dispatch`.
+- **Triggers:** `workflow_run` of `stage2-scan`, `pr-gate`, `health-check`, `build-surfaces` and `kill-switch` (completed), schedule `*/5 * * * *` (every 5 minutes; GitHub may run it less often), and `workflow_dispatch`.
 - **Concurrency:** `stage2-dispatcher`, no cancel. Runs are idempotent, so dropped duplicates are harmless.
 - **Re-check waiting PRs** (`avpindex.cli recheck`, its own step after the merge sweep, `continue-on-error` with a 10-minute limit, so it never holds up scans or merges): for each open, non-draft entry PR labeled `stage1:fail` whose latest `gate/stage1` failures (recorded in an `avp:stage1` marker) are all fixed in the port's own repo (S1-06, S1-07, S1-11a, S1-11d), rerun the gate's entry-PR step when the linked HEAD differs from the one in its `external_id`, or when the check is older than `stage1_recheck_hours`. It reads the PR afresh and skips it if it moved, isolates each PR's errors, runs at most `stage1_recheck_max_per_run` per run and starts none after 5 minutes. A pass is queued for Stage 2 and scanned on the next dispatcher run; a route waits for the curator.
 - **Algorithm:**
@@ -731,7 +731,7 @@ Classification goes by changed paths first, then author.
      - Calibration runs (`stage2-calibrate.yml`, named `stage2 calibrate <label>`, §8.10) are a separate workflow and never enter the ledger: they use the plan's Jules quota outside these caps.
   2. **Slots:**
      - If `STAGE2_ENABLED != 'true'`, `slots = 0`.
-     - Otherwise `slots = min(1, hourly_cap − used_hour, daily_cap − used_day)`, and `slots = 0` while any `stage2-scan.yml` run is queued or running. Scans go out one at a time: one review uses about 1.4M tokens, so a scan that starts the moment the previous one ends trips the free tier's 100,000 tokens-a-minute limit (2026-11-13/14: PRs #27, #44 and #43 were deferred this way). The scan's completion starts the dispatcher again, so the next scan follows a minute or two later.
+     - Otherwise `slots = min(1, daily_cap − used_day)`, and `slots = 0` until `start_gap_minutes` have passed since the newest `stage2-scan.yml` run was created (deferred runs included). Scans may run side by side (owner's decision, 2026-11-19, with `timeout_minutes` raised to 150 for large ports): one review uses about 1.4M tokens, and a scan started the moment the previous one ended tripped the free tier's 100,000 tokens-a-minute limit (2026-11-13/14: PRs #27, #44 and #43 were deferred this way), so starts are spaced instead. A start the provider still refuses comes back `deferred`, uses none of the caps and pauses dispatching for the hour.
      - If any scan in the last 60 minutes ended `deferred`, or scans of two or more different PRs or entries ended `declined` while none passed or flagged, `slots = 0`, so a refusal storm doesn't burn the caps or the contributors' tries.
   3. **Order the candidates:**
      1. queued PRs, first in, first out by the time of the PR's **first** `labeled` event for `stage2:queued` (issue timeline API), so pushes and deferrals don't cost a PR its place
@@ -751,7 +751,7 @@ Classification goes by changed paths first, then author.
 ### 8.4 `stage2-scan.yml`
 
 - **Trigger:** `workflow_dispatch` only. Inputs are validated by `validate.py` first.
-- **Concurrency:** set per job, since a job can belong to only one group: the `scan` job uses `{group: safety-check-scan, cancel-in-progress: false, queue: max}`, and the `report` job uses `main-writer` (§8.0 rule 7), since it can commit `state/`.
+- **Concurrency:** set per job, since a job can belong to only one group: the `scan` job has no group, so scans run side by side (the dispatcher spaces their starts), and the `report` job uses `main-writer` (§8.0 rule 7), since it can commit `state/`.
 - **Timeout:** `timeout-minutes: 200` on the `scan` job, fixed in the YAML (it can't be read from `policy.yaml`). The poller gives up at `timeout_minutes`, which must stay at or under 180.
 - **Jobs:**
   1. `scan` (§6.2): environment `safety-check`.
@@ -854,7 +854,7 @@ Calibration of the Stage 2 review (decision 63; §12 step 4), dispatched by the 
 - **Job:** one job, `calibrate`, in environment `safety-check` (so it runs only from `main`), with `permissions: {}`: the job's `GITHUB_TOKEN` has no scopes (checkout uses it and doesn't persist it), and no App token is minted. Inputs reach Python only through `env:` and are validated there: the repo name, the SHA, the prompt choice and the label (the entry-id slug, at most 40 characters). It runs `python -m avpindex.cli calibrate --prompt <live|candidate> --out <dir>`, with the same SHA-pinned actions as `stage2-scan.yml`.
 - **Output:** the outcome (as in the scan artifact, plus the label, prompt, repo and commit) is uploaded as the `calibration` artifact, retained 30 days, and the run summary shows the result, confidence, steering attempt, findings with their severities (fenced as untrusted text) and the session link. It writes nothing to the repo, `state/`, issues or PRs, and has no report job.
 - **Concurrency:** its own group per label, `safety-check-calibrate-<label>`, with `cancel-in-progress: false` and `queue: max`; never `safety-check-scan` or `main-writer`, so it neither waits for nor holds up the index's scans.
-- **Quota:** its sessions count against the Jules plan's daily limit but not against `hourly_cap` or `daily_cap`, since the dispatcher's ledger reads only `stage2-scan.yml` runs (§8.3). Keep calibration batches small; if the plan runs out, live scans come back `deferred` and retry later.
+- **Quota:** its sessions count against the Jules plan's daily limit but not against `start_gap_minutes` or `daily_cap`, since the dispatcher's ledger reads only `stage2-scan.yml` runs (§8.3). Keep calibration batches small; if the plan runs out, live scans come back `deferred` and retry later.
 - **Validation:** a candidate prompt replaces the live one only through an owner PR, after calibration runs on the same repos and commits show it keeps the verdicts (the same findings and flags on repos that should flag, the same passes on repos that should pass) and stops the refusals.
 
 ---

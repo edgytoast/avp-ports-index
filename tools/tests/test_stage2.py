@@ -564,13 +564,17 @@ class TestQueue:
 
     def test_ledger_and_slots(self, root):
         policy = store.load_policy(root)
-        policy["stage2"].update(hourly_cap=3, daily_cap=12)  # independent of the repo's own settings
+        policy["stage2"].update(start_gap_minutes=5, daily_cap=12)  # independent of the repo's own settings
         used = queue.ledger([self.run_at(10), self.run_at(30, "stage2 rescan good"), self.run_at(200)],
                             store.utcnow())
         assert (used["used_hour"], used["used_day"], used["rescans_day"]) == (2, 3, 1)
         assert queue.slots(policy, True, used, False) == 1
         assert queue.slots(policy, False, used, False) == 0
         assert queue.slots(policy, True, used, True) == 0
+        recent = queue.ledger([self.run_at(2), self.run_at(30)], store.utcnow())
+        assert queue.slots(policy, True, recent, False) == 0  # the last scan started under 5 minutes ago
+        policy["stage2"]["daily_cap"] = 3
+        assert queue.slots(policy, True, used, False) == 0  # 3 of 3 used today
 
     def test_ledger_ignores_calibration_runs(self):
         """stage2-calibrate runs are outside the caps and never parsed as PR or rescan runs."""
@@ -594,23 +598,24 @@ class TestQueue:
         assert (used["used_hour"], used["used_day"], used["rescans_day"]) == (0, 1, 0)
         assert len(used["recent"]) == 2 and "deferred" in queue._pause_reason(rt, used["recent"])
 
-    def test_one_scan_at_a_time(self, rt, gh):
-        """Back-to-back reviews trip the provider's per-minute token limit (PRs #27, #44 and #43 on 2026-11-13/14),
-        so a dispatcher run starts at most one scan, and none while another is queued or running."""
+    def test_starts_are_spaced_but_scans_run_side_by_side(self, rt, gh):
+        """Reviews started back to back trip the provider's per-minute token limit (PRs #27, #44 and #43 on
+        2026-11-13/14), so a dispatcher run starts at most one scan, and none within start_gap_minutes of the last
+        start. A scan that is still running doesn't hold the next one back (owner's decision, 2026-11-19)."""
         for number, name, rid in ((5, "q1", 21), (6, "q2", 22), (7, "q3", 23)):
             self.queued(rt, gh, number, name, rid)
         rt.memo["policy"] = dict(store.load_policy(rt.root))
-        rt.memo["policy"]["stage2"] = dict(rt.memo["policy"]["stage2"], hourly_cap=3, daily_cap=12)
+        rt.memo["policy"]["stage2"] = dict(rt.memo["policy"]["stage2"], start_gap_minutes=5, daily_cap=12)
         gh.runs = []
         queue.dispatch(rt)
         assert len(gh.dispatched) == 1
         gh.runs = [dict(self.run_at(1, f"stage2 pr {gh.dispatched[0][1]['pr']}"), status="in_progress")]
         log = queue.dispatch(rt)
-        assert len(gh.dispatched) == 1 and "still queued or running" in log[0]
-        gh.runs[0]["status"] = "completed"
-        gh.artifacts = {1: [{"name": "result-pass"}]}
-        queue.dispatch(rt)
-        assert len(gh.dispatched) == 2
+        assert len(gh.dispatched) == 1 and "started less than 5 minutes ago" in log[0]
+        gh.runs = [dict(self.run_at(6, f"stage2 pr {gh.dispatched[0][1]['pr']}"), status="in_progress")]
+        log = queue.dispatch(rt)
+        assert len(gh.dispatched) == 2 and "still queued or running" in log[0]
+        assert gh.dispatched[1][1]["pr"] != gh.dispatched[0][1]["pr"]
 
     def test_declined_runs_count_and_only_a_storm_pauses(self, rt, gh):
         """A declined scan used a session, so it counts toward the caps. Only a storm pauses dispatching:
@@ -655,7 +660,7 @@ class TestQueue:
         gh.events[5][0]["created_at"] = "2026-10-01T00:00:00Z"  # q1's PR was queued first
         messages.upsert(rt, 5, "x", declines=1, declined_at=store.iso(store.utcnow() - dt.timedelta(minutes=30)))
         rt.memo["policy"] = dict(store.load_policy(rt.root))
-        rt.memo["policy"]["stage2"] = dict(rt.memo["policy"]["stage2"], hourly_cap=1)
+        rt.memo["policy"]["stage2"] = dict(rt.memo["policy"]["stage2"], start_gap_minutes=5)
         log = queue.dispatch(rt)
         assert [d[1]["pr"] for d in gh.dispatched] == ["6"] and "#5: declined less than an hour ago; waiting" in log
         assert "stage2:queued" in gh.labels_of(5) and "needs-owner" not in gh.labels_of(5)
@@ -691,7 +696,7 @@ class TestQueue:
                             external_id=f"{gh.repos[f'trevorbilt-bot/{name}']['id']}@{gh.heads[f'trevorbilt-bot/{name}']}")
         gh.events[6][0]["created_at"] = "2026-10-01T00:00:00Z"  # q1's PR was queued first
         rt.memo["policy"] = dict(store.load_policy(rt.root))
-        rt.memo["policy"]["stage2"] = dict(rt.memo["policy"]["stage2"], hourly_cap=1)
+        rt.memo["policy"]["stage2"] = dict(rt.memo["policy"]["stage2"], start_gap_minutes=5)
         queue.dispatch(rt)
         assert [d[1]["pr"] for d in gh.dispatched] == ["6"]
         assert "stage2:scanning" in gh.labels_of(6) and "stage2:queued" in gh.labels_of(5)
@@ -789,8 +794,9 @@ class TestQueue:
         state.health["good"]["scan_state"] = "behind"
         state.save()
         gh.move_head("trevorbilt-bot/good", SHA(6))
+        # started 10 minutes ago: past the start gap, so only the same-entry guard holds the second rescan back
         gh.runs = [{"id": 1, "name": "stage2-scan", "display_title": "stage2 rescan good", "status": "in_progress",
-                    "created_at": store.iso(store.utcnow())}]
+                    "created_at": store.iso(store.utcnow() - dt.timedelta(minutes=10))}]
         queue.dispatch(rt)
         assert gh.dispatched == []
         gh.runs[0]["status"] = "completed"

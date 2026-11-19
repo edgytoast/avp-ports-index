@@ -334,12 +334,12 @@ def _render_stage1(rt, number: int, name: str, report: Report) -> None:
 
 
 def queue_position(rt, number: int) -> tuple[int, str]:
-    from .queue import eta_text, queued_prs
+    from .queue import eta_text, queued_prs, starts_per_hour
     order = [p["number"] for p in queued_prs(rt)]
     if number not in order:
         order.append(number)
     position = order.index(number) + 1
-    return position, eta_text(position, rt.policy["stage2"]["hourly_cap"])
+    return position, eta_text(position, starts_per_hour(rt.policy))
 
 
 # --- owner verification ------------------------------------------------------------------
