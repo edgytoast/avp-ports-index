@@ -795,7 +795,7 @@ def test_play_modes_and_prebuilt_apps(rt, gh):
     assert "| Prebuilt app | The developer publishes an app you can sideload; see their repo." in out["ports/good.md"]
     assert "· prebuilt app (not safety-checked)" in out["README.md"] and "prebuilt app available (not safety-checked)" in out["llms.txt"]
     feed = json.loads(out["feed/v1/index.json"])
-    assert feed["schema_version"] == "1.7.0" and feed["entries"][0]["install"] == ["build", "sideload"]
+    assert feed["schema_version"] == "1.8.0" and feed["entries"][0]["install"] == ["build", "sideload"]
 
 
 class TestRecheck:

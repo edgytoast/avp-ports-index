@@ -318,8 +318,10 @@ records: {}          # empty at handoff
 ### 5.5 `state/lifecycle.yaml` (bot-written)
 
 ```yaml
-<id>: {status: listed, repo: <url>, repo_id: <int>, submitted_by: <login>, submitted_by_id: <int>, owner_approved: <bool>, changed_at: <ISO8601>, listed_at: <ISO8601>, by: <merge|health|kill-switch|stage2|self-removal|reconcile>}
+<id>: {status: listed, repo: <url>, repo_id: <int>, submitted_by: <login>, submitted_by_id: <int>, owner_approved: <bool>, changed_at: <ISO8601>, listed_at: <ISO8601>, by: <merge|health|kill-switch|stage2|self-removal|reconcile>, reason: <health|legal-451|legal-notice|repo-gone|developer-request>}
 ```
+
+`reason` is set only on a `delisted-decay` entry and says why it came off (decision 70): `health` when the health check delisted it, or the code the curator picked for kill-switch `delist`. Any move out of `delisted-decay` removes it.
 
 `submitted_by` and `submitted_by_id` are the login and numeric user ID of the author of the PR that first listed the entry (§6.1 S1-08). They don't change on later edits, and a new entry PR after `withdrawn` sets them again. Authority is always decided by the ID; the login is for display and mentions, and is re-resolved from the ID (`GET /user/{id}`) when used, since a login can be renamed or re-registered by someone else.
 
@@ -331,7 +333,7 @@ records: {}          # empty at handoff
 | --- | --- | --- |
 | none | `listed` | Entry PR merged |
 | `listed` | `listed` | Edit PR to that entry merged (updates the repo and scan record per §8.5), or kill switch `restore` or `approve` on a listed entry (§8.7) |
-| `listed` | `delisted-decay` | Health check: still failing after the grace window |
+| `listed` | `delisted-decay` | Health check: still failing after the grace window; or kill switch `delist` (decision 70) |
 | `delisted-decay` | `listed` | Edit PR to that entry merged |
 | `listed` | `pulled` | Kill switch `pull`; a Stage 2 `flag` on an entry that isn't `owner_approved`, from a rescan or from a PR scan of a same-repo edit (§6.3); or a health-check S1-05 or S1-16 hit |
 | `delisted-decay` | `pulled` | Kill switch `pull` (the health check only checks `listed` entries) |
@@ -345,7 +347,7 @@ Rules that hold for every transition:
 
 - A merge never moves an entry out of `pulled` or `taken-down`, and a contributor PR can't add, edit or delete the file of a `pulled` entry (S1-15).
 - `listed` entries appear in the port list on every surface.
-- `delisted-decay` entries appear in the **Unavailable ports** record (§10.1, §10.4): name, game, developer, credits, dates and last scanned commit, with no links. It is a trace that the port existed; the index never copies anyone's code.
+- `delisted-decay` entries appear in the **Unavailable ports** record (§10.1, §10.4): name, game, developer, credits, dates, reason and last scanned commit, with no links. It is a trace that the port existed; the index never copies anyone's code.
 - `pulled`, `taken-down` and `withdrawn` entries appear nowhere except as feed tombstones.
 
 ### 5.7 `blocklist/blocklist.yaml` and `state/flags.yaml`
@@ -815,8 +817,8 @@ Classification goes by changed paths first, then author.
 ### 8.7 `kill-switch.yml`
 
 - **Triggers:**
-  - `workflow_dispatch` (inputs `entry_id`, `action: pull|restore|takedown|approve|rescan`, `blocklist: boolean`)
-  - `issues: labeled` with label `kill-switch`, acting only if the sender's user ID is `OWNER_ID`; `entry_id` is parsed from the report form in Python. The label path always performs `pull` without blocklisting; use the dispatch path for `restore`, `takedown`, `approve`, `rescan` or blocklisting
+  - `workflow_dispatch` (inputs `entry_id`, `action: pull|restore|takedown|approve|rescan|delist`, `blocklist: boolean`, `reason: legal-451|legal-notice|repo-gone|developer-request`, used only by `delist`)
+  - `issues: labeled` with label `kill-switch`, acting only if the sender's user ID is `OWNER_ID`; `entry_id` is parsed from the report form in Python. The label path always performs `pull` without blocklisting; use the dispatch path for `restore`, `takedown`, `approve`, `rescan`, `delist` or blocklisting
 - **Sync first:** the cursor replay and reconcile (§8.5 steps 1 and 2), so an action right after an unsynced merge sees the entry's real state.
 - **Validation:** the entry id is validated (§8.0). An invalid id is a no-op with a comment.
 - **Actions:**
@@ -825,7 +827,8 @@ Classification goes by changed paths first, then author.
   - `approve`: for a `listed` entry; for a `pulled` entry, run `restore` first (it keeps `flagged_commit`). The owner has reviewed the repo and accepts it. If the entry has a `flagged_commit`, `scanned_commit` moves to it with `scan_kind: curator-reviewed` (the pin-move rule applies, §5.4), and the SHA-256 of each of its `flagged_files` at that commit goes into `state/approvals.yaml` (§5.9), so those exact bytes never flag again; the comment names them. In every case the repo's record is removed from `state/flags.yaml`, `owner_approved: true`, `scan_declines` is reset to 0, and the entry's triage issue is closed. With neither a `flagged_commit` nor a flag record, it's a no-op with a comment.
   - `takedown`: lifecycle `taken-down`; always blocklist; delete `entries/<id>.yaml`.
   - `rescan`: for a `listed` entry waiting after a rescan error or declines (§6.3): clear `rescan_after` and reset `scan_declines` to 0, so the next dispatcher run can rescan it, and note it on the entry's open triage issue. It says nothing about the repo, so unlike `restore` it never sets `owner_approved` (a later `flag` still pulls an entry that isn't), and it leaves the pin, `flagged_commit`, flag records, blocklist and lifecycle alone. On an entry held after a flag (`rescan_hold`) it does nothing and says to use `approve` or `restore` after reviewing; on any other status it does nothing.
-- Every action regenerates surfaces and makes one `[skip ci]` commit. There are no free-text reason inputs.
+  - `delist` (decision 70): for a `listed` entry, lifecycle `delisted-decay` now with the chosen `reason`, instead of waiting out the health check's grace window. The entry file stays, nothing is blocklisted, and the entry's triage issue is closed. From then on the health check and rescans skip it, like any `delisted-decay` entry. An outreach issue still open is closed by the next health check with the `delisted` template. On an entry already `delisted-decay`, only `reason` changes (so `legal-451` can become `legal-notice` once a notice is seen). A merged edit PR lists it again, which needs its repo to pass the checks.
+- Every action regenerates surfaces and makes one `[skip ci]` commit. There are no free-text reason inputs; `reason` is a fixed choice.
 
 ### 8.8 `report-intake.yml`
 
@@ -900,7 +903,7 @@ In order:
    - Columns: Game · Port (link to its page) · Developer · Plays as · Trust · Health · License · Last commit · Scan ("Scanned <date> · N commits since" or "Reviewed by the curator <date>") · Install guide (followed by "· prebuilt app (not safety-checked)" when `install` includes `sideload`).
    - Sort: tier 1, then status rank, then `last_commit_date` descending.
    - With zero entries, render "No ports listed yet." in place of the table.
-7. **Unavailable ports:** a short table of `delisted-decay` entries: Game · Port · Developer · Credits · Listed · Unavailable since · Last scanned commit (plain text, no links). Lead line: "These ports were listed here and are no longer available. They're kept as a record that the work existed." Omit the section when it's empty.
+7. **Unavailable ports:** a short table of `delisted-decay` entries: Game · Port · Developer · Credits · Listed · Unavailable since · Reason · Last scanned commit (plain text, no links). Unavailable since is the entry's `failing_since` when set (when it went dark), else `changed_at`. Reason is the fixed text for the lifecycle `reason` (`lifecycle.DELIST_REASONS`). Lead line: "These ports were listed here and are no longer available. They're kept as a record that the work existed, so nobody has to wonder whether a game was ported before. There are no links and no copies. If a port comes back, it moves back up." Omit the section when it's empty.
 8. **"Developers: get your port listed":** link to CONTRIBUTING and the skill.
 9. **Data links:** feed, feed schema, `llms.txt`.
 10. **One-line notices:** "Found something broken or malicious? Open a report issue." and "Rights holders: see SECURITY.md or email admin@trevorbilt.com."
@@ -977,7 +980,7 @@ Use this index to answer questions like "What retro games can I play on Apple Vi
     "page_url": "",
     "media": {"commit": "", "source": "readme|entry", "icon": null, "screenshots": [{"url": "", "alt": null, "format": "", "width": 0, "height": 0, "bytes": 0, "sha256": ""}]}
   }],
-  "unavailable": [{"id": "", "name": "", "game": {"title": ""}, "developer": {"name": "", "github": ""}, "credits": [], "listed_at": "", "unavailable_since": "", "last_scanned_commit": ""}],
+  "unavailable": [{"id": "", "name": "", "game": {"title": ""}, "developer": {"name": "", "github": ""}, "credits": [], "listed_at": "", "unavailable_since": "", "last_scanned_commit": "", "reason": "health|legal-451|legal-notice|repo-gone|developer-request"}],
   "tombstones": [{"id": "", "removed_at": ""}]
 }
 ```
@@ -985,7 +988,7 @@ Use this index to answer questions like "What retro games can I play on Apple Vi
 - **`developer.github_verified`:** true when `developer.github` owns the linked repo or is a public member of its owning org; false otherwise (the credit is as the submitter stated it).
 - `github_verified` and `curator_own` need API lookups, so `sync-state` computes them on each merge and the health check refreshes them, storing both in `state/health.yaml`. `generate.py` reads only files and makes no API calls, so it works without secrets (`self-test`) and gives the same output for the same files (U17).
 - **`media`** (1.4.0): `media.py` collects it into `state/media.yaml` from GitHub when an entry's scanned commit or `media` picks change, during `build-surfaces` and the daily health check; `generate.py` only reads that file. Up to three README images that are the repo's own files or GitHub attachments (480x270 or larger), and the AppIcon (`.solidimagestack` layers back to front, a layer equal to the one under it dropped, else an `.appiconset`'s largest PNG). Each is a link pinned to the scanned commit with its size and SHA-256, read from the image header; nothing is decoded or hosted. Downloads follow redirects only within GitHub and stop at 8 MB. A failure keeps the previous record. `media: false` in the entry turns pictures off.
-- **Unavailable:** `delisted-decay` entries, kept as a preservation record, with no links.
+- **Unavailable:** `delisted-decay` entries, kept as a preservation record, with no links, and with `reason` (1.8.0).
 - **Tombstones:** ids of `pulled`, `taken-down` and `withdrawn` entries, with no reasons given.
 - **`docs/feed.md` versioning policy:**
   - semver; additive optional fields bump the minor version.

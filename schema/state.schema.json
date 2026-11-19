@@ -88,7 +88,8 @@
           "owner_approved": {"type": "boolean"},
           "changed_at": {"$ref": "#/$defs/iso"},
           "listed_at": {"$ref": "#/$defs/iso_or_null"},
-          "by": {"enum": ["merge", "health", "kill-switch", "stage2", "self-removal", "reconcile"]}
+          "by": {"enum": ["merge", "health", "kill-switch", "stage2", "self-removal", "reconcile"]},
+          "reason": {"enum": ["health", "legal-451", "legal-notice", "repo-gone", "developer-request"]}
         }
       }
     },

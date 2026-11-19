@@ -200,7 +200,9 @@
         "credits": {"type": "array", "items": {"$ref": "#/$defs/credit"}},
         "listed_at": {"$ref": "#/$defs/iso_or_null"},
         "unavailable_since": {"$ref": "#/$defs/iso"},
-        "last_scanned_commit": {"type": ["string", "null"]}
+        "last_scanned_commit": {"type": ["string", "null"]},
+        "reason": {"enum": ["health", "legal-451", "legal-notice", "repo-gone", "developer-request"],
+                   "description": "Why it came off the index. Added in 1.8.0; readers should treat a missing value as health. See docs/feed.md."}
       }
     }
   }

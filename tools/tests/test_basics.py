@@ -93,7 +93,7 @@ class TestLifecycle:
         legal = {
             (None, "listed"): {"merge", "reconcile"},
             ("listed", "listed"): {"merge", "reconcile", "kill-switch"},
-            ("listed", "delisted-decay"): {"health"},
+            ("listed", "delisted-decay"): {"health", "kill-switch"},
             ("delisted-decay", "listed"): {"merge", "reconcile"},
             ("listed", "pulled"): {"kill-switch", "stage2", "health"},
             ("delisted-decay", "pulled"): {"kill-switch"},

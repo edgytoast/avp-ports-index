@@ -69,12 +69,12 @@ Emulators that run on the headset and play a console's own games. They're held t
 
 ## Unavailable ports
 
-These ports were listed here and are no longer available. They're kept as a record that the work existed.
+These ports were listed here and are no longer available. They're kept as a record that the work existed, so nobody has to wonder whether a game was ported before. There are no links and no copies. If a port comes back, it moves back up.
 
-| Game | Port | Developer | Credits | Listed | Unavailable since | Last scanned commit |
-| --- | --- | --- | --- | --- | --- | --- |
+| Game | Port | Developer | Credits | Listed | Unavailable since | Reason | Last scanned commit |
+| --- | --- | --- | --- | --- | --- | --- | --- |
 {% for u in unavailable %}
-| {{ u.game_title | md }} | {{ u.name | md }} | {{ u.developer }} | {% for c in u.credits %}{{ c.name | md }} ({{ c.role | md }}){% if not loop.last %}, {% endif %}{% endfor %} | {{ (u.listed_at or "")[:10] }} | {{ (u.unavailable_since or "")[:10] }} | {{ u.last_scanned_commit or "" }} |
+| {{ u.game_title | md }} | {{ u.name | md }} | {{ u.developer }} | {% for c in u.credits %}{{ c.name | md }} ({{ c.role | md }}){% if not loop.last %}, {% endif %}{% endfor %} | {{ (u.listed_at or "")[:10] }} | {{ (u.unavailable_since or "")[:10] }} | {{ u.reason_text }} | {{ u.last_scanned_commit or "" }} |
 {% endfor %}
 {% endif %}
 

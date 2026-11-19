@@ -9,7 +9,7 @@ Its schema is [`schema/feed-v1.schema.json`](../schema/feed-v1.schema.json). The
 ## Contents
 
 - `entries`: every listed port, with pinned links (`source_url`, `install_doc_url`) to the scanned commit, the trust tier, health, scan state and license as stated. `source_ref` names the branch the index follows when it isn't the repo's default branch. `install_guide` is the install guide's path in the repo (`AVP-INSTALL.md`, or the README or docs file the entry names, with `#anchor` for one section), and `install_doc_url` links it, anchor included.
-- `unavailable`: ports that were listed and came off the index after their checks kept failing. Kept as a record that the work existed, with no links.
+- `unavailable`: ports that were listed and are no longer available, kept as a record that the work existed, with no links. `unavailable_since` is when the port went dark (its first failing health check, or the day it came off when there was none). `reason` says why: `health` (it kept failing the health check through the grace period), `legal-451` (its repo answers HTTP 451, unavailable for legal reasons; a takedown is inferred, no notice has been seen), `legal-notice` (taken down after a legal notice), `repo-gone` (deleted or made private) or `developer-request`.
 - `tombstones`: ids that were pulled, taken down or withdrawn, with the date. No reasons are given.
 
 Missing optional fields are `null`, or empty lists, except `install`, which is `["build"]` when absent.
@@ -25,6 +25,7 @@ Missing optional fields are `null`, or empty lists, except `install`, which is `
 - 1.5.0 added the `3d-shared-space-stereo` value to `entries[].experiences`.
 - 1.6.0 added `entries[].install_guide`: an entry can point at an install guide in its README or docs instead of `AVP-INSTALL.md`. `install_doc_url` follows it, so apps that link that URL need no change.
 - 1.7.0 added `entries[].kind`: `port` (a game port) or `emulator` (an emulator, listed in its own README section). Treat a missing value as `port`.
+- 1.8.0 added `unavailable[].reason` (treat a missing value as `health`), and `unavailable_since` became the date the port went dark rather than the date it came off. No port had been on the record before 1.8.0.
 
 ## Media
 

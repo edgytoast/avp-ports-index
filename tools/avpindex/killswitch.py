@@ -10,7 +10,7 @@ from .lifecycle import DECAY, LISTED, PULLED, TAKEN_DOWN, WITHDRAWN
 from .sync import pin, repo_facts, sync_all
 from .writer import git, git_bytes
 
-ACTIONS = ("pull", "restore", "takedown", "approve", "rescan")
+ACTIONS = ("pull", "restore", "takedown", "approve", "rescan", "delist")
 FORM_FIELD = re.compile(r"^###\s*Entry id\s*$\n+(.+?)\s*$", re.M | re.I)
 
 ACKS = {
@@ -54,6 +54,12 @@ def run(rt) -> str:
         entry_id = validate.entry_id(raw_id)
     except validate.InvalidInput:
         return say("The kill switch did nothing: that isn't a valid entry id.")
+    reason = ""
+    if action == "delist":
+        try:
+            reason = validate.choice(os.environ.get("INPUT_REASON"), lifecycle.CURATOR_REASONS, "reason")
+        except validate.InvalidInput:
+            return say("The kill switch did nothing: delist needs one of the listed reasons.")
     outcome: dict = {}
 
     def mutate() -> None:
@@ -73,6 +79,8 @@ def run(rt) -> str:
             takedown(rt, state, entry_id, outcome)
         elif action == "rescan":
             rescan(rt, state, entry_id, outcome)
+        elif action == "delist":
+            delist(rt, state, entry_id, reason, outcome)
         state.save()
 
     rt.commit(mutate, f"kill-switch: {action} {entry_id}")
@@ -243,6 +251,23 @@ def rescan(rt, state: store.State, entry_id: str, outcome: dict) -> None:
     health["rescan_after"] = None
     health["scan_declines"] = 0
     rt.note_triage(entry_id, "The curator asked for the rescan to be tried again; the next dispatcher run will.")
+
+
+def delist(rt, state: store.State, entry_id: str, reason: str, outcome: dict) -> None:
+    """Move a listed entry to the Unavailable ports record now, with the curator's reason (decision 70), instead
+    of waiting out the health check's grace window. The entry file stays, nothing is blocklisted, and the health
+    check and rescans stop looking at it. On an entry already there, only the reason changes. A merged edit PR
+    lists it again once its repo passes the checks."""
+    status = state.status(entry_id)
+    if status == DECAY:
+        state.lifecycle[entry_id]["reason"] = reason
+        outcome["note"] = f"Kill switch: `{entry_id}` was already on the Unavailable ports record; its reason is now `{reason}`."
+        return
+    if status != LISTED:
+        outcome["note"] = f"The kill switch did nothing: `{entry_id}` is {status}; delist works on listed entries."
+        return
+    lifecycle.transition(state, entry_id, DECAY, "kill-switch", reason=reason)
+    rt.close_triage(entry_id, f"Moved to the Unavailable ports record by the curator ({reason}).")
 
 
 def takedown(rt, state: store.State, entry_id: str, outcome: dict) -> None:

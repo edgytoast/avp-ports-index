@@ -11,13 +11,24 @@ TAKEN_DOWN = "taken-down"
 WITHDRAWN = "withdrawn"
 STATUSES = (LISTED, DECAY, PULLED, TAKEN_DOWN, WITHDRAWN)
 
+# Why a `delisted-decay` entry left the index (decision 70). Fixed codes, never free text: the health check
+# records `health`; the curator's kill-switch `delist` picks one of the others.
+DELIST_REASONS = {
+    "health": "Stopped passing the health check",
+    "legal-451": "Repo blocked for legal reasons (HTTP 451). Takedown inferred; no notice seen",
+    "legal-notice": "Taken down after a legal notice",
+    "repo-gone": "Repo deleted or made private",
+    "developer-request": "Removed at the developer's request",
+}
+CURATOR_REASONS = tuple(k for k in DELIST_REASONS if k != "health")
+
 MERGE = {"merge", "reconcile"}  # reconcile applies the same rules as a merge (§8.5 step 2)
 
 # (from, to) -> triggers ("by" values) that may cause it. Nothing else is legal.
 LEGAL: dict[tuple[str | None, str], set[str]] = {
     (None, LISTED): MERGE,
     (LISTED, LISTED): MERGE | {"kill-switch"},
-    (LISTED, DECAY): {"health"},
+    (LISTED, DECAY): {"health", "kill-switch"},
     (DECAY, LISTED): MERGE,
     (LISTED, PULLED): {"kill-switch", "stage2", "health"},
     (DECAY, PULLED): {"kill-switch"},
@@ -57,6 +68,8 @@ def transition(state: State, entry_id: str, target: str, by: str, **fields) -> s
     record["status"] = target
     record["changed_at"] = now
     record["by"] = by
+    if target != DECAY:
+        record.pop("reason", None)  # only an entry on the Unavailable ports record has one
     if target == LISTED and source in (None, WITHDRAWN):
         record["listed_at"] = now
     if target == LISTED and source != LISTED:

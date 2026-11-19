@@ -142,10 +142,12 @@ def run(rt) -> None:
                        f"{'; routes ' + ', '.join(routes) if routes else ''}")
         for entry_id, record in sorted(state.lifecycle.items()):
             health = state.health.get(entry_id) or {}
-            if record.get("status") in (PULLED, TAKEN_DOWN, WITHDRAWN) and health.get("outreach_issue_url"):
+            if record.get("status") in (DECAY, PULLED, TAKEN_DOWN, WITHDRAWN) and health.get("outreach_issue_url"):
+                # DECAY here means the curator's kill-switch `delist` (Stage C clears these fields itself)
                 name = (entries.get(entry_id) or {}).get("name", entry_id)
+                template = "delisted" if record.get("status") == DECAY else "outreach-closed"
                 outreach.follow_up(health["outreach_issue_url"],
-                                   messages.render("outreach-closed", rt.root, name=name), close=True)
+                                   messages.render(template, rt.root, name=name), close=True)
                 clear_outreach(health)
         for stem, error in parse_errors.items():
             rt.summary(f"entries/{stem}.yaml can't be parsed: {error}")
@@ -182,7 +184,7 @@ def decay(rt, outreach: Outreach, state: store.State, entry_id: str, entry: dict
     if start >= now:
         return 0  # Stage C only in a run after the one that reached Stage B
     if now >= start + dt.timedelta(days=int(policy["grace_days"])):
-        lifecycle.transition(state, entry_id, DECAY, "health")
+        lifecycle.transition(state, entry_id, DECAY, "health", reason="health")
         outreach.follow_up(health["outreach_issue_url"],
                            messages.render("delisted", rt.root, name=entry.get("name", entry_id)), close=True)
         clear_outreach(health)
