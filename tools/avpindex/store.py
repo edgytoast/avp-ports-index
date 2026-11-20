@@ -91,6 +91,9 @@ def load_policy(root: Path | None = None) -> dict:
     timeout = policy["stage2"]["timeout_minutes"]
     if not isinstance(timeout, int) or not 1 <= timeout <= 180:
         raise ValueError("stage2.timeout_minutes must be between 1 and 180")
+    budget = policy["stage2"].get("agent_token_budget", 2_000_000)
+    if not isinstance(budget, int) or not 100_000 <= budget <= 10_000_000:
+        raise ValueError("stage2.agent_token_budget must be between 100000 and 10000000")
     gap = policy["stage2"]["start_gap_minutes"]
     if not isinstance(gap, int) or not 1 <= gap <= 60:
         raise ValueError("stage2.start_gap_minutes must be between 1 and 60")

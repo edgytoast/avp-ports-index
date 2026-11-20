@@ -314,8 +314,9 @@ def dispatch(rt) -> list[str]:
             messages.upsert(rt, number, messages.render("owner-review", rt.root, name=entry.get("name", entry_id)))
             log.append(f"#{number}: {why}")
             continue
-        if _declined_recently(bot_state, now):
-            log.append(f"#{number}: declined less than an hour ago; waiting")
+        recent = _declined_recently(bot_state, now)
+        if recent:
+            log.append(f"#{number}: {recent} less than an hour ago; waiting")
             continue  # not counted as waiting: it can't be dispatched yet, so rescans may run meanwhile
         if free <= 0:
             waiting += 1
@@ -389,11 +390,16 @@ def _guide(entry: dict, policy: dict) -> str:
     return checks.entry_install_guide_or_default(entry, policy)[0]
 
 
-def _declined_recently(bot_state: dict, now: dt.datetime) -> bool:
-    try:
-        return now - store.parse_iso(bot_state.get("declined_at") or "") < DECLINE_WAIT
-    except (TypeError, ValueError):
-        return False
+def _declined_recently(bot_state: dict, now: dt.datetime) -> str:
+    """What happened less than DECLINE_WAIT ago: the PR's last review was declined, or didn't finish (decision
+    71). Empty when neither did."""
+    for key, what in (("declined_at", "declined"), ("errored_at", "didn't finish")):
+        try:
+            if now - store.parse_iso(bot_state.get(key) or "") < DECLINE_WAIT:
+                return what
+        except (TypeError, ValueError):
+            pass
+    return ""
 
 
 def _repo_name(entry: dict) -> str:

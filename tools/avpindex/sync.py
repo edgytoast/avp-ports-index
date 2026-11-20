@@ -85,6 +85,7 @@ def pin(rt, state: store.State, entry_id: str, sha: str, kind: str, confidence: 
         health["rescan_after"] = None
         health["rescan_hold"] = False
         health["scan_declines"] = 0
+        health["scan_errors"] = 0
         health["scan_refused"] = False
         if repo:
             head = linked_head(rt.gh, repo, entry)

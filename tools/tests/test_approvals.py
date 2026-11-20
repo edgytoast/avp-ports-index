@@ -202,14 +202,16 @@ def test_policy_floor_is_validated(root):
 
 
 def test_a_later_pass_closes_a_stale_couldnt_finish_note(rt, gh):
-    """Decision 66: a rescan that couldn't finish opens a triage note; the next rescan passing closes it."""
+    """Decision 66: a rescan that couldn't finish opens a triage note (on the third try in a row since decision
+    71); the next rescan passing closes it."""
     repo = gh.add_repo(REPO, 11)
     list_entry(rt, "good", repo, scanned=SHA(5), owner_approved=True)
     gh.move_head(REPO, SHA(11))
     inputs = report.Inputs(mode="rescan", pr=None, head_sha=None, linked_repo=REPO, linked_commit=SHA(11),
                            entry_id="good", repo_id=11, base_commit=SHA(5), counted=False)
-    report.run(rt, inputs, {"result": "error", "reason": "the session didn't respond to the follow-up message",
-                            "session_url": "u"})
+    for _ in range(report.ERROR_QUIET_TRIES):
+        report.run(rt, inputs, {"result": "error", "reason": "the session didn't respond to the follow-up message",
+                                "session_url": "u"})
     triage = next(i for i in gh.issue_store.values() if i["title"] == "Triage: good")
     assert triage["state"] == "open"
     assert report.run(rt, inputs, {"result": "pass", "verdict": verdict(90), "session_url": "u"})[0] == "pass"

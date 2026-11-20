@@ -165,6 +165,7 @@ def restore(rt, state: store.State, entry_id: str, outcome: dict) -> None:
         health["rescan_hold"] = False
         health["rescan_after"] = None  # the owner asked for rescans to resume
         health["scan_declines"] = 0
+        health["scan_errors"] = 0
         health["scan_refused"] = False
         state.lifecycle[entry_id]["owner_approved"] = True
     elif status in (PULLED, TAKEN_DOWN):
@@ -182,6 +183,7 @@ def restore(rt, state: store.State, entry_id: str, outcome: dict) -> None:
         health["rescan_hold"] = False
         health["rescan_after"] = None
         health["scan_declines"] = 0
+        health["scan_errors"] = 0
         health["scan_refused"] = False
         if repo and entry:
             repo_facts(rt, entry_id, entry, repo, state)
@@ -223,6 +225,7 @@ def approve(rt, state: store.State, entry_id: str, outcome: dict) -> None:
         blocklist.remove_flag(state, rt.salt, repo_id)
     record["owner_approved"] = True
     health["scan_declines"] = 0
+    health["scan_errors"] = 0
     health["scan_refused"] = False
     text = "Approved by the curator."
     if files:
@@ -250,6 +253,7 @@ def rescan(rt, state: store.State, entry_id: str, outcome: dict) -> None:
         return
     health["rescan_after"] = None
     health["scan_declines"] = 0
+    health["scan_errors"] = 0
     rt.note_triage(entry_id, "The curator asked for the rescan to be tried again; the next dispatcher run will.")
 
 

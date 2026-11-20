@@ -27,22 +27,23 @@ class Clock:
 class FakeAgent:
     """Statuses are returned one per poll; files maps sandbox paths to their text."""
 
-    def __init__(self, statuses, files=None, output="", error=None, create_error=None):
+    def __init__(self, statuses, files=None, output="", error=None, create_error=None, usage=None):
         self.statuses = list(statuses)
+        self.usage = usage or {"total_tokens": 10}
         self.files = files or {}
         self.output, self.error, self.create_error = output, error, create_error
         self.cancelled, self.reads = [], []
 
     def _interaction(self, status):
-        it = {"id": "int-1", "status": status, "environment_id": "env-1", "usage": {"total_tokens": 10}}
+        it = {"id": "int-1", "status": status, "environment_id": "env-1", "usage": self.usage}
         if status in antigravity.DONE:
             it["output_text"] = self.output
             if self.error:
                 it["error"] = self.error
         return it
 
-    def create(self, prompt):
-        self.prompt = prompt
+    def create(self, prompt, budget=antigravity.MAX_TOTAL_TOKENS):
+        self.prompt, self.budget = prompt, budget
         if self.create_error:
             raise self.create_error
         return self._interaction("in_progress")
@@ -185,3 +186,45 @@ def test_daily_limit_is_deferred_without_waiting():
 
     out = run(antigravity.Antigravity("k", session=Http(), sleep=waits.append))
     assert out.result == "deferred" and waits == []
+
+
+def test_token_budget_comes_from_policy_and_is_named_when_spent():
+    """2026-11-17..20: four reviews (Xbawks, PR #114 twice, #122, rescan) ended `incomplete` after spending
+    610k-640k uncached tokens of the old fixed 600k budget. The budget is policy now, and the reason says so."""
+    spent = {"total_tokens": 1_243_471, "total_cached_tokens": 627_936}
+    agent = FakeAgent(["incomplete"], usage=spent)
+    out = run(agent, {"stage2": {**POLICY["stage2"], "agent_token_budget": 600_000}})
+    assert agent.budget == 600_000
+    assert out.result == "error" and "ran out of its token budget (615,535 uncached tokens of 600,000" in out.reason
+    agent = FakeAgent(["incomplete"], usage=spent)
+    out = run(agent)  # no key in policy: the 2,000,000 fallback
+    assert agent.budget == 2_000_000 and "token budget" not in out.reason and "ended incomplete" in out.reason
+
+
+def test_shipped_policy_budget_covers_every_review_seen():
+    from avpindex import store
+    assert store.load_policy(REPO_ROOT)["stage2"]["agent_token_budget"] >= 1_000_000
+
+
+def test_dropped_connection_on_a_poll_is_retried_but_not_on_create():
+    import requests
+
+    class Flaky:
+        def __init__(self, fail_on):
+            self.fail_on, self.calls = fail_on, []
+
+        def request(self, method, url, **k):
+            self.calls.append(method)
+            if method == self.fail_on and self.calls.count(method) == 1:
+                raise requests.ReadTimeout("read timed out")
+            return _Resp(200, '{"id": "int-1", "status": "completed"}')
+
+    sleeps = []
+    session = Flaky("GET")
+    client = antigravity.Antigravity("k", session=session, sleep=sleeps.append)
+    assert client.get("int-1")["status"] == "completed" and session.calls == ["GET", "GET"] and sleeps == [15]
+    session = Flaky("POST")
+    client = antigravity.Antigravity("k", session=session, sleep=sleeps.append)
+    with pytest.raises(requests.ReadTimeout):
+        client.create("prompt")
+    assert session.calls == ["POST"]  # a create that timed out may have started a review: never sent twice

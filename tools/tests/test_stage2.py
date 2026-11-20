@@ -276,9 +276,17 @@ class TestReport:
         report.run(rt, scan_inputs(), {"result": "deferred"})
         assert "stage2:queued" in gh.labels_of(7)
         assert messages.read_state({"body": gh.bot_comment(7)})["scans"] == 0
-        gh.add_labels(7, ["stage2:scanning"])
-        report.run(rt, scan_inputs(), {"result": "error", "reason": "timed out"})
-        assert "needs-owner" in gh.labels_of(7) and "stage2:scanning" not in gh.labels_of(7)
+        for n in range(1, 4):
+            # Decision 71: a review that didn't finish goes back in the queue, unpaid, until the third in a row.
+            gh.remove_label(7, "stage2:queued")
+            gh.add_labels(7, ["stage2:scanning"])
+            report.run(rt, scan_inputs(), {"result": "error", "reason": "timed out"})
+            state = messages.read_state({"body": gh.bot_comment(7)})
+            assert state["errors"] == n and state["scans"] == 0 and state["errored_at"]
+            assert "stage2:scanning" not in gh.labels_of(7)
+            assert ("needs-owner" in gh.labels_of(7)) == (n == 3)
+            assert ("stage2:queued" in gh.labels_of(7)) == (n < 3)
+            assert (gh.latest(SHA(70), STAGE2) or {}).get("conclusion") == ("failure" if n == 3 else None)
         assert "couldn't settle this one" in gh.bot_comment(7)
 
     def test_failed_scan_job_is_error(self, root):
@@ -452,11 +460,20 @@ class TestRescan:
         assert state.health["good"]["flagged_commit"] == SHA(11)
 
     def test_error_sets_rescan_after(self, rt, gh):
-        """U18."""
+        """U18, decision 71: a rescan that didn't finish retries quietly two hours later, twice, and only the
+        third in a row opens a triage note and waits a day. The pin never moves."""
         self.setup_entry(rt, gh)
-        state = self.rescan(rt, "error")
-        assert state.health["good"]["rescan_after"] == "2026-10-04T12:00:00Z"
-        assert any(i["title"] == "Triage: good" for i in gh.issue_store.values())
+        for n, after in enumerate(["2026-10-03T14:00:00Z", "2026-10-03T14:00:00Z", "2026-10-04T12:00:00Z"], 1):
+            state = self.rescan(rt, "error")
+            health = state.health["good"]
+            assert (health["scan_errors"], health["rescan_after"]) == (n, after)
+            assert health["scanned_commit"] == SHA(5) and state.lifecycle["good"]["status"] == "listed"
+            assert any(i["title"] == "Triage: good" for i in gh.issue_store.values()) == (n == 3)
+        issue, _ = self.triage(gh)
+        assert "couldn't finish (3 tries in a row)" in issue["body"]
+        health["rescan_after"] = None
+        state.save()
+        assert self.rescan(rt, "pass").health["good"]["scan_errors"] == 0
 
     def triage(self, gh):
         issues = [i for i in gh.issue_store.values() if i["title"] == "Triage: good"]
@@ -514,7 +531,7 @@ class TestRescan:
         state.save()
         state = self.rescan(rt, "error")
         assert state.health["good"]["scan_declines"] == 2  # an error isn't a review either
-        assert state.health["good"]["rescan_after"] == "2026-10-04T12:00:00Z"
+        assert state.health["good"]["rescan_after"] == "2026-10-03T14:00:00Z"
         state.health["good"]["rescan_after"] = None
         state.save()
         assert self.rescan(rt, "flag").health["good"]["scan_declines"] == 0
@@ -668,6 +685,17 @@ class TestQueue:
         gh.runs = []
         queue.dispatch(rt)
         assert [d[1]["pr"] for d in gh.dispatched] == ["6", "5"]
+
+    def test_a_pr_whose_review_didnt_finish_waits_an_hour(self, rt, gh):
+        """Decision 71: an unfinished review requeues the PR, and the dispatcher holds it for an hour like a decline."""
+        self.queued(rt, gh, 5, "q1", 21)
+        messages.upsert(rt, 5, "x", errors=1, errored_at=store.iso(store.utcnow() - dt.timedelta(minutes=30)))
+        log = queue.dispatch(rt)
+        assert gh.dispatched == [] and "#5: didn't finish less than an hour ago; waiting" in log
+        messages.upsert(rt, 5, errored_at=store.iso(store.utcnow() - dt.timedelta(minutes=61)))
+        gh.runs = []
+        queue.dispatch(rt)
+        assert [d[1]["pr"] for d in gh.dispatched] == ["5"]
 
     def test_decline_limit_holds_like_the_scan_limit(self, rt, gh):
         """At per_pr_max_scans declines the dispatcher sends the PR to the curator instead of to the agent, every time

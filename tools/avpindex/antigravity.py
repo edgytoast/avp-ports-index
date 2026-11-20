@@ -35,7 +35,7 @@ from .safety_check import CANDIDATE, LIVE, PROMPTS, Deferred, Outcome  # noqa: F
 API = "https://generativelanguage.googleapis.com/v1beta"
 AGENT = "antigravity-preview-09-2026"
 POLL_SECONDS = 60          # polls are cheap, but keep them well under the per-minute request limit
-MAX_TOTAL_TOKENS = 600_000  # uncached tokens one review may spend (the test review used about 163k)
+MAX_TOTAL_TOKENS = 2_000_000  # fallback for stage2.agent_token_budget: uncached tokens one review may spend
 DONE = {"completed", "failed", "cancelled", "incomplete"}
 VERDICT_PATHS = ("workspace/verdict.json", "verdict.json")
 MINUTE_LIMIT_TRIES = 4      # waits for a per-minute rate limit at create before giving up and deferring
@@ -73,8 +73,17 @@ class Antigravity:
         """One API call. Only creating the interaction turns a quota refusal into Deferred; once it runs,
         rate limits on polls are waited out, since deferring would start a second review."""
         for attempt in range(6):
-            resp = self.http.request(method, f"{self.api}/{path}", json=body, params=params,
-                                     headers=self.headers, timeout=120)
+            try:
+                resp = self.http.request(method, f"{self.api}/{path}", json=body, params=params,
+                                         headers=self.headers, timeout=120)
+            except requests.RequestException:
+                # A dropped or slow connection on a poll or a file read is retried: the review itself is fine
+                # (2026-11-18, revc-visionos: the review completed, then reading its verdict timed out). A create
+                # isn't retried, since a create that timed out may still have started a review.
+                if defer or attempt >= 5:
+                    raise
+                self.sleep(15 * (attempt + 1))
+                continue
             limited = resp.status_code == 429 or (resp.status_code == 403 and _quota(resp))
             if limited and defer:
                 # Waiting out the per-minute limit is safe here: the refused create started no review.
@@ -93,10 +102,10 @@ class Antigravity:
             return resp.json() if resp.content else {}
         raise AgentError(f"{method} {path}: repeated errors")
 
-    def create(self, prompt: str) -> dict:
+    def create(self, prompt: str, budget: int = MAX_TOTAL_TOKENS) -> dict:
         return self._call("POST", "interactions", {
             "agent": self.agent, "input": prompt, "environment": "remote", "background": True, "store": True,
-            "agent_config": {"type": "antigravity", "max_total_tokens": MAX_TOTAL_TOKENS}}, defer=True)
+            "agent_config": {"type": "antigravity", "max_total_tokens": budget}}, defer=True)
 
     def get(self, interaction_id: str) -> dict:
         return self._call("GET", f"interactions/{interaction_id}")
@@ -153,6 +162,16 @@ def _failure_text(interaction: dict) -> str:
     return json.dumps(error) if isinstance(error, (dict, list)) else str(error or "")
 
 
+def uncached_tokens(interaction: dict) -> int | None:
+    """Tokens the review spent that weren't served from cache: what the agent's token budget counts. On
+    2026-11-17..20 every review that ended `incomplete` had spent 610k-640k of a 600k budget, and every one
+    that completed had spent 575k or less."""
+    usage = interaction.get("usage")
+    if not isinstance(usage, dict) or not isinstance(usage.get("total_tokens"), int):
+        return None
+    return usage["total_tokens"] - int(usage.get("total_cached_tokens") or 0)
+
+
 def _quota_failure(interaction: dict) -> bool:
     text = _failure_text(interaction).lower()
     return "resource_exhausted" in text or "quota" in text or "429" in text
@@ -164,12 +183,13 @@ def review(client: Antigravity, repo_url: str, sha: str, policy: dict, *, root: 
            prompt: str = LIVE, install_guide: str = safety_check.DEFAULT_GUIDE, sleep=time.sleep, clock=time.monotonic, make_id=safety_check.new_review_id) -> Outcome:
     threshold = int(policy["stage2"]["confidence_threshold"])
     timeout = int(policy["stage2"]["timeout_minutes"]) * 60
+    budget = int(policy["stage2"].get("agent_token_budget") or MAX_TOTAL_TOKENS)
     schema = safety_check.verdict_schema(root)  # always the live schema, whichever prompt was shown
     review_id = make_id()
     started = clock()
     try:
         interaction = client.create(safety_check.render_prompt(repo_url, sha, threshold, review_id, root, prompt,
-                                                                 install_guide))
+                                                                 install_guide), budget)
     except Deferred as exc:
         return Outcome("deferred", reason=str(exc)[:200])
     except (AgentError, requests.RequestException) as exc:
@@ -215,6 +235,9 @@ def review(client: Antigravity, repo_url: str, sha: str, policy: dict, *, root: 
             elif safety_check.looks_like_refusal(said, review_id):
                 outcome.result, outcome.reason = "declined", safety_check.excerpt(said)
                 outcome.diagnostics["decline_signal"] = "wording"
+            elif status == "incomplete" and (uncached_tokens(interaction) or 0) >= budget:
+                outcome.reason = (f"the review ran out of its token budget ({uncached_tokens(interaction):,} uncached "
+                                  f"tokens of {budget:,}; stage2.agent_token_budget)")
             elif status != "completed":
                 outcome.reason = f"the review ended {status or 'without a status'}: {_failure_text(interaction)}"[:300]
             else:

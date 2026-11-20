@@ -32,6 +32,8 @@ NO_VERDICT_LEAD = "**Gemini finished without a verdict**"
 DECLINE_RETRY = dt.timedelta(hours=2)    # a declined rescan is tried again this soon,
 DECLINE_QUICK_TRIES = 3                  # until it has declined this many times in a row;
 ERROR_RETRY = dt.timedelta(hours=24)     # then it waits as long as after an error
+ERROR_QUIET_TRIES = 3                    # a rescan that couldn't finish is retried quietly, DECLINE_RETRY apart, and
+                                         # opens a triage note only on this many in a row (decision 71)
 
 
 @dataclass
@@ -190,6 +192,7 @@ def apply_rescan_flag(rt, state: store.State, inputs: Inputs, outcome: dict, thr
     health["flagged_files"] = approvals.flagged_files(outcome.get("verdict")) or []
     health["rescan_hold"] = True
     health["scan_declines"] = 0  # the agent did review this commit
+    health["scan_errors"] = 0
     health["scan_refused"] = False
     blocklist.add_flag(state, rt.salt, inputs.repo_id)
     record = state.lifecycle[entry_id]
@@ -233,7 +236,7 @@ def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
     labels = {label["name"] for label in pr.get("labels") or []}
     bot_state = messages.read_state(messages.find_bot_comment(rt, number))
     mine = bot_state.get("scanning") in (None, inputs.external_id)
-    increment = 1 if inputs.counted and result in ("pass", "flag", "error") else 0  # a decline isn't their fault
+    increment = 1 if inputs.counted and result in ("pass", "flag") else 0  # a decline or an error isn't their fault
     scans = int(bot_state.get("scans") or 0) + increment
     clear_scanning = {"scanning": None} if mine else {}
 
@@ -293,12 +296,24 @@ def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
         # A newer scan was dispatched, or the PR now links another commit and is queued again.
         messages.upsert(rt, number, scans=scans, **clear_scanning)
         return []
+    # The review didn't finish (timeout, Google stopping it, a dropped connection). That isn't the contributor's
+    # doing and usually works on a later try, so the PR goes back in the queue, an hour later, until it has had
+    # per_pr_max_scans errors (counted on their own, `owner:scan` or not, so it can't loop); only then does the
+    # curator hear about it (decision 71). Nothing is merged without a passing review.
+    errors = int(bot_state.get("errors") or 0) + 1
+    errored = {"errors": errors, "errored_at": store.iso(store.utcnow())}
+    if errors < int(rt.policy["stage2"]["per_pr_max_scans"]):
+        swap(("stage2:scanning",), ("stage2:queued",))
+        messages.upsert(rt, number, scans=scans, **errored, **clear_scanning)
+        rt.summary(f"#{number}: the review didn't finish ({outcome.get('reason') or 'no reason'}); back in the "
+                   f"queue ({errors} in a row).")
+        return []
     rt.gh.create_check(head, STAGE2, conclusion="failure", title="Safety check error; waiting for the curator",
                        summary=summary + "\n\n" + stage2_marker(kind="result", result="error"),
                        external_id=inputs.external_id)
     swap(("stage2:scanning", "stage2:queued"), ("needs-owner",))
     messages.upsert(rt, number, messages.render("owner-review", rt.root, name=_entry_name(rt, inputs)),
-                    scans=scans, **clear_scanning)
+                    scans=scans, **errored, **clear_scanning)
     return []
 
 
@@ -379,6 +394,7 @@ def rescan(rt, inputs: Inputs, outcome: dict, threshold: int) -> None:
                 entries.get(inputs.entry_id))
             health = state.health_record(inputs.entry_id)
             health["scan_declines"] = 0
+            health["scan_errors"] = 0
             health["scan_refused"] = False
             again = " on a later try" if declined_before else ""
             passed = (f"Gemini reviewed `{inputs.linked_commit}`{again} and it passed (confidence {confidence}), so "
@@ -403,9 +419,18 @@ def rescan(rt, inputs: Inputs, outcome: dict, threshold: int) -> None:
                 health["scan_refused"] = True
             rt.upsert_triage(inputs.entry_id, decline_body(inputs, outcome, declines, retry_at))
         else:
-            state.health_record(inputs.entry_id)["rescan_after"] = store.iso(store.utcnow() + ERROR_RETRY)
-            rt.upsert_triage(inputs.entry_id, triage_body(inputs, outcome, threshold,
-                                                          "The automated rescan couldn't finish"))
+            # The listing stays at its reviewed pin meanwhile, so a quiet retry lists nothing unreviewed.
+            health = state.health_record(inputs.entry_id)
+            errors = int(health.get("scan_errors") or 0) + 1
+            health["scan_errors"] = errors
+            if errors < ERROR_QUIET_TRIES:
+                health["rescan_after"] = store.iso(store.utcnow() + DECLINE_RETRY)
+                rt.summary(f"Rescan of {inputs.entry_id} didn't finish ({outcome.get('reason') or 'no reason'}); "
+                           f"trying again after {health['rescan_after']} ({errors} in a row).")
+            else:
+                health["rescan_after"] = store.iso(store.utcnow() + ERROR_RETRY)
+                rt.upsert_triage(inputs.entry_id, triage_body(
+                    inputs, outcome, threshold, f"The automated rescan couldn't finish ({errors} tries in a row)"))
         state.save()
 
     rt.commit(mutate, f"stage2: rescan {inputs.entry_id} {result}")
