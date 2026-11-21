@@ -34,6 +34,11 @@ DECLINE_QUICK_TRIES = 3                  # until it has declined this many times
 ERROR_RETRY = dt.timedelta(hours=24)     # then it waits as long as after an error
 ERROR_QUIET_TRIES = 3                    # a rescan that couldn't finish is retried quietly, DECLINE_RETRY apart, and
                                          # opens a triage note only on this many in a row (decision 71)
+PROVIDER_QUICK_TRIES = 3                 # a review Google cancelled itself (an agent outage) never counts against the
+                                         # port or opens a note: a rescan retries DECLINE_RETRY apart this many times,
+                                         # then ERROR_RETRY apart until the agent works again (decision 72)
+PROVIDER_PR_TRIES = 6                    # a PR goes back in the queue this many times in a row for it, then such
+                                         # endings count like any other unfinished review
 
 
 @dataclass
@@ -97,9 +102,13 @@ def load_outcome(path: Path, scan_result: str, policy: dict) -> dict:
     verdict, problem = safety_check.check_verdict(text, safety_check.verdict_schema())
     out = {"result": "error", "reason": data.get("reason") or problem, "session_url": data.get("session_url"),
            "minutes": data.get("minutes")}
+    diagnostics = data.get("diagnostics") if isinstance(data.get("diagnostics"), dict) else {}
+    if diagnostics.get("provider") is True:
+        out["provider"] = True  # Google cancelled the review itself (an agent outage); dropped again on a verdict
     if verdict is not None:
         threshold = int(policy["stage2"]["confidence_threshold"])
         out.update(result=safety_check.decide(verdict, threshold), verdict=verdict, reason="")
+        out.pop("provider", None)
     return out
 
 
@@ -300,8 +309,17 @@ def pr_mode(rt, inputs: Inputs, outcome: dict, threshold: int) -> list[int]:
     # doing and usually works on a later try, so the PR goes back in the queue, an hour later, until it has had
     # per_pr_max_scans errors (counted on their own, `owner:scan` or not, so it can't loop); only then does the
     # curator hear about it (decision 71). Nothing is merged without a passing review.
+    provider = int(bot_state.get("provider_errors") or 0) + 1 if outcome.get("provider") else 0
+    if provider and provider <= PROVIDER_PR_TRIES:
+        # Google cancelled the review itself (decision 72): back in the queue an hour later, not counted.
+        swap(("stage2:scanning",), ("stage2:queued",))
+        messages.upsert(rt, number, scans=scans, provider_errors=provider, errored_at=store.iso(store.utcnow()),
+                        **clear_scanning)
+        rt.summary(f"#{number}: Google cancelled the review on its side; back in the queue, not counted "
+                   f"({provider} in a row).")
+        return []
     errors = int(bot_state.get("errors") or 0) + 1
-    errored = {"errors": errors, "errored_at": store.iso(store.utcnow())}
+    errored = {"errors": errors, "errored_at": store.iso(store.utcnow()), "provider_errors": provider}
     if errors < int(rt.policy["stage2"]["per_pr_max_scans"]):
         swap(("stage2:scanning",), ("stage2:queued",))
         messages.upsert(rt, number, scans=scans, **errored, **clear_scanning)
@@ -395,6 +413,7 @@ def rescan(rt, inputs: Inputs, outcome: dict, threshold: int) -> None:
             health = state.health_record(inputs.entry_id)
             health["scan_declines"] = 0
             health["scan_errors"] = 0
+            health["scan_provider_errors"] = 0
             health["scan_refused"] = False
             again = " on a later try" if declined_before else ""
             passed = (f"Gemini reviewed `{inputs.linked_commit}`{again} and it passed (confidence {confidence}), so "
@@ -418,6 +437,17 @@ def rescan(rt, inputs: Inputs, outcome: dict, threshold: int) -> None:
             if not no_work(outcome):
                 health["scan_refused"] = True
             rt.upsert_triage(inputs.entry_id, decline_body(inputs, outcome, declines, retry_at))
+        elif outcome.get("provider"):
+            # Google cancelled the review itself (decision 72): nothing the curator can act on, and nothing about
+            # the port, so it never opens a note or adds to the "couldn't finish" count. The listing stays at its
+            # reviewed pin, so retrying lists nothing unreviewed; after a few quick tries, a long outage is tried daily.
+            health = state.health_record(inputs.entry_id)
+            outages = int(health.get("scan_provider_errors") or 0) + 1
+            health["scan_provider_errors"] = outages
+            health["rescan_after"] = store.iso(store.utcnow() + (DECLINE_RETRY if outages < PROVIDER_QUICK_TRIES
+                                                                  else ERROR_RETRY))
+            rt.summary(f"Rescan of {inputs.entry_id}: Google cancelled the review on its side; trying again after "
+                       f"{health['rescan_after']} ({outages} in a row, not counted against the port).")
         else:
             # The listing stays at its reviewed pin meanwhile, so a quiet retry lists nothing unreviewed.
             health = state.health_record(inputs.entry_id)
