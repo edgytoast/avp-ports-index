@@ -228,3 +228,16 @@ def test_dropped_connection_on_a_poll_is_retried_but_not_on_create():
     with pytest.raises(requests.ReadTimeout):
         client.create("prompt")
     assert session.calls == ["POST"]  # a create that timed out may have started a review: never sent twice
+
+
+def test_google_cancelling_the_review_is_a_provider_error():
+    """2026-11-21: three Xbawks reviews sat in_progress, then Google cancelled them (two had taken no step)."""
+    agent = FakeAgent(["in_progress", "cancelled"])
+    out = run(agent)
+    assert out.result == "error" and out.diagnostics["provider"] is True and "Google cancelled" in out.reason
+    assert agent.cancelled == []
+
+
+def test_our_own_timeout_is_not_a_provider_error():
+    out = run(FakeAgent(["in_progress"]))
+    assert out.reason == "timed out" and "provider" not in out.diagnostics

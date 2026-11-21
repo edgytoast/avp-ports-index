@@ -12,7 +12,8 @@ One review:
 3. Read verdict.json from the sandbox through the Environments files API, or failing that, a verdict printed
    in the agent's output text. Only a verdict carrying this review's id counts.
 4. A run that ends on a quota error inside the agent is also `deferred`; a refusal in the output text is
-   `declined`; anything else without a verdict is `error`. Nothing but a valid verdict can pass.
+   `declined`; anything else without a verdict is `error`. Nothing but a valid verdict can pass. An error
+   where Google cancelled the review itself carries diagnostics["provider"], so it isn't held against the port.
 
 API: https://generativelanguage.googleapis.com/v1beta (interactions, environments/{id}/files),
 authenticated with the x-goog-api-key header. Free-tier limits seen in AI Studio on 2026-11-13: 60
@@ -238,6 +239,14 @@ def review(client: Antigravity, repo_url: str, sha: str, policy: dict, *, root: 
             elif status == "incomplete" and (uncached_tokens(interaction) or 0) >= budget:
                 outcome.reason = (f"the review ran out of its token budget ({uncached_tokens(interaction):,} uncached "
                                   f"tokens of {budget:,}; stage2.agent_token_budget)")
+            elif status == "cancelled":
+                # We cancel only on our own timeout (handled above), so this was Google stopping the review on its
+                # side. On 2026-11-21 three Xbawks rescans ended this way after 7.6-51.7 min, two of them without
+                # taking a single step, and a one-line test prompt took 16.5 min: an outage of the agent, not
+                # anything about the port. The report retries these without counting them against the port.
+                outcome.reason = ("Google cancelled the review on its side before it finished (an agent outage, not "
+                                  f"the port){': ' + _failure_text(interaction) if _failure_text(interaction) else ''}")[:300]
+                outcome.diagnostics["provider"] = True
             elif status != "completed":
                 outcome.reason = f"the review ended {status or 'without a status'}: {_failure_text(interaction)}"[:300]
             else:

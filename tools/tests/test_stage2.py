@@ -289,6 +289,23 @@ class TestReport:
             assert (gh.latest(SHA(70), STAGE2) or {}).get("conclusion") == ("failure" if n == 3 else None)
         assert "couldn't settle this one" in gh.bot_comment(7)
 
+    def test_pr_review_google_cancelled_requeues_uncounted(self, rt, gh):
+        """Decision 72: a review Google cancelled itself goes back in the queue without counting, up to
+        PROVIDER_PR_TRIES in a row; after that such endings count like any other unfinished review."""
+        gh.add_repo("trevorbilt-bot/good", 11)
+        queued_pr(gh, rt)
+        outcome = {"result": "error", "reason": "Google cancelled the review", "provider": True}
+        for n in range(1, report.PROVIDER_PR_TRIES + 2):
+            gh.remove_label(7, "stage2:queued")
+            gh.add_labels(7, ["stage2:scanning"])
+            report.run(rt, scan_inputs(), outcome)
+            state = messages.read_state({"body": gh.bot_comment(7)})
+            assert state["errored_at"] and state["scans"] == 0 and "needs-owner" not in gh.labels_of(7)
+            assert "stage2:queued" in gh.labels_of(7)
+            if n <= report.PROVIDER_PR_TRIES:
+                assert state["provider_errors"] == n and not state.get("errors")
+        assert state["errors"] == 1
+
     def test_failed_scan_job_is_error(self, root):
         out = report.load_outcome(root / "nope.json", "cancelled", store.load_policy(root))
         assert out["result"] == "error"
@@ -474,6 +491,33 @@ class TestRescan:
         health["rescan_after"] = None
         state.save()
         assert self.rescan(rt, "pass").health["good"]["scan_errors"] == 0
+
+    def test_google_cancelled_rescan_never_opens_a_note(self, rt, gh):
+        """Decision 72 (2026-11-21, Xbawks): a review Google cancelled itself retries two hours later, then
+        daily, without adding to scan_errors or opening a triage note; a pass resets it."""
+        self.setup_entry(rt, gh)
+        inputs = scan_inputs(mode="rescan", base_commit=SHA(5), counted=False)
+        outcome = {"result": "error", "reason": "Google cancelled the review", "provider": True}
+        afters = ["2026-10-03T14:00:00Z", "2026-10-03T14:00:00Z", "2026-10-04T12:00:00Z", "2026-10-04T12:00:00Z"]
+        for n, after in enumerate(afters, 1):
+            report.run(rt, inputs, outcome)
+            state = store.State.load(rt.root)
+            health = state.health["good"]
+            assert (health["scan_provider_errors"], health["rescan_after"]) == (n, after)
+            assert not health.get("scan_errors") and health["scanned_commit"] == SHA(5)
+            assert state.lifecycle["good"]["status"] == "listed"
+        assert not any(i["title"] == "Triage: good" for i in gh.issue_store.values())
+        health["rescan_after"] = None
+        state.save()
+        assert self.rescan(rt, "pass").health["good"]["scan_provider_errors"] == 0
+
+    def test_provider_flag_survives_the_artifact_and_a_verdict_drops_it(self, root):
+        policy = store.load_policy(root)
+        path = root / "outcome.json"
+        path.write_text(json.dumps({"result": "error", "reason": "r", "diagnostics": {"provider": True}}))
+        assert report.load_outcome(path, "success", policy)["provider"] is True
+        path.write_text(json.dumps({"result": "error", "reason": "r", "diagnostics": {"provider": "yes"}}))
+        assert "provider" not in report.load_outcome(path, "success", policy)
 
     def triage(self, gh):
         issues = [i for i in gh.issue_store.values() if i["title"] == "Triage: good"]
