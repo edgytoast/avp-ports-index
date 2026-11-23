@@ -1,0 +1,108 @@
+{
+ "taken": "2026-11-23",
+ "window_days": 14,
+ "referrers": [
+  {
+   "referrer": "reddit.com",
+   "count": 97,
+   "uniques": 77
+  },
+  {
+   "referrer": "github.com",
+   "count": 55,
+   "uniques": 31
+  },
+  {
+   "referrer": "Google",
+   "count": 23,
+   "uniques": 13
+  },
+  {
+   "referrer": "com.reddit.frontpage",
+   "count": 9,
+   "uniques": 6
+  },
+  {
+   "referrer": "substack.com",
+   "count": 7,
+   "uniques": 7
+  },
+  {
+   "referrer": "old.reddit.com",
+   "count": 7,
+   "uniques": 6
+  },
+  {
+   "referrer": "DuckDuckGo",
+   "count": 4,
+   "uniques": 3
+  },
+  {
+   "referrer": "lastweekinavp.substack.com",
+   "count": 2,
+   "uniques": 2
+  }
+ ],
+ "paths": [
+  {
+   "path": "/edgytoast/avp-ports-index",
+   "title": "Overview",
+   "count": 777,
+   "uniques": 450
+  },
+  {
+   "path": "/edgytoast/avp-ports-index/pulls",
+   "title": "/pulls",
+   "count": 23,
+   "uniques": 12
+  },
+  {
+   "path": "/edgytoast/avp-ports-index/blob/main/ports/animal-crossing-vr.md",
+   "title": "/blob/main/ports/animal-crossing-vr.md",
+   "count": 18,
+   "uniques": 16
+  },
+  {
+   "path": "/edgytoast/avp-ports-index/blob/main/ports/portal-2-vr.md",
+   "title": "/blob/main/ports/portal-2-vr.md",
+   "count": 18,
+   "uniques": 15
+  },
+  {
+   "path": "/edgytoast/avp-ports-index/blob/main/ports/skyrim-vr.md",
+   "title": "/blob/main/ports/skyrim-vr.md",
+   "count": 17,
+   "uniques": 13
+  },
+  {
+   "path": "/edgytoast/avp-ports-index/blob/main/ports/santosvision.md",
+   "title": "/blob/main/ports/santosvision.md",
+   "count": 14,
+   "uniques": 14
+  },
+  {
+   "path": "/edgytoast/avp-ports-index/blob/main/ports/galaxyvision.md",
+   "title": "/blob/main/ports/galaxyvision.md",
+   "count": 14,
+   "uniques": 12
+  },
+  {
+   "path": "/edgytoast/avp-ports-index/blob/main/ports/avp-craft.md",
+   "title": "/blob/main/ports/avp-craft.md",
+   "count": 14,
+   "uniques": 10
+  },
+  {
+   "path": "/edgytoast/avp-ports-index/blob/main/ports/luigis-mansion-vr.md",
+   "title": "/blob/main/ports/luigis-mansion-vr.md",
+   "count": 13,
+   "uniques": 11
+  },
+  {
+   "path": "/edgytoast/avp-ports-index/blob/main/ports/vxpro.md",
+   "title": "/blob/main/ports/vxpro.md",
+   "count": 13,
+   "uniques": 11
+  }
+ ]
+}
