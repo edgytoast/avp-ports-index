@@ -10,7 +10,7 @@ developer:
   github: zlinoliver
   url: https://sheikahvision.com
 status: developer-verified
-status_notes: "Beta. The developer plays it through end to end on Apple Vision Pro (M5, visionOS 27); M2 untested. Needs PS VR2 Sense controllers. The Mac installer in Releases builds the app on your Mac from your own game files; it holds no game data and no prebuilt Vision Pro app."
+status_notes: "Beta. Played end to end on Apple Vision Pro M5 (visionOS 27), recommended. M2: playable at about 30 fps, 22.5 once warm (hardware limit), community-tested. Needs PS VR2 Sense controllers. The Mac installer builds the app from your own game files; no game data or prebuilt app."
 visionos_min: "26.0"
 input: [game-controller]
 experiences: [6dof-immersive]
