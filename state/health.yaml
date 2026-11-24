@@ -1207,7 +1207,7 @@ xbawks:
   github_verified: true
   health: ok
   last_checked: '2026-11-24T06:30:55Z'
-  last_commit_date: '2026-11-21T21:03:36Z'
+  last_commit_date: '2026-11-24T20:26:34Z'
   license:
     kind: open-source
     spdx: GPL-2.0
@@ -1216,13 +1216,13 @@ xbawks:
   rescan_after: null
   rescan_hold: false
   routes: []
-  scan_confidence: 95
+  scan_confidence: 92
   scan_declines: 0
   scan_errors: 0
   scan_kind: automated
   scan_refused: false
   scan_state: current
-  scanned_at: '2026-11-23T13:05:44Z'
-  scanned_commit: f14f038c214f3e875b5d92f665397931e95408d5
+  scanned_at: '2026-11-24T20:43:20Z'
+  scanned_commit: dc753349d88b19cf91707b2d34179277ca1c24a8
   testflight: null
   warnings: []

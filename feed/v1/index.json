@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.8.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-24T17:12:11Z",
+  "generated_at": "2026-11-24T20:43:24Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -743,6 +743,146 @@
             "sha256": "34bc8b13b7bfd86c2d6328e7b84902618299899d1982533fe5785b3680661ef4",
             "url": "https://raw.githubusercontent.com/Ywach404/QuakeAVP/d953ffee02c39307e1f56e0f622830ec489ca7d3/docs/media/phaseout-occlusion.gif",
             "width": 480
+          }
+        ]
+      }
+    },
+    {
+      "id": "xbawks",
+      "name": "Xbawks",
+      "kind": "emulator",
+      "game": {
+        "title": "Original Xbox games",
+        "original_platform": "xbox",
+        "original_release_year": 2001
+      },
+      "repo_url": "https://github.com/Ywach404/xbawks-avp",
+      "source_ref": null,
+      "source_url": "https://github.com/Ywach404/xbawks-avp/tree/dc753349d88b19cf91707b2d34179277ca1c24a8",
+      "install_doc_url": "https://github.com/Ywach404/xbawks-avp/blob/dc753349d88b19cf91707b2d34179277ca1c24a8/AVP-INSTALL.md",
+      "install_guide": "AVP-INSTALL.md",
+      "developer": {
+        "name": "A.Cervantez",
+        "github": "Ywach404",
+        "url": null,
+        "github_verified": true
+      },
+      "credits": [
+        {
+          "name": "xemu",
+          "role": "Emulator core",
+          "url": "https://github.com/xemu-project/xemu"
+        },
+        {
+          "name": "zlixas/xemu (Apple Silicon fork)",
+          "role": "Metal-compatible Vulkan path, IOSurface display",
+          "url": "https://github.com/zlixas/xemu"
+        }
+      ],
+      "upstream": [
+        "https://github.com/xemu-project/xemu"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "Original Xbox emulator (xemu port) running on the headset. Needs Apparition on a Mac at every launch for JIT. Many titles play; see the compatibility table.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "dc753349d88b19cf91707b2d34179277ca1c24a8",
+      "scanned_at": "2026-11-24T20:43:20Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 0,
+      "scan_state": "current",
+      "archived": false,
+      "last_commit_date": "2026-11-24T20:26:34Z",
+      "license": {
+        "kind": "open-source",
+        "spdx": "GPL-2.0"
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "2d"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "emulator"
+      ],
+      "description": "Original Xbox emulator for Apple Vision Pro, running on the headset. A port of xemu with a visionOS shell, JIT through Apparition, and PSVR2 Sense and Bluetooth controller input. Watch it run: https://youtu.be/AnmeuEjDdMU Sibling project 720, for the Xbox 360: https://github.com/Ywach404/720-avp",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/xbawks.md",
+      "media": {
+        "commit": "dc753349d88b19cf91707b2d34179277ca1c24a8",
+        "source": "entry",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 77695,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "7656c65111af62db03d5d1013862351dc2b0f18bb30f4b317b8400e10d67e62a",
+              "url": "https://raw.githubusercontent.com/Ywach404/xbawks-avp/dc753349d88b19cf91707b2d34179277ca1c24a8/tools/xros/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 17757,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "24bb31e51369ec2515e74bbd4de60e32c3a27ce90b5a9331c30954004e396144",
+              "url": "https://raw.githubusercontent.com/Ywach404/xbawks-avp/dc753349d88b19cf91707b2d34179277ca1c24a8/tools/xros/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 72391,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "c18db22bf2b6a83882e8b3d742ec2fb4a00360d0c1a05884681bb6dcf274bede",
+              "url": "https://raw.githubusercontent.com/Ywach404/xbawks-avp/dc753349d88b19cf91707b2d34179277ca1c24a8/tools/xros/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": [
+          {
+            "alt": null,
+            "bytes": 8302603,
+            "format": "gif",
+            "height": 506,
+            "sha256": "01dca4c151bfdd793a48bf35aa1142ad0429df8b7317759734cbbd49c0fff683",
+            "url": "https://raw.githubusercontent.com/Ywach404/xbawks-avp/dc753349d88b19cf91707b2d34179277ca1c24a8/docs/media/promo.gif",
+            "width": 900
+          },
+          {
+            "alt": null,
+            "bytes": 5686916,
+            "format": "gif",
+            "height": 315,
+            "sha256": "84c501f4d737562c00f572686c68888f123e02b2e453884553ee976589eca924",
+            "url": "https://raw.githubusercontent.com/Ywach404/xbawks-avp/dc753349d88b19cf91707b2d34179277ca1c24a8/docs/media/colorways.gif",
+            "width": 560
+          },
+          {
+            "alt": null,
+            "bytes": 7299688,
+            "format": "gif",
+            "height": 315,
+            "sha256": "4d6772f41fc48fb85c270a315ab0733a3fcb6d3cde74fd97dfbca89b3b79b7ed",
+            "url": "https://raw.githubusercontent.com/Ywach404/xbawks-avp/dc753349d88b19cf91707b2d34179277ca1c24a8/docs/media/dpad.gif",
+            "width": 560
           }
         ]
       }
@@ -4369,146 +4509,6 @@
             "sha256": "7bf0649c7db6a5ccde853b47d709490b8f8604cb046e3dc9e9746679596ace20",
             "url": "https://raw.githubusercontent.com/Ywach404/720-avp/3cfa4f2305c4f1eb2b4b1958f9d89f03b994da82/docs/media/marble-blast.gif",
             "width": 720
-          }
-        ]
-      }
-    },
-    {
-      "id": "xbawks",
-      "name": "Xbawks",
-      "kind": "emulator",
-      "game": {
-        "title": "Original Xbox games",
-        "original_platform": "xbox",
-        "original_release_year": 2001
-      },
-      "repo_url": "https://github.com/Ywach404/xbawks-avp",
-      "source_ref": null,
-      "source_url": "https://github.com/Ywach404/xbawks-avp/tree/f14f038c214f3e875b5d92f665397931e95408d5",
-      "install_doc_url": "https://github.com/Ywach404/xbawks-avp/blob/f14f038c214f3e875b5d92f665397931e95408d5/AVP-INSTALL.md",
-      "install_guide": "AVP-INSTALL.md",
-      "developer": {
-        "name": "A.Cervantez",
-        "github": "Ywach404",
-        "url": null,
-        "github_verified": true
-      },
-      "credits": [
-        {
-          "name": "xemu",
-          "role": "Emulator core",
-          "url": "https://github.com/xemu-project/xemu"
-        },
-        {
-          "name": "zlixas/xemu (Apple Silicon fork)",
-          "role": "Metal-compatible Vulkan path, IOSurface display",
-          "url": "https://github.com/zlixas/xemu"
-        }
-      ],
-      "upstream": [
-        "https://github.com/xemu-project/xemu"
-      ],
-      "self_reported_status": "partially-working",
-      "status_notes": "Original Xbox emulator (xemu port) running on the headset. Needs Apparition on a Mac at every launch for JIT. Many titles play; see the compatibility table.",
-      "owner_verified": {
-        "verified": false,
-        "verified_on": null,
-        "verified_commit": null
-      },
-      "trust_tier": "partially-working",
-      "curator_own": false,
-      "health": {
-        "status": "ok",
-        "failing_since": null
-      },
-      "scanned_commit": "f14f038c214f3e875b5d92f665397931e95408d5",
-      "scanned_at": "2026-11-23T13:05:44Z",
-      "scan_kind": "automated",
-      "commits_since_scan": 0,
-      "scan_state": "current",
-      "archived": false,
-      "last_commit_date": "2026-11-21T21:03:36Z",
-      "license": {
-        "kind": "open-source",
-        "spdx": "GPL-2.0"
-      },
-      "visionos_min": "26.0",
-      "input": [
-        "game-controller"
-      ],
-      "experiences": [
-        "2d"
-      ],
-      "install": [
-        "build"
-      ],
-      "tags": [
-        "emulator"
-      ],
-      "description": "Original Xbox emulator for Apple Vision Pro, running on the headset itself. A port of xemu with a visionOS shell, JIT through Apparition, and PSVR2 Sense or PS4 controller input. Watch it run: https://youtu.be/AnmeuEjDdMU",
-      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/xbawks.md",
-      "media": {
-        "commit": "f14f038c214f3e875b5d92f665397931e95408d5",
-        "source": "entry",
-        "icon": {
-          "kind": "layered",
-          "layers": [
-            {
-              "bytes": 77695,
-              "format": "png",
-              "height": 1024,
-              "layer": "back",
-              "sha256": "7656c65111af62db03d5d1013862351dc2b0f18bb30f4b317b8400e10d67e62a",
-              "url": "https://raw.githubusercontent.com/Ywach404/xbawks-avp/f14f038c214f3e875b5d92f665397931e95408d5/tools/xros/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png",
-              "width": 1024
-            },
-            {
-              "bytes": 17757,
-              "format": "png",
-              "height": 1024,
-              "layer": "middle",
-              "sha256": "24bb31e51369ec2515e74bbd4de60e32c3a27ce90b5a9331c30954004e396144",
-              "url": "https://raw.githubusercontent.com/Ywach404/xbawks-avp/f14f038c214f3e875b5d92f665397931e95408d5/tools/xros/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png",
-              "width": 1024
-            },
-            {
-              "bytes": 72391,
-              "format": "png",
-              "height": 1024,
-              "layer": "front",
-              "sha256": "c18db22bf2b6a83882e8b3d742ec2fb4a00360d0c1a05884681bb6dcf274bede",
-              "url": "https://raw.githubusercontent.com/Ywach404/xbawks-avp/f14f038c214f3e875b5d92f665397931e95408d5/tools/xros/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
-              "width": 1024
-            }
-          ]
-        },
-        "screenshots": [
-          {
-            "alt": null,
-            "bytes": 8302603,
-            "format": "gif",
-            "height": 506,
-            "sha256": "01dca4c151bfdd793a48bf35aa1142ad0429df8b7317759734cbbd49c0fff683",
-            "url": "https://raw.githubusercontent.com/Ywach404/xbawks-avp/f14f038c214f3e875b5d92f665397931e95408d5/docs/media/promo.gif",
-            "width": 900
-          },
-          {
-            "alt": null,
-            "bytes": 6741993,
-            "format": "gif",
-            "height": 338,
-            "sha256": "1a3ee7878127bd00a0450548b673825bd39a205542ca7ae6af64f0c650f0615a",
-            "url": "https://raw.githubusercontent.com/Ywach404/xbawks-avp/f14f038c214f3e875b5d92f665397931e95408d5/docs/media/dashboard.gif",
-            "width": 600
-          },
-          {
-            "alt": null,
-            "bytes": 7490340,
-            "format": "gif",
-            "height": 338,
-            "sha256": "6cd018636cc17ec7936812c52f90d704c620fcb9d4f8a8662d9d25e3c11afa84",
-            "url": "https://raw.githubusercontent.com/Ywach404/xbawks-avp/f14f038c214f3e875b5d92f665397931e95408d5/docs/media/gameplay.gif",
-            "width": 600
           }
         ]
       }

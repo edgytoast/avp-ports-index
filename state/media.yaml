@@ -1325,9 +1325,9 @@ wind-waker-vr:
     src: https://trevorbilt.com/assets/logo-BdrEikAq.png
   source: readme
 xbawks:
-  choice: bf9c59b9045caec0
-  collected_at: '2026-11-24T06:34:59Z'
-  commit: f14f038c214f3e875b5d92f665397931e95408d5
+  choice: 2ec176e92f794a03
+  collected_at: '2026-11-24T20:43:24Z'
+  commit: dc753349d88b19cf91707b2d34179277ca1c24a8
   icon:
     kind: layered
     layers:
@@ -1336,21 +1336,21 @@ xbawks:
       height: 1024
       layer: back
       sha256: 7656c65111af62db03d5d1013862351dc2b0f18bb30f4b317b8400e10d67e62a
-      url: https://raw.githubusercontent.com/Ywach404/xbawks-avp/f14f038c214f3e875b5d92f665397931e95408d5/tools/xros/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
+      url: https://raw.githubusercontent.com/Ywach404/xbawks-avp/dc753349d88b19cf91707b2d34179277ca1c24a8/tools/xros/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
       width: 1024
     - bytes: 17757
       format: png
       height: 1024
       layer: middle
       sha256: 24bb31e51369ec2515e74bbd4de60e32c3a27ce90b5a9331c30954004e396144
-      url: https://raw.githubusercontent.com/Ywach404/xbawks-avp/f14f038c214f3e875b5d92f665397931e95408d5/tools/xros/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
+      url: https://raw.githubusercontent.com/Ywach404/xbawks-avp/dc753349d88b19cf91707b2d34179277ca1c24a8/tools/xros/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
       width: 1024
     - bytes: 72391
       format: png
       height: 1024
       layer: front
       sha256: c18db22bf2b6a83882e8b3d742ec2fb4a00360d0c1a05884681bb6dcf274bede
-      url: https://raw.githubusercontent.com/Ywach404/xbawks-avp/f14f038c214f3e875b5d92f665397931e95408d5/tools/xros/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
+      url: https://raw.githubusercontent.com/Ywach404/xbawks-avp/dc753349d88b19cf91707b2d34179277ca1c24a8/tools/xros/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
       width: 1024
   screenshots:
   - alt: null
@@ -1358,21 +1358,21 @@ xbawks:
     format: gif
     height: 506
     sha256: 01dca4c151bfdd793a48bf35aa1142ad0429df8b7317759734cbbd49c0fff683
-    url: https://raw.githubusercontent.com/Ywach404/xbawks-avp/f14f038c214f3e875b5d92f665397931e95408d5/docs/media/promo.gif
+    url: https://raw.githubusercontent.com/Ywach404/xbawks-avp/dc753349d88b19cf91707b2d34179277ca1c24a8/docs/media/promo.gif
     width: 900
   - alt: null
-    bytes: 6741993
+    bytes: 5686916
     format: gif
-    height: 338
-    sha256: 1a3ee7878127bd00a0450548b673825bd39a205542ca7ae6af64f0c650f0615a
-    url: https://raw.githubusercontent.com/Ywach404/xbawks-avp/f14f038c214f3e875b5d92f665397931e95408d5/docs/media/dashboard.gif
-    width: 600
+    height: 315
+    sha256: 84c501f4d737562c00f572686c68888f123e02b2e453884553ee976589eca924
+    url: https://raw.githubusercontent.com/Ywach404/xbawks-avp/dc753349d88b19cf91707b2d34179277ca1c24a8/docs/media/colorways.gif
+    width: 560
   - alt: null
-    bytes: 7490340
+    bytes: 7299688
     format: gif
-    height: 338
-    sha256: 6cd018636cc17ec7936812c52f90d704c620fcb9d4f8a8662d9d25e3c11afa84
-    url: https://raw.githubusercontent.com/Ywach404/xbawks-avp/f14f038c214f3e875b5d92f665397931e95408d5/docs/media/gameplay.gif
-    width: 600
+    height: 315
+    sha256: 4d6772f41fc48fb85c270a315ab0733a3fcb6d3cde74fd97dfbca89b3b79b7ed
+    url: https://raw.githubusercontent.com/Ywach404/xbawks-avp/dc753349d88b19cf91707b2d34179277ca1c24a8/docs/media/dpad.gif
+    width: 560
   skipped: []
   source: entry

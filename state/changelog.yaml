@@ -365,6 +365,17 @@ events:
 - at: '2026-11-24T19:00:00Z'
   event: note
   text: This page started, filled in all the way back to day one.
+- at: '2026-11-24T20:43:24Z'
+  changes:
+  - field: status
+    from: partially-working
+    to: working
+  event: updated
+  game: Original Xbox games
+  id: xbawks
+  kind: emulator
+  logged: '2026-11-24T20:43:24Z'
+  name: Xbawks
 schema_version: 1
 seen:
   listed:
@@ -745,7 +756,7 @@ seen:
       name: Xbawks
       prebuilt: false
       repo: https://github.com/Ywach404/xbawks-avp
-      status: partially-working
+      status: working
       testflight: false
       verified: false
   removed: []
