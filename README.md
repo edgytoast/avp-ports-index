@@ -89,6 +89,8 @@ Everything below "Verified by trevorbilt" is self-reported by whoever submitted 
 | Minecraft: Java Edition | [AVPcraft](ports/avp-craft.md) | Zach Schwendiman ([@zschwendi](https://github.com/zschwendi)) | 2D, 6DoF immersive | Partially working | OK | MIT | 2026-11-01 | Scanned 2026-11-02 · 0 commits since | [AVP-INSTALL.md](https://github.com/zschwendi/avp-craft/blob/f2e37d355aa472b360bf88f355c8214f40ab5434/AVP-INSTALL.md) |  |
 | Halo: Combat Evolved | [117](ports/117-vision.md) | Zach Schwendiman ([@zschwendi](https://github.com/zschwendi)) | 2D, 6DoF immersive | Partially working | OK | MIT | 2026-10-30 | Scanned 2026-10-30 · 0 commits since | [AVP-INSTALL.md](https://github.com/zschwendi/117-vision/blob/ab3dad0f33c6175f391ed5ed27556a8706832b62/AVP-INSTALL.md) · prebuilt app (not safety-checked) |  |
 
+The index runs about $220 a month between safety checks, AI help and the time spent hunting down ports. If it got a game onto your headset, [a coffee](https://buymeacoffee.com/adminpz) goes straight back into the index.
+
 ## Emulators
 
 Emulators that run on the headset and play a console's own games. They're held to the same checks as the ports above. You supply your own console files and games, and the install guide says which ones.
