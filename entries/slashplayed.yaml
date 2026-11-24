@@ -9,7 +9,7 @@ repo: https://github.com/paulstraw/slashplayed
 developer:
   github: paulstraw
 status: working
-status_notes: "Unofficial: Blizzard doesn't support it, and the developer warns accounts could be actioned. Stores your Battle.net login on the headset; optional Apple ID sign-in goes through a third-party server. Needs a WoW subscription, a hardware keyboard, LocalDevVPN and visionOS 27. Not tested by the curator."
+status_notes: "Unofficial: Blizzard doesn't support it, and the developer warns accounts could be actioned. Keeps your Battle.net login on the headset; optional Apple ID sign-in uses a third-party server. Needs a WoW subscription, hardware keyboard, LocalDevVPN, visionOS 27."
 visionos_min: "27.0"
 input: [keyboard-mouse]
 experiences: [2d]
