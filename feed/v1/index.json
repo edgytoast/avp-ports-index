@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.8.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-24T22:39:00Z",
+  "generated_at": "2026-11-24T22:48:40Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -898,8 +898,8 @@
       },
       "repo_url": "https://github.com/edgytoast/Lighthouse-ios",
       "source_ref": null,
-      "source_url": "https://github.com/edgytoast/Lighthouse-ios/tree/b2b6b2b8817b7229f63beaad30237f2af2d35e81",
-      "install_doc_url": "https://github.com/edgytoast/Lighthouse-ios/blob/b2b6b2b8817b7229f63beaad30237f2af2d35e81/AVP-INSTALL.md",
+      "source_url": "https://github.com/edgytoast/Lighthouse-ios/tree/8a2df6111c39e8f01f3b53f814dde59c17f8aac7",
+      "install_doc_url": "https://github.com/edgytoast/Lighthouse-ios/blob/8a2df6111c39e8f01f3b53f814dde59c17f8aac7/AVP-INSTALL.md",
       "install_guide": "AVP-INSTALL.md",
       "developer": {
         "name": null,
@@ -952,11 +952,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "b2b6b2b8817b7229f63beaad30237f2af2d35e81",
-      "scanned_at": "2026-11-14T00:36:41Z",
+      "scanned_commit": "8a2df6111c39e8f01f3b53f814dde59c17f8aac7",
+      "scanned_at": "2026-11-24T22:48:39Z",
       "scan_kind": "automated",
-      "commits_since_scan": 1,
-      "scan_state": "behind",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-11-24T18:27:06Z",
       "license": {
