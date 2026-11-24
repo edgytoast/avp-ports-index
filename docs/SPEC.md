@@ -395,7 +395,7 @@ stage2:
   start_gap_minutes: 5               # at most one scan starts in any 5 minutes; scans may run side by side
   daily_cap: 50
   per_pr_max_scans: 3                # then the PR waits for the owner
-  rescan_daily_max: 6
+  rescan_daily_max: 25
   confidence_threshold: 80          # the verdict's safe_confidence needed to pass (0-100)
   approved_files_min_confidence: 50  # a flag whose findings are all on curator-approved files (same SHA-256) passes from here up (§5.9)
   timeout_minutes: 150               # enforced by the poller; the job's own timeout-minutes is fixed at 200
