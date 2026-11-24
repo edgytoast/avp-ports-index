@@ -1,0 +1,37 @@
+schema_version: 1
+id: holofold
+name: Holofold
+kind: emulator
+game:
+  title: "Nintendo 3DS games"
+  original_platform: other
+  original_release_year: 2011
+repo: https://github.com/zlinoliver/Holofold
+developer:
+  github: zlinoliver
+status: partially-working
+status_notes: "Early and experimental, per the developer. On an M5 headset Super Mario 3D Land plays at about 60 fps without JIT and Ocarina of Time 3D boots. A game can freeze after several minutes of play. Not tested by the curator."
+visionos_min: "26.0"
+input: [game-controller, hand-tracking]
+experiences: [3d-shared-space-stereo]
+install: [build]
+description: >-
+  3DS emulation on Apple Vision Pro with the top screen in real stereoscopic 3D, optionally
+  curved, and the bottom screen in its own window you tap by looking and pinching. A fork of Bifold
+  on the Azahar core, from the developer of SheikahVision. Bring your own games.
+tags: [emulator, 3ds, stereo-3d]
+media:
+  screenshots:
+    - docs/images/holofold-vision-pro.jpg
+credits:
+  - name: zlinoliver
+    role: Holofold, the visionOS fork
+    url: https://github.com/zlinoliver/Holofold
+  - name: Bifold
+    role: The iOS front end Holofold forks
+    url: https://github.com/Bifold-Emu/Bifold
+  - name: Azahar
+    role: Emulator core
+    url: https://github.com/azahar-emu/azahar
+upstream:
+  - https://github.com/Bifold-Emu/Bifold
