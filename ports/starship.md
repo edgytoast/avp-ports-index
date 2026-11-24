@@ -6,10 +6,10 @@ Port by [@rebelancap](https://github.com/rebelancap)
 Start with this command, which gets exactly the code that was scanned:
 
 ```
-git clone https://github.com/edgytoast/Starship-ios && cd Starship-ios && git checkout 5de019c0b16e68ba3ad6a62413b0ca9953285658 && git submodule update --init --recursive
+git clone https://github.com/edgytoast/Starship-ios && cd Starship-ios && git checkout be3362808072233716d4fac09676507bb86e43cb && git submodule update --init --recursive
 ```
 
-Then follow the [install guide](https://github.com/edgytoast/Starship-ios/blob/5de019c0b16e68ba3ad6a62413b0ca9953285658/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+Then follow the [install guide](https://github.com/edgytoast/Starship-ios/blob/be3362808072233716d4fac09676507bb86e43cb/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
 
 | | |
 | --- | --- |
@@ -17,9 +17,9 @@ Then follow the [install guide](https://github.com/edgytoast/Starship-ios/blob/5
 | Status | Working |
 | Plays as | 2D, 3D immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-13 · 1 commit since |
-| Source (scanned) | [edgytoast/Starship-ios at 5de019c0b16e](https://github.com/edgytoast/Starship-ios/tree/5de019c0b16e68ba3ad6a62413b0ca9953285658) |
-| Install guide | [AVP-INSTALL.md at 5de019c0b16e](https://github.com/edgytoast/Starship-ios/blob/5de019c0b16e68ba3ad6a62413b0ca9953285658/AVP-INSTALL.md) |
+| Scan | Scanned 2026-11-24 · 0 commits since |
+| Source (scanned) | [edgytoast/Starship-ios at be3362808072](https://github.com/edgytoast/Starship-ios/tree/be3362808072233716d4fac09676507bb86e43cb) |
+| Install guide | [AVP-INSTALL.md at be3362808072](https://github.com/edgytoast/Starship-ios/blob/be3362808072233716d4fac09676507bb86e43cb/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [edgytoast/Starship-ios](https://github.com/edgytoast/Starship-ios) |
 | License | MIT |

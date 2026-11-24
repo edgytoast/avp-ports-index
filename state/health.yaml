@@ -974,7 +974,7 @@ spaghettikart:
   warnings: []
 starship:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-11-13T22:54:24Z'
@@ -994,13 +994,15 @@ starship:
   rescan_after: null
   rescan_hold: false
   routes: []
-  scan_confidence: 96
+  scan_confidence: 95
   scan_declines: 0
+  scan_errors: 0
   scan_kind: automated
+  scan_provider_errors: 0
   scan_refused: false
-  scan_state: behind
-  scanned_at: '2026-11-13T22:54:24Z'
-  scanned_commit: 5de019c0b16e68ba3ad6a62413b0ca9953285658
+  scan_state: current
+  scanned_at: '2026-11-24T22:38:59Z'
+  scanned_commit: be3362808072233716d4fac09676507bb86e43cb
   testflight: null
   warnings: []
 twilight-princess-vr:

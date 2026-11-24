@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.8.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-24T22:34:46Z",
+  "generated_at": "2026-11-24T22:39:00Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -1036,8 +1036,8 @@
       },
       "repo_url": "https://github.com/edgytoast/Starship-ios",
       "source_ref": null,
-      "source_url": "https://github.com/edgytoast/Starship-ios/tree/5de019c0b16e68ba3ad6a62413b0ca9953285658",
-      "install_doc_url": "https://github.com/edgytoast/Starship-ios/blob/5de019c0b16e68ba3ad6a62413b0ca9953285658/AVP-INSTALL.md",
+      "source_url": "https://github.com/edgytoast/Starship-ios/tree/be3362808072233716d4fac09676507bb86e43cb",
+      "install_doc_url": "https://github.com/edgytoast/Starship-ios/blob/be3362808072233716d4fac09676507bb86e43cb/AVP-INSTALL.md",
       "install_guide": "AVP-INSTALL.md",
       "developer": {
         "name": null,
@@ -1090,11 +1090,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "5de019c0b16e68ba3ad6a62413b0ca9953285658",
-      "scanned_at": "2026-11-13T22:54:24Z",
+      "scanned_commit": "be3362808072233716d4fac09676507bb86e43cb",
+      "scanned_at": "2026-11-24T22:38:59Z",
       "scan_kind": "automated",
-      "commits_since_scan": 1,
-      "scan_state": "behind",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-11-24T18:27:02Z",
       "license": {
