@@ -1,0 +1,31 @@
+schema_version: 1
+id: slashplayed
+name: Slashplayed
+game:
+  title: "World of Warcraft"
+  original_platform: pc
+  original_release_year: 2004
+repo: https://github.com/paulstraw/slashplayed
+developer:
+  github: paulstraw
+status: working
+status_notes: "Unofficial. Blizzard doesn't support playing this way, and the developer warns your account could be actioned; a game patch can break it for a while. Needs a Battle.net subscription, a hardware keyboard, LocalDevVPN and visionOS 27. Not tested by the curator."
+visionos_min: "27.0"
+input: [keyboard-mouse]
+experiences: [2d]
+install: [build, sideload]
+description: >-
+  World of Warcraft in a window on Apple Vision Pro: Blizzard's official Mac client, unmodified,
+  running on the headset. Classic Era, TBC Anniversary, MoP Classic and Retail. A Mac companion app
+  sets it up once, then the headset plays on its own. Needs your own WoW subscription.
+tags: [world-of-warcraft, mmo, rpg, blizzard, mac-client]
+media:
+  screenshots:
+    - site/screenshot.png
+  icon: site/icon-1024.png
+credits:
+  - name: Straw Dynamics (paulstraw)
+    role: Slashplayed
+    url: https://github.com/paulstraw/slashplayed
+  - name: Blizzard Entertainment
+    role: Original game
