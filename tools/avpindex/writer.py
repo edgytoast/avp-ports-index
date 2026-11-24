@@ -17,7 +17,7 @@ GENERATED_DIRS = ("ports", "feed", "skills/avp-index-submit/references", "skills
 # Workflows commit only these paths; anything else in the checkout (downloaded artifacts,
 # scratch files) is never published.
 COMMITTABLE = ("state/", "blocklist/", "entries/", "ports/", "feed/", "skills/avp-index-submit/references/",
-               "skills/avp-index-submit/scripts/", "README.md", "llms.txt")
+               "skills/avp-index-submit/scripts/", "README.md", "WHATS-NEW.md", "llms.txt")
 ATTEMPTS = 3
 
 

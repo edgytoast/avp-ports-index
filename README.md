@@ -50,6 +50,8 @@ Everything below "Verified by trevorbilt" is self-reported by whoever submitted 
 
 ## Ports
 
+Checking back in? [See what's new](WHATS-NEW.md): every port added or changed since day one, newest first.
+
 | Game | Port | Developer | Plays as | Trust | Health | License | Last commit | Scan | Install guide | TestFlight |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Halo: Combat Evolved | [VISR](ports/visr.md) | [@steverice](https://github.com/steverice) | 2D, 3D immersive, 6DoF immersive | Developer-verified | OK | Apache-2.0 | 2026-11-24 | Scanned 2026-11-13 · 1030 commits since | [AVP-INSTALL.md](https://github.com/steverice/visr/blob/9687cf8b540f36e8e81938148e86264ee44bc924/AVP-INSTALL.md) · prebuilt app (not safety-checked) |  |

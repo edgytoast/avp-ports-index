@@ -17,7 +17,7 @@ from pathlib import Path
 import jinja2
 import jsonschema
 
-from . import checks, media, store, validate
+from . import changelog, checks, media, store, validate
 from .lifecycle import DECAY, DELIST_REASONS, LISTED, PULLED, TAKEN_DOWN, WITHDRAWN
 
 STATUS_LABEL = {
@@ -244,7 +244,8 @@ def build_model(root: Path, repo_full: str) -> dict:
             "listed": listed,
             "ports": [v for v in listed if v["kind"] == "port"],
             "emulators": [v for v in listed if v["kind"] == "emulator"],
-            "unavailable": unavailable, "tombstones": tombstones}
+            "unavailable": unavailable, "tombstones": tombstones,
+            "listed_at": {k: r.get("listed_at") for k, r in state.lifecycle.items()}}
 
 
 # --- outputs ------------------------------------------------------------------------
@@ -444,7 +445,19 @@ def render_all(root: Path, model: dict, generated_at: str) -> dict[str, str]:
     out["skills/avp-index-submit/references/entry-fields.md"] = entry_fields_md(schema)
     out["skills/avp-index-submit/references/checks.md"] = checks_md()
     out["skills/avp-index-submit/scripts/preflight.py"] = preflight_source(root)
+    if "changelog" in model:
+        out[changelog.PATH] = changelog.dump(model["changelog"])
+        labels = {"md": md, "status": STATUS_LABEL, "reasons": DELIST_REASONS, "curator": "trevorbilt"}
+        months = changelog.render_items(model["changelog"], {v["id"] for v in model["listed"]}, labels)
+        out["WHATS-NEW.md"] = env.get_template("WHATS-NEW.md.j2").render(months=months, **ctx)
     return out
+
+
+def with_changelog(root: Path, model: dict) -> dict:
+    """Move the What's new log forward to what this build shows (see changelog.py)."""
+    seen = changelog.snapshot(feed(model, ""), {v["id"]: bool(v.get("testflight")) for v in model["listed"]})
+    log = changelog.update(changelog.load(root), seen, store.iso(store.utcnow()), model["listed_at"])
+    return dict(model, changelog=log)
 
 
 def previous_generated_at(root: Path) -> str | None:
@@ -461,7 +474,7 @@ def generate(root: Path | None = None, repo_full: str = "edgytoast/avp-ports-ind
              *, write: bool = True) -> dict[str, str]:
     """Render and (by default) write every surface. Returns {path: text}."""
     root = root or store.ROOT
-    model = build_model(root, repo_full)
+    model = with_changelog(root, build_model(root, repo_full))
     previous = previous_generated_at(root)
     outputs = render_all(root, model, previous or store.iso(store.utcnow()))
     if previous and _differs(root, outputs):

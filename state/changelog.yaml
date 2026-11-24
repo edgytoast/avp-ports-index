@@ -1,0 +1,757 @@
+# What's new log, rendered to WHATS-NEW.md. The build appends events and keeps `seen` current;
+# add a `note` event by hand ({at, event: note, text}) for an index change players will notice.
+events:
+- at: '2026-10-04T17:26:08Z'
+  event: note
+  text: The index opened, with two ports and a lot of optimism.
+- at: '2026-10-04T17:42:38Z'
+  developer: trevorbilt
+  event: added
+  game: 'The Legend of Zelda: Twilight Princess'
+  id: twilight-princess-vr
+  kind: port
+  name: Twilight Princess VR
+- at: '2026-10-04T17:59:25Z'
+  developer: Trevorbilt
+  event: added
+  game: 'The Simpsons: Hit & Run'
+  id: shar-visionos
+  kind: port
+  name: SHAR VR
+- at: '2026-10-06T19:07:04Z'
+  developer: Ixion
+  event: added
+  game: Half-Life
+  id: half-life-vr
+  kind: port
+  name: Lambda VisionPro
+- at: '2026-10-10T15:56:01Z'
+  developer: Trevorbilt
+  event: added
+  game: Animal Crossing
+  id: animal-crossing-vr
+  kind: port
+  name: Animal Crossing VR
+- at: '2026-10-12T03:39:01Z'
+  developer: '@glovebox-vr'
+  event: added
+  game: 'Half-Life: Alyx'
+  id: half-life-alyx
+  kind: port
+  name: Glovebox
+- at: '2026-10-29T05:06:28Z'
+  developer: Zach Schwendiman
+  event: added
+  game: Grand Theft Auto V
+  id: santosvision
+  kind: port
+  name: V
+- at: '2026-10-29T05:20:24Z'
+  developer: Zach Schwendiman
+  event: added
+  game: 'Minecraft: Java Edition'
+  id: avp-craft
+  kind: port
+  name: AVPcraft
+- at: '2026-10-29T06:48:19Z'
+  developer: Zach Schwendiman
+  event: added
+  game: Jak and Daxter
+  id: dark-eco
+  kind: port
+  name: Dark Eco
+- at: '2026-10-29T07:06:17Z'
+  developer: Zach Schwendiman
+  event: added
+  game: 'Halo: Combat Evolved'
+  id: 117-vision
+  kind: port
+  name: '117'
+- at: '2026-10-29T22:30:59Z'
+  developer: Trevorbilt
+  event: added
+  game: 'The Legend of Zelda: The Wind Waker'
+  id: wind-waker-vr
+  kind: port
+  name: Wind Waker VR
+- at: '2026-10-29T23:00:52Z'
+  developer: '@steverice'
+  event: added
+  game: 'Halo: Combat Evolved'
+  id: visr
+  kind: port
+  name: VISR
+- at: '2026-10-30T16:05:41Z'
+  developer: '@palex0481'
+  event: added
+  game: Super Mario Galaxy
+  id: galaxyvision
+  kind: port
+  name: GalaxyVision
+- at: '2026-10-31T01:08:02Z'
+  developer: Trevorbilt
+  event: added
+  game: Luigi's Mansion
+  id: luigis-mansion-vr
+  kind: port
+  name: Luigi's Mansion VR
+- at: '2026-11-02T22:41:26Z'
+  developer: '@LowRiderXR'
+  event: added
+  game: 'Grand Theft Auto: Vice City'
+  id: revc-visionos
+  kind: port
+  name: reVC for visionOS
+- at: '2026-11-03T15:35:36Z'
+  changes:
+  - field: prebuilt
+    from: false
+    to: true
+  event: updated
+  game: 'Halo: Combat Evolved'
+  id: 117-vision
+  kind: port
+  name: '117'
+- at: '2026-11-03T15:35:36Z'
+  changes:
+  - field: prebuilt
+    from: false
+    to: true
+  event: updated
+  game: Jak and Daxter
+  id: dark-eco
+  kind: port
+  name: Dark Eco
+- at: '2026-11-03T15:35:36Z'
+  changes:
+  - field: prebuilt
+    from: false
+    to: true
+  event: updated
+  game: Half-Life
+  id: half-life-vr
+  kind: port
+  name: Lambda VisionPro
+- at: '2026-11-03T15:35:36Z'
+  changes:
+  - field: prebuilt
+    from: false
+    to: true
+  event: updated
+  game: Grand Theft Auto V
+  id: santosvision
+  kind: port
+  name: V
+- at: '2026-11-03T15:42:16Z'
+  event: removed
+  game: 'Halo: Combat Evolved'
+  id: visr
+  kind: port
+  name: VISR
+- at: '2026-11-13T19:53:09Z'
+  event: back
+  game: 'Halo: Combat Evolved'
+  id: visr
+  kind: port
+  name: VISR
+- at: '2026-11-13T22:49:54Z'
+  developer: '@myMartek'
+  event: added
+  game: Pokémon Red, Blue and Yellow
+  id: pokemon-gen1recomp
+  kind: port
+  name: Gen1 Vision
+- at: '2026-11-13T22:54:24Z'
+  developer: '@rebelancap'
+  event: added
+  game: Star Fox 64
+  id: starship
+  kind: port
+  name: Starship
+- at: '2026-11-14T00:36:42Z'
+  developer: '@rebelancap'
+  event: added
+  game: Banjo-Kazooie
+  id: lighthouse
+  kind: port
+  name: Lighthouse
+- at: '2026-11-14T00:40:28Z'
+  developer: '@rebelancap'
+  event: added
+  game: 'The Legend of Zelda: Ocarina of Time'
+  id: ship-of-harkinian
+  kind: port
+  name: Ship of Harkinian
+- at: '2026-11-14T02:25:13Z'
+  developer: '@florind-ens'
+  event: added
+  game: Return to Castle Wolfenstein
+  id: rtcw-avp
+  kind: port
+  name: RTCW for Apple Vision Pro
+- at: '2026-11-14T02:29:32Z'
+  developer: '@rebelancap'
+  event: added
+  game: Mario Kart 64
+  id: spaghettikart
+  kind: port
+  name: SpaghettiKart
+- at: '2026-11-14T02:35:02Z'
+  developer: '@bettse'
+  event: added
+  game: Luanti
+  id: voxelnative
+  kind: port
+  name: VoxelNative
+- at: '2026-11-14T04:25:25Z'
+  developer: '@rebelancap'
+  event: added
+  game: Apotris
+  id: apotris
+  kind: port
+  name: Apotris
+- at: '2026-11-14T17:30:10Z'
+  developer: '@eurobob'
+  event: added
+  game: Crash Team Racing
+  id: ctrpad
+  kind: port
+  name: CTRPad for Vision Pro
+- at: '2026-11-14T18:14:30Z'
+  developer: '@rebelancap'
+  event: added
+  game: GoldenEye 007
+  id: goldeneye-xbla
+  kind: port
+  name: GoldenEye 007
+- at: '2026-11-14T18:28:51Z'
+  developer: '@rebelancap'
+  event: added
+  game: Perfect Dark
+  id: perfect-dark
+  kind: port
+  name: Perfect Dark
+- at: '2026-11-14T21:15:23Z'
+  developer: '@rebelancap'
+  event: added
+  game: 'The Legend of Zelda: Majora''s Mask'
+  id: 2ship2harkinian
+  kind: port
+  name: 2 Ship 2 Harkinian
+- at: '2026-11-14T21:28:00Z'
+  developer: '@rebelancap'
+  event: added
+  game: Super Mario 64
+  id: sm64coopdx
+  kind: port
+  name: Super Mario 64 Co-op Deluxe
+- at: '2026-11-14T21:32:22Z'
+  developer: '@iChris4'
+  event: added
+  game: Mario Kart Wii
+  id: wiicompiled-vr
+  kind: port
+  name: WiiCompiled Vision
+- at: '2026-11-15T16:31:18Z'
+  developer: '@gseddon'
+  event: added
+  game: 'The Elder Scrolls V: Skyrim VR'
+  id: skyrim-vr
+  kind: port
+  name: Skyrim VR on Apple Vision Pro
+- at: '2026-11-15T17:29:48Z'
+  developer: '@portal-in-the-visor'
+  event: added
+  game: Portal 2
+  id: portal-2-vr
+  kind: port
+  name: Portal 2 VR
+- at: '2026-11-16T00:45:49Z'
+  developer: '@Ag3497120'
+  event: added
+  game: Cyberpunk 2077
+  id: vxpro
+  kind: port
+  name: VXpro
+- at: '2026-11-16T02:41:21Z'
+  developer: '@myMartek'
+  event: added
+  game: Jedi Outcast and Jedi Academy
+  id: jkxr
+  kind: port
+  name: JKXR for Apple Vision Pro
+- at: '2026-11-16T21:12:19Z'
+  developer: '@ly05010419'
+  event: added
+  game: 'The Legend of Zelda: Tears of the Kingdom'
+  id: macnativegames-totk
+  kind: port
+  name: MacNativeGames
+- at: '2026-11-16T21:17:34Z'
+  developer: '@LowRiderXR'
+  event: added
+  game: 'Celeste 64: Fragments of the Mountain'
+  id: mountain-64
+  kind: port
+  name: Mountain 64
+- at: '2026-11-16T23:25:44Z'
+  event: note
+  text: The ports table got a TestFlight column, linking a developer's public beta when there is one.
+- at: '2026-11-16T23:30:58Z'
+  changes:
+  - field: testflight
+    from: false
+    to: true
+  event: updated
+  game: 'Celeste 64: Fragments of the Mountain'
+  id: mountain-64
+  kind: port
+  name: Mountain 64
+- at: '2026-11-16T23:30:58Z'
+  changes:
+  - field: testflight
+    from: false
+    to: true
+  event: updated
+  game: Luanti
+  id: voxelnative
+  kind: port
+  name: VoxelNative
+- at: '2026-11-17T21:10:14Z'
+  developer: A.Cervantez
+  event: added
+  game: Quake
+  id: quakeavp
+  kind: port
+  name: QuakeAVP
+- at: '2026-11-17T22:51:42Z'
+  event: note
+  text: Emulators got their own section, below the ports.
+- at: '2026-11-17T23:35:33Z'
+  developer: A.Cervantez
+  event: added
+  game: Original Xbox games
+  id: xbawks
+  kind: emulator
+  name: Xbawks
+- at: '2026-11-19T06:30:50Z'
+  event: unavailable
+  game: Grand Theft Auto V
+  id: santosvision
+  kind: port
+  name: V
+  reason: legal-451
+- at: '2026-11-19T20:53:35Z'
+  developer: '@zlinoliver'
+  event: added
+  game: 'The Legend of Zelda: Breath of the Wild'
+  id: sheikahvision
+  kind: port
+  name: SheikahVision
+- at: '2026-11-22T06:55:54Z'
+  developer: A.Cervantez
+  event: added
+  game: Xbox 360 games
+  id: '720'
+  kind: emulator
+  name: '720'
+- at: '2026-11-22T08:30:19Z'
+  developer: A. Cervantez
+  event: added
+  game: 'Vampire: The Masquerade, Bloodlines'
+  id: embrace
+  kind: port
+  name: Embrace
+- at: '2026-11-24T19:00:00Z'
+  event: note
+  text: This page started, filled in all the way back to day one.
+schema_version: 1
+seen:
+  listed:
+    117-vision:
+      developer: Zach Schwendiman
+      game: 'Halo: Combat Evolved'
+      kind: port
+      name: '117'
+      prebuilt: true
+      repo: https://github.com/zschwendi/117-vision
+      status: partially-working
+      testflight: false
+      verified: false
+    2ship2harkinian:
+      developer: '@rebelancap'
+      game: 'The Legend of Zelda: Majora''s Mask'
+      kind: port
+      name: 2 Ship 2 Harkinian
+      prebuilt: true
+      repo: https://github.com/edgytoast/2ship2harkinian-ios
+      status: working
+      testflight: false
+      verified: false
+    '720':
+      developer: A.Cervantez
+      game: Xbox 360 games
+      kind: emulator
+      name: '720'
+      prebuilt: false
+      repo: https://github.com/Ywach404/720-avp
+      status: partially-working
+      testflight: false
+      verified: false
+    animal-crossing-vr:
+      developer: Trevorbilt
+      game: Animal Crossing
+      kind: port
+      name: Animal Crossing VR
+      prebuilt: false
+      repo: https://github.com/edgytoast/animalcrossing-visionos
+      status: working
+      testflight: false
+      verified: false
+    apotris:
+      developer: '@rebelancap'
+      game: Apotris
+      kind: port
+      name: Apotris
+      prebuilt: true
+      repo: https://github.com/edgytoast/apotris-ios
+      status: working
+      testflight: false
+      verified: false
+    avp-craft:
+      developer: Zach Schwendiman
+      game: 'Minecraft: Java Edition'
+      kind: port
+      name: AVPcraft
+      prebuilt: false
+      repo: https://github.com/zschwendi/avp-craft
+      status: partially-working
+      testflight: false
+      verified: false
+    ctrpad:
+      developer: '@eurobob'
+      game: Crash Team Racing
+      kind: port
+      name: CTRPad for Vision Pro
+      prebuilt: false
+      repo: https://github.com/edgytoast/ctrpad
+      status: partially-working
+      testflight: false
+      verified: false
+    dark-eco:
+      developer: Zach Schwendiman
+      game: Jak and Daxter
+      kind: port
+      name: Dark Eco
+      prebuilt: true
+      repo: https://github.com/zschwendi/dark-eco
+      status: partially-working
+      testflight: false
+      verified: false
+    embrace:
+      developer: A. Cervantez
+      game: 'Vampire: The Masquerade, Bloodlines'
+      kind: port
+      name: Embrace
+      prebuilt: false
+      repo: https://github.com/Ywach404/embrace
+      status: developer-verified
+      testflight: false
+      verified: false
+    galaxyvision:
+      developer: '@palex0481'
+      game: Super Mario Galaxy
+      kind: port
+      name: GalaxyVision
+      prebuilt: false
+      repo: https://github.com/palex0481/GalaxyVision-AVP
+      status: working
+      testflight: false
+      verified: false
+    goldeneye-xbla:
+      developer: '@rebelancap'
+      game: GoldenEye 007
+      kind: port
+      name: GoldenEye 007
+      prebuilt: true
+      repo: https://github.com/edgytoast/GoldenEye-Recomp-ios
+      status: working
+      testflight: false
+      verified: false
+    half-life-alyx:
+      developer: '@glovebox-vr'
+      game: 'Half-Life: Alyx'
+      kind: port
+      name: Glovebox
+      prebuilt: true
+      repo: https://github.com/edgytoast/glovebox
+      status: working
+      testflight: false
+      verified: false
+    half-life-vr:
+      developer: Ixion
+      game: Half-Life
+      kind: port
+      name: Lambda VisionPro
+      prebuilt: true
+      repo: https://github.com/illixion/halflife-visionos
+      status: working
+      testflight: false
+      verified: false
+    jkxr:
+      developer: '@myMartek'
+      game: Jedi Outcast and Jedi Academy
+      kind: port
+      name: JKXR for Apple Vision Pro
+      prebuilt: false
+      repo: https://github.com/myMartek/JKXR
+      status: working
+      testflight: false
+      verified: false
+    lighthouse:
+      developer: '@rebelancap'
+      game: Banjo-Kazooie
+      kind: port
+      name: Lighthouse
+      prebuilt: true
+      repo: https://github.com/edgytoast/Lighthouse-ios
+      status: working
+      testflight: false
+      verified: false
+    luigis-mansion-vr:
+      developer: Trevorbilt
+      game: Luigi's Mansion
+      kind: port
+      name: Luigi's Mansion VR
+      prebuilt: false
+      repo: https://github.com/edgytoast/luigismansion-visionos
+      status: working
+      testflight: false
+      verified: false
+    macnativegames-totk:
+      developer: '@ly05010419'
+      game: 'The Legend of Zelda: Tears of the Kingdom'
+      kind: port
+      name: MacNativeGames
+      prebuilt: false
+      repo: https://github.com/ly05010419/MacNativeGames
+      status: partially-working
+      testflight: false
+      verified: false
+    mountain-64:
+      developer: '@LowRiderXR'
+      game: 'Celeste 64: Fragments of the Mountain'
+      kind: port
+      name: Mountain 64
+      prebuilt: false
+      repo: https://github.com/LowRiderXR/mountain64-visionos-app
+      status: working
+      testflight: true
+      verified: false
+    perfect-dark:
+      developer: '@rebelancap'
+      game: Perfect Dark
+      kind: port
+      name: Perfect Dark
+      prebuilt: true
+      repo: https://github.com/edgytoast/perfect-dark-ios
+      status: working
+      testflight: false
+      verified: false
+    pokemon-gen1recomp:
+      developer: '@myMartek'
+      game: Pokémon Red, Blue and Yellow
+      kind: port
+      name: Gen1 Vision
+      prebuilt: false
+      repo: https://github.com/edgytoast/gen1recomp
+      status: partially-working
+      testflight: false
+      verified: false
+    portal-2-vr:
+      developer: '@portal-in-the-visor'
+      game: Portal 2
+      kind: port
+      name: Portal 2 VR
+      prebuilt: false
+      repo: https://github.com/edgytoast/portal2-visionos
+      status: working
+      testflight: false
+      verified: false
+    quakeavp:
+      developer: A.Cervantez
+      game: Quake
+      kind: port
+      name: QuakeAVP
+      prebuilt: false
+      repo: https://github.com/Ywach404/QuakeAVP
+      status: developer-verified
+      testflight: false
+      verified: false
+    revc-visionos:
+      developer: '@LowRiderXR'
+      game: 'Grand Theft Auto: Vice City'
+      kind: port
+      name: reVC for visionOS
+      prebuilt: false
+      repo: https://github.com/LowRiderXR/revc-visionos-app
+      status: developer-verified
+      testflight: false
+      verified: false
+    rtcw-avp:
+      developer: '@florind-ens'
+      game: Return to Castle Wolfenstein
+      kind: port
+      name: RTCW for Apple Vision Pro
+      prebuilt: false
+      repo: https://github.com/edgytoast/RTCW-AVP
+      status: working
+      testflight: false
+      verified: false
+    shar-visionos:
+      developer: Trevorbilt
+      game: 'The Simpsons: Hit & Run'
+      kind: port
+      name: SHAR VR
+      prebuilt: false
+      repo: https://github.com/edgytoast/shar-visionos
+      status: working
+      testflight: false
+      verified: false
+    sheikahvision:
+      developer: '@zlinoliver'
+      game: 'The Legend of Zelda: Breath of the Wild'
+      kind: port
+      name: SheikahVision
+      prebuilt: false
+      repo: https://github.com/zlinoliver/BotW-SheikahVision
+      status: developer-verified
+      testflight: false
+      verified: false
+    ship-of-harkinian:
+      developer: '@rebelancap'
+      game: 'The Legend of Zelda: Ocarina of Time'
+      kind: port
+      name: Ship of Harkinian
+      prebuilt: true
+      repo: https://github.com/edgytoast/Shipwright-ios
+      status: working
+      testflight: false
+      verified: false
+    skyrim-vr:
+      developer: '@gseddon'
+      game: 'The Elder Scrolls V: Skyrim VR'
+      kind: port
+      name: Skyrim VR on Apple Vision Pro
+      prebuilt: false
+      repo: https://github.com/gseddon/Skyrim-VR-Vision-Pro
+      status: working
+      testflight: false
+      verified: false
+    sm64coopdx:
+      developer: '@rebelancap'
+      game: Super Mario 64
+      kind: port
+      name: Super Mario 64 Co-op Deluxe
+      prebuilt: true
+      repo: https://github.com/edgytoast/sm64coopdx-ios
+      status: working
+      testflight: false
+      verified: false
+    spaghettikart:
+      developer: '@rebelancap'
+      game: Mario Kart 64
+      kind: port
+      name: SpaghettiKart
+      prebuilt: true
+      repo: https://github.com/edgytoast/SpaghettiKart-ios
+      status: working
+      testflight: false
+      verified: false
+    starship:
+      developer: '@rebelancap'
+      game: Star Fox 64
+      kind: port
+      name: Starship
+      prebuilt: true
+      repo: https://github.com/edgytoast/Starship-ios
+      status: working
+      testflight: false
+      verified: false
+    twilight-princess-vr:
+      developer: Trevorbilt
+      game: 'The Legend of Zelda: Twilight Princess'
+      kind: port
+      name: Twilight Princess VR
+      prebuilt: false
+      repo: https://github.com/edgytoast/tpvr-visionos
+      status: working
+      testflight: false
+      verified: false
+    visr:
+      developer: '@steverice'
+      game: 'Halo: Combat Evolved'
+      kind: port
+      name: VISR
+      prebuilt: true
+      repo: https://github.com/steverice/visr
+      status: developer-verified
+      testflight: false
+      verified: false
+    voxelnative:
+      developer: '@bettse'
+      game: Luanti
+      kind: port
+      name: VoxelNative
+      prebuilt: false
+      repo: https://github.com/edgytoast/voxelnative
+      status: working
+      testflight: true
+      verified: false
+    vxpro:
+      developer: '@Ag3497120'
+      game: Cyberpunk 2077
+      kind: port
+      name: VXpro
+      prebuilt: false
+      repo: https://github.com/Ag3497120/VXpro
+      status: partially-working
+      testflight: false
+      verified: false
+    wiicompiled-vr:
+      developer: '@iChris4'
+      game: Mario Kart Wii
+      kind: port
+      name: WiiCompiled Vision
+      prebuilt: false
+      repo: https://github.com/edgytoast/wiicompiled_vr-avp-index
+      status: working
+      testflight: false
+      verified: false
+    wind-waker-vr:
+      developer: Trevorbilt
+      game: 'The Legend of Zelda: The Wind Waker'
+      kind: port
+      name: Wind Waker VR
+      prebuilt: false
+      repo: https://github.com/edgytoast/windwaker-visionos
+      status: working
+      testflight: false
+      verified: false
+    xbawks:
+      developer: A.Cervantez
+      game: Original Xbox games
+      kind: emulator
+      name: Xbawks
+      prebuilt: false
+      repo: https://github.com/Ywach404/xbawks-avp
+      status: partially-working
+      testflight: false
+      verified: false
+  removed: []
+  unavailable:
+    santosvision:
+      game: Grand Theft Auto V
+      name: V
+      reason: legal-451
+      since: '2026-11-19T06:30:50Z'

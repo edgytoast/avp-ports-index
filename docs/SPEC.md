@@ -924,6 +924,12 @@ In order:
 - Pinned links, and, near the top: "Start with this command, which gets exactly the code that was scanned: `git clone <repo> && cd <repo name> && git checkout <scanned_commit> && git submodule update --init --recursive`. Then follow the install guide from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads."
 - A short disclaimer and the brand footer.
 
+### 10.2a `WHATS-NEW.md`
+
+- A player-facing changelog, newest first, grouped by month, linked from the README above the ports table. One line per port added, back on the list, moved to Unavailable ports, removed, or changed in a way players notice: name, kind (Ports/Emulators), self-reported status, verified by the curator, repo, prebuilt app, TestFlight beta. Scans, health plumbing, CI and tooling never appear.
+- Rendered from `state/changelog.yaml`. Each `generate` compares a snapshot of those fields with what the README shows now and appends an event per change, so a rerun with no other change adds nothing. A port that drops off the README for a while without being delisted or removed (waiting on a rescan, say) isn't logged, and neither is its return. Index-level `note` events (`at`, `event: note`, `text`) are added by hand for features players will notice.
+- Backfilled on 2026-11-24 by replaying the feed's git history through the same comparison.
+
 ### 10.3 `llms.txt` (llmstxt.org structure)
 
 ```
