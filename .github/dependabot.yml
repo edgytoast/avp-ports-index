@@ -1,14 +1,27 @@
 version: 2
 updates:
+  # Version updates arrive as one grouped PR per ecosystem each month.
+  # Security updates are not grouped here and still open right away.
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
     cooldown:
       default-days: 7
+    groups:
+      github-actions:
+        applies-to: version-updates
+        patterns: ["*"]
   - package-ecosystem: pip
     directory: /tools
     schedule:
-      interval: weekly
+      interval: monthly
     cooldown:
       default-days: 7
+    groups:
+      tools:
+        applies-to: version-updates
+        patterns: ["*"]
+    ignore:
+      # No workflow runs ruff, so its updates only add merge requests.
+      - dependency-name: ruff
