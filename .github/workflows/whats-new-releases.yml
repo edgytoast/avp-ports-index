@@ -1,0 +1,48 @@
+# Weekly What's new release (tools/avpindex/changelog.py): one GitHub release per finished week
+# (Monday to Sunday, UTC) that has news in state/changelog.yaml, tagged whats-new-<Monday>.
+# Weeks with nothing to say get no release, and a rerun skips weeks already published.
+name: whats-new-releases
+
+on:
+  schedule:
+    - cron: "23 13 * * 1"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Log what would be published, and publish nothing"
+        type: boolean
+        default: false
+
+permissions: {}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions: {}
+    timeout-minutes: 10
+    concurrency:
+      group: whats-new-releases
+      cancel-in-progress: false
+    env:
+      PYTHONPATH: tools
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          ref: main
+      - name: Install the index tooling
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install --quiet --require-hashes --no-deps -r tools/requirements.txt
+      - name: Mint the token
+        id: app
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_KEY }}
+          permission-contents: write
+      - name: Publish missing weekly releases
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          INPUT_DRY_RUN: ${{ inputs.dry_run }}
+        run: '"$RUNNER_TEMP/venv/bin/python" -m avpindex.cli whats-new-releases'

@@ -5,13 +5,15 @@ Every port that joined the index, changed in a way you'd notice when you play, o
 
 Behind-the-scenes work (safety checks, tooling and the like) stays out of this list, which is for the games.
 
+Want a heads-up instead of checking? Each week with news also goes out as a [release](https://github.com/edgytoast/avp-ports-index/releases). **Watch** this repo, pick **Custom**, then **Releases**, and GitHub will tell you.
+
 ## November 2026
 
 - **Nov 24.** This page started, filled in all the way back to day one.
 - **Nov 22.** *Vampire: The Masquerade, Bloodlines* joined the index: [Embrace](ports/embrace.md) by A. Cervantez.
 - **Nov 22.** New emulator: [720](ports/720.md) by A.Cervantez, for Xbox 360 games.
 - **Nov 19.** *The Legend of Zelda: Breath of the Wild* joined the index: [SheikahVision](ports/sheikahvision.md) by @zlinoliver.
-- **Nov 19.** V (*Grand Theft Auto V*) is no longer available: repo blocked for legal reasons (HTTP 451). Takedown inferred; no notice seen. It's kept in the [Unavailable ports](README.md#unavailable-ports) record.
+- **Nov 19.** V (*Grand Theft Auto V*) is no longer available: the repo was taken down. It's kept in the [Unavailable ports](README.md#unavailable-ports) record.
 - **Nov 17.** New emulator: [Xbawks](ports/xbawks.md) by A.Cervantez, for Original Xbox games.
 - **Nov 17.** Emulators got their own section, below the ports.
 - **Nov 17.** *Quake* joined the index: [QuakeAVP](ports/quakeavp.md) by A.Cervantez.

@@ -176,6 +176,21 @@ def cmd_health(_args) -> int:
     return 0
 
 
+def cmd_whats_new_releases(_args) -> int:
+    """Publish a GitHub release for each finished week with news (changelog.py)."""
+    from . import changelog
+    from .generate import build_model, changelog_labels
+    dry = validate.boolean(os.environ.get("INPUT_DRY_RUN", "false"))
+    rt = _runtime(dry_run=dry)
+    listed = {v["id"] for v in build_model(rt.root, rt.repo)["listed"]}
+    labels = changelog_labels(f"https://github.com/{rt.repo}/blob/main/")
+    made = changelog.publish_releases(rt.gh, changelog.load(rt.root), listed, labels,
+                                      store.utcnow().date(), rt.gh.head_of("main"))
+    rt.summary(f"Published: {', '.join(made)}" if made else "No new weekly release to publish.")
+    rt.flush_summary()
+    return 0
+
+
 def cmd_kill_switch(_args) -> int:
     from . import killswitch
     rt = _runtime()
@@ -308,7 +323,7 @@ def main(argv: list[str] | None = None) -> int:
     for name, func in [("gate", cmd_gate), ("blocklist-label", cmd_blocklist_label), ("dispatch", cmd_dispatch), ("recheck", cmd_recheck),
                        ("build-surfaces", cmd_build_surfaces), ("health", cmd_health),
                        ("kill-switch", cmd_kill_switch), ("intake", cmd_intake),
-                       ("check-data", cmd_check_data)]:
+                       ("check-data", cmd_check_data), ("whats-new-releases", cmd_whats_new_releases)]:
         sub.add_parser(name).set_defaults(func=func)
     merge = sub.add_parser("merge")
     merge.add_argument("--sweep", action="store_true")

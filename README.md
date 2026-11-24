@@ -50,7 +50,7 @@ Everything below "Verified by trevorbilt" is self-reported by whoever submitted 
 
 ## Ports
 
-Checking back in? [See what's new](WHATS-NEW.md): every port added or changed since day one, newest first.
+Checking back in? [See what's new](WHATS-NEW.md): every port added or changed since day one, newest first. To hear about new ports each week, **Watch** this repo and pick **Custom**, then **Releases**.
 
 | Game | Port | Developer | Plays as | Trust | Health | License | Last commit | Scan | Install guide | TestFlight |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

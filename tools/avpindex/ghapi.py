@@ -158,6 +158,15 @@ class GitHub(LinkedRepoReader):
                             json={"ref": ref, "inputs": inputs}, ok=(404, 422))
         return resp.status_code < 300
 
+    # --- releases -----------------------------------------------------------------------
+    def release_by_tag(self, tag: str) -> dict | None:
+        return self.get(f"{self.base}/releases/tags/{quote(tag, safe='')}")  # type: ignore[return-value]
+
+    def create_release(self, tag: str, target: str, name: str, body: str) -> dict:
+        return self._write("POST", f"{self.base}/releases", what=tag, json={  # type: ignore[return-value]
+            "tag_name": tag, "target_commitish": target, "name": name, "body": body,
+            "draft": False, "prerelease": False, "make_latest": "true"})
+
     # --- commits through the Git Data API -----------------------------------------------
     def head_of(self, branch: str = "main") -> str:
         data = self.get(f"{self.base}/git/ref/heads/{branch}", allow404=False)

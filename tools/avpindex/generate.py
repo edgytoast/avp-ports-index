@@ -447,10 +447,13 @@ def render_all(root: Path, model: dict, generated_at: str) -> dict[str, str]:
     out["skills/avp-index-submit/scripts/preflight.py"] = preflight_source(root)
     if "changelog" in model:
         out[changelog.PATH] = changelog.dump(model["changelog"])
-        labels = {"md": md, "status": STATUS_LABEL, "reasons": DELIST_REASONS, "curator": "trevorbilt"}
-        months = changelog.render_items(model["changelog"], {v["id"] for v in model["listed"]}, labels)
+        months = changelog.render_items(model["changelog"], {v["id"] for v in model["listed"]}, changelog_labels())
         out["WHATS-NEW.md"] = env.get_template("WHATS-NEW.md.j2").render(months=months, **ctx)
     return out
+
+
+def changelog_labels(base: str = "") -> dict:
+    return {"md": md, "status": STATUS_LABEL, "curator": "trevorbilt", "base": base}
 
 
 def with_changelog(root: Path, model: dict) -> dict:

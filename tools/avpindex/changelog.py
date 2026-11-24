@@ -62,7 +62,8 @@ def diff(old: dict | None, new: dict, when: str, listed_at: dict[str, str | None
     events: list[dict] = []
 
     def event(what: str, entry_id: str, rec: dict, at: str | None, **extra) -> None:
-        events.append({"at": at or when, "event": what, "id": entry_id, "name": rec.get("name"),
+        # at: when it happened (the date shown); logged: when this build saw it (which release has it)
+        events.append({"at": at or when, "logged": when, "event": what, "id": entry_id, "name": rec.get("name"),
                        "game": rec.get("game"), **extra})
 
     for entry_id, rec in new["listed"].items():
@@ -125,8 +126,18 @@ def _when(at: str) -> dt.date:
     return dt.date.fromisoformat(str(at)[:10])
 
 
-def _link(entry_id: str, name: str, listed: set[str]) -> str:
-    return f"[{name}](ports/{entry_id}.md)" if entry_id in listed else name
+# Why a port went away, in player words. The record in the README keeps the precise reason.
+PLAYER_REASONS = {
+    "health": "it stopped passing the health check",
+    "legal-451": "the repo was taken down",
+    "legal-notice": "the repo was taken down",
+    "repo-gone": "the repo was deleted or made private",
+    "developer-request": "its developer asked for it to be removed",
+}
+
+
+def _link(entry_id: str, name: str, listed: set[str], base: str = "") -> str:
+    return f"[{name}]({base}ports/{entry_id}.md)" if entry_id in listed else name
 
 
 def _change(change: dict, labels: dict) -> str | None:
@@ -151,7 +162,7 @@ def _change(change: dict, labels: dict) -> str | None:
 
 def line(ev: dict, listed: set[str], labels: dict) -> str | None:
     """One event as a sentence in Markdown, or None if there's nothing worth saying."""
-    md = labels["md"]
+    md, base = labels["md"], labels.get("base", "")
     kind = ev.get("event")
     if kind == "note":
         return md(ev.get("text") or "", 600) or None
@@ -160,22 +171,22 @@ def line(ev: dict, listed: set[str], labels: dict) -> str | None:
     if kind == "added":
         dev = f" by {md(ev['developer'], 80)}" if ev.get("developer") else ""
         if what == "emulator":
-            return f"New emulator: {_link(entry_id, name, listed)}{dev}, for {game}."
-        return f"*{game}* joined the index: {_link(entry_id, name, listed)}{dev}."
+            return f"New emulator: {_link(entry_id, name, listed, base)}{dev}, for {game}."
+        return f"*{game}* joined the index: {_link(entry_id, name, listed, base)}{dev}."
     if kind == "back":
-        return f"{_link(entry_id, name, listed)} (*{game}*) is back on the list."
+        return f"{_link(entry_id, name, listed, base)} (*{game}*) is back on the list."
     if kind == "unavailable":
-        reason = labels["reasons"].get(ev.get("reason") or "health", "")
-        reason = f": {reason[0].lower()}{reason[1:].rstrip('.')}" if reason else ""
+        reason = PLAYER_REASONS.get(ev.get("reason") or "health")
+        reason = f": {reason}" if reason else ""
         return (f"{name} (*{game}*) is no longer available{reason}. "
-                f"It's kept in the [Unavailable ports](README.md#unavailable-ports) record.")
+                f"It's kept in the [Unavailable ports]({base}README.md#unavailable-ports) record.")
     if kind == "removed":
         return f"{name} (*{game}*) came off the index."
     if kind == "updated":
         parts = [p for p in (_change(c, labels) for c in ev.get("changes") or []) if p]
         if not parts:
             return None
-        return f"{_link(entry_id, name, listed)} (*{game}*): {'; '.join(parts)}."
+        return f"{_link(entry_id, name, listed, base)} (*{game}*): {'; '.join(parts)}."
     return None
 
 
@@ -194,3 +205,78 @@ def render_items(log: dict, listed: set[str], labels: dict) -> list[dict]:
             months.append({"month": month, "items": []})
         months[-1]["items"].append({"day": f"{day.strftime('%b')} {day.day}", "text": text})
     return months
+
+
+# --- weekly releases -----------------------------------------------------------------
+# One GitHub release per week (Monday to Sunday, UTC) in which the log gained something to
+# say, published after the week ends. An event belongs to the week its build logged it, so a
+# port listed on a Sunday but first shown on Tuesday lands in the next release, not nowhere.
+# Weeks before RELEASES_FROM stay on the page only (a release can't be backdated).
+
+RELEASES_FROM = dt.date(2026, 11, 23)  # the Monday of the week the page started
+TAG_PREFIX = "whats-new-"
+
+
+def week_start(day: dt.date) -> dt.date:
+    return day - dt.timedelta(days=day.weekday())
+
+
+def release_weeks(log: dict, today: dt.date) -> list[tuple[dt.date, list[dict]]]:
+    """Completed weeks since RELEASES_FROM with at least one event, oldest first."""
+    current = week_start(today)
+    weeks: dict[dt.date, list[dict]] = {}
+    for ev in log.get("events") or []:
+        stamp = ev.get("logged") or ev.get("at")
+        if not stamp:
+            continue
+        week = week_start(_when(stamp))
+        if RELEASES_FROM <= week < current:
+            weeks.setdefault(week, []).append(ev)
+    return sorted(weeks.items())
+
+
+def _count(n: int, one: str, many: str) -> str:
+    return f"{n} {one if n == 1 else many}"
+
+
+def release_title(week: dt.date, events: list[dict]) -> str:
+    kinds = [(e.get("event"), e.get("kind")) for e in events]
+    parts = []
+    for n, one, many in (
+        (kinds.count(("added", "port")), "new port", "new ports"),
+        (kinds.count(("added", "emulator")), "new emulator", "new emulators"),
+        (sum(1 for k, _ in kinds if k == "back"), "port back", "ports back"),
+        (sum(1 for k, _ in kinds if k == "updated"), "update", "updates"),
+        (sum(1 for k, _ in kinds if k in ("unavailable", "removed")), "port gone", "ports gone"),
+    ):
+        if n:
+            parts.append(_count(n, one, many))
+    head = f"Week of {week.strftime('%b')} {week.day}"
+    return f"{head}: {', '.join(parts)}" if parts else f"{head}: index news"
+
+
+def release_body(events: list[dict], listed: set[str], labels: dict) -> str | None:
+    """The week's lines, newest first, with links that work from the Releases page."""
+    items = render_items({"events": events}, listed, labels)
+    lines = [f"- **{i['day']}.** {i['text']}" for m in items for i in m["items"]]
+    if not lines:
+        return None
+    base = labels.get("base", "")
+    return "\n".join([
+        "What changed on the AVP Ports Index this week, newest first.", "", *lines, "",
+        (f"Every week back to day one is on the [What's new page]({base}WHATS-NEW.md), "
+         f"and the full list of ports is in the [README]({base}README.md#ports)."), "",
+    ])
+
+
+def publish_releases(gh, log: dict, listed: set[str], labels: dict, today: dt.date, target: str) -> list[str]:
+    """Create each missing weekly release. Reruns skip weeks that already have one. Returns tags made."""
+    made = []
+    for week, events in release_weeks(log, today):
+        tag = f"{TAG_PREFIX}{week.isoformat()}"
+        body = release_body(events, listed, labels)
+        if not body or gh.release_by_tag(tag) is not None:
+            continue
+        gh.create_release(tag, target, release_title(week, events), body)
+        made.append(tag)
+    return made
