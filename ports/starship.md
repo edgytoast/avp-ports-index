@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/edgytoast/Starship-ios/blob/5
 | Status | Working |
 | Plays as | 2D, 3D immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-13 · 0 commits since |
+| Scan | Scanned 2026-11-13 · 1 commit since |
 | Source (scanned) | [edgytoast/Starship-ios at 5de019c0b16e](https://github.com/edgytoast/Starship-ios/tree/5de019c0b16e68ba3ad6a62413b0ca9953285658) |
 | Install guide | [AVP-INSTALL.md at 5de019c0b16e](https://github.com/edgytoast/Starship-ios/blob/5de019c0b16e68ba3ad6a62413b0ca9953285658/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [edgytoast/Starship-ios](https://github.com/edgytoast/Starship-ios) |
 | License | MIT |
-| Last commit | 2026-11-13 |
+| Last commit | 2026-11-24 |
 | visionOS | 2.0 or later |
 | Input | game controller |
 | Tags | star-fox, rail-shooter, n64, source-port, harbour-masters, stereo-3d |

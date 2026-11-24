@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/edgytoast/Lighthouse-ios/blob
 | Status | Working |
 | Plays as | 2D, 3D immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-14 · 0 commits since |
+| Scan | Scanned 2026-11-14 · 1 commit since |
 | Source (scanned) | [edgytoast/Lighthouse-ios at b2b6b2b8817b](https://github.com/edgytoast/Lighthouse-ios/tree/b2b6b2b8817b7229f63beaad30237f2af2d35e81) |
 | Install guide | [AVP-INSTALL.md at b2b6b2b8817b](https://github.com/edgytoast/Lighthouse-ios/blob/b2b6b2b8817b7229f63beaad30237f2af2d35e81/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [edgytoast/Lighthouse-ios](https://github.com/edgytoast/Lighthouse-ios) |
 | License | MIT |
-| Last commit | 2026-11-13 |
+| Last commit | 2026-11-24 |
 | visionOS | 2.0 or later |
 | Input | game controller |
 | Tags | banjo-kazooie, platformer, n64, source-port, harbour-masters, stereo-3d, randomizer |
