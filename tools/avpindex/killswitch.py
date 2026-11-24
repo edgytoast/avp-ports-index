@@ -257,11 +257,12 @@ def rescan(rt, state: store.State, entry_id: str, outcome: dict) -> None:
     rt.note_triage(entry_id, "The curator asked for the rescan to be tried again; the next dispatcher run will.")
 
 
-def delist(rt, state: store.State, entry_id: str, reason: str, outcome: dict) -> None:
+def delist(rt, state: store.State, entry_id: str, reason: str, outcome: dict, by: str = "kill-switch") -> None:
     """Move a listed entry to the Unavailable ports record now, with the curator's reason (decision 70), instead
     of waiting out the health check's grace window. The entry file stays, nothing is blocklisted, and the health
     check and rescans stop looking at it. On an entry already there, only the reason changes. A merged edit PR
-    lists it again once its repo passes the checks."""
+    lists it again once its repo passes the checks. The daily health check calls this too, with by="health", when
+    a listed entry's repo answers HTTP 451."""
     status = state.status(entry_id)
     if status == DECAY:
         state.lifecycle[entry_id]["reason"] = reason
@@ -270,8 +271,9 @@ def delist(rt, state: store.State, entry_id: str, reason: str, outcome: dict) ->
     if status != LISTED:
         outcome["note"] = f"The kill switch did nothing: `{entry_id}` is {status}; delist works on listed entries."
         return
-    lifecycle.transition(state, entry_id, DECAY, "kill-switch", reason=reason)
-    rt.close_triage(entry_id, f"Moved to the Unavailable ports record by the curator ({reason}).")
+    lifecycle.transition(state, entry_id, DECAY, by, reason=reason)
+    who = "the curator" if by == "kill-switch" else "the daily health check"
+    rt.close_triage(entry_id, f"Moved to the Unavailable ports record by {who} ({reason}).")
 
 
 def takedown(rt, state: store.State, entry_id: str, outcome: dict) -> None:

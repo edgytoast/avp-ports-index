@@ -29,7 +29,7 @@ LEGAL: dict[tuple[str | None, str], set[str]] = {
     (None, LISTED): MERGE,
     (LISTED, LISTED): MERGE | {"kill-switch"},
     (LISTED, DECAY): {"health", "kill-switch"},
-    (DECAY, LISTED): MERGE,
+    (DECAY, LISTED): MERGE | {"health", "stage2"},  # its repo came back: at the reviewed pin, or after a rescan
     (LISTED, PULLED): {"kill-switch", "stage2", "health"},
     (DECAY, PULLED): {"kill-switch"},
     (PULLED, LISTED): {"kill-switch"},
@@ -80,4 +80,4 @@ def transition(state: State, entry_id: str, target: str, by: str, **fields) -> s
 def reset_decay(state: State, entry_id: str) -> None:
     health = state.health.setdefault(entry_id, default_health())
     health.update({"health": "ok", "failing_since": None, "consecutive_failures": 0,
-                   "failures": [], "decay_reset_at": iso(utcnow())})
+                   "failures": [], "decay_reset_at": iso(utcnow()), "relist_pending": False})

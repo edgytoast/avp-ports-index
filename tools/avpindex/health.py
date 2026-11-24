@@ -7,7 +7,7 @@ from __future__ import annotations
 import datetime as dt
 import re
 
-from . import checks, gate, lifecycle, media, messages, store, testflight, validate
+from . import checks, gate, killswitch, lifecycle, media, messages, store, testflight, validate
 from .checks import GitHubError
 from .checks import FIXES, PASS, Subject
 from .lifecycle import DECAY, LISTED, PULLED, TAKEN_DOWN, WITHDRAWN
@@ -119,6 +119,12 @@ def run(rt) -> None:
                                            + ". `restore` re-records the repo if it's legitimate.")
                 rt.summary(f"{entry_id}: pulled ({', '.join(r.id for r in hard)})")
                 continue
+            if report.legal_451:
+                # A legal takedown: straight to the Unavailable ports record through the kill switch's
+                # delist, as santosvision was by hand. No grace window; a merged edit PR lists it again.
+                killswitch.delist(rt, state, entry_id, "legal-451", {}, by="health")
+                rt.summary(f"{entry_id}: delisted (legal-451, repo answers HTTP 451)")
+                continue
             entry = report.entry or entries.get(entry_id) or {}
             if report.repo and report.head:
                 repo_facts(rt, entry_id, entry, report.repo, state)
@@ -141,9 +147,12 @@ def run(rt) -> None:
             rt.summary(f"{entry_id}: {'failing ' + ', '.join(failures) if failures else 'ok'}"
                        f"{'; routes ' + ', '.join(routes) if routes else ''}")
         for entry_id, record in sorted(state.lifecycle.items()):
+            if record.get("status") == DECAY and record.get("reason") not in NO_RELIST:
+                revisit(rt, state, entry_id, record, index, entries, now)
+        for entry_id, record in sorted(state.lifecycle.items()):
             health = state.health.get(entry_id) or {}
             if record.get("status") in (DECAY, PULLED, TAKEN_DOWN, WITHDRAWN) and health.get("outreach_issue_url"):
-                # DECAY here means the curator's kill-switch `delist` (Stage C clears these fields itself)
+                # DECAY here means a `delist` (the curator's, or this check's on HTTP 451); Stage C clears its own
                 name = (entries.get(entry_id) or {}).get("name", entry_id)
                 template = "delisted" if record.get("status") == DECAY else "outreach-closed"
                 outreach.follow_up(health["outreach_issue_url"],
@@ -189,6 +198,38 @@ def decay(rt, outreach: Outreach, state: store.State, entry_id: str, entry: dict
                            messages.render("delisted", rt.root, name=entry.get("name", entry_id)), close=True)
         clear_outreach(health)
     return 0
+
+
+NO_RELIST = {"developer-request"}  # the developer asked for it to go: only an edit PR lists it again
+
+
+def revisit(rt, state: store.State, entry_id: str, record: dict, index, entries: dict, now: dt.datetime) -> None:
+    """A port on the Unavailable ports record whose repo is back. If every health check passes and the linked
+    HEAD is still the reviewed pin, it's listed again now (same contents). If the HEAD moved, `relist_pending`
+    lets the dispatcher run the usual rescan, and a pass lists it at the new commit (report.py). Anything else
+    leaves it on the record, and the next daily run looks again."""
+    path = store.entry_path(entry_id, rt.root)
+    if not path.exists():
+        return
+    health = state.health_record(entry_id)
+    subject = Subject(mode="health", entry_id=entry_id, raw=path.read_bytes(), change="listed",
+                      record=record, health=health)
+    report = checks.run(subject, index, rt.gh, rt.http)
+    health["last_checked"] = store.iso(now)
+    back = bool(report.repo and report.head) and not report.failures \
+        and all(r.outcome == PASS for r in report.results if r.id in ("S1-05", "S1-16"))
+    if not back:
+        health["relist_pending"] = False
+        return
+    entry = report.entry or entries.get(entry_id) or {}
+    repo_facts(rt, entry_id, entry, report.repo, state)
+    if report.head == health.get("scanned_commit"):
+        lifecycle.transition(state, entry_id, LISTED, "health")
+        rt.summary(f"{entry_id}: repo is back at its reviewed commit; listed again")
+        return
+    if not health.get("relist_pending"):
+        health["relist_pending"] = True
+        rt.summary(f"{entry_id}: repo is back at a new commit; listed again if the rescan passes")
 
 
 def recover(rt, outreach: Outreach, health: dict, name: str, entry_id: str) -> None:

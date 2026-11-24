@@ -221,5 +221,6 @@ def default_health() -> dict:
         "scan_declines": 0,
         "scan_refused": False,
         "decay_reset_at": None,
+        "relist_pending": False,
         "warnings": [],
     }

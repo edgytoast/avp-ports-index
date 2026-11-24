@@ -24,7 +24,7 @@ from .gate import (
     latest_check,
     stage2_marker,
 )
-from .lifecycle import LISTED, PULLED
+from .lifecycle import DECAY, LISTED, PULLED
 from .sync import pin
 
 NO_WORK = "no work"                      # safety_check.review's decline_signal for a session that showed no work
@@ -208,6 +208,8 @@ def apply_rescan_flag(rt, state: store.State, inputs: Inputs, outcome: dict, thr
     if not record.get("owner_approved") and record.get("status") == LISTED:
         lifecycle.transition(state, entry_id, PULLED, "stage2")
         what = "Automated review flagged a new commit; the entry was pulled"
+    elif record.get("status") == DECAY:
+        what = "Automated review flagged the commit its repo came back with; the entry stays on the Unavailable ports record"
     else:
         what = "Automated review flagged a new commit; the entry stays listed at the commit you reviewed"
     rt.upsert_triage(entry_id, triage_body(inputs, outcome, threshold, what))
@@ -398,7 +400,8 @@ def rescan(rt, inputs: Inputs, outcome: dict, threshold: int) -> None:
         state = store.State.load(rt.root)
         record = state.lifecycle.get(inputs.entry_id) or {}
         health = state.health.get(inputs.entry_id) or {}
-        if (record.get("status") != LISTED or record.get("repo_id") != inputs.repo_id
+        returning = record.get("status") == DECAY and health.get("relist_pending")
+        if ((record.get("status") != LISTED and not returning) or record.get("repo_id") != inputs.repo_id
                 or health.get("scanned_commit") != inputs.base_commit or health.get("rescan_hold")):
             rt.summary(f"Rescan result for {inputs.entry_id} discarded: the entry changed during the scan.")
             return
@@ -410,6 +413,8 @@ def rescan(rt, inputs: Inputs, outcome: dict, threshold: int) -> None:
             refused_before = bool(health.get("scan_refused"))
             pin(rt, state, inputs.entry_id, inputs.linked_commit, "automated", confidence, repo,
                 entries.get(inputs.entry_id))
+            if returning:  # its repo came back with new commits (health.revisit): listed again on a pass
+                lifecycle.transition(state, inputs.entry_id, LISTED, "stage2")
             health = state.health_record(inputs.entry_id)
             health["scan_declines"] = 0
             health["scan_errors"] = 0

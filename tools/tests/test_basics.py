@@ -94,7 +94,7 @@ class TestLifecycle:
             (None, "listed"): {"merge", "reconcile"},
             ("listed", "listed"): {"merge", "reconcile", "kill-switch"},
             ("listed", "delisted-decay"): {"health", "kill-switch"},
-            ("delisted-decay", "listed"): {"merge", "reconcile"},
+            ("delisted-decay", "listed"): {"merge", "reconcile", "health", "stage2"},
             ("listed", "pulled"): {"kill-switch", "stage2", "health"},
             ("delisted-decay", "pulled"): {"kill-switch"},
             ("pulled", "listed"): {"kill-switch"},

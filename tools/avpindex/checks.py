@@ -134,6 +134,10 @@ class LinkedRepoReader:
         """Repository metadata. Renames are followed (GitHub answers with a redirect)."""
         return self.get(f"/repos/{quote(owner)}/{quote(name)}")
 
+    def repo_status(self, owner: str, name: str) -> int:
+        """The HTTP status GitHub gives the repo, for telling a 451 (blocked for legal reasons) from a 404."""
+        return self.request("GET", f"/repos/{quote(owner)}/{quote(name)}", ok=(404, 409, 410, 451)).status_code
+
     def repo_by_id(self, repo_id: int) -> dict | None:
         return self.get(f"/repositories/{int(repo_id)}")
 
@@ -381,6 +385,7 @@ class Report:
     license: dict | None = None
     curator_flags: dict = field(default_factory=dict)
     apps: list = field(default_factory=list)         # what's inside routed prebuilt apps (S1-11d)
+    legal_451: bool = False                          # the linked repo answers HTTP 451 (legal takedown)
 
     def add(self, result: Result | None) -> None:
         if result is not None:
@@ -549,6 +554,9 @@ def s1_06(ctx: Ctx) -> Result | None:
         return Result("S1-06", FAIL, "repo isn't a GitHub repository URL")
     repo = ctx.gh.repo(ctx.owner, ctx.name)
     if repo is None:
+        if ctx.gh.repo_status(ctx.owner, ctx.name) == 451:
+            ctx.report.legal_451 = True  # the health check delists it with reason legal-451
+            return Result("S1-06", FAIL, "the repo is blocked for legal reasons (HTTP 451)")
         return Result("S1-06", FAIL, "the repo doesn't exist or isn't public")
     if repo.get("private") or repo.get("visibility") not in (None, "public"):
         return Result("S1-06", FAIL, "the repo isn't public")

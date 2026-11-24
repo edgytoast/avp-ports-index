@@ -37,7 +37,7 @@ from .gate import (
     post_stage1,
     read_marker,
 )
-from .lifecycle import LISTED
+from .lifecycle import DECAY, LISTED
 
 SCAN_WORKFLOW = "stage2-scan.yml"
 UPSTREAM_CHECKS = {"S1-06", "S1-07", "S1-11a", "S1-11d"}  # failures fixed in the port's repo
@@ -134,9 +134,9 @@ def queued_prs(rt) -> list[dict]:
 def rescan_candidates(state: store.State, now: dt.datetime) -> list[str]:
     unknown, behind = [], []
     for entry_id, record in state.lifecycle.items():
-        if record.get("status") != LISTED:
-            continue
         health = state.health.get(entry_id) or {}
+        if record.get("status") != LISTED and not (record.get("status") == DECAY and health.get("relist_pending")):
+            continue
         if health.get("rescan_hold") or not health.get("scanned_commit"):
             continue
         after = health.get("rescan_after")

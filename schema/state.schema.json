@@ -56,6 +56,7 @@
           "scan_refused": {"description": "The agent refused to review a rescan since the last verdict, so a later pass leaves the triage note open (decision 66); reset by a flag, a pin move, restore or approve (report.py, sync.py, killswitch.py).",
                            "type": "boolean"},
           "decay_reset_at": {"$ref": "#/$defs/iso_or_null"},
+          "relist_pending": {"type": "boolean", "description": "A delisted-decay entry whose repo came back at a new commit and passes the health checks: the dispatcher rescans it, and a pass lists it again (health.py revisit, report.py)."},
           "warnings": {"$ref": "#/$defs/check_ids"},
           "testflight": {
             "description": "The port's public TestFlight beta, found by the health check in its repo (testflight.py); null when it has none in use.",

@@ -68,6 +68,7 @@ class FakeGitHub(GitHub):
         self.external_issues: list[dict] = []
         self.external_comments: list[tuple[str, int, str]] = []
         self.closed_external: list[tuple[str, int]] = []
+        self.legal_blocked: set[str] = set()  # repos that answer HTTP 451
         self.add_user("edgytoast", OWNER_ID)
         self.add_user("trevorbilt-bot", BOT_ID)
         self.add_user("stranger", STRANGER_ID)
@@ -146,6 +147,10 @@ class FakeGitHub(GitHub):
     # --- reads -----------------------------------------------------------------------
     def repo(self, owner, name):
         return copy.deepcopy(self.repos.get(f"{owner}/{name}".lower()))
+
+    def repo_status(self, owner, name):
+        full = f"{owner}/{name}".lower()
+        return 451 if full in self.legal_blocked else 200 if full in self.repos else 404
 
     def repo_by_id(self, repo_id):
         found = [r for r in self.repos.values() if r["id"] == repo_id]
