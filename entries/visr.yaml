@@ -5,7 +5,7 @@ game:
   title: "Halo: Combat Evolved"
   original_platform: xbox
   original_release_year: 2001
-repo: https://github.com/steverice/visr
+repo: https://github.com/VISR-CE/visr
 developer:
   github: steverice
 status: developer-verified
