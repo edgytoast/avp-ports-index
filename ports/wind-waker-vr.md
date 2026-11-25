@@ -6,10 +6,10 @@ Port by Trevorbilt ([@edgytoast](https://github.com/edgytoast))
 Start with this command, which gets exactly the code that was scanned:
 
 ```
-git clone https://github.com/edgytoast/windwaker-visionos && cd windwaker-visionos && git checkout a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c && git submodule update --init --recursive
+git clone https://github.com/edgytoast/windwaker-visionos && cd windwaker-visionos && git checkout 72bb452cee137ae7616c72157c70cd9941b9da6d && git submodule update --init --recursive
 ```
 
-Then follow the [install guide](https://github.com/edgytoast/windwaker-visionos/blob/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+Then follow the [install guide](https://github.com/edgytoast/windwaker-visionos/blob/72bb452cee137ae7616c72157c70cd9941b9da6d/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
 
 | | |
 | --- | --- |
@@ -17,9 +17,9 @@ Then follow the [install guide](https://github.com/edgytoast/windwaker-visionos/
 | Status | Working: Plays in a window beside your apps, in 3D or in 2D like the original, with a gamepad; played on Apple Vision Pro. Full and Progressive VR are in the app behind an experimental switch, untested on a headset. |
 | Plays as | 2D, 3D shared space |
 | Health | OK |
-| Scan | Scanned 2026-10-29 · 1 commit since |
-| Source (scanned) | [edgytoast/windwaker-visionos at a1fcc30a3b8e](https://github.com/edgytoast/windwaker-visionos/tree/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c) |
-| Install guide | [AVP-INSTALL.md at a1fcc30a3b8e](https://github.com/edgytoast/windwaker-visionos/blob/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/AVP-INSTALL.md) |
+| Scan | Scanned 2026-11-25 · 0 commits since |
+| Source (scanned) | [edgytoast/windwaker-visionos at 72bb452cee13](https://github.com/edgytoast/windwaker-visionos/tree/72bb452cee137ae7616c72157c70cd9941b9da6d) |
+| Install guide | [AVP-INSTALL.md at 72bb452cee13](https://github.com/edgytoast/windwaker-visionos/blob/72bb452cee137ae7616c72157c70cd9941b9da6d/AVP-INSTALL.md) |
 | Repo | [edgytoast/windwaker-visionos](https://github.com/edgytoast/windwaker-visionos) |
 | Developer site | <https://trevorbilt.com> |
 | License | MIT |
