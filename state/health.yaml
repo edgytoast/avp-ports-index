@@ -1054,7 +1054,7 @@ starship:
   warnings: []
 twilight-princess-vr:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: true
   decay_reset_at: '2026-10-04T17:42:38Z'
@@ -1074,12 +1074,15 @@ twilight-princess-vr:
   rescan_after: null
   rescan_hold: false
   routes: []
-  scan_confidence: 95
+  scan_confidence: 98
   scan_declines: 0
+  scan_errors: 0
   scan_kind: automated
-  scan_state: behind
-  scanned_at: '2026-10-19T07:54:36Z'
-  scanned_commit: d26c64a224414e8af7e6c450486b41a6209617e8
+  scan_provider_errors: 0
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-11-25T07:19:39Z'
+  scanned_commit: 5d89fc2f2b2ac75723a3ad4f8160b7c58a1e307d
   testflight: null
   warnings: []
 visr:
