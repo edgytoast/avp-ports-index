@@ -32,9 +32,9 @@ Banjo-Kazooie on Apple Vision Pro through Harbour Masters' Lighthouse, rendering
 
 ## Screenshots
 
-From the port's README at b2b6b2b8817b.
+From the port's README at 8a2df6111c39.
 
-<img src="https://raw.githubusercontent.com/edgytoast/Lighthouse-ios/b2b6b2b8817b7229f63beaad30237f2af2d35e81/docs/screenshots/visionos-window.jpg" alt="Banjo-Kazooie on Apple Vision Pro" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/Lighthouse-ios/8a2df6111c39e8f01f3b53f814dde59c17f8aac7/docs/screenshots/visionos-window.jpg" alt="Banjo-Kazooie on Apple Vision Pro" width="400">
 
 ## Credits
 

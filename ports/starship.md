@@ -32,9 +32,9 @@ Star Fox 64 on Apple Vision Pro through Harbour Masters' Starship, rendering nat
 
 ## Screenshots
 
-From the port's README at 5de019c0b16e.
+From the port's README at be3362808072.
 
-<img src="https://raw.githubusercontent.com/edgytoast/Starship-ios/5de019c0b16e68ba3ad6a62413b0ca9953285658/docs/screenshots/visionos-window.jpg" alt="Star Fox 64 on Apple Vision Pro" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/Starship-ios/be3362808072233716d4fac09676507bb86e43cb/docs/screenshots/visionos-window.jpg" alt="Star Fox 64 on Apple Vision Pro" width="400">
 
 ## Credits
 

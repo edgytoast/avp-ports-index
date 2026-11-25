@@ -403,6 +403,38 @@ half-life-vr:
   scanned_commit: d7555089b164ac6004cc02111ef2b122321dc11f
   testflight: null
   warnings: []
+holofold:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: false
+  decay_reset_at: '2026-11-25T00:45:36Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: true
+  health: ok
+  last_checked: null
+  last_commit_date: '2026-11-25T00:19:33Z'
+  license:
+    kind: open-source
+    spdx: GPL-2.0
+  outreach_issue_url: null
+  outreach_opened_at: null
+  relist_pending: false
+  rescan_after: null
+  rescan_hold: false
+  routes: []
+  scan_confidence: 95
+  scan_declines: 0
+  scan_errors: 0
+  scan_kind: automated
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-11-25T00:45:36Z'
+  scanned_commit: c646470c3eeb06365846edb94b7a4fdb7870da2c
+  warnings: []
 jkxr:
   archived: false
   commits_since_scan: 0

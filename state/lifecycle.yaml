@@ -128,6 +128,16 @@ half-life-vr:
   status: listed
   submitted_by: edgytoast
   submitted_by_id: 146565462
+holofold:
+  by: merge
+  changed_at: '2026-11-25T00:45:36Z'
+  listed_at: '2026-11-25T00:45:36Z'
+  owner_approved: false
+  repo: https://github.com/zlinoliver/Holofold
+  repo_id: 1436647779
+  status: listed
+  submitted_by: edgytoast
+  submitted_by_id: 146565462
 jkxr:
   by: merge
   changed_at: '2026-11-16T02:41:21Z'

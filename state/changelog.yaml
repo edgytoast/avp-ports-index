@@ -376,6 +376,14 @@ events:
   kind: emulator
   logged: '2026-11-24T20:43:24Z'
   name: Xbawks
+- at: '2026-11-25T00:45:36Z'
+  developer: '@zlinoliver'
+  event: added
+  game: Nintendo 3DS games
+  id: holofold
+  kind: emulator
+  logged: '2026-11-25T00:45:42Z'
+  name: Holofold
 schema_version: 1
 seen:
   listed:
@@ -507,6 +515,16 @@ seen:
       prebuilt: true
       repo: https://github.com/illixion/halflife-visionos
       status: working
+      testflight: false
+      verified: false
+    holofold:
+      developer: '@zlinoliver'
+      game: Nintendo 3DS games
+      kind: emulator
+      name: Holofold
+      prebuilt: false
+      repo: https://github.com/zlinoliver/Holofold
+      status: partially-working
       testflight: false
       verified: false
     jkxr:

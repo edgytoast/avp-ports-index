@@ -100,6 +100,7 @@ Emulators that run on the headset and play a console's own games. They're held t
 | Plays | Emulator | Developer | Plays as | Trust | Health | License | Last commit | Scan | Install guide | TestFlight |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Original Xbox games | [Xbawks](ports/xbawks.md) | A.Cervantez ([@Ywach404](https://github.com/Ywach404)) | 2D | Working | OK | GPL-2.0 | 2026-11-24 | Scanned 2026-11-24 · 0 commits since | [AVP-INSTALL.md](https://github.com/Ywach404/xbawks-avp/blob/dc753349d88b19cf91707b2d34179277ca1c24a8/AVP-INSTALL.md) |  |
+| Nintendo 3DS games | [Holofold](ports/holofold.md) | [@zlinoliver](https://github.com/zlinoliver) | 3D shared space (stereo) | Partially working | OK | GPL-2.0 | 2026-11-25 | Scanned 2026-11-25 · 0 commits since | [AVP-INSTALL.md](https://github.com/zlinoliver/Holofold/blob/c646470c3eeb06365846edb94b7a4fdb7870da2c/AVP-INSTALL.md) |  |
 | Xbox 360 games | [720](ports/720.md) | A.Cervantez ([@Ywach404](https://github.com/Ywach404)) | 2D | Partially working | OK | GPL-2.0 | 2026-11-22 | Scanned 2026-11-23 · 0 commits since | [AVP-INSTALL.md](https://github.com/Ywach404/720-avp/blob/3cfa4f2305c4f1eb2b4b1958f9d89f03b994da82/AVP-INSTALL.md) |  |
 
 ## Unavailable ports

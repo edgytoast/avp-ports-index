@@ -9,6 +9,7 @@ Want a heads-up instead of checking? Each week with news also goes out as a [rel
 
 ## November 2026
 
+- **Nov 25.** New emulator: [Holofold](ports/holofold.md) by @zlinoliver, for Nintendo 3DS games.
 - **Nov 24.** [Xbawks](ports/xbawks.md) (*Original Xbox games*): now marked Working.
 - **Nov 24.** This page started, filled in all the way back to day one.
 - **Nov 22.** *Vampire: The Masquerade, Bloodlines* joined the index: [Embrace](ports/embrace.md) by A. Cervantez.
