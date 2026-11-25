@@ -343,7 +343,7 @@ goldeneye-xbla:
   warnings: []
 half-life-alyx:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-10-12T03:39:01Z'
@@ -363,12 +363,15 @@ half-life-alyx:
   rescan_after: null
   rescan_hold: false
   routes: []
-  scan_confidence: 95
+  scan_confidence: 96
   scan_declines: 0
+  scan_errors: 0
   scan_kind: automated
-  scan_state: behind
-  scanned_at: '2026-10-13T07:38:00Z'
-  scanned_commit: 77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09
+  scan_provider_errors: 0
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-11-25T07:10:30Z'
+  scanned_commit: 1ed85ff1ca6a15f6c844bd717d784bccff2383fb
   testflight: null
   warnings: []
 half-life-vr:
