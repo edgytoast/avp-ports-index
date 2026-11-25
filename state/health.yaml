@@ -823,13 +823,14 @@ santosvision:
   - S1-10
 shar-visionos:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: true
   decay_reset_at: '2026-10-04T17:59:25Z'
   failing_since: null
   failures: []
   flagged_commit: null
+  flagged_files: []
   github_verified: true
   health: ok
   last_checked: '2026-11-25T06:31:33Z'
@@ -842,11 +843,15 @@ shar-visionos:
   rescan_after: null
   rescan_hold: false
   routes: []
-  scan_confidence: 100
+  scan_confidence: 96
+  scan_declines: 0
+  scan_errors: 0
   scan_kind: automated
-  scan_state: behind
-  scanned_at: '2026-10-09T08:02:35Z'
-  scanned_commit: 8c1f827f67c5c18950fc00f9f3dc58c4cf58284f
+  scan_provider_errors: 0
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-11-25T06:44:11Z'
+  scanned_commit: b7e1790feb4a4c5fd58944102a6926f214b32a95
   testflight: null
   warnings: []
 sheikahvision:
