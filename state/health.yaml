@@ -642,7 +642,7 @@ perfect-dark:
   warnings: []
 pokemon-gen1recomp:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-11-13T22:49:54Z'
@@ -664,11 +664,13 @@ pokemon-gen1recomp:
   routes: []
   scan_confidence: 95
   scan_declines: 0
+  scan_errors: 0
   scan_kind: automated
+  scan_provider_errors: 0
   scan_refused: false
-  scan_state: behind
-  scanned_at: '2026-11-13T22:49:54Z'
-  scanned_commit: bbe5f881c7b070233f724ba6927b82666e54568c
+  scan_state: current
+  scanned_at: '2026-11-25T07:40:58Z'
+  scanned_commit: 8b80c37f62eaeeb37b2d762e8d271732b5b9bde1
   testflight: null
   warnings: []
 portal-2-vr:

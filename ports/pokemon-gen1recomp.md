@@ -6,10 +6,10 @@ Port by [@myMartek](https://github.com/myMartek)
 Start with this command, which gets exactly the code that was scanned:
 
 ```
-git clone https://github.com/edgytoast/gen1recomp && cd gen1recomp && git checkout bbe5f881c7b070233f724ba6927b82666e54568c && git submodule update --init --recursive
+git clone https://github.com/edgytoast/gen1recomp && cd gen1recomp && git checkout 8b80c37f62eaeeb37b2d762e8d271732b5b9bde1 && git submodule update --init --recursive
 ```
 
-Then follow the [install guide](https://github.com/edgytoast/gen1recomp/blob/bbe5f881c7b070233f724ba6927b82666e54568c/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+Then follow the [install guide](https://github.com/edgytoast/gen1recomp/blob/8b80c37f62eaeeb37b2d762e8d271732b5b9bde1/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
 
 | | |
 | --- | --- |
@@ -17,9 +17,9 @@ Then follow the [install guide](https://github.com/edgytoast/gen1recomp/blob/bbe
 | Status | Partially working: The game shows on a world-locked panel in an immersive space and is played with a game controller. The visionOS README records Simulator verification. |
 | Plays as | 2D |
 | Health | OK |
-| Scan | Scanned 2026-11-13 · 1 commit since |
-| Source (scanned) | [edgytoast/gen1recomp at bbe5f881c7b0](https://github.com/edgytoast/gen1recomp/tree/bbe5f881c7b070233f724ba6927b82666e54568c) |
-| Install guide | [AVP-INSTALL.md at bbe5f881c7b0](https://github.com/edgytoast/gen1recomp/blob/bbe5f881c7b070233f724ba6927b82666e54568c/AVP-INSTALL.md) |
+| Scan | Scanned 2026-11-25 · 0 commits since |
+| Source (scanned) | [edgytoast/gen1recomp at 8b80c37f62ea](https://github.com/edgytoast/gen1recomp/tree/8b80c37f62eaeeb37b2d762e8d271732b5b9bde1) |
+| Install guide | [AVP-INSTALL.md at 8b80c37f62ea](https://github.com/edgytoast/gen1recomp/blob/8b80c37f62eaeeb37b2d762e8d271732b5b9bde1/AVP-INSTALL.md) |
 | Repo | [edgytoast/gen1recomp](https://github.com/edgytoast/gen1recomp) |
 | Branch | `visionos-foveation` |
 | License | MIT |
