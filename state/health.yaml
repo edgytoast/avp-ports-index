@@ -1111,7 +1111,7 @@ twilight-princess-vr:
   warnings: []
 visr:
   archived: false
-  commits_since_scan: 1104
+  commits_since_scan: 4
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-11-13T19:53:01Z'
@@ -1122,7 +1122,7 @@ visr:
   github_verified: false
   health: ok
   last_checked: '2026-11-25T06:31:33Z'
-  last_commit_date: '2026-11-24T15:17:52Z'
+  last_commit_date: '2026-11-25T19:01:26Z'
   license:
     kind: open-source
     spdx: Apache-2.0
@@ -1133,13 +1133,14 @@ visr:
   routes:
   - S1-11c
   - S1-11d
-  scan_confidence: 95
+  scan_confidence: 96
   scan_declines: 0
+  scan_errors: 0
   scan_kind: automated
   scan_refused: false
   scan_state: behind
-  scanned_at: '2026-11-13T21:10:44Z'
-  scanned_commit: 9687cf8b540f36e8e81938148e86264ee44bc924
+  scanned_at: '2026-11-25T20:46:22Z'
+  scanned_commit: f040bb74940af970c0f92e014ae0053ce3ce7e0a
   testflight: null
   warnings: []
 voxelnative:

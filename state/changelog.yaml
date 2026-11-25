@@ -384,6 +384,17 @@ events:
   kind: emulator
   logged: '2026-11-25T00:45:42Z'
   name: Holofold
+- at: '2026-11-25T20:46:26Z'
+  changes:
+  - field: repo
+    from: https://github.com/steverice/visr
+    to: https://github.com/VISR-CE/visr
+  event: updated
+  game: 'Halo: Combat Evolved'
+  id: visr
+  kind: port
+  logged: '2026-11-25T20:46:26Z'
+  name: VISR
 schema_version: 1
 seen:
   listed:
@@ -723,7 +734,7 @@ seen:
       kind: port
       name: VISR
       prebuilt: true
-      repo: https://github.com/steverice/visr
+      repo: https://github.com/VISR-CE/visr
       status: developer-verified
       testflight: false
       verified: false
