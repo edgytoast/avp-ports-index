@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.8.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-25T08:22:16Z",
+  "generated_at": "2026-11-25T08:34:58Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -4657,8 +4657,8 @@
       },
       "repo_url": "https://github.com/edgytoast/ctrpad",
       "source_ref": null,
-      "source_url": "https://github.com/edgytoast/ctrpad/tree/df1d0671ed8d540b695113f1cc28e9fb26e570e9",
-      "install_doc_url": "https://github.com/edgytoast/ctrpad/blob/df1d0671ed8d540b695113f1cc28e9fb26e570e9/AVP-INSTALL.md",
+      "source_url": "https://github.com/edgytoast/ctrpad/tree/038cf146f2e1421ea36f6692bc4367ad8f66e4ff",
+      "install_doc_url": "https://github.com/edgytoast/ctrpad/blob/038cf146f2e1421ea36f6692bc4367ad8f66e4ff/AVP-INSTALL.md",
       "install_guide": "AVP-INSTALL.md",
       "developer": {
         "name": null,
@@ -4727,11 +4727,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "df1d0671ed8d540b695113f1cc28e9fb26e570e9",
-      "scanned_at": "2026-11-14T17:30:09Z",
+      "scanned_commit": "038cf146f2e1421ea36f6692bc4367ad8f66e4ff",
+      "scanned_at": "2026-11-25T08:34:57Z",
       "scan_kind": "automated",
-      "commits_since_scan": 1,
-      "scan_state": "behind",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-11-24T22:51:50Z",
       "license": {

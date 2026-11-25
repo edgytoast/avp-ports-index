@@ -192,7 +192,7 @@ avp-craft:
   warnings: []
 ctrpad:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-11-14T17:30:10Z'
@@ -212,13 +212,15 @@ ctrpad:
   rescan_after: null
   rescan_hold: false
   routes: []
-  scan_confidence: 98
+  scan_confidence: 96
   scan_declines: 0
+  scan_errors: 0
   scan_kind: automated
+  scan_provider_errors: 0
   scan_refused: false
-  scan_state: behind
-  scanned_at: '2026-11-14T17:30:09Z'
-  scanned_commit: df1d0671ed8d540b695113f1cc28e9fb26e570e9
+  scan_state: current
+  scanned_at: '2026-11-25T08:34:57Z'
+  scanned_commit: 038cf146f2e1421ea36f6692bc4367ad8f66e4ff
   testflight: null
   warnings: []
 dark-eco:
