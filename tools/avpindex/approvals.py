@@ -2,10 +2,11 @@
 
 When the curator accepts a flagged commit (kill-switch `approve`, or merging a flagged PR), the
 SHA-256 of every file the review's findings pointed at, at that commit, goes into
-state/approvals.yaml for the entry. A later Stage 2 flag whose every finding above `info` sits on a
-file with exactly those bytes is cleared to a pass: the curator has already checked them. A file
-that changes, any other finding, a `critical` finding, a steering attempt or a confidence below
-`stage2.approved_files_min_confidence` still flags.
+state/approvals.yaml for the entry. A later Stage 2 flag whose every finding above `low` sits on a
+file with exactly those bytes is cleared to a pass: the curator has already checked them. `info` and
+`low` findings (the prompt's notes, such as unpinned installs in an edited install guide) don't hold
+the pass back. A file that changes, a `medium` or `high` finding on any other file, a `critical`
+finding, a steering attempt or a confidence below `stage2.approved_files_min_confidence` still flags.
 
 Files are read from GitHub at the pinned commit (raw.githubusercontent.com, never with a token)
 and only hashed: nothing from the repo is run.
@@ -23,12 +24,15 @@ MAX_BYTES = 64 * 1024 * 1024
 MAX_FILES = 20  # findings on more files than this are never cleared
 
 
-def flagged_files(verdict: dict | None) -> list[str] | None:
-    """The files the findings above `info` point at, or None if one can't be named (no file, a path
+NOTES = ("info", "low")  # severities that never stop approved files clearing a flag
+
+
+def flagged_files(verdict: dict | None, skip: tuple[str, ...] = ("info",)) -> list[str] | None:
+    """The files the findings above `skip` point at, or None if one can't be named (no file, a path
     out of the repo, or more than MAX_FILES files)."""
     paths: list[str] = []
     for finding in (verdict or {}).get("findings") or []:
-        if finding.get("severity") == "info":
+        if finding.get("severity") in skip:
             continue
         path = media.safe_path(str(finding.get("file") or ""))
         if not path:
@@ -89,7 +93,7 @@ def clearance(state: store.State, entry_id: str | None, repo_id: int, repo_name:
         if verdict["safe_confidence"] < int(policy["stage2"]["approved_files_min_confidence"]):
             return None
         approved = approved_hashes(state, entry_id, repo_id)
-        paths = flagged_files(verdict)
+        paths = flagged_files(verdict, skip=NOTES)
         if not approved or not paths:
             return None
         owner, name = repo_name.split("/", 1)
