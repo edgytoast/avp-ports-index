@@ -702,12 +702,13 @@ portal-2-vr:
     spdx: MIT
   outreach_issue_url: null
   outreach_opened_at: null
-  rescan_after: null
+  rescan_after: '2026-11-25T10:54:38Z'
   rescan_hold: false
   routes: []
   scan_confidence: null
   scan_declines: 0
   scan_kind: curator-reviewed
+  scan_provider_errors: 1
   scan_refused: false
   scan_state: behind
   scanned_at: '2026-11-15T17:29:47Z'
