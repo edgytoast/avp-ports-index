@@ -6,10 +6,10 @@ Port by [@florind-ens](https://github.com/florind-ens)
 Start with this command, which gets exactly the code that was scanned:
 
 ```
-git clone https://github.com/edgytoast/RTCW-AVP && cd RTCW-AVP && git checkout 9982831d996d9f6058b75684c2dae3be2204b5a6 && git submodule update --init --recursive
+git clone https://github.com/edgytoast/RTCW-AVP && cd RTCW-AVP && git checkout 6fceda49bad526872e181149b88427cb03ea7a82 && git submodule update --init --recursive
 ```
 
-Then follow the [install guide](https://github.com/edgytoast/RTCW-AVP/blob/9982831d996d9f6058b75684c2dae3be2204b5a6/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+Then follow the [install guide](https://github.com/edgytoast/RTCW-AVP/blob/6fceda49bad526872e181149b88427cb03ea7a82/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
 
 | | |
 | --- | --- |
@@ -17,9 +17,9 @@ Then follow the [install guide](https://github.com/edgytoast/RTCW-AVP/blob/99828
 | Status | Working: Single player, in VR or in a flat window. |
 | Plays as | 2D, 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-14 · 1 commit since |
-| Source (scanned) | [edgytoast/RTCW-AVP at 9982831d996d](https://github.com/edgytoast/RTCW-AVP/tree/9982831d996d9f6058b75684c2dae3be2204b5a6) |
-| Install guide | [AVP-INSTALL.md at 9982831d996d](https://github.com/edgytoast/RTCW-AVP/blob/9982831d996d9f6058b75684c2dae3be2204b5a6/AVP-INSTALL.md) |
+| Scan | Scanned 2026-11-25 · 0 commits since |
+| Source (scanned) | [edgytoast/RTCW-AVP at 6fceda49bad5](https://github.com/edgytoast/RTCW-AVP/tree/6fceda49bad526872e181149b88427cb03ea7a82) |
+| Install guide | [AVP-INSTALL.md at 6fceda49bad5](https://github.com/edgytoast/RTCW-AVP/blob/6fceda49bad526872e181149b88427cb03ea7a82/AVP-INSTALL.md) |
 | Repo | [edgytoast/RTCW-AVP](https://github.com/edgytoast/RTCW-AVP) |
 | License | GPL-3.0 |
 | Last commit | 2026-11-24 |

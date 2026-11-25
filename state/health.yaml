@@ -769,7 +769,7 @@ revc-visionos:
   warnings: []
 rtcw-avp:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-11-14T02:25:13Z'
@@ -791,11 +791,13 @@ rtcw-avp:
   routes: []
   scan_confidence: 95
   scan_declines: 0
+  scan_errors: 0
   scan_kind: automated
+  scan_provider_errors: 0
   scan_refused: false
-  scan_state: behind
-  scanned_at: '2026-11-14T02:25:12Z'
-  scanned_commit: 9982831d996d9f6058b75684c2dae3be2204b5a6
+  scan_state: current
+  scanned_at: '2026-11-25T07:44:11Z'
+  scanned_commit: 6fceda49bad526872e181149b88427cb03ea7a82
   testflight: null
   warnings: []
 santosvision:
