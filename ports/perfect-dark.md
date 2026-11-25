@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/edgytoast/perfect-dark-ios/bl
 | Status | Working |
 | Plays as | 2D, 3D immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-14 · 0 commits since |
+| Scan | Scanned 2026-11-14 · 1 commit since |
 | Source (scanned) | [edgytoast/perfect-dark-ios at 906f3f676d8e](https://github.com/edgytoast/perfect-dark-ios/tree/906f3f676d8e3a21d3e226d719137c32ffc02674) |
 | Install guide | [AVP-INSTALL.md at 906f3f676d8e](https://github.com/edgytoast/perfect-dark-ios/blob/906f3f676d8e3a21d3e226d719137c32ffc02674/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [edgytoast/perfect-dark-ios](https://github.com/edgytoast/perfect-dark-ios) |
 | License | Custom license |
-| Last commit | 2026-11-13 |
+| Last commit | 2026-11-24 |
 | visionOS | 26.0 or later |
 | Input | game controller |
 | Tags | fps, first-person, n64, decompilation, stereo-3d, dabs-mod, xbla |

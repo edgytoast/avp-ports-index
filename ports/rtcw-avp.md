@@ -17,12 +17,12 @@ Then follow the [install guide](https://github.com/edgytoast/RTCW-AVP/blob/99828
 | Status | Working: Single player, in VR or in a flat window. |
 | Plays as | 2D, 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-14 · 0 commits since |
+| Scan | Scanned 2026-11-14 · 1 commit since |
 | Source (scanned) | [edgytoast/RTCW-AVP at 9982831d996d](https://github.com/edgytoast/RTCW-AVP/tree/9982831d996d9f6058b75684c2dae3be2204b5a6) |
 | Install guide | [AVP-INSTALL.md at 9982831d996d](https://github.com/edgytoast/RTCW-AVP/blob/9982831d996d9f6058b75684c2dae3be2204b5a6/AVP-INSTALL.md) |
 | Repo | [edgytoast/RTCW-AVP](https://github.com/edgytoast/RTCW-AVP) |
 | License | GPL-3.0 |
-| Last commit | 2026-11-13 |
+| Last commit | 2026-11-24 |
 | visionOS | 26.0 or later |
 | Input | game controller |
 | Tags | fps, shooter, first-person, vr, 6dof, iortcw, id-tech-3, source-port |

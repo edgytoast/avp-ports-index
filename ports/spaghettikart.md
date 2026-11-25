@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/edgytoast/SpaghettiKart-ios/b
 | Status | Working |
 | Plays as | 2D, 3D immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-14 · 0 commits since |
+| Scan | Scanned 2026-11-14 · 1 commit since |
 | Source (scanned) | [edgytoast/SpaghettiKart-ios at 1eabc254e86b](https://github.com/edgytoast/SpaghettiKart-ios/tree/1eabc254e86b3a420d761dc8a8efe04c37fb1b06) |
 | Install guide | [AVP-INSTALL.md at 1eabc254e86b](https://github.com/edgytoast/SpaghettiKart-ios/blob/1eabc254e86b3a420d761dc8a8efe04c37fb1b06/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [edgytoast/SpaghettiKart-ios](https://github.com/edgytoast/SpaghettiKart-ios) |
 | License | MIT |
-| Last commit | 2026-11-13 |
+| Last commit | 2026-11-24 |
 | visionOS | 2.0 or later |
 | Input | game controller |
 | Tags | racing, mario-kart, n64, source-port, harbour-masters, stereo-3d, texture-packs |

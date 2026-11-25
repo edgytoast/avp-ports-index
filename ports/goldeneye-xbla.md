@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/edgytoast/GoldenEye-Recomp-io
 | Status | Working |
 | Plays as | 2D |
 | Health | OK |
-| Scan | Scanned 2026-11-14 · 0 commits since |
+| Scan | Scanned 2026-11-14 · 1 commit since |
 | Source (scanned) | [edgytoast/GoldenEye-Recomp-ios at 95bcd76b08da](https://github.com/edgytoast/GoldenEye-Recomp-ios/tree/95bcd76b08da5111d6e6f420e19d44e1237fe119) |
 | Install guide | [AVP-INSTALL.md at 95bcd76b08da](https://github.com/edgytoast/GoldenEye-Recomp-ios/blob/95bcd76b08da5111d6e6f420e19d44e1237fe119/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [edgytoast/GoldenEye-Recomp-ios](https://github.com/edgytoast/GoldenEye-Recomp-ios) |
 | License | Unlicense |
-| Last commit | 2026-11-13 |
+| Last commit | 2026-11-24 |
 | visionOS | 26.0 or later |
 | Input | game controller |
 | Tags | goldeneye, fps, first-person, xbox-360, xbla, static-recompilation, rexglue, remaster |

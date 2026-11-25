@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/edgytoast/tpvr-visionos/blob/
 | Status | Working: Plays on Apple Vision Pro \(visionOS 27\) in full and progressive immersion, with PS VR2 Sense controllers or bare hands. Window mode \(third person, gamepad\) is newer: characters look a little flatter than in the game. |
 | Plays as | 3D shared space, 6DoF immersive, 6DoF progressive |
 | Health | OK |
-| Scan | Scanned 2026-10-19 · 0 commits since |
+| Scan | Scanned 2026-10-19 · 1 commit since |
 | Source (scanned) | [edgytoast/tpvr-visionos at d26c64a22441](https://github.com/edgytoast/tpvr-visionos/tree/d26c64a224414e8af7e6c450486b41a6209617e8) |
 | Install guide | [AVP-INSTALL.md at d26c64a22441](https://github.com/edgytoast/tpvr-visionos/blob/d26c64a224414e8af7e6c450486b41a6209617e8/AVP-INSTALL.md) |
 | Repo | [edgytoast/tpvr-visionos](https://github.com/edgytoast/tpvr-visionos) |
 | Developer site | <https://trevorbilt.com> |
 | License | CC0-1.0 |
-| Last commit | 2026-10-17 |
+| Last commit | 2026-11-24 |
 | visionOS | 26.0 or later |
 | Input | game controller, hand tracking |
 | Tags | zelda, twilight-princess, vr, first-person, gamecube, wii, decompilation, hand-tracking |

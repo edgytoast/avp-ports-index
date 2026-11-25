@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/edgytoast/windwaker-visionos/
 | Status | Working: Plays in a window beside your apps, in 3D or in 2D like the original, with a gamepad; played on Apple Vision Pro. Full and Progressive VR are in the app behind an experimental switch, untested on a headset. |
 | Plays as | 2D, 3D shared space |
 | Health | OK |
-| Scan | Scanned 2026-10-29 · 0 commits since |
+| Scan | Scanned 2026-10-29 · 1 commit since |
 | Source (scanned) | [edgytoast/windwaker-visionos at a1fcc30a3b8e](https://github.com/edgytoast/windwaker-visionos/tree/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c) |
 | Install guide | [AVP-INSTALL.md at a1fcc30a3b8e](https://github.com/edgytoast/windwaker-visionos/blob/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/AVP-INSTALL.md) |
 | Repo | [edgytoast/windwaker-visionos](https://github.com/edgytoast/windwaker-visionos) |
 | Developer site | <https://trevorbilt.com> |
 | License | MIT |
-| Last commit | 2026-10-29 |
+| Last commit | 2026-11-24 |
 | visionOS | 26.0 or later |
 | Input | game controller |
 | Tags | zelda, wind-waker, gamecube, decompilation, shared-space, window, aurora |

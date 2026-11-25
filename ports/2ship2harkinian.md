@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/edgytoast/2ship2harkinian-ios
 | Status | Working |
 | Plays as | 2D, 3D immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-14 · 0 commits since |
+| Scan | Scanned 2026-11-14 · 1 commit since |
 | Source (scanned) | [edgytoast/2ship2harkinian-ios at a2ee3158f5a0](https://github.com/edgytoast/2ship2harkinian-ios/tree/a2ee3158f5a0edf5c1882db161c9186e81f216b3) |
 | Install guide | [AVP-INSTALL.md at a2ee3158f5a0](https://github.com/edgytoast/2ship2harkinian-ios/blob/a2ee3158f5a0edf5c1882db161c9186e81f216b3/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [edgytoast/2ship2harkinian-ios](https://github.com/edgytoast/2ship2harkinian-ios) |
 | License | MIT |
-| Last commit | 2026-11-13 |
+| Last commit | 2026-11-24 |
 | visionOS | 2.0 or later |
 | Input | game controller |
 | Tags | zelda, majoras-mask, n64, source-port, harbour-masters, stereo-3d |

@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/edgytoast/apotris-ios/blob/86
 | Status | Working |
 | Plays as | 2D |
 | Health | OK |
-| Scan | Scanned 2026-11-14 · 0 commits since |
+| Scan | Scanned 2026-11-14 · 1 commit since |
 | Source (scanned) | [edgytoast/apotris-ios at 865f50b5223f](https://github.com/edgytoast/apotris-ios/tree/865f50b5223ffc91eb0f864bf3a06043006b4f36) |
 | Install guide | [AVP-INSTALL.md at 865f50b5223f](https://github.com/edgytoast/apotris-ios/blob/865f50b5223ffc91eb0f864bf3a06043006b4f36/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [edgytoast/apotris-ios](https://github.com/edgytoast/apotris-ios) |
 | License | AGPL-3.0 |
-| Last commit | 2026-11-13 |
+| Last commit | 2026-11-24 |
 | visionOS | 2.0 or later |
 | Input | game controller, keyboard and mouse |
 | Tags | puzzle, block-stacking, free-game, multiplayer, open-source |

@@ -17,7 +17,7 @@ Then follow the [install guide](https://github.com/edgytoast/voxelnative/blob/8b
 | Status | Working: Joining a server and playing works in the headset, with VoxeLibre as the daily driver. The README calls it a work in progress, rough in places. |
 | Plays as | 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-24 · 0 commits since |
+| Scan | Scanned 2026-11-24 · 1 commit since |
 | Source (scanned) | [edgytoast/voxelnative at 8b5acb824e80](https://github.com/edgytoast/voxelnative/tree/8b5acb824e807bf448bf795c0a5477d0b306b1d8) |
 | Install guide | [AVP-INSTALL.md at 8b5acb824e80](https://github.com/edgytoast/voxelnative/blob/8b5acb824e807bf448bf795c0a5477d0b306b1d8/AVP-INSTALL.md) |
 | Repo | [edgytoast/voxelnative](https://github.com/edgytoast/voxelnative) |

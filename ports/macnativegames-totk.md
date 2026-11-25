@@ -17,12 +17,12 @@ Then follow the [install guide](https://github.com/ly05010419/MacNativeGames/blo
 | Status | Partially working: Early Vision Pro support: Tears of the Kingdom in a 16:9 window with a controller, not VR. In the guide, read What you need and Build the app first; Xcode, Apple ID and 7-day signing are under iPhone and iPad. Not tested by the curator. |
 | Plays as | 2D |
 | Health | OK |
-| Scan | Reviewed by the curator 2026-11-16 · 314 commits since |
+| Scan | Reviewed by the curator 2026-11-16 · 321 commits since |
 | Source (scanned) | [ly05010419/MacNativeGames at 31aa41b4101a](https://github.com/ly05010419/MacNativeGames/tree/31aa41b4101a413f69113985120ba095e1c9586f) |
 | Install guide | [docs/install.md at 31aa41b4101a](https://github.com/ly05010419/MacNativeGames/blob/31aa41b4101a413f69113985120ba095e1c9586f/docs/install.md) |
 | Repo | [ly05010419/MacNativeGames](https://github.com/ly05010419/MacNativeGames) |
 | License | MIT |
-| Last commit | 2026-11-24 |
+| Last commit | 2026-11-25 |
 | visionOS | 26.0 or later |
 | Input | game controller |
 | Tags | zelda, tears-of-the-kingdom, switch, window, metal, native-port |

@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/edgytoast/portal2-visionos/bl
 | Status | Working: The author played it on one M2 headset and archived it; this copy adds an install guide. Heavier areas can drop below 60 fps, the gun's glow is missing, and menus show on a flat screen. Not tested by the curator. |
 | Plays as | 6DoF immersive |
 | Health | OK |
-| Scan | Reviewed by the curator 2026-11-15 · 0 commits since |
+| Scan | Reviewed by the curator 2026-11-15 · 1 commit since |
 | Source (scanned) | [edgytoast/portal2-visionos at b5f1fc29b707](https://github.com/edgytoast/portal2-visionos/tree/b5f1fc29b707daacf88a86bb50f228626586e893) |
 | Install guide | [AVP-INSTALL.md at b5f1fc29b707](https://github.com/edgytoast/portal2-visionos/blob/b5f1fc29b707daacf88a86bb50f228626586e893/AVP-INSTALL.md) |
 | Repo | [edgytoast/portal2-visionos](https://github.com/edgytoast/portal2-visionos) |
 | Branch | `portal2-visionos` |
 | License | MIT |
-| Last commit | 2026-11-14 |
+| Last commit | 2026-11-24 |
 | visionOS | 26.0 or later |
 | Input | game controller, hand tracking |
 | Tags | portal-2, portal, valve, vr, 6dof, first-person, puzzle, nxnative |

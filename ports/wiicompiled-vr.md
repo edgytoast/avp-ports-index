@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/edgytoast/wiicompiled_vr-avp-
 | Status | Working: Runs on Apple Vision Pro \(tested on visionOS 26.6.1\): menus on a virtual screen, races in stereo. The docs call the port experimental; comfort, frame timing and bare-hand driving are still being tuned. |
 | Plays as | 2D, 3D immersive, 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-14 · 0 commits since |
+| Scan | Scanned 2026-11-14 · 1 commit since |
 | Source (scanned) | [edgytoast/wiicompiled_vr-avp-index at 87c18efa00ce](https://github.com/edgytoast/wiicompiled_vr-avp-index/tree/87c18efa00ceca1706321a1b0d87254a92afbdc7) |
 | Install guide | [AVP-INSTALL.md at 87c18efa00ce](https://github.com/edgytoast/wiicompiled_vr-avp-index/blob/87c18efa00ceca1706321a1b0d87254a92afbdc7/AVP-INSTALL.md) |
 | Repo | [edgytoast/wiicompiled_vr-avp-index](https://github.com/edgytoast/wiicompiled_vr-avp-index) |
 | Branch | `vision-pro` |
 | License | GPL-3.0 |
-| Last commit | 2026-11-13 |
+| Last commit | 2026-11-24 |
 | visionOS | 2.0 or later |
 | Input | game controller, hand tracking |
 | Tags | racing, kart, mario-kart, wii, recompilation, vr, first-person, hand-tracking |

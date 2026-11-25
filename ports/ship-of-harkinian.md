@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/edgytoast/Shipwright-ios/blob
 | Status | Working |
 | Plays as | 2D, 3D immersive, 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-14 · 0 commits since |
+| Scan | Scanned 2026-11-14 · 1 commit since |
 | Source (scanned) | [edgytoast/Shipwright-ios at a61edd238439](https://github.com/edgytoast/Shipwright-ios/tree/a61edd238439f0fd81ef1e49694731e8cfca334c) |
 | Install guide | [AVP-INSTALL.md at a61edd238439](https://github.com/edgytoast/Shipwright-ios/blob/a61edd238439f0fd81ef1e49694731e8cfca334c/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [edgytoast/Shipwright-ios](https://github.com/edgytoast/Shipwright-ios) |
 | License | MIT |
-| Last commit | 2026-11-13 |
+| Last commit | 2026-11-24 |
 | visionOS | 2.0 or later |
 | Input | game controller |
 | Tags | zelda, ocarina-of-time, n64, source-port, harbour-masters, vr, first-person, stereo-3d |

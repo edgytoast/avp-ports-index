@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/edgytoast/animalcrossing-visi
 | Status | Working: Plays in Full and Progressive immersion with PS VR2 Sense controllers, bare hands or a gamepad, and in a 3D window with a gamepad. Played on Apple Vision Pro in the Window view; Full and Progressive tested in the visionOS Simulator. |
 | Plays as | 3D shared space, 6DoF immersive, 6DoF progressive |
 | Health | OK |
-| Scan | Scanned 2026-10-10 · 0 commits since |
+| Scan | Scanned 2026-10-10 · 1 commit since |
 | Source (scanned) | [edgytoast/animalcrossing-visionos at b5b463f8e29a](https://github.com/edgytoast/animalcrossing-visionos/tree/b5b463f8e29a51a5718db30ecb5d38ee175f0a40) |
 | Install guide | [AVP-INSTALL.md at b5b463f8e29a](https://github.com/edgytoast/animalcrossing-visionos/blob/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/AVP-INSTALL.md) |
 | Repo | [edgytoast/animalcrossing-visionos](https://github.com/edgytoast/animalcrossing-visionos) |
 | Developer site | <https://trevorbilt.com> |
 | License | Custom license |
-| Last commit | 2026-10-10 |
+| Last commit | 2026-11-24 |
 | visionOS | 26.0 or later |
 | Input | game controller, hand tracking |
 | Tags | animal-crossing, vr, first-person, life-sim, gamecube, decompilation, hand-tracking |

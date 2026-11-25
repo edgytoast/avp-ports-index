@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/edgytoast/gen1recomp/blob/bbe
 | Status | Partially working: The game shows on a world-locked panel in an immersive space and is played with a game controller. The visionOS README records Simulator verification. |
 | Plays as | 2D |
 | Health | OK |
-| Scan | Scanned 2026-11-13 · 0 commits since |
+| Scan | Scanned 2026-11-13 · 1 commit since |
 | Source (scanned) | [edgytoast/gen1recomp at bbe5f881c7b0](https://github.com/edgytoast/gen1recomp/tree/bbe5f881c7b070233f724ba6927b82666e54568c) |
 | Install guide | [AVP-INSTALL.md at bbe5f881c7b0](https://github.com/edgytoast/gen1recomp/blob/bbe5f881c7b070233f724ba6927b82666e54568c/AVP-INSTALL.md) |
 | Repo | [edgytoast/gen1recomp](https://github.com/edgytoast/gen1recomp) |
 | Branch | `visionos-foveation` |
 | License | MIT |
-| Last commit | 2026-11-13 |
+| Last commit | 2026-11-24 |
 | visionOS | 26.0 or later |
 | Input | game controller |
 | Tags | rpg, pokemon, game-boy, love2d, lua, recreation |

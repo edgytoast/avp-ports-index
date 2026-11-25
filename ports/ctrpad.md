@@ -17,12 +17,12 @@ Then follow the [install guide](https://github.com/edgytoast/ctrpad/blob/df1d067
 | Status | Partially working: The README calls the Apple Vision Pro target a development preview: portal and cockpit stereo are implemented, and physical-headset acceptance is still required. |
 | Plays as | 2D, 3D immersive, 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-14 · 0 commits since |
+| Scan | Scanned 2026-11-14 · 1 commit since |
 | Source (scanned) | [edgytoast/ctrpad at df1d0671ed8d](https://github.com/edgytoast/ctrpad/tree/df1d0671ed8d540b695113f1cc28e9fb26e570e9) |
 | Install guide | [AVP-INSTALL.md at df1d0671ed8d](https://github.com/edgytoast/ctrpad/blob/df1d0671ed8d540b695113f1cc28e9fb26e570e9/AVP-INSTALL.md) |
 | Repo | [edgytoast/ctrpad](https://github.com/edgytoast/ctrpad) |
 | License | Custom license |
-| Last commit | 2026-11-13 |
+| Last commit | 2026-11-24 |
 | Input | game controller |
 | Tags | racing, kart, ps1, crash, decompilation, stereo-3d, vr |
 

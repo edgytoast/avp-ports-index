@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/edgytoast/sm64coopdx-ios/blob
 | Status | Working |
 | Plays as | 2D, 3D immersive, 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-14 · 0 commits since |
+| Scan | Scanned 2026-11-14 · 1 commit since |
 | Source (scanned) | [edgytoast/sm64coopdx-ios at 05fe583f6163](https://github.com/edgytoast/sm64coopdx-ios/tree/05fe583f6163c08f36041352115dab0d863a2627) |
 | Install guide | [AVP-INSTALL.md at 05fe583f6163](https://github.com/edgytoast/sm64coopdx-ios/blob/05fe583f6163c08f36041352115dab0d863a2627/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [edgytoast/sm64coopdx-ios](https://github.com/edgytoast/sm64coopdx-ios) |
 | License | No license stated |
-| Last commit | 2026-11-13 |
+| Last commit | 2026-11-24 |
 | visionOS | 2.0 or later |
 | Input | game controller |
 | Tags | mario, super-mario-64, n64, platformer, co-op, multiplayer, vr, stereo-3d |

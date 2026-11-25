@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/edgytoast/shar-visionos/blob/
 | Status | Working: Plays in the Full, Progressive and Window views, with PS VR2 Sense controllers, a gamepad or bare hands. Built and played on Apple Vision Pro. |
 | Plays as | 3D shared space, 6DoF immersive, 6DoF progressive |
 | Health | OK |
-| Scan | Scanned 2026-10-09 · 0 commits since |
+| Scan | Scanned 2026-10-09 · 1 commit since |
 | Source (scanned) | [edgytoast/shar-visionos at 8c1f827f67c5](https://github.com/edgytoast/shar-visionos/tree/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f) |
 | Install guide | [AVP-INSTALL.md at 8c1f827f67c5](https://github.com/edgytoast/shar-visionos/blob/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/AVP-INSTALL.md) |
 | Repo | [edgytoast/shar-visionos](https://github.com/edgytoast/shar-visionos) |
 | Developer site | <https://trevorbilt.com> |
 | License | MIT |
-| Last commit | 2026-10-08 |
+| Last commit | 2026-11-24 |
 | visionOS | 26.0 or later |
 | Input | game controller, hand tracking |
 | Tags | vr, 6dof, driving, open-world, source-port |
