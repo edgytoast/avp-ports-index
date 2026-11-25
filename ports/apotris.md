@@ -6,10 +6,10 @@ Port by [@rebelancap](https://github.com/rebelancap)
 Start with this command, which gets exactly the code that was scanned:
 
 ```
-git clone https://github.com/edgytoast/apotris-ios && cd apotris-ios && git checkout 865f50b5223ffc91eb0f864bf3a06043006b4f36 && git submodule update --init --recursive
+git clone https://github.com/edgytoast/apotris-ios && cd apotris-ios && git checkout 9ce76aa7dccd63cb3598551b1bfea97373bf6003 && git submodule update --init --recursive
 ```
 
-Then follow the [install guide](https://github.com/edgytoast/apotris-ios/blob/865f50b5223ffc91eb0f864bf3a06043006b4f36/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+Then follow the [install guide](https://github.com/edgytoast/apotris-ios/blob/9ce76aa7dccd63cb3598551b1bfea97373bf6003/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
 
 | | |
 | --- | --- |
@@ -17,9 +17,9 @@ Then follow the [install guide](https://github.com/edgytoast/apotris-ios/blob/86
 | Status | Working |
 | Plays as | 2D |
 | Health | OK |
-| Scan | Scanned 2026-11-14 · 1 commit since |
-| Source (scanned) | [edgytoast/apotris-ios at 865f50b5223f](https://github.com/edgytoast/apotris-ios/tree/865f50b5223ffc91eb0f864bf3a06043006b4f36) |
-| Install guide | [AVP-INSTALL.md at 865f50b5223f](https://github.com/edgytoast/apotris-ios/blob/865f50b5223ffc91eb0f864bf3a06043006b4f36/AVP-INSTALL.md) |
+| Scan | Scanned 2026-11-25 · 0 commits since |
+| Source (scanned) | [edgytoast/apotris-ios at 9ce76aa7dccd](https://github.com/edgytoast/apotris-ios/tree/9ce76aa7dccd63cb3598551b1bfea97373bf6003) |
+| Install guide | [AVP-INSTALL.md at 9ce76aa7dccd](https://github.com/edgytoast/apotris-ios/blob/9ce76aa7dccd63cb3598551b1bfea97373bf6003/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [edgytoast/apotris-ios](https://github.com/edgytoast/apotris-ios) |
 | License | AGPL-3.0 |

@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.8.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-25T07:44:38Z",
+  "generated_at": "2026-11-25T08:07:23Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -2973,8 +2973,8 @@
       },
       "repo_url": "https://github.com/edgytoast/apotris-ios",
       "source_ref": null,
-      "source_url": "https://github.com/edgytoast/apotris-ios/tree/865f50b5223ffc91eb0f864bf3a06043006b4f36",
-      "install_doc_url": "https://github.com/edgytoast/apotris-ios/blob/865f50b5223ffc91eb0f864bf3a06043006b4f36/AVP-INSTALL.md",
+      "source_url": "https://github.com/edgytoast/apotris-ios/tree/9ce76aa7dccd63cb3598551b1bfea97373bf6003",
+      "install_doc_url": "https://github.com/edgytoast/apotris-ios/blob/9ce76aa7dccd63cb3598551b1bfea97373bf6003/AVP-INSTALL.md",
       "install_guide": "AVP-INSTALL.md",
       "developer": {
         "name": null,
@@ -3016,11 +3016,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "865f50b5223ffc91eb0f864bf3a06043006b4f36",
-      "scanned_at": "2026-11-14T04:25:25Z",
+      "scanned_commit": "9ce76aa7dccd63cb3598551b1bfea97373bf6003",
+      "scanned_at": "2026-11-25T08:07:22Z",
       "scan_kind": "automated",
-      "commits_since_scan": 1,
-      "scan_state": "behind",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-11-24T22:51:33Z",
       "license": {

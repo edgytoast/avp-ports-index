@@ -128,7 +128,7 @@ animal-crossing-vr:
   warnings: []
 apotris:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-11-14T04:25:25Z'
@@ -148,13 +148,15 @@ apotris:
   rescan_after: null
   rescan_hold: false
   routes: []
-  scan_confidence: 97
+  scan_confidence: 95
   scan_declines: 0
+  scan_errors: 0
   scan_kind: automated
+  scan_provider_errors: 0
   scan_refused: false
-  scan_state: behind
-  scanned_at: '2026-11-14T04:25:25Z'
-  scanned_commit: 865f50b5223ffc91eb0f864bf3a06043006b4f36
+  scan_state: current
+  scanned_at: '2026-11-25T08:07:22Z'
+  scanned_commit: 9ce76aa7dccd63cb3598551b1bfea97373bf6003
   testflight: null
   warnings: []
 avp-craft:
