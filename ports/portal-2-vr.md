@@ -6,10 +6,10 @@ Port by [@portal-in-the-visor](https://github.com/portal-in-the-visor)
 Start with this command, which gets exactly the code that was scanned:
 
 ```
-git clone https://github.com/edgytoast/portal2-visionos && cd portal2-visionos && git checkout b5f1fc29b707daacf88a86bb50f228626586e893 && git submodule update --init --recursive
+git clone https://github.com/edgytoast/portal2-visionos && cd portal2-visionos && git checkout 28972ef727622acdaaa86b5a1ec0ffcd48c5101f && git submodule update --init --recursive
 ```
 
-Then follow the [install guide](https://github.com/edgytoast/portal2-visionos/blob/b5f1fc29b707daacf88a86bb50f228626586e893/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+Then follow the [install guide](https://github.com/edgytoast/portal2-visionos/blob/28972ef727622acdaaa86b5a1ec0ffcd48c5101f/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
 
 | | |
 | --- | --- |
@@ -17,9 +17,9 @@ Then follow the [install guide](https://github.com/edgytoast/portal2-visionos/bl
 | Status | Working: The author played it on one M2 headset and archived it; this copy adds an install guide. Heavier areas can drop below 60 fps, the gun's glow is missing, and menus show on a flat screen. Not tested by the curator. |
 | Plays as | 6DoF immersive |
 | Health | OK |
-| Scan | Reviewed by the curator 2026-11-15 · 1 commit since |
-| Source (scanned) | [edgytoast/portal2-visionos at b5f1fc29b707](https://github.com/edgytoast/portal2-visionos/tree/b5f1fc29b707daacf88a86bb50f228626586e893) |
-| Install guide | [AVP-INSTALL.md at b5f1fc29b707](https://github.com/edgytoast/portal2-visionos/blob/b5f1fc29b707daacf88a86bb50f228626586e893/AVP-INSTALL.md) |
+| Scan | Reviewed by the curator 2026-11-25 · 0 commits since |
+| Source (scanned) | [edgytoast/portal2-visionos at 28972ef72762](https://github.com/edgytoast/portal2-visionos/tree/28972ef727622acdaaa86b5a1ec0ffcd48c5101f) |
+| Install guide | [AVP-INSTALL.md at 28972ef72762](https://github.com/edgytoast/portal2-visionos/blob/28972ef727622acdaaa86b5a1ec0ffcd48c5101f/AVP-INSTALL.md) |
 | Repo | [edgytoast/portal2-visionos](https://github.com/edgytoast/portal2-visionos) |
 | Branch | `portal2-visionos` |
 | License | MIT |

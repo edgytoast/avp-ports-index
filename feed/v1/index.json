@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.8.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-25T08:59:55Z",
+  "generated_at": "2026-11-25T19:28:03Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -1578,8 +1578,8 @@
       },
       "repo_url": "https://github.com/edgytoast/portal2-visionos",
       "source_ref": "portal2-visionos",
-      "source_url": "https://github.com/edgytoast/portal2-visionos/tree/b5f1fc29b707daacf88a86bb50f228626586e893",
-      "install_doc_url": "https://github.com/edgytoast/portal2-visionos/blob/b5f1fc29b707daacf88a86bb50f228626586e893/AVP-INSTALL.md",
+      "source_url": "https://github.com/edgytoast/portal2-visionos/tree/28972ef727622acdaaa86b5a1ec0ffcd48c5101f",
+      "install_doc_url": "https://github.com/edgytoast/portal2-visionos/blob/28972ef727622acdaaa86b5a1ec0ffcd48c5101f/AVP-INSTALL.md",
       "install_guide": "AVP-INSTALL.md",
       "developer": {
         "name": null,
@@ -1631,11 +1631,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "b5f1fc29b707daacf88a86bb50f228626586e893",
-      "scanned_at": "2026-11-15T17:29:47Z",
+      "scanned_commit": "28972ef727622acdaaa86b5a1ec0ffcd48c5101f",
+      "scanned_at": "2026-11-25T19:28:00Z",
       "scan_kind": "curator-reviewed",
-      "commits_since_scan": 1,
-      "scan_state": "behind",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-11-24T22:52:49Z",
       "license": {

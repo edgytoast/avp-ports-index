@@ -74,6 +74,11 @@ portal-2-vr:
     commit: b5f1fc29b707daacf88a86bb50f228626586e893
     path: dm/gfx/tools/spirv_cross_bin/spirv-cross
     sha256: e37945d8e441d34dc2ce2d90b77d9a29ea4d36392a8f2e492f668aeae7dd904a
+  - approved_at: '2026-11-25T19:28:01Z'
+    bytes: 4501
+    commit: 28972ef727622acdaaa86b5a1ec0ffcd48c5101f
+    path: AVP-INSTALL.md
+    sha256: 1065e4b771a6e2d65f72d669b3b56f2076caa9b2d45af95178113e75890897aa
   repo_id: 1458039821
 visr:
   files:
