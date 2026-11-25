@@ -1000,7 +1000,7 @@ sm64coopdx:
   warnings: []
 spaghettikart:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-11-14T02:29:32Z'
@@ -1020,13 +1020,15 @@ spaghettikart:
   rescan_after: null
   rescan_hold: false
   routes: []
-  scan_confidence: 95
+  scan_confidence: 96
   scan_declines: 0
+  scan_errors: 0
   scan_kind: automated
+  scan_provider_errors: 0
   scan_refused: false
-  scan_state: behind
-  scanned_at: '2026-11-14T02:29:32Z'
-  scanned_commit: 1eabc254e86b3a420d761dc8a8efe04c37fb1b06
+  scan_state: current
+  scanned_at: '2026-11-25T08:19:27Z'
+  scanned_commit: 45f3c453635c9efccd8ad496b725dfd9b12222aa
   testflight: null
   warnings: []
 starship:
