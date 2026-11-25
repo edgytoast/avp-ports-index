@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.8.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-25T08:42:50Z",
+  "generated_at": "2026-11-25T08:45:13Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -3098,8 +3098,8 @@
       },
       "repo_url": "https://github.com/edgytoast/2ship2harkinian-ios",
       "source_ref": null,
-      "source_url": "https://github.com/edgytoast/2ship2harkinian-ios/tree/a2ee3158f5a0edf5c1882db161c9186e81f216b3",
-      "install_doc_url": "https://github.com/edgytoast/2ship2harkinian-ios/blob/a2ee3158f5a0edf5c1882db161c9186e81f216b3/AVP-INSTALL.md",
+      "source_url": "https://github.com/edgytoast/2ship2harkinian-ios/tree/b824ce4d523b2cdb369b8e3736bdcca1b442f0e2",
+      "install_doc_url": "https://github.com/edgytoast/2ship2harkinian-ios/blob/b824ce4d523b2cdb369b8e3736bdcca1b442f0e2/AVP-INSTALL.md",
       "install_guide": "AVP-INSTALL.md",
       "developer": {
         "name": null,
@@ -3152,11 +3152,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "a2ee3158f5a0edf5c1882db161c9186e81f216b3",
-      "scanned_at": "2026-11-14T21:15:23Z",
+      "scanned_commit": "b824ce4d523b2cdb369b8e3736bdcca1b442f0e2",
+      "scanned_at": "2026-11-25T08:45:12Z",
       "scan_kind": "automated",
-      "commits_since_scan": 1,
-      "scan_state": "behind",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-11-24T22:51:29Z",
       "license": {

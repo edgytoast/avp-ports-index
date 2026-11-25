@@ -6,10 +6,10 @@ Port by [@rebelancap](https://github.com/rebelancap)
 Start with this command, which gets exactly the code that was scanned:
 
 ```
-git clone https://github.com/edgytoast/2ship2harkinian-ios && cd 2ship2harkinian-ios && git checkout a2ee3158f5a0edf5c1882db161c9186e81f216b3 && git submodule update --init --recursive
+git clone https://github.com/edgytoast/2ship2harkinian-ios && cd 2ship2harkinian-ios && git checkout b824ce4d523b2cdb369b8e3736bdcca1b442f0e2 && git submodule update --init --recursive
 ```
 
-Then follow the [install guide](https://github.com/edgytoast/2ship2harkinian-ios/blob/a2ee3158f5a0edf5c1882db161c9186e81f216b3/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+Then follow the [install guide](https://github.com/edgytoast/2ship2harkinian-ios/blob/b824ce4d523b2cdb369b8e3736bdcca1b442f0e2/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
 
 | | |
 | --- | --- |
@@ -17,9 +17,9 @@ Then follow the [install guide](https://github.com/edgytoast/2ship2harkinian-ios
 | Status | Working |
 | Plays as | 2D, 3D immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-14 · 1 commit since |
-| Source (scanned) | [edgytoast/2ship2harkinian-ios at a2ee3158f5a0](https://github.com/edgytoast/2ship2harkinian-ios/tree/a2ee3158f5a0edf5c1882db161c9186e81f216b3) |
-| Install guide | [AVP-INSTALL.md at a2ee3158f5a0](https://github.com/edgytoast/2ship2harkinian-ios/blob/a2ee3158f5a0edf5c1882db161c9186e81f216b3/AVP-INSTALL.md) |
+| Scan | Scanned 2026-11-25 · 0 commits since |
+| Source (scanned) | [edgytoast/2ship2harkinian-ios at b824ce4d523b](https://github.com/edgytoast/2ship2harkinian-ios/tree/b824ce4d523b2cdb369b8e3736bdcca1b442f0e2) |
+| Install guide | [AVP-INSTALL.md at b824ce4d523b](https://github.com/edgytoast/2ship2harkinian-ios/blob/b824ce4d523b2cdb369b8e3736bdcca1b442f0e2/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [edgytoast/2ship2harkinian-ios](https://github.com/edgytoast/2ship2harkinian-ios) |
 | License | MIT |

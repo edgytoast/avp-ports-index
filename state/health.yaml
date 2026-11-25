@@ -32,7 +32,7 @@
   warnings: []
 2ship2harkinian:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-11-14T21:15:23Z'
@@ -52,13 +52,15 @@
   rescan_after: null
   rescan_hold: false
   routes: []
-  scan_confidence: 96
+  scan_confidence: 95
   scan_declines: 0
+  scan_errors: 0
   scan_kind: automated
+  scan_provider_errors: 0
   scan_refused: false
-  scan_state: behind
-  scanned_at: '2026-11-14T21:15:23Z'
-  scanned_commit: a2ee3158f5a0edf5c1882db161c9186e81f216b3
+  scan_state: current
+  scanned_at: '2026-11-25T08:45:12Z'
+  scanned_commit: b824ce4d523b2cdb369b8e3736bdcca1b442f0e2
   testflight: null
   warnings: []
 '720':
