@@ -32,10 +32,10 @@ The Simpsons: Hit &amp; Run in six degrees of freedom on Apple Vision Pro. Walk 
 
 ## Screenshots
 
-From the port's README at 8c1f827f67c5.
+From the port's README at b7e1790feb4a.
 
-<img src="https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/docs/images/window-view.jpg" alt="Homer outside 742 Evergreen Terrace, in a window floating in a living room" width="400">
-<img src="https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/docs/images/window-angle.jpg" alt="The same window seen from the side: the scene has real depth behind the glass" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/shar-visionos/b7e1790feb4a4c5fd58944102a6926f214b32a95/docs/images/window-view.jpg" alt="Homer outside 742 Evergreen Terrace, in a window floating in a living room" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/shar-visionos/b7e1790feb4a4c5fd58944102a6926f214b32a95/docs/images/window-angle.jpg" alt="The same window seen from the side: the scene has real depth behind the glass" width="400">
 
 ## Credits
 

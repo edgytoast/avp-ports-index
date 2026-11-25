@@ -32,9 +32,9 @@ GoldenEye 007 on Apple Vision Pro: Rare's unreleased 2007 Xbox 360 remaster, sta
 
 ## Screenshots
 
-From the port's README at 95bcd76b08da.
+From the port's README at c9de4192319e.
 
-<img src="https://raw.githubusercontent.com/edgytoast/GoldenEye-Recomp-ios/95bcd76b08da5111d6e6f420e19d44e1237fe119/docs/screenshots/vision-pro-dam-remaster.jpg" alt="GoldenEye on Apple Vision Pro" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/GoldenEye-Recomp-ios/c9de4192319ea5569817c2c29c507d8c02d626dc/docs/screenshots/vision-pro-dam-remaster.jpg" alt="GoldenEye on Apple Vision Pro" width="400">
 
 ## Credits
 

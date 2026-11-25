@@ -32,11 +32,11 @@ Gen 1 Pokémon on Apple Vision Pro: a visionOS build of Gen1Recomp, the hand-wri
 
 ## Screenshots
 
-From the port's README at bbe5f881c7b0.
+From the port's README at 8b80c37f62ea.
 
-<img src="https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/.github/resources/sidestore-badge.png" alt="Add to SideStore" width="400">
-<img src="https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/.github/resources/feather-badge.png" alt="Add to Feather" width="400">
-<img src="https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/.github/resources/altstore-badge.png" alt="Add to AltStore" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/gen1recomp/8b80c37f62eaeeb37b2d762e8d271732b5b9bde1/.github/resources/sidestore-badge.png" alt="Add to SideStore" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/gen1recomp/8b80c37f62eaeeb37b2d762e8d271732b5b9bde1/.github/resources/feather-badge.png" alt="Add to Feather" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/gen1recomp/8b80c37f62eaeeb37b2d762e8d271732b5b9bde1/.github/resources/altstore-badge.png" alt="Add to AltStore" width="400">
 
 ## Credits
 

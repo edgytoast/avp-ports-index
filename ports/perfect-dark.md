@@ -32,9 +32,9 @@ Perfect Dark on Apple Vision Pro: the decompilation through the PC port and Dab'
 
 ## Screenshots
 
-From the port's README at 906f3f676d8e.
+From the port's README at 2ea80edfdef9.
 
-<img src="https://raw.githubusercontent.com/edgytoast/perfect-dark-ios/906f3f676d8e3a21d3e226d719137c32ffc02674/docs/screenshots/vision-pro-airbase-xbla.jpg" alt="Perfect Dark on Apple Vision Pro — Air Base, XBLA art" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/perfect-dark-ios/2ea80edfdef9d35a823cee40ee9fba72fde2d535/docs/screenshots/vision-pro-airbase-xbla.jpg" alt="Perfect Dark on Apple Vision Pro — Air Base, XBLA art" width="400">
 
 ## Credits
 

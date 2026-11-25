@@ -32,10 +32,10 @@ The Wind Waker in a window beside your apps on Apple Vision Pro, with the Great 
 
 ## Screenshots
 
-From the port's README at a1fcc30a3b8e.
+From the port's README at 72bb452cee13.
 
-<img src="https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/docs/images/window-3d.jpg" alt="Link on Outset Island&#x27;s pier, in a window floating in a living room" width="400">
-<img src="https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/docs/images/window-angle.jpg" alt="Link on Windfall Island&#x27;s dock, in a window seen from off to one side: he and the cliffs stand out of the sea behind the glass" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/windwaker-visionos/72bb452cee137ae7616c72157c70cd9941b9da6d/visionos/docs/images/window-3d.jpg" alt="Link on Outset Island&#x27;s pier, in a window floating in a living room" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/windwaker-visionos/72bb452cee137ae7616c72157c70cd9941b9da6d/visionos/docs/images/window-angle.jpg" alt="Link on Windfall Island&#x27;s dock, in a window seen from off to one side: he and the cliffs stand out of the sea behind the glass" width="400">
 
 ## Credits
 

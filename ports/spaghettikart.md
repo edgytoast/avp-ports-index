@@ -32,9 +32,9 @@ Mario Kart 64 on Apple Vision Pro through Harbour Masters' SpaghettiKart, render
 
 ## Screenshots
 
-From the port's README at 1eabc254e86b.
+From the port's README at 45f3c453635c.
 
-<img src="https://raw.githubusercontent.com/edgytoast/SpaghettiKart-ios/1eabc254e86b3a420d761dc8a8efe04c37fb1b06/docs/screenshots/visionos-window.jpg" alt="Mario Kart 64 on Apple Vision Pro" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/SpaghettiKart-ios/45f3c453635c9efccd8ad496b725dfd9b12222aa/docs/screenshots/visionos-window.jpg" alt="Mario Kart 64 on Apple Vision Pro" width="400">
 
 ## Credits
 

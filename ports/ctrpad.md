@@ -30,11 +30,11 @@ Crash Team Racing built from the CTR-ModSDK decompilation, through CTR Native an
 
 ## Screenshots
 
-From the port's README at df1d0671ed8d.
+From the port's README at 038cf146f2e1.
 
-<img src="https://raw.githubusercontent.com/edgytoast/ctrpad/df1d0671ed8d540b695113f1cc28e9fb26e570e9/docs/design/ctrpad-app-icon-master.png" alt="CTRPad app icon" width="400">
-<img src="https://raw.githubusercontent.com/edgytoast/ctrpad/df1d0671ed8d540b695113f1cc28e9fb26e570e9/docs/readme/ctrpad-crash-cove-gameplay.png" alt="CTRPad running Crash Cove on iPad with the touch controller" width="400">
-<img src="https://raw.githubusercontent.com/edgytoast/ctrpad/df1d0671ed8d540b695113f1cc28e9fb26e570e9/docs/readme/ctrpad-title-screen.png" alt="CTRPad title screen on iPad" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/ctrpad/038cf146f2e1421ea36f6692bc4367ad8f66e4ff/docs/design/ctrpad-app-icon-master.png" alt="CTRPad app icon" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/ctrpad/038cf146f2e1421ea36f6692bc4367ad8f66e4ff/docs/readme/ctrpad-crash-cove-gameplay.png" alt="CTRPad running Crash Cove on iPad with the touch controller" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/ctrpad/038cf146f2e1421ea36f6692bc4367ad8f66e4ff/docs/readme/ctrpad-title-screen.png" alt="CTRPad title screen on iPad" width="400">
 
 ## Credits
 

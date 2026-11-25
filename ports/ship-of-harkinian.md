@@ -32,9 +32,9 @@ Ocarina of Time on Apple Vision Pro through Harbour Masters' Ship of Harkinian, 
 
 ## Screenshots
 
-From the port's README at a61edd238439.
+From the port's README at 3c8715d84b54.
 
-<img src="https://raw.githubusercontent.com/edgytoast/Shipwright-ios/a61edd238439f0fd81ef1e49694731e8cfca334c/docs/screenshots/visionos-window.jpg" alt="The Legend of Zelda: Ocarina of Time on Apple Vision Pro" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/Shipwright-ios/3c8715d84b54867b4af82b8de0cd7181b9847cfb/docs/screenshots/visionos-window.jpg" alt="The Legend of Zelda: Ocarina of Time on Apple Vision Pro" width="400">
 
 ## Credits
 

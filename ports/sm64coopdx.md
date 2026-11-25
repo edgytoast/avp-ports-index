@@ -32,9 +32,9 @@ Super Mario 64 Co-op Deluxe on Apple Vision Pro with online co-op: a 2D window, 
 
 ## Screenshots
 
-From the port's README at 05fe583f6163.
+From the port's README at d86b448e49b6.
 
-<img src="https://raw.githubusercontent.com/edgytoast/sm64coopdx-ios/05fe583f6163c08f36041352115dab0d863a2627/docs/screenshots/visionos-window.png" alt="sm64coopdx in a visionOS window" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/sm64coopdx-ios/d86b448e49b65b628bda02587f48d918aff13b4b/docs/screenshots/visionos-window.png" alt="sm64coopdx in a visionOS window" width="400">
 
 ## Credits
 

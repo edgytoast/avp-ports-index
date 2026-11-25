@@ -45,8 +45,8 @@
   source: readme
 2ship2harkinian:
   choice: null
-  collected_at: '2026-11-14T21:15:27Z'
-  commit: a2ee3158f5a0edf5c1882db161c9186e81f216b3
+  collected_at: '2026-11-25T20:20:21Z'
+  commit: b824ce4d523b2cdb369b8e3736bdcca1b442f0e2
   icon:
     kind: layered
     layers:
@@ -55,21 +55,21 @@
       height: 1024
       layer: back
       sha256: 64aff1d06018bfeb36f1d6167300f82d21d631eb4fbb01f8c3b74b64864dc2f5
-      url: https://raw.githubusercontent.com/edgytoast/2ship2harkinian-ios/a2ee3158f5a0edf5c1882db161c9186e81f216b3/app/ios/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/layer-back-1024.png
+      url: https://raw.githubusercontent.com/edgytoast/2ship2harkinian-ios/b824ce4d523b2cdb369b8e3736bdcca1b442f0e2/app/ios/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/layer-back-1024.png
       width: 1024
     - bytes: 64947
       format: png
       height: 1024
       layer: middle
       sha256: 31cd459d39e50f87a261a9c53f27dced050dc8fb5b6f9f418f6aabce766fbe93
-      url: https://raw.githubusercontent.com/edgytoast/2ship2harkinian-ios/a2ee3158f5a0edf5c1882db161c9186e81f216b3/app/ios/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/layer-middle-1024.png
+      url: https://raw.githubusercontent.com/edgytoast/2ship2harkinian-ios/b824ce4d523b2cdb369b8e3736bdcca1b442f0e2/app/ios/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/layer-middle-1024.png
       width: 1024
     - bytes: 132200
       format: png
       height: 1024
       layer: front
       sha256: 5fa23456d2fef4848c66165b6aea766d896565f0a7fdd3157c21eb29df15a0b4
-      url: https://raw.githubusercontent.com/edgytoast/2ship2harkinian-ios/a2ee3158f5a0edf5c1882db161c9186e81f216b3/app/ios/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/layer-front-1024.png
+      url: https://raw.githubusercontent.com/edgytoast/2ship2harkinian-ios/b824ce4d523b2cdb369b8e3736bdcca1b442f0e2/app/ios/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/layer-front-1024.png
       width: 1024
   screenshots:
   - alt: 'The Legend of Zelda: Majora''s Mask on Apple Vision Pro'
@@ -77,7 +77,7 @@
     format: jpeg
     height: 1440
     sha256: 565350151f3fcd6e9a86698e40a24fdb795c21c0b540e1ba271ae9d8abdfc948
-    url: https://raw.githubusercontent.com/edgytoast/2ship2harkinian-ios/a2ee3158f5a0edf5c1882db161c9186e81f216b3/docs/screenshots/visionos-window.jpg
+    url: https://raw.githubusercontent.com/edgytoast/2ship2harkinian-ios/b824ce4d523b2cdb369b8e3736bdcca1b442f0e2/docs/screenshots/visionos-window.jpg
     width: 2560
   skipped: []
   source: readme
@@ -135,8 +135,8 @@
   source: entry
 animal-crossing-vr:
   choice: null
-  collected_at: '2026-10-10T15:56:05Z'
-  commit: b5b463f8e29a51a5718db30ecb5d38ee175f0a40
+  collected_at: '2026-11-25T20:20:24Z'
+  commit: c39d6dea7d4a497e9c0afe72b1fa02cce6d174da
   icon:
     kind: layered
     layers:
@@ -145,21 +145,21 @@ animal-crossing-vr:
       height: 1024
       layer: back
       sha256: cd106f05a2a245e9cdbc30d85ed5e9c347a4ef747a09bc265833d14440318bfb
-      url: https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
+      url: https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/c39d6dea7d4a497e9c0afe72b1fa02cce6d174da/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
       width: 1024
     - bytes: 62278
       format: png
       height: 1024
       layer: middle
       sha256: 87c97c335c21810adcd7d5bb88408d0801d0b5e41c2b0cbcfcb9fc315af5c7d9
-      url: https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
+      url: https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/c39d6dea7d4a497e9c0afe72b1fa02cce6d174da/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
       width: 1024
     - bytes: 172170
       format: png
       height: 1024
       layer: front
       sha256: c2f84baf2c48322809d2c1bf9911c014c17a4bd4ed03f69939c6d75295e6f2f9
-      url: https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
+      url: https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/c39d6dea7d4a497e9c0afe72b1fa02cce6d174da/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
       width: 1024
   screenshots:
   - alt: The player outside their house, beside the town's notice board and mailbox, in a window floating in a living room
@@ -167,30 +167,30 @@ animal-crossing-vr:
     format: jpeg
     height: 900
     sha256: 000034e745656dd6c267f89b8a58eabe03cfb9a8ccfc5357bc1929958d6a6f3f
-    url: https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/docs/images/window-view.jpg
+    url: https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/c39d6dea7d4a497e9c0afe72b1fa02cce6d174da/docs/images/window-view.jpg
     width: 1600
   - alt: 'First person in town: a house with a green roof behind a white fence, fruit trees, a paved path and a notice board, under a blue sky'
     bytes: 196566
     format: jpeg
     height: 900
     sha256: f6a2976b30a12b6c6b33d919814e1bc664abf3074c0b8ac17ef76ea5e00f9b94
-    url: https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/docs/images/full-immersion.jpg
+    url: https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/c39d6dea7d4a497e9c0afe72b1fa02cce6d174da/docs/images/full-immersion.jpg
     width: 1600
   - alt: 'The same window seen from the side: the notice board and the house stand out of the town behind the glass'
     bytes: 189667
     format: jpeg
     height: 1025
     sha256: 9d7bd63197fd75a5deea92ed2830f5cc9ae769ef4b24bfd7cdba9ba17c4fd43e
-    url: https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/docs/images/window-angle.jpg
+    url: https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/c39d6dea7d4a497e9c0afe72b1fa02cce6d174da/docs/images/window-angle.jpg
     width: 1600
   skipped:
   - reason: smaller than 480x270
-    src: https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/docs/images/trevorbilt.png
+    src: https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/c39d6dea7d4a497e9c0afe72b1fa02cce6d174da/docs/images/trevorbilt.png
   source: readme
 apotris:
   choice: null
-  collected_at: '2026-11-14T04:25:28Z'
-  commit: 865f50b5223ffc91eb0f864bf3a06043006b4f36
+  collected_at: '2026-11-25T20:20:26Z'
+  commit: 9ce76aa7dccd63cb3598551b1bfea97373bf6003
   icon:
     kind: layered
     layers:
@@ -199,14 +199,14 @@ apotris:
       height: 1024
       layer: back
       sha256: 7eab6ff1483cbfc635af6c1a98135d2b3109336d0b3b35818d185ce853477f0b
-      url: https://raw.githubusercontent.com/edgytoast/apotris-ios/865f50b5223ffc91eb0f864bf3a06043006b4f36/app/Assets-vision.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png
+      url: https://raw.githubusercontent.com/edgytoast/apotris-ios/9ce76aa7dccd63cb3598551b1bfea97373bf6003/app/Assets-vision.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png
       width: 1024
     - bytes: 32708
       format: png
       height: 1024
       layer: front
       sha256: a25c1109be31f2eea7753f2694febffc38423acb4f5ef33accd59889b9a61ffa
-      url: https://raw.githubusercontent.com/edgytoast/apotris-ios/865f50b5223ffc91eb0f864bf3a06043006b4f36/app/Assets-vision.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png
+      url: https://raw.githubusercontent.com/edgytoast/apotris-ios/9ce76aa7dccd63cb3598551b1bfea97373bf6003/app/Assets-vision.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png
       width: 1024
   screenshots:
   - alt: Apotris running natively on iPhone — a Marathon game with the score bar on top and a large playfield
@@ -214,7 +214,7 @@ apotris:
     format: png
     height: 2622
     sha256: 120a72df995a194c8d85919cbe410852e40312ce87078eb8123d901945ea71ed
-    url: https://raw.githubusercontent.com/edgytoast/apotris-ios/865f50b5223ffc91eb0f864bf3a06043006b4f36/screenshots/hero.png
+    url: https://raw.githubusercontent.com/edgytoast/apotris-ios/9ce76aa7dccd63cb3598551b1bfea97373bf6003/screenshots/hero.png
     width: 1206
   skipped: []
   source: readme
@@ -244,15 +244,15 @@ avp-craft:
   source: readme
 ctrpad:
   choice: null
-  collected_at: '2026-11-14T17:30:15Z'
-  commit: df1d0671ed8d540b695113f1cc28e9fb26e570e9
+  collected_at: '2026-11-25T20:20:31Z'
+  commit: 038cf146f2e1421ea36f6692bc4367ad8f66e4ff
   icon:
     bytes: 1180575
     format: png
     height: 1024
     kind: flat
     sha256: dc45cccfb959c962af0d8465de993734a15070085ed30e305194954368292257
-    url: https://raw.githubusercontent.com/edgytoast/ctrpad/df1d0671ed8d540b695113f1cc28e9fb26e570e9/platform/apple/Assets.xcassets/AppIcon.appiconset/appicon-1024.png
+    url: https://raw.githubusercontent.com/edgytoast/ctrpad/038cf146f2e1421ea36f6692bc4367ad8f66e4ff/platform/apple/Assets.xcassets/AppIcon.appiconset/appicon-1024.png
     width: 1024
   screenshots:
   - alt: CTRPad app icon
@@ -260,21 +260,21 @@ ctrpad:
     format: png
     height: 1024
     sha256: dc45cccfb959c962af0d8465de993734a15070085ed30e305194954368292257
-    url: https://raw.githubusercontent.com/edgytoast/ctrpad/df1d0671ed8d540b695113f1cc28e9fb26e570e9/docs/design/ctrpad-app-icon-master.png
+    url: https://raw.githubusercontent.com/edgytoast/ctrpad/038cf146f2e1421ea36f6692bc4367ad8f66e4ff/docs/design/ctrpad-app-icon-master.png
     width: 1024
   - alt: CTRPad running Crash Cove on iPad with the touch controller
     bytes: 1243145
     format: png
     height: 2048
     sha256: e1efac89a9d874272f2a257682ec89770689f1f146fdffcad7162eb25a097a51
-    url: https://raw.githubusercontent.com/edgytoast/ctrpad/df1d0671ed8d540b695113f1cc28e9fb26e570e9/docs/readme/ctrpad-crash-cove-gameplay.png
+    url: https://raw.githubusercontent.com/edgytoast/ctrpad/038cf146f2e1421ea36f6692bc4367ad8f66e4ff/docs/readme/ctrpad-crash-cove-gameplay.png
     width: 2732
   - alt: CTRPad title screen on iPad
     bytes: 1036006
     format: png
     height: 2048
     sha256: 3848246d654d6be6192421af7d656d2a4393420ca7f06d915682b863944e3e5c
-    url: https://raw.githubusercontent.com/edgytoast/ctrpad/df1d0671ed8d540b695113f1cc28e9fb26e570e9/docs/readme/ctrpad-title-screen.png
+    url: https://raw.githubusercontent.com/edgytoast/ctrpad/038cf146f2e1421ea36f6692bc4367ad8f66e4ff/docs/readme/ctrpad-title-screen.png
     width: 2732
   skipped:
   - reason: not this repo's file or a GitHub attachment
@@ -388,8 +388,8 @@ galaxyvision:
   source: readme
 goldeneye-xbla:
   choice: null
-  collected_at: '2026-11-14T18:14:33Z'
-  commit: 95bcd76b08da5111d6e6f420e19d44e1237fe119
+  collected_at: '2026-11-25T20:20:32Z'
+  commit: c9de4192319ea5569817c2c29c507d8c02d626dc
   icon: null
   screenshots:
   - alt: GoldenEye on Apple Vision Pro
@@ -397,21 +397,21 @@ goldeneye-xbla:
     format: jpeg
     height: 1080
     sha256: 2d67515a6f07381ee059786454adc4fbcc6df13f4220b75ee01065a624e26a72
-    url: https://raw.githubusercontent.com/edgytoast/GoldenEye-Recomp-ios/95bcd76b08da5111d6e6f420e19d44e1237fe119/docs/screenshots/vision-pro-dam-remaster.jpg
+    url: https://raw.githubusercontent.com/edgytoast/GoldenEye-Recomp-ios/c9de4192319ea5569817c2c29c507d8c02d626dc/docs/screenshots/vision-pro-dam-remaster.jpg
     width: 1920
   skipped: []
   source: readme
 half-life-alyx:
   choice: null
-  collected_at: '2026-10-14T06:44:27Z'
-  commit: 77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09
+  collected_at: '2026-11-25T20:20:36Z'
+  commit: 1ed85ff1ca6a15f6c844bd717d784bccff2383fb
   icon:
     bytes: 106358
     format: png
     height: 512
     kind: flat
     sha256: c44b7392ab9140c493c6854037311bec5252d8aacbb9bd36a16fd741eb32c128
-    url: https://raw.githubusercontent.com/edgytoast/glovebox/77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09/installer/App/Glovebox/Assets.xcassets/AppIcon.appiconset/icon_256x256%402x.png
+    url: https://raw.githubusercontent.com/edgytoast/glovebox/1ed85ff1ca6a15f6c844bd717d784bccff2383fb/installer/App/Glovebox/Assets.xcassets/AppIcon.appiconset/icon_256x256%402x.png
     width: 512
   screenshots:
   - alt: Glovebox
@@ -419,7 +419,7 @@ half-life-alyx:
     format: png
     height: 512
     sha256: c44b7392ab9140c493c6854037311bec5252d8aacbb9bd36a16fd741eb32c128
-    url: https://raw.githubusercontent.com/edgytoast/glovebox/77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09/installer/App/Glovebox/Assets.xcassets/AppIcon.appiconset/icon_512x512.png
+    url: https://raw.githubusercontent.com/edgytoast/glovebox/1ed85ff1ca6a15f6c844bd717d784bccff2383fb/installer/App/Glovebox/Assets.xcassets/AppIcon.appiconset/icon_512x512.png
     width: 512
   skipped: []
   source: readme
@@ -533,8 +533,8 @@ lighthouse:
   source: readme
 luigis-mansion-vr:
   choice: null
-  collected_at: '2026-11-03T15:35:30Z'
-  commit: c238bbc386b1a4433d31d9f016234492016c415a
+  collected_at: '2026-11-25T20:20:38Z'
+  commit: f8edeaa21877716ab8641f5b2fd9ad337af64891
   icon:
     kind: layered
     layers:
@@ -543,21 +543,21 @@ luigis-mansion-vr:
       height: 1024
       layer: back
       sha256: a1846baf98573c7d7db578b786db3eabc5e45cd996d9ab07ac377b4af9d923dd
-      url: https://raw.githubusercontent.com/edgytoast/luigismansion-visionos/c238bbc386b1a4433d31d9f016234492016c415a/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
+      url: https://raw.githubusercontent.com/edgytoast/luigismansion-visionos/f8edeaa21877716ab8641f5b2fd9ad337af64891/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
       width: 1024
     - bytes: 53743
       format: png
       height: 1024
       layer: middle
       sha256: baa72eafc3cd3f4dc41799fdd8f1e9af8c1e5f024ea9bc36815db56100a1b73f
-      url: https://raw.githubusercontent.com/edgytoast/luigismansion-visionos/c238bbc386b1a4433d31d9f016234492016c415a/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
+      url: https://raw.githubusercontent.com/edgytoast/luigismansion-visionos/f8edeaa21877716ab8641f5b2fd9ad337af64891/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
       width: 1024
     - bytes: 185977
       format: png
       height: 1024
       layer: front
       sha256: 3808bd1aa8214f2b7679b6afcad54c337448df477a984fff59bdab67acb04044
-      url: https://raw.githubusercontent.com/edgytoast/luigismansion-visionos/c238bbc386b1a4433d31d9f016234492016c415a/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
+      url: https://raw.githubusercontent.com/edgytoast/luigismansion-visionos/f8edeaa21877716ab8641f5b2fd9ad337af64891/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
       width: 1024
   screenshots: []
   skipped:
@@ -609,8 +609,8 @@ mountain-64:
   source: readme
 perfect-dark:
   choice: null
-  collected_at: '2026-11-14T18:28:53Z'
-  commit: 906f3f676d8e3a21d3e226d719137c32ffc02674
+  collected_at: '2026-11-25T20:20:40Z'
+  commit: 2ea80edfdef9d35a823cee40ee9fba72fde2d535
   icon:
     kind: layered
     layers:
@@ -619,14 +619,14 @@ perfect-dark:
       height: 1024
       layer: back
       sha256: cd35d58f304b8d8fad68411d5b2fb0f210d656a61d07c87f3b62086981ec2bec
-      url: https://raw.githubusercontent.com/edgytoast/perfect-dark-ios/906f3f676d8e3a21d3e226d719137c32ffc02674/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/img.png
+      url: https://raw.githubusercontent.com/edgytoast/perfect-dark-ios/2ea80edfdef9d35a823cee40ee9fba72fde2d535/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/img.png
       width: 1024
     - bytes: 176421
       format: png
       height: 1024
       layer: front
       sha256: caf8c14e1c24936f3fd449db79e5758953d72d13f60bbb9d91c6644c3c514bc8
-      url: https://raw.githubusercontent.com/edgytoast/perfect-dark-ios/906f3f676d8e3a21d3e226d719137c32ffc02674/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/img.png
+      url: https://raw.githubusercontent.com/edgytoast/perfect-dark-ios/2ea80edfdef9d35a823cee40ee9fba72fde2d535/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/img.png
       width: 1024
   screenshots:
   - alt: Perfect Dark on Apple Vision Pro — Air Base, XBLA art
@@ -634,14 +634,14 @@ perfect-dark:
     format: jpeg
     height: 1080
     sha256: da78a15556401ef1bccf64c8b37581ac48699681b8922b9ccb86b96ee23724bd
-    url: https://raw.githubusercontent.com/edgytoast/perfect-dark-ios/906f3f676d8e3a21d3e226d719137c32ffc02674/docs/screenshots/vision-pro-airbase-xbla.jpg
+    url: https://raw.githubusercontent.com/edgytoast/perfect-dark-ios/2ea80edfdef9d35a823cee40ee9fba72fde2d535/docs/screenshots/vision-pro-airbase-xbla.jpg
     width: 1920
   skipped: []
   source: readme
 pokemon-gen1recomp:
   choice: null
-  collected_at: '2026-11-13T22:49:59Z'
-  commit: bbe5f881c7b070233f724ba6927b82666e54568c
+  collected_at: '2026-11-25T20:20:43Z'
+  commit: 8b80c37f62eaeeb37b2d762e8d271732b5b9bde1
   icon:
     kind: layered
     layers:
@@ -650,21 +650,21 @@ pokemon-gen1recomp:
       height: 1024
       layer: back
       sha256: 2ccab73fc0ccfb9443fdfc3f3c3f40020f78894156b19aeacfbff56e103a14ba
-      url: https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/mobile/visionos/resources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/background.png
+      url: https://raw.githubusercontent.com/edgytoast/gen1recomp/8b80c37f62eaeeb37b2d762e8d271732b5b9bde1/mobile/visionos/resources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/background.png
       width: 1024
     - bytes: 461494
       format: png
       height: 1024
       layer: middle
       sha256: 69f7672296bf2457679d8a537b3f7879410aa9cec4f919c97ac7f540d14a0487
-      url: https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/mobile/visionos/resources/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/middle.png
+      url: https://raw.githubusercontent.com/edgytoast/gen1recomp/8b80c37f62eaeeb37b2d762e8d271732b5b9bde1/mobile/visionos/resources/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/middle.png
       width: 1024
     - bytes: 340413
       format: png
       height: 1024
       layer: front
       sha256: 175f5c60fc790376143591d88a95193a1509ea09937b7d4d844e25678404ad78
-      url: https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/mobile/visionos/resources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/foreground.png
+      url: https://raw.githubusercontent.com/edgytoast/gen1recomp/8b80c37f62eaeeb37b2d762e8d271732b5b9bde1/mobile/visionos/resources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/foreground.png
       width: 1024
   screenshots:
   - alt: Add to SideStore
@@ -672,21 +672,21 @@ pokemon-gen1recomp:
     format: png
     height: 512
     sha256: 2e5ae0c072dba32013d223c64ca1300b26347b8976523ab8376ffd21da656a7d
-    url: https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/.github/resources/sidestore-badge.png
+    url: https://raw.githubusercontent.com/edgytoast/gen1recomp/8b80c37f62eaeeb37b2d762e8d271732b5b9bde1/.github/resources/sidestore-badge.png
     width: 1418
   - alt: Add to Feather
     bytes: 595455
     format: png
     height: 512
     sha256: 1106f8fd4a4414a97baf9114e1d0014713f958cef34f98ec34f72a7b4c2ad387
-    url: https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/.github/resources/feather-badge.png
+    url: https://raw.githubusercontent.com/edgytoast/gen1recomp/8b80c37f62eaeeb37b2d762e8d271732b5b9bde1/.github/resources/feather-badge.png
     width: 1253
   - alt: Add to AltStore
     bytes: 640748
     format: png
     height: 512
     sha256: 465d80df2afae0ccf7d500440c3fbfb0ccb398ea22c615880bc0a5a6fe04fb11
-    url: https://raw.githubusercontent.com/edgytoast/gen1recomp/bbe5f881c7b070233f724ba6927b82666e54568c/.github/resources/altstore-badge.png
+    url: https://raw.githubusercontent.com/edgytoast/gen1recomp/8b80c37f62eaeeb37b2d762e8d271732b5b9bde1/.github/resources/altstore-badge.png
     width: 1299
   skipped:
   - reason: not this repo's file or a GitHub attachment
@@ -718,8 +718,8 @@ pokemon-gen1recomp:
   source: readme
 portal-2-vr:
   choice: null
-  collected_at: '2026-11-15T17:29:52Z'
-  commit: b5f1fc29b707daacf88a86bb50f228626586e893
+  collected_at: '2026-11-25T20:20:44Z'
+  commit: 28972ef727622acdaaa86b5a1ec0ffcd48c5101f
   icon: null
   screenshots: []
   skipped: []
@@ -809,16 +809,16 @@ revc-visionos:
   source: readme
 rtcw-avp:
   choice: null
-  collected_at: '2026-11-14T02:25:14Z'
-  commit: 9982831d996d9f6058b75684c2dae3be2204b5a6
+  collected_at: '2026-11-25T20:20:45Z'
+  commit: 6fceda49bad526872e181149b88427cb03ea7a82
   icon: null
   screenshots: []
   skipped: []
   source: readme
 shar-visionos:
   choice: null
-  collected_at: '2026-10-09T17:03:16Z'
-  commit: 8c1f827f67c5c18950fc00f9f3dc58c4cf58284f
+  collected_at: '2026-11-25T20:20:49Z'
+  commit: b7e1790feb4a4c5fd58944102a6926f214b32a95
   icon:
     kind: layered
     layers:
@@ -827,21 +827,21 @@ shar-visionos:
       height: 1024
       layer: back
       sha256: bfc59e06045c8b8899e7cef6e355fa6bd729c55b4247b83e44b3d7af3a707518
-      url: https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
+      url: https://raw.githubusercontent.com/edgytoast/shar-visionos/b7e1790feb4a4c5fd58944102a6926f214b32a95/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
       width: 1024
     - bytes: 13154
       format: png
       height: 1024
       layer: middle
       sha256: bb86f27582c84ad9cdf0d6c4bead67497f42401c16f9dd6291ede3edece6c866
-      url: https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
+      url: https://raw.githubusercontent.com/edgytoast/shar-visionos/b7e1790feb4a4c5fd58944102a6926f214b32a95/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
       width: 1024
     - bytes: 255706
       format: png
       height: 1024
       layer: front
       sha256: 03f6d2e0a807d4e86127ea624f6c8f80b9d1995a8e392d137bef0abd613f1542
-      url: https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
+      url: https://raw.githubusercontent.com/edgytoast/shar-visionos/b7e1790feb4a4c5fd58944102a6926f214b32a95/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
       width: 1024
   screenshots:
   - alt: Homer outside 742 Evergreen Terrace, in a window floating in a living room
@@ -849,30 +849,30 @@ shar-visionos:
     format: jpeg
     height: 900
     sha256: a320cc2af0dbe94cf7bd325c0c09b1934d08a8623f1d033df2963a9fd6ee7638
-    url: https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/docs/images/window-view.jpg
+    url: https://raw.githubusercontent.com/edgytoast/shar-visionos/b7e1790feb4a4c5fd58944102a6926f214b32a95/docs/images/window-view.jpg
     width: 1600
   - alt: 'The same window seen from the side: the scene has real depth behind the glass'
     bytes: 156675
     format: jpeg
     height: 1025
     sha256: 9878be455e47250e07507e710fdbfba0e193ea6d05f4f4effaa045ced787f657
-    url: https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/docs/images/window-angle.jpg
+    url: https://raw.githubusercontent.com/edgytoast/shar-visionos/b7e1790feb4a4c5fd58944102a6926f214b32a95/docs/images/window-angle.jpg
     width: 1600
   skipped:
   - reason: not this repo's file or a GitHub attachment
     src: https://img.shields.io/badge/AVP_Ports_Index-listed-0A84FF
   - reason: smaller than 480x270
-    src: https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/docs/images/trevorbilt.png
+    src: https://raw.githubusercontent.com/edgytoast/shar-visionos/b7e1790feb4a4c5fd58944102a6926f214b32a95/docs/images/trevorbilt.png
   - reason: not a PNG, JPEG, GIF or WebP
-    src: https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/docs/images/hands/hand-pinch-middle-left-move.svg
+    src: https://raw.githubusercontent.com/edgytoast/shar-visionos/b7e1790feb4a4c5fd58944102a6926f214b32a95/docs/images/hands/hand-pinch-middle-left-move.svg
   - reason: not a PNG, JPEG, GIF or WebP
-    src: https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/docs/images/hands/hand-pinch-little-right-turn.svg
+    src: https://raw.githubusercontent.com/edgytoast/shar-visionos/b7e1790feb4a4c5fd58944102a6926f214b32a95/docs/images/hands/hand-pinch-little-right-turn.svg
   - reason: not a PNG, JPEG, GIF or WebP
-    src: https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/docs/images/hands/hand-pinch-middle-right.svg
+    src: https://raw.githubusercontent.com/edgytoast/shar-visionos/b7e1790feb4a4c5fd58944102a6926f214b32a95/docs/images/hands/hand-pinch-middle-right.svg
   - reason: not a PNG, JPEG, GIF or WebP
-    src: https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/docs/images/hands/hand-pinch-ring-right.svg
+    src: https://raw.githubusercontent.com/edgytoast/shar-visionos/b7e1790feb4a4c5fd58944102a6926f214b32a95/docs/images/hands/hand-pinch-ring-right.svg
   - reason: not a PNG, JPEG, GIF or WebP
-    src: https://raw.githubusercontent.com/edgytoast/shar-visionos/8c1f827f67c5c18950fc00f9f3dc58c4cf58284f/docs/images/hands/hand-swing-right.svg
+    src: https://raw.githubusercontent.com/edgytoast/shar-visionos/b7e1790feb4a4c5fd58944102a6926f214b32a95/docs/images/hands/hand-swing-right.svg
   source: readme
 sheikahvision:
   choice: null
@@ -927,8 +927,8 @@ sheikahvision:
   source: readme
 ship-of-harkinian:
   choice: null
-  collected_at: '2026-11-14T00:40:31Z'
-  commit: a61edd238439f0fd81ef1e49694731e8cfca334c
+  collected_at: '2026-11-25T20:20:51Z'
+  commit: 3c8715d84b54867b4af82b8de0cd7181b9847cfb
   icon:
     kind: layered
     layers:
@@ -937,14 +937,14 @@ ship-of-harkinian:
       height: 1024
       layer: back
       sha256: 27bbe097503620c9c93376749a851d2994a9c75d87fa219294c39a448125bf79
-      url: https://raw.githubusercontent.com/edgytoast/Shipwright-ios/a61edd238439f0fd81ef1e49694731e8cfca334c/app/ios/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png
+      url: https://raw.githubusercontent.com/edgytoast/Shipwright-ios/3c8715d84b54867b4af82b8de0cd7181b9847cfb/app/ios/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png
       width: 1024
     - bytes: 146715
       format: png
       height: 1024
       layer: front
       sha256: 4c9160a9c89a790c9b08ab814a9f2199fdd6fb69d365543360792300ec097a51
-      url: https://raw.githubusercontent.com/edgytoast/Shipwright-ios/a61edd238439f0fd81ef1e49694731e8cfca334c/app/ios/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png
+      url: https://raw.githubusercontent.com/edgytoast/Shipwright-ios/3c8715d84b54867b4af82b8de0cd7181b9847cfb/app/ios/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png
       width: 1024
   screenshots:
   - alt: 'The Legend of Zelda: Ocarina of Time on Apple Vision Pro'
@@ -952,7 +952,7 @@ ship-of-harkinian:
     format: jpeg
     height: 1440
     sha256: 5aa5c91f74d6189ac9f3edf90b59a1e2a83e8471617801f8b697f517a333b232
-    url: https://raw.githubusercontent.com/edgytoast/Shipwright-ios/a61edd238439f0fd81ef1e49694731e8cfca334c/docs/screenshots/visionos-window.jpg
+    url: https://raw.githubusercontent.com/edgytoast/Shipwright-ios/3c8715d84b54867b4af82b8de0cd7181b9847cfb/docs/screenshots/visionos-window.jpg
     width: 2560
   skipped: []
   source: readme
@@ -989,8 +989,8 @@ skyrim-vr:
   source: readme
 sm64coopdx:
   choice: null
-  collected_at: '2026-11-14T21:28:03Z'
-  commit: 05fe583f6163c08f36041352115dab0d863a2627
+  collected_at: '2026-11-25T20:20:54Z'
+  commit: d86b448e49b65b628bda02587f48d918aff13b4b
   icon:
     kind: layered
     layers:
@@ -999,21 +999,21 @@ sm64coopdx:
       height: 1024
       layer: back
       sha256: a07b1d1d7932d49dbd19671b674f812790a72db6cda3b973cbbd05b8fd37780e
-      url: https://raw.githubusercontent.com/edgytoast/sm64coopdx-ios/05fe583f6163c08f36041352115dab0d863a2627/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png
+      url: https://raw.githubusercontent.com/edgytoast/sm64coopdx-ios/d86b448e49b65b628bda02587f48d918aff13b4b/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png
       width: 1024
     - bytes: 4144
       format: png
       height: 1024
       layer: middle
       sha256: 265149d454822c2c808720c61f5a4317c0bfda56fc96598ea7b19b6ea52c5dd1
-      url: https://raw.githubusercontent.com/edgytoast/sm64coopdx-ios/05fe583f6163c08f36041352115dab0d863a2627/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/clear.png
+      url: https://raw.githubusercontent.com/edgytoast/sm64coopdx-ios/d86b448e49b65b628bda02587f48d918aff13b4b/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/clear.png
       width: 1024
     - bytes: 578577
       format: png
       height: 1024
       layer: front
       sha256: e1b451b511409ca54f52ad830195a0f2a0a5c6365e1a2af112fd9e7f4e89601a
-      url: https://raw.githubusercontent.com/edgytoast/sm64coopdx-ios/05fe583f6163c08f36041352115dab0d863a2627/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png
+      url: https://raw.githubusercontent.com/edgytoast/sm64coopdx-ios/d86b448e49b65b628bda02587f48d918aff13b4b/app/ios/Assets-visionos.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png
       width: 1024
   screenshots:
   - alt: sm64coopdx in a visionOS window
@@ -1021,14 +1021,14 @@ sm64coopdx:
     format: png
     height: 1237
     sha256: 8fab636e5bc6720147f24ba7e3b383e5f267457acf3737c01fede1cd3b3a395a
-    url: https://raw.githubusercontent.com/edgytoast/sm64coopdx-ios/05fe583f6163c08f36041352115dab0d863a2627/docs/screenshots/visionos-window.png
+    url: https://raw.githubusercontent.com/edgytoast/sm64coopdx-ios/d86b448e49b65b628bda02587f48d918aff13b4b/docs/screenshots/visionos-window.png
     width: 2200
   skipped: []
   source: readme
 spaghettikart:
   choice: null
-  collected_at: '2026-11-14T02:29:35Z'
-  commit: 1eabc254e86b3a420d761dc8a8efe04c37fb1b06
+  collected_at: '2026-11-25T20:20:56Z'
+  commit: 45f3c453635c9efccd8ad496b725dfd9b12222aa
   icon:
     kind: layered
     layers:
@@ -1037,14 +1037,14 @@ spaghettikart:
       height: 1024
       layer: back
       sha256: 810e2109fa5362ba589f19309ffbfea171bf89a9ce15b706c10b87058db3239d
-      url: https://raw.githubusercontent.com/edgytoast/SpaghettiKart-ios/1eabc254e86b3a420d761dc8a8efe04c37fb1b06/app/ios/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png
+      url: https://raw.githubusercontent.com/edgytoast/SpaghettiKart-ios/45f3c453635c9efccd8ad496b725dfd9b12222aa/app/ios/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/back.png
       width: 1024
     - bytes: 390189
       format: png
       height: 1024
       layer: front
       sha256: c6528f56f157732ee223d0406f56813745baea1eec8ea526da2e97025a58f5e8
-      url: https://raw.githubusercontent.com/edgytoast/SpaghettiKart-ios/1eabc254e86b3a420d761dc8a8efe04c37fb1b06/app/ios/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png
+      url: https://raw.githubusercontent.com/edgytoast/SpaghettiKart-ios/45f3c453635c9efccd8ad496b725dfd9b12222aa/app/ios/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/front.png
       width: 1024
   screenshots:
   - alt: Mario Kart 64 on Apple Vision Pro
@@ -1052,7 +1052,7 @@ spaghettikart:
     format: jpeg
     height: 1440
     sha256: df2f1217797be429f477a024d44248e29f7e6e1d5a5d47cc817136b0ecc7cc2a
-    url: https://raw.githubusercontent.com/edgytoast/SpaghettiKart-ios/1eabc254e86b3a420d761dc8a8efe04c37fb1b06/docs/screenshots/visionos-window.jpg
+    url: https://raw.githubusercontent.com/edgytoast/SpaghettiKart-ios/45f3c453635c9efccd8ad496b725dfd9b12222aa/docs/screenshots/visionos-window.jpg
     width: 2560
   skipped: []
   source: readme
@@ -1089,8 +1089,8 @@ starship:
   source: readme
 twilight-princess-vr:
   choice: null
-  collected_at: '2026-10-20T06:43:24Z'
-  commit: d26c64a224414e8af7e6c450486b41a6209617e8
+  collected_at: '2026-11-25T20:20:59Z'
+  commit: 5d89fc2f2b2ac75723a3ad4f8160b7c58a1e307d
   icon:
     kind: layered
     layers:
@@ -1099,21 +1099,21 @@ twilight-princess-vr:
       height: 1024
       layer: back
       sha256: 6af87336e2ee53c66bbcc0d11877937a9ca7bdfc2082aae78a1db8695bb9ec06
-      url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
+      url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/5d89fc2f2b2ac75723a3ad4f8160b7c58a1e307d/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
       width: 1024
     - bytes: 124181
       format: png
       height: 1024
       layer: middle
       sha256: 77e2032cd45d5033eb37ba9b440e6f3dad82d82ccbd080ed64d9a9b44901d71c
-      url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
+      url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/5d89fc2f2b2ac75723a3ad4f8160b7c58a1e307d/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
       width: 1024
     - bytes: 116263
       format: png
       height: 1024
       layer: front
       sha256: d6fdee278d3a65966659b93def5179629edab6a19bc0c4f5ff2a02cdb61f2fc3
-      url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
+      url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/5d89fc2f2b2ac75723a3ad4f8160b7c58a1e307d/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
       width: 1024
   screenshots:
   - alt: Link at Ordon Ranch, in a window floating in a living room
@@ -1121,27 +1121,27 @@ twilight-princess-vr:
     format: jpeg
     height: 900
     sha256: c9d3f91f26037437afa5e31bf194467c626ba5b03e300baaa57b0b7a1b38ac46
-    url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/docs/images/window-view.jpg
+    url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/5d89fc2f2b2ac75723a3ad4f8160b7c58a1e307d/docs/images/window-view.jpg
     width: 1600
   - alt: 'Ordon Ranch in first person: the ranch house, goats and a rancher, with the HUD floating ahead'
     bytes: 269050
     format: jpeg
     height: 900
     sha256: 256761e065afb0cf24d1649924783648761e5f94a3726dadf9a069d8588c115d
-    url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/docs/images/full-immersion.jpg
+    url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/5d89fc2f2b2ac75723a3ad4f8160b7c58a1e307d/docs/images/full-immersion.jpg
     width: 1600
   - alt: 'The same window seen from the side: Link and the ranch house have real depth behind the glass'
     bytes: 184753
     format: jpeg
     height: 1025
     sha256: 89646502795cadf67303561fe5dcc32ab46e5209574c2c12977a4a50106c0030
-    url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/docs/images/window-angle.jpg
+    url: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/5d89fc2f2b2ac75723a3ad4f8160b7c58a1e307d/docs/images/window-angle.jpg
     width: 1600
   skipped:
   - reason: not this repo's file or a GitHub attachment
     src: https://img.shields.io/badge/AVP_Ports_Index-listed-0A84FF
   - reason: smaller than 480x270
-    src: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/d26c64a224414e8af7e6c450486b41a6209617e8/docs/images/trevorbilt.png
+    src: https://raw.githubusercontent.com/edgytoast/tpvr-visionos/5d89fc2f2b2ac75723a3ad4f8160b7c58a1e307d/docs/images/trevorbilt.png
   source: readme
 visr:
   choice: null
@@ -1183,8 +1183,8 @@ visr:
   source: readme
 voxelnative:
   choice: null
-  collected_at: '2026-11-24T16:58:53Z'
-  commit: 8b5acb824e807bf448bf795c0a5477d0b306b1d8
+  collected_at: '2026-11-25T20:21:01Z'
+  commit: 6343519fa9a2dad9617d91f104a8db690252a03d
   icon:
     kind: layered
     layers:
@@ -1193,21 +1193,21 @@ voxelnative:
       height: 1024
       layer: back
       sha256: 943263a819496a9eb0887d4524d5b91f7577c563a19cabf952108f07f28289a7
-      url: https://raw.githubusercontent.com/edgytoast/voxelnative/8b5acb824e807bf448bf795c0a5477d0b306b1d8/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/icon_back.png
+      url: https://raw.githubusercontent.com/edgytoast/voxelnative/6343519fa9a2dad9617d91f104a8db690252a03d/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/icon_back.png
       width: 1024
     - bytes: 6556
       format: png
       height: 1024
       layer: middle
       sha256: 86a4380e78c0d24d66bf590bfd51a3d81e4824aa566028419db4b96745cf1f8d
-      url: https://raw.githubusercontent.com/edgytoast/voxelnative/8b5acb824e807bf448bf795c0a5477d0b306b1d8/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/icon_middle.png
+      url: https://raw.githubusercontent.com/edgytoast/voxelnative/6343519fa9a2dad9617d91f104a8db690252a03d/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/icon_middle.png
       width: 1024
     - bytes: 39994
       format: png
       height: 1024
       layer: front
       sha256: a2356b0fb96058dac64c723e4476fc34aac3803a73e991b4e3d922f9dde868f0
-      url: https://raw.githubusercontent.com/edgytoast/voxelnative/8b5acb824e807bf448bf795c0a5477d0b306b1d8/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/icon_front.png
+      url: https://raw.githubusercontent.com/edgytoast/voxelnative/6343519fa9a2dad9617d91f104a8db690252a03d/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/icon_front.png
       width: 1024
   screenshots: []
   skipped:
@@ -1249,8 +1249,8 @@ vxpro:
   source: readme
 wiicompiled-vr:
   choice: null
-  collected_at: '2026-11-14T21:32:25Z'
-  commit: 87c18efa00ceca1706321a1b0d87254a92afbdc7
+  collected_at: '2026-11-25T20:21:03Z'
+  commit: f260a632741b0028ba57e66c7d728ae431502ba4
   icon:
     kind: layered
     layers:
@@ -1259,21 +1259,21 @@ wiicompiled-vr:
       height: 1024
       layer: back
       sha256: 41b9bcea04bbdef6f1d19cf5f8eddcbb69ed38b29f9189f9d0b1c6d9dc4286a0
-      url: https://raw.githubusercontent.com/edgytoast/wiicompiled_vr-avp-index/87c18efa00ceca1706321a1b0d87254a92afbdc7/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
+      url: https://raw.githubusercontent.com/edgytoast/wiicompiled_vr-avp-index/f260a632741b0028ba57e66c7d728ae431502ba4/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
       width: 1024
     - bytes: 176793
       format: png
       height: 1024
       layer: middle
       sha256: 060a7a5052f86fdf1197a06cfb620c32178ff7117edce35dfe8f938d47e98e03
-      url: https://raw.githubusercontent.com/edgytoast/wiicompiled_vr-avp-index/87c18efa00ceca1706321a1b0d87254a92afbdc7/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
+      url: https://raw.githubusercontent.com/edgytoast/wiicompiled_vr-avp-index/f260a632741b0028ba57e66c7d728ae431502ba4/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
       width: 1024
     - bytes: 125847
       format: png
       height: 1024
       layer: front
       sha256: 82e8514c1ef50f441942b49c0a5d6a5126e69248d917525ff5b044957895ecfc
-      url: https://raw.githubusercontent.com/edgytoast/wiicompiled_vr-avp-index/87c18efa00ceca1706321a1b0d87254a92afbdc7/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
+      url: https://raw.githubusercontent.com/edgytoast/wiicompiled_vr-avp-index/f260a632741b0028ba57e66c7d728ae431502ba4/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
       width: 1024
   screenshots:
   - alt: Mario Kart WiiCompiled VR logo (logo by Inkwreck)
@@ -1281,7 +1281,7 @@ wiicompiled-vr:
     format: png
     height: 2464
     sha256: 8c4c7ab51ac2ebbcf803f82e366e226a59ce8af0fcfef6b6517cf5e6747e8668
-    url: https://raw.githubusercontent.com/edgytoast/wiicompiled_vr-avp-index/87c18efa00ceca1706321a1b0d87254a92afbdc7/docs/images/wiicompiled-vr-logo.png
+    url: https://raw.githubusercontent.com/edgytoast/wiicompiled_vr-avp-index/f260a632741b0028ba57e66c7d728ae431502ba4/docs/images/wiicompiled-vr-logo.png
     width: 4190
   skipped:
   - reason: not this repo's file or a GitHub attachment
@@ -1301,8 +1301,8 @@ wiicompiled-vr:
   source: readme
 wind-waker-vr:
   choice: null
-  collected_at: '2026-10-29T22:31:03Z'
-  commit: a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c
+  collected_at: '2026-11-25T20:21:06Z'
+  commit: 72bb452cee137ae7616c72157c70cd9941b9da6d
   icon:
     kind: layered
     layers:
@@ -1311,21 +1311,21 @@ wind-waker-vr:
       height: 1024
       layer: back
       sha256: 307bb6afe1e04d949ea493aff4c85f647eaad3c8cb780ad3b525ea3c9807d744
-      url: https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
+      url: https://raw.githubusercontent.com/edgytoast/windwaker-visionos/72bb452cee137ae7616c72157c70cd9941b9da6d/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
       width: 1024
     - bytes: 172114
       format: png
       height: 1024
       layer: middle
       sha256: ed6f26d218d12716598d0aff696ec46dbd3d52877abfc16e37f0fdabd970e89e
-      url: https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
+      url: https://raw.githubusercontent.com/edgytoast/windwaker-visionos/72bb452cee137ae7616c72157c70cd9941b9da6d/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/Middle.png
       width: 1024
     - bytes: 122170
       format: png
       height: 1024
       layer: front
       sha256: 26b7e7568edc896ad85c053666dbf63f596a5c08d361f671de1c952cb68b7b3a
-      url: https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
+      url: https://raw.githubusercontent.com/edgytoast/windwaker-visionos/72bb452cee137ae7616c72157c70cd9941b9da6d/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
       width: 1024
   screenshots:
   - alt: Link on Outset Island's pier, in a window floating in a living room
@@ -1333,14 +1333,14 @@ wind-waker-vr:
     format: jpeg
     height: 922
     sha256: 50d81fc83ad74804f7bf112280f22b02ca25f473dd5cb20b6806723aab0c5d4a
-    url: https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/docs/images/window-3d.jpg
+    url: https://raw.githubusercontent.com/edgytoast/windwaker-visionos/72bb452cee137ae7616c72157c70cd9941b9da6d/visionos/docs/images/window-3d.jpg
     width: 1640
   - alt: 'Link on Windfall Island''s dock, in a window seen from off to one side: he and the cliffs stand out of the sea behind the glass'
     bytes: 123448
     format: jpeg
     height: 697
     sha256: d7f61553f75c02f23c47ff69f246220445fc4363ae77774c9bafc907a85ed5cc
-    url: https://raw.githubusercontent.com/edgytoast/windwaker-visionos/a1fcc30a3b8ee86eeff204b58a642b77d4aaa25c/visionos/docs/images/window-angle.jpg
+    url: https://raw.githubusercontent.com/edgytoast/windwaker-visionos/72bb452cee137ae7616c72157c70cd9941b9da6d/visionos/docs/images/window-angle.jpg
     width: 1240
   skipped:
   - reason: not this repo's file or a GitHub attachment

@@ -32,9 +32,9 @@ Apotris, akouzoukos' free and open block-stacking game, built natively for Apple
 
 ## Screenshots
 
-From the port's README at 865f50b5223f.
+From the port's README at 9ce76aa7dccd.
 
-<img src="https://raw.githubusercontent.com/edgytoast/apotris-ios/865f50b5223ffc91eb0f864bf3a06043006b4f36/screenshots/hero.png" alt="Apotris running natively on iPhone — a Marathon game with the score bar on top and a large playfield" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/apotris-ios/9ce76aa7dccd63cb3598551b1bfea97373bf6003/screenshots/hero.png" alt="Apotris running natively on iPhone — a Marathon game with the score bar on top and a large playfield" width="400">
 
 ## Credits
 

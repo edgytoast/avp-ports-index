@@ -32,9 +32,9 @@ Majora's Mask on Apple Vision Pro through Harbour Masters' 2 Ship 2 Harkinian, r
 
 ## Screenshots
 
-From the port's README at a2ee3158f5a0.
+From the port's README at b824ce4d523b.
 
-<img src="https://raw.githubusercontent.com/edgytoast/2ship2harkinian-ios/a2ee3158f5a0edf5c1882db161c9186e81f216b3/docs/screenshots/visionos-window.jpg" alt="The Legend of Zelda: Majora&#x27;s Mask on Apple Vision Pro" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/2ship2harkinian-ios/b824ce4d523b2cdb369b8e3736bdcca1b442f0e2/docs/screenshots/visionos-window.jpg" alt="The Legend of Zelda: Majora&#x27;s Mask on Apple Vision Pro" width="400">
 
 ## Credits
 

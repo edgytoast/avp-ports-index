@@ -32,9 +32,9 @@ Mario Kart Wii on Apple Vision Pro through WiiCompiled, a static recompilation w
 
 ## Screenshots
 
-From the port's README at 87c18efa00ce.
+From the port's README at f260a632741b.
 
-<img src="https://raw.githubusercontent.com/edgytoast/wiicompiled_vr-avp-index/87c18efa00ceca1706321a1b0d87254a92afbdc7/docs/images/wiicompiled-vr-logo.png" alt="Mario Kart WiiCompiled VR logo (logo by Inkwreck)" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/wiicompiled_vr-avp-index/f260a632741b0028ba57e66c7d728ae431502ba4/docs/images/wiicompiled-vr-logo.png" alt="Mario Kart WiiCompiled VR logo (logo by Inkwreck)" width="400">
 
 ## Credits
 

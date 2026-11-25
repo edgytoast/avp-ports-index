@@ -32,9 +32,9 @@ Half-Life: Alyx on Apple Vision Pro itself, with no PC or streaming: Klepton con
 
 ## Screenshots
 
-From the port's README at 77ea8e653705.
+From the port's README at 1ed85ff1ca6a.
 
-<img src="https://raw.githubusercontent.com/edgytoast/glovebox/77ea8e653705ca7e2ca0f335f2fec3b9b1b09c09/installer/App/Glovebox/Assets.xcassets/AppIcon.appiconset/icon_512x512.png" alt="Glovebox" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/glovebox/1ed85ff1ca6a15f6c844bd717d784bccff2383fb/installer/App/Glovebox/Assets.xcassets/AppIcon.appiconset/icon_512x512.png" alt="Glovebox" width="400">
 
 ## Credits
 

@@ -32,11 +32,11 @@ Animal Crossing in six degrees of freedom on Apple Vision Pro: walk your town at
 
 ## Screenshots
 
-From the port's README at b5b463f8e29a.
+From the port's README at c39d6dea7d4a.
 
-<img src="https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/docs/images/window-view.jpg" alt="The player outside their house, beside the town&#x27;s notice board and mailbox, in a window floating in a living room" width="400">
-<img src="https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/docs/images/full-immersion.jpg" alt="First person in town: a house with a green roof behind a white fence, fruit trees, a paved path and a notice board, under a blue sky" width="400">
-<img src="https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/docs/images/window-angle.jpg" alt="The same window seen from the side: the notice board and the house stand out of the town behind the glass" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/c39d6dea7d4a497e9c0afe72b1fa02cce6d174da/docs/images/window-view.jpg" alt="The player outside their house, beside the town&#x27;s notice board and mailbox, in a window floating in a living room" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/c39d6dea7d4a497e9c0afe72b1fa02cce6d174da/docs/images/full-immersion.jpg" alt="First person in town: a house with a green roof behind a white fence, fruit trees, a paved path and a notice board, under a blue sky" width="400">
+<img src="https://raw.githubusercontent.com/edgytoast/animalcrossing-visionos/c39d6dea7d4a497e9c0afe72b1fa02cce6d174da/docs/images/window-angle.jpg" alt="The same window seen from the side: the notice board and the house stand out of the town behind the glass" width="400">
 
 ## Credits
 
