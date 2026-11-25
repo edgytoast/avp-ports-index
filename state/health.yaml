@@ -509,7 +509,7 @@ lighthouse:
   warnings: []
 luigis-mansion-vr:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: true
   decay_reset_at: '2026-10-31T01:08:02Z'
@@ -529,13 +529,15 @@ luigis-mansion-vr:
   rescan_after: null
   rescan_hold: false
   routes: []
-  scan_confidence: 100
+  scan_confidence: 95
   scan_declines: 0
+  scan_errors: 0
   scan_kind: automated
+  scan_provider_errors: 0
   scan_refused: false
-  scan_state: behind
-  scanned_at: '2026-11-03T06:43:22Z'
-  scanned_commit: c238bbc386b1a4433d31d9f016234492016c415a
+  scan_state: current
+  scanned_at: '2026-11-25T07:22:19Z'
+  scanned_commit: f8edeaa21877716ab8641f5b2fd9ad337af64891
   testflight: null
   warnings:
   - S1-10

@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.8.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-25T07:19:40Z",
+  "generated_at": "2026-11-25T07:22:20Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -928,8 +928,8 @@
       },
       "repo_url": "https://github.com/edgytoast/luigismansion-visionos",
       "source_ref": null,
-      "source_url": "https://github.com/edgytoast/luigismansion-visionos/tree/c238bbc386b1a4433d31d9f016234492016c415a",
-      "install_doc_url": "https://github.com/edgytoast/luigismansion-visionos/blob/c238bbc386b1a4433d31d9f016234492016c415a/AVP-INSTALL.md",
+      "source_url": "https://github.com/edgytoast/luigismansion-visionos/tree/f8edeaa21877716ab8641f5b2fd9ad337af64891",
+      "install_doc_url": "https://github.com/edgytoast/luigismansion-visionos/blob/f8edeaa21877716ab8641f5b2fd9ad337af64891/AVP-INSTALL.md",
       "install_guide": "AVP-INSTALL.md",
       "developer": {
         "name": "Trevorbilt",
@@ -998,11 +998,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "c238bbc386b1a4433d31d9f016234492016c415a",
-      "scanned_at": "2026-11-03T06:43:22Z",
+      "scanned_commit": "f8edeaa21877716ab8641f5b2fd9ad337af64891",
+      "scanned_at": "2026-11-25T07:22:19Z",
       "scan_kind": "automated",
-      "commits_since_scan": 1,
-      "scan_state": "behind",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-11-24T22:53:11Z",
       "license": {
