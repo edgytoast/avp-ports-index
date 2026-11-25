@@ -6,10 +6,10 @@ Port by [@iChris4](https://github.com/iChris4)
 Start with this command, which gets exactly the code that was scanned:
 
 ```
-git clone https://github.com/edgytoast/wiicompiled_vr-avp-index && cd wiicompiled_vr-avp-index && git checkout 87c18efa00ceca1706321a1b0d87254a92afbdc7 && git submodule update --init --recursive
+git clone https://github.com/edgytoast/wiicompiled_vr-avp-index && cd wiicompiled_vr-avp-index && git checkout f260a632741b0028ba57e66c7d728ae431502ba4 && git submodule update --init --recursive
 ```
 
-Then follow the [install guide](https://github.com/edgytoast/wiicompiled_vr-avp-index/blob/87c18efa00ceca1706321a1b0d87254a92afbdc7/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+Then follow the [install guide](https://github.com/edgytoast/wiicompiled_vr-avp-index/blob/f260a632741b0028ba57e66c7d728ae431502ba4/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
 
 | | |
 | --- | --- |
@@ -17,9 +17,9 @@ Then follow the [install guide](https://github.com/edgytoast/wiicompiled_vr-avp-
 | Status | Working: Runs on Apple Vision Pro \(tested on visionOS 26.6.1\): menus on a virtual screen, races in stereo. The docs call the port experimental; comfort, frame timing and bare-hand driving are still being tuned. |
 | Plays as | 2D, 3D immersive, 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-14 · 1 commit since |
-| Source (scanned) | [edgytoast/wiicompiled_vr-avp-index at 87c18efa00ce](https://github.com/edgytoast/wiicompiled_vr-avp-index/tree/87c18efa00ceca1706321a1b0d87254a92afbdc7) |
-| Install guide | [AVP-INSTALL.md at 87c18efa00ce](https://github.com/edgytoast/wiicompiled_vr-avp-index/blob/87c18efa00ceca1706321a1b0d87254a92afbdc7/AVP-INSTALL.md) |
+| Scan | Scanned 2026-11-25 · 0 commits since |
+| Source (scanned) | [edgytoast/wiicompiled_vr-avp-index at f260a632741b](https://github.com/edgytoast/wiicompiled_vr-avp-index/tree/f260a632741b0028ba57e66c7d728ae431502ba4) |
+| Install guide | [AVP-INSTALL.md at f260a632741b](https://github.com/edgytoast/wiicompiled_vr-avp-index/blob/f260a632741b0028ba57e66c7d728ae431502ba4/AVP-INSTALL.md) |
 | Repo | [edgytoast/wiicompiled_vr-avp-index](https://github.com/edgytoast/wiicompiled_vr-avp-index) |
 | Branch | `vision-pro` |
 | License | GPL-3.0 |

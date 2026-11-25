@@ -1209,7 +1209,7 @@ vxpro:
   warnings: []
 wiicompiled-vr:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-11-14T21:32:22Z'
@@ -1231,11 +1231,13 @@ wiicompiled-vr:
   routes: []
   scan_confidence: 95
   scan_declines: 0
+  scan_errors: 0
   scan_kind: automated
+  scan_provider_errors: 0
   scan_refused: false
-  scan_state: behind
-  scanned_at: '2026-11-14T21:32:21Z'
-  scanned_commit: 87c18efa00ceca1706321a1b0d87254a92afbdc7
+  scan_state: current
+  scanned_at: '2026-11-25T08:49:04Z'
+  scanned_commit: f260a632741b0028ba57e66c7d728ae431502ba4
   testflight: null
   warnings: []
 wind-waker-vr:

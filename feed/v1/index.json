@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.8.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-25T08:46:17Z",
+  "generated_at": "2026-11-25T08:49:05Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -1678,8 +1678,8 @@
       },
       "repo_url": "https://github.com/edgytoast/wiicompiled_vr-avp-index",
       "source_ref": "vision-pro",
-      "source_url": "https://github.com/edgytoast/wiicompiled_vr-avp-index/tree/87c18efa00ceca1706321a1b0d87254a92afbdc7",
-      "install_doc_url": "https://github.com/edgytoast/wiicompiled_vr-avp-index/blob/87c18efa00ceca1706321a1b0d87254a92afbdc7/AVP-INSTALL.md",
+      "source_url": "https://github.com/edgytoast/wiicompiled_vr-avp-index/tree/f260a632741b0028ba57e66c7d728ae431502ba4",
+      "install_doc_url": "https://github.com/edgytoast/wiicompiled_vr-avp-index/blob/f260a632741b0028ba57e66c7d728ae431502ba4/AVP-INSTALL.md",
       "install_guide": "AVP-INSTALL.md",
       "developer": {
         "name": null,
@@ -1753,11 +1753,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "87c18efa00ceca1706321a1b0d87254a92afbdc7",
-      "scanned_at": "2026-11-14T21:32:21Z",
+      "scanned_commit": "f260a632741b0028ba57e66c7d728ae431502ba4",
+      "scanned_at": "2026-11-25T08:49:04Z",
       "scan_kind": "automated",
-      "commits_since_scan": 1,
-      "scan_state": "behind",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-11-24T22:52:35Z",
       "license": {
