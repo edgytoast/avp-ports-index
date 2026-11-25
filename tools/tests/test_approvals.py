@@ -91,6 +91,29 @@ def test_clearance_needs_the_same_bytes_and_nothing_else(tmp_path):
     assert clear(verdict()) is None  # unreadable: the flag stands
 
 
+GUIDE_NOTE = {"severity": "low", "file": "AVP-INSTALL.md", "category": "build-download",
+              "explanation": "unpinned Homebrew and pip installs"}
+
+
+def test_a_low_note_on_an_edited_guide_doesnt_hold_back_approved_files(tmp_path):
+    """Portal 2, 2026-11-25: a footer edit to AVP-INSTALL.md, binaries unchanged, re-flagged on them."""
+    state = store.State(root=tmp_path)
+    approve_wasm(state)
+    http = Files()
+    http.put(SHA(11), WASM, b"wasm v1")
+    clear = lambda v: approvals.clearance(state, "good", 11, REPO, SHA(11), v, POLICY, http)
+    assert clear(verdict(findings=verdict()["findings"] + [GUIDE_NOTE])) == [
+        {"path": WASM, "sha256": hashlib.sha256(b"wasm v1").hexdigest()}]
+    assert http.urls == [media.raw_url("trevorbilt-bot", "good", SHA(11), WASM)]  # the guide isn't fetched
+    for severity in ("medium", "high"):  # a real finding in the edited guide still flags
+        assert clear(verdict(findings=verdict()["findings"] + [{**GUIDE_NOTE, "severity": severity}])) is None
+    assert clear(verdict(findings=[GUIDE_NOTE])) is None  # nothing approved behind the flag: it stands
+    http.put(SHA(11), WASM, b"wasm v2")
+    assert clear(verdict(findings=verdict()["findings"] + [GUIDE_NOTE])) is None  # changed binary still flags
+    # approve still records every file above info, so the guide's hash is kept alongside the binary's
+    assert approvals.flagged_files(verdict(findings=verdict()["findings"] + [GUIDE_NOTE])) == [WASM, "AVP-INSTALL.md"]
+
+
 def setup_rescan(rt, gh, *, approved_bytes=b"wasm v1", head_bytes=b"wasm v1"):
     repo = gh.add_repo(REPO, 11)
     list_entry(rt, "good", repo, scanned=SHA(5), owner_approved=True)

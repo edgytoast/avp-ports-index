@@ -227,7 +227,7 @@ def run(rt, inputs: Inputs, outcome: dict) -> tuple[str, list[int]]:
 
 
 def clear_approved(rt, inputs: Inputs, outcome: dict) -> dict:
-    """A flag whose findings above info are all on files the curator approved, byte for byte, is a pass
+    """A flag whose findings above low are all on files the curator approved, byte for byte, is a pass
     (decision 62). A changed file, any other finding or any failure to check keeps the flag."""
     if outcome.get("result") != "flag":
         return outcome
