@@ -29,7 +29,6 @@ credits:
     url: https://github.com/Nobbie248/PrimedGun
   - name: PrimeDecomp
     role: The Metroid Prime decompilation the game is built from
-    url: https://github.com/PrimeDecomp/prime
   - name: Odran's MetroidPrimePort
     role: Native port the engine builds on
   - name: Aurora
@@ -45,5 +44,4 @@ credits:
     role: Original game
 upstream:
   - https://github.com/Nobbie248/PrimedGun
-  - https://github.com/PrimeDecomp/prime
   - https://github.com/iChris4/Wiicompiled_VR
