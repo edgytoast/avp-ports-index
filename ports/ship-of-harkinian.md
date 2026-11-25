@@ -6,10 +6,10 @@ Port by [@rebelancap](https://github.com/rebelancap)
 Start with this command, which gets exactly the code that was scanned:
 
 ```
-git clone https://github.com/edgytoast/Shipwright-ios && cd Shipwright-ios && git checkout a61edd238439f0fd81ef1e49694731e8cfca334c && git submodule update --init --recursive
+git clone https://github.com/edgytoast/Shipwright-ios && cd Shipwright-ios && git checkout 3c8715d84b54867b4af82b8de0cd7181b9847cfb && git submodule update --init --recursive
 ```
 
-Then follow the [install guide](https://github.com/edgytoast/Shipwright-ios/blob/a61edd238439f0fd81ef1e49694731e8cfca334c/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+Then follow the [install guide](https://github.com/edgytoast/Shipwright-ios/blob/3c8715d84b54867b4af82b8de0cd7181b9847cfb/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
 
 | | |
 | --- | --- |
@@ -17,9 +17,9 @@ Then follow the [install guide](https://github.com/edgytoast/Shipwright-ios/blob
 | Status | Working |
 | Plays as | 2D, 3D immersive, 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-14 · 1 commit since |
-| Source (scanned) | [edgytoast/Shipwright-ios at a61edd238439](https://github.com/edgytoast/Shipwright-ios/tree/a61edd238439f0fd81ef1e49694731e8cfca334c) |
-| Install guide | [AVP-INSTALL.md at a61edd238439](https://github.com/edgytoast/Shipwright-ios/blob/a61edd238439f0fd81ef1e49694731e8cfca334c/AVP-INSTALL.md) |
+| Scan | Scanned 2026-11-25 · 0 commits since |
+| Source (scanned) | [edgytoast/Shipwright-ios at 3c8715d84b54](https://github.com/edgytoast/Shipwright-ios/tree/3c8715d84b54867b4af82b8de0cd7181b9847cfb) |
+| Install guide | [AVP-INSTALL.md at 3c8715d84b54](https://github.com/edgytoast/Shipwright-ios/blob/3c8715d84b54867b4af82b8de0cd7181b9847cfb/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [edgytoast/Shipwright-ios](https://github.com/edgytoast/Shipwright-ios) |
 | License | MIT |

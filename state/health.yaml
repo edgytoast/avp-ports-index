@@ -902,7 +902,7 @@ sheikahvision:
   warnings: []
 ship-of-harkinian:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-11-14T00:40:28Z'
@@ -924,11 +924,13 @@ ship-of-harkinian:
   routes: []
   scan_confidence: 95
   scan_declines: 0
+  scan_errors: 0
   scan_kind: automated
+  scan_provider_errors: 0
   scan_refused: false
-  scan_state: behind
-  scanned_at: '2026-11-14T00:40:28Z'
-  scanned_commit: a61edd238439f0fd81ef1e49694731e8cfca334c
+  scan_state: current
+  scanned_at: '2026-11-25T07:44:36Z'
+  scanned_commit: 3c8715d84b54867b4af82b8de0cd7181b9847cfb
   testflight: null
   warnings: []
 skyrim-vr:
