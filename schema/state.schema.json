@@ -53,6 +53,8 @@
                             "type": "integer", "minimum": 0},
           "scan_errors": {"description": "Rescans in a row that didn't finish (no verdict, not a decline); the first ones retry quietly two hours apart, and a triage note opens on the third (decision 71); reset like scan_declines (report.py, sync.py, killswitch.py).",
                           "type": "integer", "minimum": 0},
+          "scan_provider_errors": {"description": "Rescans in a row that Google cancelled on its side (decision 72); never opens a triage note or counts against the port; quick retries, then daily (report.py).",
+                                   "type": "integer", "minimum": 0},
           "scan_refused": {"description": "The agent refused to review a rescan since the last verdict, so a later pass leaves the triage note open (decision 66); reset by a flag, a pin move, restore or approve (report.py, sync.py, killswitch.py).",
                            "type": "boolean"},
           "decay_reset_at": {"$ref": "#/$defs/iso_or_null"},
