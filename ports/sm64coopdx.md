@@ -6,10 +6,10 @@ Port by [@rebelancap](https://github.com/rebelancap)
 Start with this command, which gets exactly the code that was scanned:
 
 ```
-git clone https://github.com/edgytoast/sm64coopdx-ios && cd sm64coopdx-ios && git checkout 05fe583f6163c08f36041352115dab0d863a2627 && git submodule update --init --recursive
+git clone https://github.com/edgytoast/sm64coopdx-ios && cd sm64coopdx-ios && git checkout d86b448e49b65b628bda02587f48d918aff13b4b && git submodule update --init --recursive
 ```
 
-Then follow the [install guide](https://github.com/edgytoast/sm64coopdx-ios/blob/05fe583f6163c08f36041352115dab0d863a2627/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+Then follow the [install guide](https://github.com/edgytoast/sm64coopdx-ios/blob/d86b448e49b65b628bda02587f48d918aff13b4b/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
 
 | | |
 | --- | --- |
@@ -17,9 +17,9 @@ Then follow the [install guide](https://github.com/edgytoast/sm64coopdx-ios/blob
 | Status | Working |
 | Plays as | 2D, 3D immersive, 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-14 · 1 commit since |
-| Source (scanned) | [edgytoast/sm64coopdx-ios at 05fe583f6163](https://github.com/edgytoast/sm64coopdx-ios/tree/05fe583f6163c08f36041352115dab0d863a2627) |
-| Install guide | [AVP-INSTALL.md at 05fe583f6163](https://github.com/edgytoast/sm64coopdx-ios/blob/05fe583f6163c08f36041352115dab0d863a2627/AVP-INSTALL.md) |
+| Scan | Scanned 2026-11-25 · 0 commits since |
+| Source (scanned) | [edgytoast/sm64coopdx-ios at d86b448e49b6](https://github.com/edgytoast/sm64coopdx-ios/tree/d86b448e49b65b628bda02587f48d918aff13b4b) |
+| Install guide | [AVP-INSTALL.md at d86b448e49b6](https://github.com/edgytoast/sm64coopdx-ios/blob/d86b448e49b65b628bda02587f48d918aff13b4b/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [edgytoast/sm64coopdx-ios](https://github.com/edgytoast/sm64coopdx-ios) |
 | License | No license stated |

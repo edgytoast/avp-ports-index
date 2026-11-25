@@ -977,7 +977,7 @@ skyrim-vr:
   warnings: []
 sm64coopdx:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-11-14T21:28:00Z'
@@ -999,11 +999,13 @@ sm64coopdx:
   routes: []
   scan_confidence: 95
   scan_declines: 0
+  scan_errors: 0
   scan_kind: automated
+  scan_provider_errors: 0
   scan_refused: false
-  scan_state: behind
-  scanned_at: '2026-11-14T21:28:00Z'
-  scanned_commit: 05fe583f6163c08f36041352115dab0d863a2627
+  scan_state: current
+  scanned_at: '2026-11-25T08:46:16Z'
+  scanned_commit: d86b448e49b65b628bda02587f48d918aff13b4b
   testflight: null
   warnings: []
 spaghettikart:

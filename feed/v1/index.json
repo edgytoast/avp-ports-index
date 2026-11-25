@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.8.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-25T08:45:13Z",
+  "generated_at": "2026-11-25T08:46:17Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -2125,8 +2125,8 @@
       },
       "repo_url": "https://github.com/edgytoast/sm64coopdx-ios",
       "source_ref": null,
-      "source_url": "https://github.com/edgytoast/sm64coopdx-ios/tree/05fe583f6163c08f36041352115dab0d863a2627",
-      "install_doc_url": "https://github.com/edgytoast/sm64coopdx-ios/blob/05fe583f6163c08f36041352115dab0d863a2627/AVP-INSTALL.md",
+      "source_url": "https://github.com/edgytoast/sm64coopdx-ios/tree/d86b448e49b65b628bda02587f48d918aff13b4b",
+      "install_doc_url": "https://github.com/edgytoast/sm64coopdx-ios/blob/d86b448e49b65b628bda02587f48d918aff13b4b/AVP-INSTALL.md",
       "install_guide": "AVP-INSTALL.md",
       "developer": {
         "name": null,
@@ -2189,11 +2189,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "05fe583f6163c08f36041352115dab0d863a2627",
-      "scanned_at": "2026-11-14T21:28:00Z",
+      "scanned_commit": "d86b448e49b65b628bda02587f48d918aff13b4b",
+      "scanned_at": "2026-11-25T08:46:16Z",
       "scan_kind": "automated",
-      "commits_since_scan": 1,
-      "scan_state": "behind",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-11-24T22:52:19Z",
       "license": {
