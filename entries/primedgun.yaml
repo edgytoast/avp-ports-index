@@ -1,0 +1,49 @@
+schema_version: 1
+id: primedgun
+name: PrimedGun 2.0
+kind: port
+game:
+  title: "Metroid Prime"
+  original_platform: gamecube
+  original_release_year: 2002
+repo: https://github.com/iChris4/MetroidPrimePortVR
+developer:
+  github: iChris4
+status: working
+status_notes: "Played on a headset with PS VR2 Sense controllers (the Frigate and beyond) and a DualSense, per the developers. Stereo comfort, frame pacing and Joy-Con hand tracking are not yet checked there. Needs a paid developer account. Not tested by the curator."
+visionos_min: "26.0"
+input: [game-controller, hand-tracking]
+experiences: [6dof-immersive]
+install: [build]
+description: >-
+  Metroid Prime in native VR, built from the PrimeDecomp decompilation with no emulator: a 6DoF
+  arm cannon that follows your Sense controller or Joy-Con, room-scale movement, and randomizer and
+  Archipelago support. By Nobbie and iChris4. Bring your own disc image.
+tags: [metroid, metroid-prime, gamecube, decompilation, vr, first-person, shooter]
+credits:
+  - name: Nobbie and iChris4
+    role: PrimedGun 2.0, including the Apple Vision Pro build
+    url: https://github.com/iChris4/MetroidPrimePortVR
+  - name: Nobbie
+    role: The original PrimedGun
+    url: https://github.com/Nobbie248/PrimedGun
+  - name: PrimeDecomp
+    role: The Metroid Prime decompilation the game is built from
+    url: https://github.com/PrimeDecomp/prime
+  - name: Odran's MetroidPrimePort
+    role: Native port the engine builds on
+  - name: Aurora
+    role: GameCube graphics layer
+    url: https://github.com/encounter/aurora
+  - name: Dawn
+    role: WebGPU implementation under Aurora
+    url: https://dawn.googlesource.com/dawn
+  - name: Wiicompiled VR
+    role: OpenXR and visionOS layer
+    url: https://github.com/iChris4/Wiicompiled_VR
+  - name: Nintendo and Retro Studios
+    role: Original game
+upstream:
+  - https://github.com/Nobbie248/PrimedGun
+  - https://github.com/PrimeDecomp/prime
+  - https://github.com/iChris4/Wiicompiled_VR
