@@ -691,8 +691,11 @@ portal-2-vr:
   decay_reset_at: '2026-11-15T17:29:48Z'
   failing_since: null
   failures: []
-  flagged_commit: null
-  flagged_files: []
+  flagged_commit: 28972ef727622acdaaa86b5a1ec0ffcd48c5101f
+  flagged_files:
+  - dm/gfx/tools/dmsh_xlate_bin/dmsh_xlate
+  - dm/gfx/tools/spirv_cross_bin/spirv-cross
+  - AVP-INSTALL.md
   github_verified: false
   health: ok
   last_checked: '2026-11-25T06:31:33Z'
@@ -703,10 +706,11 @@ portal-2-vr:
   outreach_issue_url: null
   outreach_opened_at: null
   rescan_after: '2026-11-25T10:54:38Z'
-  rescan_hold: false
+  rescan_hold: true
   routes: []
   scan_confidence: null
   scan_declines: 0
+  scan_errors: 0
   scan_kind: curator-reviewed
   scan_provider_errors: 1
   scan_refused: false
