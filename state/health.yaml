@@ -617,7 +617,7 @@ mountain-64:
   warnings: []
 perfect-dark:
   archived: false
-  commits_since_scan: 1
+  commits_since_scan: 0
   consecutive_failures: 0
   curator_own: false
   decay_reset_at: '2026-11-14T18:28:51Z'
@@ -639,11 +639,13 @@ perfect-dark:
   routes: []
   scan_confidence: 95
   scan_declines: 0
+  scan_errors: 0
   scan_kind: automated
+  scan_provider_errors: 0
   scan_refused: false
-  scan_state: behind
-  scanned_at: '2026-11-14T18:28:50Z'
-  scanned_commit: 906f3f676d8e3a21d3e226d719137c32ffc02674
+  scan_state: current
+  scanned_at: '2026-11-25T08:42:49Z'
+  scanned_commit: 2ea80edfdef9d35a823cee40ee9fba72fde2d535
   testflight: null
   warnings: []
 pokemon-gen1recomp:

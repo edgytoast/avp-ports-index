@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.8.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-25T08:34:58Z",
+  "generated_at": "2026-11-25T08:42:50Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -2544,8 +2544,8 @@
       },
       "repo_url": "https://github.com/edgytoast/perfect-dark-ios",
       "source_ref": null,
-      "source_url": "https://github.com/edgytoast/perfect-dark-ios/tree/906f3f676d8e3a21d3e226d719137c32ffc02674",
-      "install_doc_url": "https://github.com/edgytoast/perfect-dark-ios/blob/906f3f676d8e3a21d3e226d719137c32ffc02674/AVP-INSTALL.md",
+      "source_url": "https://github.com/edgytoast/perfect-dark-ios/tree/2ea80edfdef9d35a823cee40ee9fba72fde2d535",
+      "install_doc_url": "https://github.com/edgytoast/perfect-dark-ios/blob/2ea80edfdef9d35a823cee40ee9fba72fde2d535/AVP-INSTALL.md",
       "install_guide": "AVP-INSTALL.md",
       "developer": {
         "name": null,
@@ -2614,11 +2614,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "906f3f676d8e3a21d3e226d719137c32ffc02674",
-      "scanned_at": "2026-11-14T18:28:50Z",
+      "scanned_commit": "2ea80edfdef9d35a823cee40ee9fba72fde2d535",
+      "scanned_at": "2026-11-25T08:42:49Z",
       "scan_kind": "automated",
-      "commits_since_scan": 1,
-      "scan_state": "behind",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-11-24T22:52:10Z",
       "license": {

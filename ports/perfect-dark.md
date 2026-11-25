@@ -6,10 +6,10 @@ Port by [@rebelancap](https://github.com/rebelancap)
 Start with this command, which gets exactly the code that was scanned:
 
 ```
-git clone https://github.com/edgytoast/perfect-dark-ios && cd perfect-dark-ios && git checkout 906f3f676d8e3a21d3e226d719137c32ffc02674 && git submodule update --init --recursive
+git clone https://github.com/edgytoast/perfect-dark-ios && cd perfect-dark-ios && git checkout 2ea80edfdef9d35a823cee40ee9fba72fde2d535 && git submodule update --init --recursive
 ```
 
-Then follow the [install guide](https://github.com/edgytoast/perfect-dark-ios/blob/906f3f676d8e3a21d3e226d719137c32ffc02674/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+Then follow the [install guide](https://github.com/edgytoast/perfect-dark-ios/blob/2ea80edfdef9d35a823cee40ee9fba72fde2d535/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
 
 | | |
 | --- | --- |
@@ -17,9 +17,9 @@ Then follow the [install guide](https://github.com/edgytoast/perfect-dark-ios/bl
 | Status | Working |
 | Plays as | 2D, 3D immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-14 · 1 commit since |
-| Source (scanned) | [edgytoast/perfect-dark-ios at 906f3f676d8e](https://github.com/edgytoast/perfect-dark-ios/tree/906f3f676d8e3a21d3e226d719137c32ffc02674) |
-| Install guide | [AVP-INSTALL.md at 906f3f676d8e](https://github.com/edgytoast/perfect-dark-ios/blob/906f3f676d8e3a21d3e226d719137c32ffc02674/AVP-INSTALL.md) |
+| Scan | Scanned 2026-11-25 · 0 commits since |
+| Source (scanned) | [edgytoast/perfect-dark-ios at 2ea80edfdef9](https://github.com/edgytoast/perfect-dark-ios/tree/2ea80edfdef9d35a823cee40ee9fba72fde2d535) |
+| Install guide | [AVP-INSTALL.md at 2ea80edfdef9](https://github.com/edgytoast/perfect-dark-ios/blob/2ea80edfdef9d35a823cee40ee9fba72fde2d535/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [edgytoast/perfect-dark-ios](https://github.com/edgytoast/perfect-dark-ios) |
 | License | Custom license |
