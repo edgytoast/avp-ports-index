@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.8.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-25T07:10:32Z",
+  "generated_at": "2026-11-25T07:18:07Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -1079,8 +1079,8 @@
       },
       "repo_url": "https://github.com/edgytoast/animalcrossing-visionos",
       "source_ref": null,
-      "source_url": "https://github.com/edgytoast/animalcrossing-visionos/tree/b5b463f8e29a51a5718db30ecb5d38ee175f0a40",
-      "install_doc_url": "https://github.com/edgytoast/animalcrossing-visionos/blob/b5b463f8e29a51a5718db30ecb5d38ee175f0a40/AVP-INSTALL.md",
+      "source_url": "https://github.com/edgytoast/animalcrossing-visionos/tree/c39d6dea7d4a497e9c0afe72b1fa02cce6d174da",
+      "install_doc_url": "https://github.com/edgytoast/animalcrossing-visionos/blob/c39d6dea7d4a497e9c0afe72b1fa02cce6d174da/AVP-INSTALL.md",
       "install_guide": "AVP-INSTALL.md",
       "developer": {
         "name": "Trevorbilt",
@@ -1139,11 +1139,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "b5b463f8e29a51a5718db30ecb5d38ee175f0a40",
-      "scanned_at": "2026-10-10T15:55:59Z",
+      "scanned_commit": "c39d6dea7d4a497e9c0afe72b1fa02cce6d174da",
+      "scanned_at": "2026-11-25T07:18:06Z",
       "scan_kind": "automated",
-      "commits_since_scan": 1,
-      "scan_state": "behind",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-11-24T22:53:03Z",
       "license": {
