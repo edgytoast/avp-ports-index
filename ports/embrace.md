@@ -17,12 +17,12 @@ Then follow the [install guide](https://github.com/Ywach404/embrace/blob/ac513af
 | Status | Developer-verified: Plays in full-view 6DoF stereo with a Metal renderer, head look, hand-aimed weapons and tracked PS VR2 Sense controllers. |
 | Plays as | 2D, 3D immersive, 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-22 · 0 commits since |
+| Scan | Scanned 2026-11-22 · 1 commit since |
 | Source (scanned) | [Ywach404/embrace at ac513afb89c4](https://github.com/Ywach404/embrace/tree/ac513afb89c4e922ef2ab08de55e20397c22ba4b) |
 | Install guide | [AVP-INSTALL.md at ac513afb89c4](https://github.com/Ywach404/embrace/blob/ac513afb89c4e922ef2ab08de55e20397c22ba4b/AVP-INSTALL.md) |
 | Repo | [Ywach404/embrace](https://github.com/Ywach404/embrace) |
 | License | MIT |
-| Last commit | 2026-11-22 |
+| Last commit | 2026-11-25 |
 | visionOS | 27.0 or later |
 | Input | game controller |
 | Tags | rpg, first-person, metal |

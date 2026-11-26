@@ -17,13 +17,13 @@ Then follow the [install guide](https://github.com/VISR-CE/visr/blob/f040bb74940
 | Status | Developer-verified: Plays in a window on visionOS 2 or later. Enter VR \(stereo around you, or the 3D theater screen\) needs visionOS 26 or later, and PlayStation VR2 Sense aiming needs visionOS 27, per the install guide. |
 | Plays as | 2D, 3D immersive, 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-25 · 4 commits since |
+| Scan | Scanned 2026-11-25 · 82 commits since |
 | Source (scanned) | [VISR-CE/visr at f040bb74940a](https://github.com/VISR-CE/visr/tree/f040bb74940af970c0f92e014ae0053ce3ce7e0a) |
 | Install guide | [AVP-INSTALL.md at f040bb74940a](https://github.com/VISR-CE/visr/blob/f040bb74940af970c0f92e014ae0053ce3ce7e0a/AVP-INSTALL.md) |
 | Prebuilt app | The developer publishes an app you can sideload; see their repo. The index's safety check covers the source code, not the app. |
 | Repo | [VISR-CE/visr](https://github.com/VISR-CE/visr) |
 | License | Apache-2.0 |
-| Last commit | 2026-11-25 |
+| Last commit | 2026-11-26 |
 | visionOS | 2.0 or later |
 | Input | game controller |
 | Tags | fps, sci-fi, metal, vr, multiplayer |
