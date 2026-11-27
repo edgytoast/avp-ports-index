@@ -321,15 +321,15 @@ dark-eco:
   source: readme
 embrace:
   choice: da6757638878cd29
-  collected_at: '2026-11-23T06:44:20Z'
-  commit: ac513afb89c4e922ef2ab08de55e20397c22ba4b
+  collected_at: '2026-11-27T06:35:36Z'
+  commit: cc28207f2122ccc0547b171b2b5c87d84b141f1d
   icon:
     bytes: 218953
     format: png
     height: 1024
     kind: flat
     sha256: 0c724608e5db2b6ee200538453538a177742f365d6b4f38ea26af886c69de813
-    url: https://raw.githubusercontent.com/Ywach404/embrace/ac513afb89c4e922ef2ab08de55e20397c22ba4b/docs/media/icon.png
+    url: https://raw.githubusercontent.com/Ywach404/embrace/cc28207f2122ccc0547b171b2b5c87d84b141f1d/docs/media/icon.png
     width: 1024
   screenshots:
   - alt: null
@@ -337,21 +337,21 @@ embrace:
     format: gif
     height: 270
     sha256: bc509183290a8f4284ab732a785ceaca7170384fc00b94f39d8ce1b9c94fac87
-    url: https://raw.githubusercontent.com/Ywach404/embrace/ac513afb89c4e922ef2ab08de55e20397c22ba4b/docs/media/embrace-downtown.gif
+    url: https://raw.githubusercontent.com/Ywach404/embrace/cc28207f2122ccc0547b171b2b5c87d84b141f1d/docs/media/embrace-downtown.gif
     width: 480
   - alt: null
     bytes: 386734
     format: jpeg
     height: 1080
     sha256: 6c2afee1fdaf404dc660590f90e3de2affba83d1a903260e96a12376b4ca189b
-    url: https://raw.githubusercontent.com/Ywach404/embrace/ac513afb89c4e922ef2ab08de55e20397c22ba4b/docs/media/hand-aimed-rifle.jpg
+    url: https://raw.githubusercontent.com/Ywach404/embrace/cc28207f2122ccc0547b171b2b5c87d84b141f1d/docs/media/hand-aimed-rifle.jpg
     width: 1920
   - alt: null
     bytes: 366810
     format: jpeg
     height: 1080
     sha256: fbd42762b5d6c36487cc10628ef857fab191e71c75e89660eb4ab52749273475
-    url: https://raw.githubusercontent.com/Ywach404/embrace/ac513afb89c4e922ef2ab08de55e20397c22ba4b/docs/media/third-person-street.jpg
+    url: https://raw.githubusercontent.com/Ywach404/embrace/cc28207f2122ccc0547b171b2b5c87d84b141f1d/docs/media/third-person-street.jpg
     width: 1920
   skipped: []
   source: entry

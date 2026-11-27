@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.8.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-26T06:51:20Z",
+  "generated_at": "2026-11-27T06:35:36Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -76,10 +76,10 @@
       "scanned_commit": "f040bb74940af970c0f92e014ae0053ce3ce7e0a",
       "scanned_at": "2026-11-25T20:46:22Z",
       "scan_kind": "automated",
-      "commits_since_scan": 82,
+      "commits_since_scan": 298,
       "scan_state": "behind",
       "archived": false,
-      "last_commit_date": "2026-11-26T04:42:33Z",
+      "last_commit_date": "2026-11-26T18:40:09Z",
       "license": {
         "kind": "open-source",
         "spdx": "Apache-2.0"
@@ -253,7 +253,7 @@
       "description": "A native visionOS port of Vampire: The Masquerade, Bloodlines by A. Cervantez, in full-view stereo with your head as the camera and weapons aimed by hand.",
       "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/embrace.md",
       "media": {
-        "commit": "ac513afb89c4e922ef2ab08de55e20397c22ba4b",
+        "commit": "cc28207f2122ccc0547b171b2b5c87d84b141f1d",
         "source": "entry",
         "icon": {
           "bytes": 218953,
@@ -261,7 +261,7 @@
           "height": 1024,
           "kind": "flat",
           "sha256": "0c724608e5db2b6ee200538453538a177742f365d6b4f38ea26af886c69de813",
-          "url": "https://raw.githubusercontent.com/Ywach404/embrace/ac513afb89c4e922ef2ab08de55e20397c22ba4b/docs/media/icon.png",
+          "url": "https://raw.githubusercontent.com/Ywach404/embrace/cc28207f2122ccc0547b171b2b5c87d84b141f1d/docs/media/icon.png",
           "width": 1024
         },
         "screenshots": [
@@ -271,7 +271,7 @@
             "format": "gif",
             "height": 270,
             "sha256": "bc509183290a8f4284ab732a785ceaca7170384fc00b94f39d8ce1b9c94fac87",
-            "url": "https://raw.githubusercontent.com/Ywach404/embrace/ac513afb89c4e922ef2ab08de55e20397c22ba4b/docs/media/embrace-downtown.gif",
+            "url": "https://raw.githubusercontent.com/Ywach404/embrace/cc28207f2122ccc0547b171b2b5c87d84b141f1d/docs/media/embrace-downtown.gif",
             "width": 480
           },
           {
@@ -280,7 +280,7 @@
             "format": "jpeg",
             "height": 1080,
             "sha256": "6c2afee1fdaf404dc660590f90e3de2affba83d1a903260e96a12376b4ca189b",
-            "url": "https://raw.githubusercontent.com/Ywach404/embrace/ac513afb89c4e922ef2ab08de55e20397c22ba4b/docs/media/hand-aimed-rifle.jpg",
+            "url": "https://raw.githubusercontent.com/Ywach404/embrace/cc28207f2122ccc0547b171b2b5c87d84b141f1d/docs/media/hand-aimed-rifle.jpg",
             "width": 1920
           },
           {
@@ -289,7 +289,7 @@
             "format": "jpeg",
             "height": 1080,
             "sha256": "fbd42762b5d6c36487cc10628ef857fab191e71c75e89660eb4ab52749273475",
-            "url": "https://raw.githubusercontent.com/Ywach404/embrace/ac513afb89c4e922ef2ab08de55e20397c22ba4b/docs/media/third-person-street.jpg",
+            "url": "https://raw.githubusercontent.com/Ywach404/embrace/cc28207f2122ccc0547b171b2b5c87d84b141f1d/docs/media/third-person-street.jpg",
             "width": 1920
           }
         ]
@@ -4342,10 +4342,10 @@
       "scanned_commit": "31aa41b4101a413f69113985120ba095e1c9586f",
       "scanned_at": "2026-11-16T21:12:19Z",
       "scan_kind": "curator-reviewed",
-      "commits_since_scan": 353,
+      "commits_since_scan": 369,
       "scan_state": "behind",
       "archived": false,
-      "last_commit_date": "2026-11-25T12:20:22Z",
+      "last_commit_date": "2026-11-26T20:34:19Z",
       "license": {
         "kind": "open-source",
         "spdx": "MIT"

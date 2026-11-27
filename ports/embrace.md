@@ -31,11 +31,11 @@ A native visionOS port of Vampire: The Masquerade, Bloodlines by A. Cervantez, i
 
 ## Screenshots
 
-From the port's repo at ac513afb89c4.
+From the port's repo at cc28207f2122.
 
-<img src="https://raw.githubusercontent.com/Ywach404/embrace/ac513afb89c4e922ef2ab08de55e20397c22ba4b/docs/media/embrace-downtown.gif" alt="Screenshot of Embrace" width="400">
-<img src="https://raw.githubusercontent.com/Ywach404/embrace/ac513afb89c4e922ef2ab08de55e20397c22ba4b/docs/media/hand-aimed-rifle.jpg" alt="Screenshot of Embrace" width="400">
-<img src="https://raw.githubusercontent.com/Ywach404/embrace/ac513afb89c4e922ef2ab08de55e20397c22ba4b/docs/media/third-person-street.jpg" alt="Screenshot of Embrace" width="400">
+<img src="https://raw.githubusercontent.com/Ywach404/embrace/cc28207f2122ccc0547b171b2b5c87d84b141f1d/docs/media/embrace-downtown.gif" alt="Screenshot of Embrace" width="400">
+<img src="https://raw.githubusercontent.com/Ywach404/embrace/cc28207f2122ccc0547b171b2b5c87d84b141f1d/docs/media/hand-aimed-rifle.jpg" alt="Screenshot of Embrace" width="400">
+<img src="https://raw.githubusercontent.com/Ywach404/embrace/cc28207f2122ccc0547b171b2b5c87d84b141f1d/docs/media/third-person-street.jpg" alt="Screenshot of Embrace" width="400">
 
 ## Credits
 
