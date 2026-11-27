@@ -1,0 +1,34 @@
+schema_version: 1
+id: retroarch-visionos
+name: RetroArch for Apple Vision Pro
+kind: emulator
+game:
+  title: "NES, SNES, N64, PlayStation and more"
+  original_platform: other
+  original_release_year: 1983
+repo: https://github.com/rebelancap/RetroArch-visionos
+developer:
+  github: rebelancap
+status: working
+status_notes: "13 cores, all without JIT. Nintendo 64 runs on an interpreter, so demanding games may not hold full speed. NES 3D mode needs a 3dSen profile you supply. Not tested by the curator."
+visionos_min: "26.0"
+input: [game-controller]
+experiences: [2d, 3d-tabletop]
+install: [build, sideload]
+description: >-
+  A native visionOS build of RetroArch with 13 cores, from NES and SNES to N64, PlayStation, DS,
+  Sega systems, DOS and arcade. Its 3D mode turns NES games into dioramas in your room in the style
+  of 3dSen, with Sense controllers as the Zapper. Bring your own games, BIOS files and profiles.
+tags: [emulator, retroarch, nes, snes, n64, ps1, stereo-3d]
+media:
+  screenshots:
+    - images/duck-hunt-3d.jpg
+credits:
+  - name: rebelancap
+    role: The visionOS port and 3D mode
+    url: https://github.com/rebelancap/RetroArch-visionos
+  - name: libretro
+    role: RetroArch and its cores
+    url: https://www.retroarch.com
+upstream:
+  - https://github.com/libretro/RetroArch
