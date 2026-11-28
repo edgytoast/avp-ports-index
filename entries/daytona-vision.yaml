@@ -1,0 +1,30 @@
+schema_version: 1
+id: daytona-vision
+name: Daytona Vision
+game:
+  title: "Daytona USA"
+  original_platform: other
+  original_release_year: 1994
+repo: https://github.com/djfumberger/daytona-vision
+developer:
+  github: djfumberger
+status: working
+status_notes: "Shown playing on Apple Vision Pro in the README's video. Not tested by the curator. Needs Xcode 27 and your own MAME ROM set (Revision A or Deluxe '93)."
+input: [hand-tracking, game-controller]
+experiences: [2d, 3d-immersive]
+install: [build]
+description: >-
+  The Daytona USA arcade game in a full-size sit-down cab in your room on Apple Vision Pro: steer the wheel with your
+  hands, pinch for gas and brake, dim the lights into an arcade room, or play in a flat window.
+tags: [daytona-usa, sega, arcade, racing, recompilation, hand-tracking, cabinet]
+credits:
+  - name: djfumberger
+    role: Daytona Vision, the visionOS port
+    url: https://github.com/djfumberger/daytona-vision
+  - name: Ben Templeman and contributors
+    role: daytona-arcade-recomp, the game it runs
+    url: https://github.com/alphanu1/daytona-arcade-recomp
+  - name: SEGA
+    role: Original game
+upstream:
+  - https://github.com/alphanu1/daytona-arcade-recomp
