@@ -6,10 +6,10 @@ Port by [@bettse](https://github.com/bettse)
 Start with this command, which gets exactly the code that was scanned:
 
 ```
-git clone https://github.com/edgytoast/voxelnative && cd voxelnative && git checkout 6343519fa9a2dad9617d91f104a8db690252a03d && git submodule update --init --recursive
+git clone https://github.com/edgytoast/voxelnative && cd voxelnative && git checkout b9cadaaa89da181af36dadb7ef7f1f815258093a && git submodule update --init --recursive
 ```
 
-Then follow the [install guide](https://github.com/edgytoast/voxelnative/blob/6343519fa9a2dad9617d91f104a8db690252a03d/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
+Then follow the [install guide](https://github.com/edgytoast/voxelnative/blob/b9cadaaa89da181af36dadb7ef7f1f815258093a/AVP-INSTALL.md) from its build steps. Skip only its step that clones or downloads this repo, which would fetch newer code that may not have been scanned; keep every other step, including dependency downloads.
 
 | | |
 | --- | --- |
@@ -17,9 +17,9 @@ Then follow the [install guide](https://github.com/edgytoast/voxelnative/blob/63
 | Status | Working: Joining a server and playing works in the headset, with VoxeLibre as the daily driver. The README calls it a work in progress, rough in places. |
 | Plays as | 6DoF immersive |
 | Health | OK |
-| Scan | Scanned 2026-11-25 · 2 commits since |
-| Source (scanned) | [edgytoast/voxelnative at 6343519fa9a2](https://github.com/edgytoast/voxelnative/tree/6343519fa9a2dad9617d91f104a8db690252a03d) |
-| Install guide | [AVP-INSTALL.md at 6343519fa9a2](https://github.com/edgytoast/voxelnative/blob/6343519fa9a2dad9617d91f104a8db690252a03d/AVP-INSTALL.md) |
+| Scan | Scanned 2026-11-28 · 0 commits since |
+| Source (scanned) | [edgytoast/voxelnative at b9cadaaa89da](https://github.com/edgytoast/voxelnative/tree/b9cadaaa89da181af36dadb7ef7f1f815258093a) |
+| Install guide | [AVP-INSTALL.md at b9cadaaa89da](https://github.com/edgytoast/voxelnative/blob/b9cadaaa89da181af36dadb7ef7f1f815258093a/AVP-INSTALL.md) |
 | Repo | [edgytoast/voxelnative](https://github.com/edgytoast/voxelnative) |
 | License | Custom license |
 | Last commit | 2026-11-27 |

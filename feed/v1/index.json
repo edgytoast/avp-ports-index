@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.8.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-28T06:32:04Z",
+  "generated_at": "2026-11-28T06:44:24Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -899,8 +899,8 @@
       },
       "repo_url": "https://github.com/edgytoast/voxelnative",
       "source_ref": null,
-      "source_url": "https://github.com/edgytoast/voxelnative/tree/6343519fa9a2dad9617d91f104a8db690252a03d",
-      "install_doc_url": "https://github.com/edgytoast/voxelnative/blob/6343519fa9a2dad9617d91f104a8db690252a03d/AVP-INSTALL.md",
+      "source_url": "https://github.com/edgytoast/voxelnative/tree/b9cadaaa89da181af36dadb7ef7f1f815258093a",
+      "install_doc_url": "https://github.com/edgytoast/voxelnative/blob/b9cadaaa89da181af36dadb7ef7f1f815258093a/AVP-INSTALL.md",
       "install_guide": "AVP-INSTALL.md",
       "developer": {
         "name": null,
@@ -957,11 +957,11 @@
         "status": "ok",
         "failing_since": null
       },
-      "scanned_commit": "6343519fa9a2dad9617d91f104a8db690252a03d",
-      "scanned_at": "2026-11-25T08:59:55Z",
+      "scanned_commit": "b9cadaaa89da181af36dadb7ef7f1f815258093a",
+      "scanned_at": "2026-11-28T06:44:23Z",
       "scan_kind": "automated",
-      "commits_since_scan": 2,
-      "scan_state": "behind",
+      "commits_since_scan": 0,
+      "scan_state": "current",
       "archived": false,
       "last_commit_date": "2026-11-27T06:37:02Z",
       "license": {
