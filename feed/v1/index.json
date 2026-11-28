@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/edgytoast/avp-ports-index/main/schema/feed-v1.schema.json",
   "schema_version": "1.8.0",
   "identifier": "com.trevorbilt.avp-ports-index",
-  "generated_at": "2026-11-28T05:00:29Z",
+  "generated_at": "2026-11-28T06:32:04Z",
   "publisher": {
     "name": "trevorbilt",
     "curator": "Trevor \"Toast\"",
@@ -76,10 +76,10 @@
       "scanned_commit": "f040bb74940af970c0f92e014ae0053ce3ce7e0a",
       "scanned_at": "2026-11-25T20:46:22Z",
       "scan_kind": "automated",
-      "commits_since_scan": 298,
+      "commits_since_scan": 387,
       "scan_state": "behind",
       "archived": false,
-      "last_commit_date": "2026-11-26T18:40:09Z",
+      "last_commit_date": "2026-11-28T04:56:41Z",
       "license": {
         "kind": "open-source",
         "spdx": "Apache-2.0"
@@ -881,6 +881,145 @@
               "layer": "front",
               "sha256": "50591663bb6f817722ee5ce02b57e0f1c10b318ae3eb2d0e3baf247709584fd4",
               "url": "https://raw.githubusercontent.com/iChris4/MetroidPrimePortVR/d9aa4a0294a0584ce7aa325b6aae4d041da2a0f5/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png",
+              "width": 1024
+            }
+          ]
+        },
+        "screenshots": []
+      }
+    },
+    {
+      "id": "voxelnative",
+      "name": "VoxelNative",
+      "kind": "port",
+      "game": {
+        "title": "Luanti",
+        "original_platform": "pc",
+        "original_release_year": 2010
+      },
+      "repo_url": "https://github.com/edgytoast/voxelnative",
+      "source_ref": null,
+      "source_url": "https://github.com/edgytoast/voxelnative/tree/6343519fa9a2dad9617d91f104a8db690252a03d",
+      "install_doc_url": "https://github.com/edgytoast/voxelnative/blob/6343519fa9a2dad9617d91f104a8db690252a03d/AVP-INSTALL.md",
+      "install_guide": "AVP-INSTALL.md",
+      "developer": {
+        "name": null,
+        "github": "bettse",
+        "url": null,
+        "github_verified": false
+      },
+      "credits": [
+        {
+          "name": "bettse",
+          "role": "VoxelNative, the Apple Vision Pro client",
+          "url": "https://github.com/bettse/voxelnative"
+        },
+        {
+          "name": "Trevorbilt",
+          "role": "Install guide and AVP Ports Index listing",
+          "url": "https://trevorbilt.com"
+        },
+        {
+          "name": "Luanti",
+          "role": "The engine whose network protocol this client reimplements",
+          "url": "https://github.com/luanti-org/luanti"
+        },
+        {
+          "name": "VoxeLibre",
+          "role": "The game it's built and tested against",
+          "url": "https://github.com/VoxeLibre/VoxeLibre"
+        },
+        {
+          "name": "BigInt",
+          "role": "Third-party code (MIT)",
+          "url": "https://github.com/attaswift/BigInt"
+        },
+        {
+          "name": "Luanti contributors",
+          "role": "Original game",
+          "url": null
+        }
+      ],
+      "upstream": [
+        "https://github.com/bettse/voxelnative",
+        "https://github.com/luanti-org/luanti"
+      ],
+      "self_reported_status": "working",
+      "status_notes": "Joining a server and playing works in the headset, with VoxeLibre as the daily driver. The README calls it a work in progress, rough in places.",
+      "owner_verified": {
+        "verified": false,
+        "verified_on": null,
+        "verified_commit": null
+      },
+      "trust_tier": "working",
+      "curator_own": false,
+      "health": {
+        "status": "ok",
+        "failing_since": null
+      },
+      "scanned_commit": "6343519fa9a2dad9617d91f104a8db690252a03d",
+      "scanned_at": "2026-11-25T08:59:55Z",
+      "scan_kind": "automated",
+      "commits_since_scan": 2,
+      "scan_state": "behind",
+      "archived": false,
+      "last_commit_date": "2026-11-27T06:37:02Z",
+      "license": {
+        "kind": "custom",
+        "spdx": null
+      },
+      "visionos_min": "26.0",
+      "input": [
+        "game-controller"
+      ],
+      "experiences": [
+        "6dof-immersive"
+      ],
+      "install": [
+        "build"
+      ],
+      "tags": [
+        "luanti",
+        "minetest",
+        "voxelibre",
+        "voxel",
+        "sandbox",
+        "vr",
+        "6dof"
+      ],
+      "description": "A native Swift and Metal Luanti (Minetest) client for Apple Vision Pro. It speaks the Luanti protocol to any server and renders the world per eye in full immersion; walk, dig, place and craft with PS VR2 Sense controllers or a Bluetooth keyboard. Listed from a copy with an install guide.",
+      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/voxelnative.md",
+      "media": {
+        "commit": "6343519fa9a2dad9617d91f104a8db690252a03d",
+        "source": "readme",
+        "icon": {
+          "kind": "layered",
+          "layers": [
+            {
+              "bytes": 76708,
+              "format": "png",
+              "height": 1024,
+              "layer": "back",
+              "sha256": "943263a819496a9eb0887d4524d5b91f7577c563a19cabf952108f07f28289a7",
+              "url": "https://raw.githubusercontent.com/edgytoast/voxelnative/6343519fa9a2dad9617d91f104a8db690252a03d/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/icon_back.png",
+              "width": 1024
+            },
+            {
+              "bytes": 6556,
+              "format": "png",
+              "height": 1024,
+              "layer": "middle",
+              "sha256": "86a4380e78c0d24d66bf590bfd51a3d81e4824aa566028419db4b96745cf1f8d",
+              "url": "https://raw.githubusercontent.com/edgytoast/voxelnative/6343519fa9a2dad9617d91f104a8db690252a03d/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/icon_middle.png",
+              "width": 1024
+            },
+            {
+              "bytes": 39994,
+              "format": "png",
+              "height": 1024,
+              "layer": "front",
+              "sha256": "a2356b0fb96058dac64c723e4476fc34aac3803a73e991b4e3d922f9dde868f0",
+              "url": "https://raw.githubusercontent.com/edgytoast/voxelnative/6343519fa9a2dad9617d91f104a8db690252a03d/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/icon_front.png",
               "width": 1024
             }
           ]
@@ -1976,145 +2115,6 @@
             "width": 4190
           }
         ]
-      }
-    },
-    {
-      "id": "voxelnative",
-      "name": "VoxelNative",
-      "kind": "port",
-      "game": {
-        "title": "Luanti",
-        "original_platform": "pc",
-        "original_release_year": 2010
-      },
-      "repo_url": "https://github.com/edgytoast/voxelnative",
-      "source_ref": null,
-      "source_url": "https://github.com/edgytoast/voxelnative/tree/6343519fa9a2dad9617d91f104a8db690252a03d",
-      "install_doc_url": "https://github.com/edgytoast/voxelnative/blob/6343519fa9a2dad9617d91f104a8db690252a03d/AVP-INSTALL.md",
-      "install_guide": "AVP-INSTALL.md",
-      "developer": {
-        "name": null,
-        "github": "bettse",
-        "url": null,
-        "github_verified": false
-      },
-      "credits": [
-        {
-          "name": "bettse",
-          "role": "VoxelNative, the Apple Vision Pro client",
-          "url": "https://github.com/bettse/voxelnative"
-        },
-        {
-          "name": "Trevorbilt",
-          "role": "Install guide and AVP Ports Index listing",
-          "url": "https://trevorbilt.com"
-        },
-        {
-          "name": "Luanti",
-          "role": "The engine whose network protocol this client reimplements",
-          "url": "https://github.com/luanti-org/luanti"
-        },
-        {
-          "name": "VoxeLibre",
-          "role": "The game it's built and tested against",
-          "url": "https://github.com/VoxeLibre/VoxeLibre"
-        },
-        {
-          "name": "BigInt",
-          "role": "Third-party code (MIT)",
-          "url": "https://github.com/attaswift/BigInt"
-        },
-        {
-          "name": "Luanti contributors",
-          "role": "Original game",
-          "url": null
-        }
-      ],
-      "upstream": [
-        "https://github.com/bettse/voxelnative",
-        "https://github.com/luanti-org/luanti"
-      ],
-      "self_reported_status": "working",
-      "status_notes": "Joining a server and playing works in the headset, with VoxeLibre as the daily driver. The README calls it a work in progress, rough in places.",
-      "owner_verified": {
-        "verified": false,
-        "verified_on": null,
-        "verified_commit": null
-      },
-      "trust_tier": "working",
-      "curator_own": false,
-      "health": {
-        "status": "ok",
-        "failing_since": null
-      },
-      "scanned_commit": "6343519fa9a2dad9617d91f104a8db690252a03d",
-      "scanned_at": "2026-11-25T08:59:55Z",
-      "scan_kind": "automated",
-      "commits_since_scan": 0,
-      "scan_state": "current",
-      "archived": false,
-      "last_commit_date": "2026-11-24T22:52:29Z",
-      "license": {
-        "kind": "custom",
-        "spdx": null
-      },
-      "visionos_min": "26.0",
-      "input": [
-        "game-controller"
-      ],
-      "experiences": [
-        "6dof-immersive"
-      ],
-      "install": [
-        "build"
-      ],
-      "tags": [
-        "luanti",
-        "minetest",
-        "voxelibre",
-        "voxel",
-        "sandbox",
-        "vr",
-        "6dof"
-      ],
-      "description": "A native Swift and Metal Luanti (Minetest) client for Apple Vision Pro. It speaks the Luanti protocol to any server and renders the world per eye in full immersion; walk, dig, place and craft with PS VR2 Sense controllers or a Bluetooth keyboard. Listed from a copy with an install guide.",
-      "page_url": "https://github.com/edgytoast/avp-ports-index/blob/main/ports/voxelnative.md",
-      "media": {
-        "commit": "6343519fa9a2dad9617d91f104a8db690252a03d",
-        "source": "readme",
-        "icon": {
-          "kind": "layered",
-          "layers": [
-            {
-              "bytes": 76708,
-              "format": "png",
-              "height": 1024,
-              "layer": "back",
-              "sha256": "943263a819496a9eb0887d4524d5b91f7577c563a19cabf952108f07f28289a7",
-              "url": "https://raw.githubusercontent.com/edgytoast/voxelnative/6343519fa9a2dad9617d91f104a8db690252a03d/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/icon_back.png",
-              "width": 1024
-            },
-            {
-              "bytes": 6556,
-              "format": "png",
-              "height": 1024,
-              "layer": "middle",
-              "sha256": "86a4380e78c0d24d66bf590bfd51a3d81e4824aa566028419db4b96745cf1f8d",
-              "url": "https://raw.githubusercontent.com/edgytoast/voxelnative/6343519fa9a2dad9617d91f104a8db690252a03d/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Middle.solidimagestacklayer/Content.imageset/icon_middle.png",
-              "width": 1024
-            },
-            {
-              "bytes": 39994,
-              "format": "png",
-              "height": 1024,
-              "layer": "front",
-              "sha256": "a2356b0fb96058dac64c723e4476fc34aac3803a73e991b4e3d922f9dde868f0",
-              "url": "https://raw.githubusercontent.com/edgytoast/voxelnative/6343519fa9a2dad9617d91f104a8db690252a03d/native/Sources/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/icon_front.png",
-              "width": 1024
-            }
-          ]
-        },
-        "screenshots": []
       }
     },
     {
@@ -4483,10 +4483,10 @@
       "scanned_commit": "31aa41b4101a413f69113985120ba095e1c9586f",
       "scanned_at": "2026-11-16T21:12:19Z",
       "scan_kind": "curator-reviewed",
-      "commits_since_scan": 369,
+      "commits_since_scan": 386,
       "scan_state": "behind",
       "archived": false,
-      "last_commit_date": "2026-11-26T20:34:19Z",
+      "last_commit_date": "2026-11-27T21:05:41Z",
       "license": {
         "kind": "open-source",
         "spdx": "MIT"
