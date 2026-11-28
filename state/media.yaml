@@ -724,6 +724,30 @@ portal-2-vr:
   screenshots: []
   skipped: []
   source: readme
+primedgun:
+  choice: null
+  collected_at: '2026-11-28T05:00:28Z'
+  commit: d9aa4a0294a0584ce7aa325b6aae4d041da2a0f5
+  icon:
+    kind: layered
+    layers:
+    - bytes: 594089
+      format: png
+      height: 1024
+      layer: back
+      sha256: f3012a4c682e1c2dc1f5d30098dc6073092b994b2b2fa0ced8199da0339706ad
+      url: https://raw.githubusercontent.com/iChris4/MetroidPrimePortVR/d9aa4a0294a0584ce7aa325b6aae4d041da2a0f5/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Back.solidimagestacklayer/Content.imageset/Back.png
+      width: 1024
+    - bytes: 535162
+      format: png
+      height: 1024
+      layer: front
+      sha256: 50591663bb6f817722ee5ce02b57e0f1c10b318ae3eb2d0e3baf247709584fd4
+      url: https://raw.githubusercontent.com/iChris4/MetroidPrimePortVR/d9aa4a0294a0584ce7aa325b6aae4d041da2a0f5/visionos/App/Assets.xcassets/AppIcon.solidimagestack/Front.solidimagestacklayer/Content.imageset/Front.png
+      width: 1024
+  screenshots: []
+  skipped: []
+  source: readme
 quakeavp:
   choice: de172951a687c788
   collected_at: '2026-11-17T21:10:18Z'

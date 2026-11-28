@@ -395,6 +395,14 @@ events:
   kind: port
   logged: '2026-11-25T20:46:26Z'
   name: VISR
+- at: '2026-11-28T05:00:25Z'
+  developer: '@iChris4'
+  event: added
+  game: Metroid Prime
+  id: primedgun
+  kind: port
+  logged: '2026-11-28T05:00:28Z'
+  name: PrimedGun 2.0
 schema_version: 1
 seen:
   listed:
@@ -615,6 +623,16 @@ seen:
       name: Portal 2 VR
       prebuilt: false
       repo: https://github.com/edgytoast/portal2-visionos
+      status: working
+      testflight: false
+      verified: false
+    primedgun:
+      developer: '@iChris4'
+      game: Metroid Prime
+      kind: port
+      name: PrimedGun 2.0
+      prebuilt: false
+      repo: https://github.com/iChris4/MetroidPrimePortVR
       status: working
       testflight: false
       verified: false

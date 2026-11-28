@@ -218,6 +218,16 @@ portal-2-vr:
   status: listed
   submitted_by: edgytoast
   submitted_by_id: 146565462
+primedgun:
+  by: merge
+  changed_at: '2026-11-28T05:00:25Z'
+  listed_at: '2026-11-28T05:00:25Z'
+  owner_approved: false
+  repo: https://github.com/iChris4/MetroidPrimePortVR
+  repo_id: 1402015518
+  status: listed
+  submitted_by: edgytoast
+  submitted_by_id: 146565462
 quakeavp:
   by: merge
   changed_at: '2026-11-17T21:10:14Z'

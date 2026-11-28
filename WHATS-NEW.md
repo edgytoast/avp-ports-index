@@ -9,6 +9,7 @@ Want a heads-up instead of checking? Each week with news also goes out as a [rel
 
 ## November 2026
 
+- **Nov 28.** *Metroid Prime* joined the index: [PrimedGun 2.0](ports/primedgun.md) by @iChris4.
 - **Nov 25.** [VISR](ports/visr.md) (*Halo: Combat Evolved*): now listed from [VISR-CE/visr](https://github.com/VISR-CE/visr).
 - **Nov 25.** New emulator: [Holofold](ports/holofold.md) by @zlinoliver, for Nintendo 3DS games.
 - **Nov 24.** [Xbawks](ports/xbawks.md) (*Original Xbox games*): now marked Working.

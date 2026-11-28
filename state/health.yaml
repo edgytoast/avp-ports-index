@@ -717,6 +717,38 @@ portal-2-vr:
   scanned_commit: 28972ef727622acdaaa86b5a1ec0ffcd48c5101f
   testflight: null
   warnings: []
+primedgun:
+  archived: false
+  commits_since_scan: 0
+  consecutive_failures: 0
+  curator_own: false
+  decay_reset_at: '2026-11-28T05:00:25Z'
+  failing_since: null
+  failures: []
+  flagged_commit: null
+  flagged_files: []
+  github_verified: true
+  health: ok
+  last_checked: null
+  last_commit_date: '2026-11-28T04:51:00Z'
+  license:
+    kind: open-source
+    spdx: CC0-1.0
+  outreach_issue_url: null
+  outreach_opened_at: null
+  relist_pending: false
+  rescan_after: null
+  rescan_hold: false
+  routes: []
+  scan_confidence: 95
+  scan_declines: 0
+  scan_errors: 0
+  scan_kind: automated
+  scan_refused: false
+  scan_state: current
+  scanned_at: '2026-11-28T05:00:25Z'
+  scanned_commit: d9aa4a0294a0584ce7aa325b6aae4d041da2a0f5
+  warnings: []
 quakeavp:
   archived: false
   commits_since_scan: 0
